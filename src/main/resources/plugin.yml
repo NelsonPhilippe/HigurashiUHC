@@ -1,0 +1,5 @@
+name: HigurashiUHC
+version: @version@
+main: fr.xilitra.higurashiuhc.HigurashiUHC
+api-version: 1.17
+authors: [ XiliTra ]

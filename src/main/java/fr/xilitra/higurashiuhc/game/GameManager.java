@@ -28,6 +28,8 @@ public class GameManager {
 
     public void game(){
         Runnable runnable = new GameTask();
+        Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), runnable);
+        this.setStates(GameStates.GAME);
     }
 
     public GameStates getStates() {

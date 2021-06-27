@@ -33,6 +33,8 @@ public class StartTask extends BukkitRunnable {
             this.cancel();
         }
 
+        time--;
+
     }
 
 

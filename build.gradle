@@ -25,6 +25,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.8-R0.1-SNAPSHOT'
     compile 'org.redisson:redisson:3.15.6'
+    compile 'fr.mrmicky:fastboard:1.2.0'
 }
 
 processResources {

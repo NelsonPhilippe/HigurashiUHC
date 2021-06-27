@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
@@ -22,6 +23,11 @@ public class GameManager {
     public void start(){
         Runnable runnable = new StartTask();
         Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), runnable);
+        this.setStates(GameStates.START);
+    }
+
+    public void game(){
+        Runnable runnable = new GameTask();
     }
 
     public GameStates getStates() {

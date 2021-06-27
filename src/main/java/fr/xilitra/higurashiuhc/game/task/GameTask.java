@@ -15,6 +15,11 @@ public class GameTask extends BukkitRunnable {
         String formatTime = TimeUtils.formatTime(time);
 
 
+
+        if(timePhase >= time){
+
+        }
+
         time++;
     }
 }

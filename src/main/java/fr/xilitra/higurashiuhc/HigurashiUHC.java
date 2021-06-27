@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc;
 
+import fr.xilitra.higurashiuhc.event.JoinListener;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +18,15 @@ public final class HigurashiUHC extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        manager = this.manager;
+        manager = new GameManager();
+
+        saveDefaultConfig();
+
+        manager.config();
+
+        this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+
+
     }
 
     public static HigurashiUHC getInstance(){

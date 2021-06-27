@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -15,6 +16,7 @@ public class GameManager {
 
     private GameStates states;
     private Map<UUID, HPlayer > players = new HashMap<>();
+    private Scenario scenario;
 
     public void config(){
         setStates(GameStates.CONFIG);
@@ -34,6 +36,14 @@ public class GameManager {
 
     public GameStates getStates() {
         return states;
+    }
+
+    public Scenario getSelectedScenario(){
+        return scenario;
+    }
+
+    public boolean scenarioIsSelected(){
+        return scenario != null;
     }
 
     public void setStates(GameStates states) {

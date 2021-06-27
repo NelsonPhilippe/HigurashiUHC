@@ -12,6 +12,11 @@ targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+
+    flatDir{
+        dirs 'libs'
+    }
+
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
@@ -23,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.8-R0.1-SNAPSHOT'
+    compileOnly name: 'spigot'
     compile 'org.redisson:redisson:3.15.6'
     compile 'fr.mrmicky:fastboard:1.2.0'
 }

@@ -1,4 +1,4 @@
-package fr.xilitra.item;
+package fr.xilitra.higurashiuhc.item;
 
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.NBTTagList;

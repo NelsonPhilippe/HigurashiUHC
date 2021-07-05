@@ -65,4 +65,8 @@ public class GameManager {
     public void removePlayer(UUID player){
         players.remove(player);
     }
+
+    public void setScenario(Scenario scenario){
+        this.scenario = scenario;
+    }
 }

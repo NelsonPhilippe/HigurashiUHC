@@ -7,4 +7,9 @@ public class TragediesConfig extends GuiMenu {
         super(name, size);
         create();
     }
+
+    @Override
+    public void create(){
+        super.create();
+    }
 }

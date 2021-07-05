@@ -1,13 +1,15 @@
-package fr.xilitra.item;
+package fr.xilitra.higurashiuhc.item;
 
 import fr.xilitra.higurashiuhc.gui.GuiMenu;
 import fr.xilitra.higurashiuhc.gui.config.TragediesConfig;
+import fr.xilitra.higurashiuhc.gui.config.tragedies.DollItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public enum ItemConfig {
 
-    TRAGEDIES("Tragedies (Mode de jeu)", new TragediesItem("Tragedies", true, 1, Material.ANVIL).getItemStack(), new TragediesConfig("Tragedies", 9*3));
+    TRAGEDIES("Tragedies (Mode de jeu)", new TragediesItem("Tragedies", true, 1, Material.ANVIL).getItemStack(), new TragediesConfig("Tragedies", 9*3)),
+    DOLL("Poupée", new DollItem("Poupée", true, 1, Material.SKULL).getItemStack(), null);
 
     String name;
     ItemStack item;

@@ -1,8 +1,10 @@
 package fr.xilitra.higurashiuhc.roles;
 
-public enum Role {
-    ;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 
+public enum Role {
+
+    HINAMIZAWA(Hinamizawa.class);
 
     private Class role;
 

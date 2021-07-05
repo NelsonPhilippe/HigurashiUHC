@@ -1,17 +1,26 @@
 package fr.xilitra.higurashiuhc.scenario;
 
+import fr.xilitra.higurashiuhc.item.ItemConfig;
+import org.bukkit.inventory.ItemStack;
+
 public enum Scenario {
-    DOLL(Doll.class),
-    MISTREATMENT(Mistreatment.class),
-    OYASHIRO(Oyashiro.class);
+    DOLL(Doll.class, ItemConfig.DOLL.getItem()),
+    MISTREATMENT(Mistreatment.class, null),
+    OYASHIRO(Oyashiro.class, null);
 
-    private Class scenario;
+    Class scenario;
+    ItemStack item;
 
-    Scenario(Class scenario) {
+    Scenario(Class scenario, ItemStack item) {
         this.scenario = scenario;
+        this.item = item;
     }
 
     public Class getScenario() {
         return scenario;
+    }
+
+    public ItemStack getItem() {
+        return item;
     }
 }

@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.api;
 
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.player.HPlayer;
 
 public abstract class RoleTemplate {
 
@@ -20,4 +21,6 @@ public abstract class RoleTemplate {
    public Gender getSexe() {
       return sexe;
    }
+
+   public abstract void rollEffect(HPlayer player);
 }

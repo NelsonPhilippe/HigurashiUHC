@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 public enum ItemConfig {
 
-    TRAGEDIES("Tragedies (Mode de jeu)", new TragediesItem("Tragedies", true, 1, Material.ANVIL).getItemStack(), new TragediesConfig("Tragedies", 9*3)),
+    TRAGEDIES("Tragedies (Mode de jeu)", new ItemBuilder("Tragedies", true, 1, Material.ANVIL).getItemStack(), new TragediesConfig("Tragedies", 9*3)),
     DOLL("Poupée", new DollItem("Poupée", true, 1, Material.SKULL).getItemStack(), null);
 
     String name;

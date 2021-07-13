@@ -7,7 +7,7 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class TragediesItem {
+public class ItemBuilder {
 
     private String name;
     private boolean enchant;
@@ -15,7 +15,7 @@ public class TragediesItem {
     private int size;
     private ItemStack stack;
 
-    public TragediesItem(String name, boolean enchant, int size, Material material) {
+    public ItemBuilder(String name, boolean enchant, int size, Material material) {
         this.name = name;
         this.enchant = enchant;
         this.size = size;

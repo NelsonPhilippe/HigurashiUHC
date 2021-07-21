@@ -37,13 +37,24 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         HPlayer hp = HigurashiUHC.getGameManager().getPlayers().get(player.getUniqueId());
 
-        if(hp.getRole() == Role.RIKA_FURUDE){
-            RikaFurude rikaFurude = (RikaFurude) Role.RIKA_FURUDE.getRole();
+        for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+            if(players.getRole().getClass().equals(Role.HANYU.getRole())){
+                if(players.getPlayer().getGameMode() == GameMode.SPECTATOR){
+                    player.setGameMode(GameMode.SPECTATOR);
+                    return;
+                }
+            }
+        }
+
+        if(hp.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+            RikaFurude rikaFurude = (RikaFurude) hp.getRole();
 
             rikaFurude.remove1Live();
 
             if(rikaFurude.getLives() == 2){
                 player.setHealth(5);
+                player.setMaxHealth(5);
+                //player.teleport();
             }
 
            if(rikaFurude.getLives() <= 1){
@@ -87,7 +98,22 @@ public class RikaFurude extends RoleTemplate implements Listener {
         bPlayer.setHealthScale(8);
         bPlayer.setHealth(8);
         bPlayer.setMaxHealth(8);
+    }
 
+    public void resurrection(HPlayer rikaFurudePlayer, HPlayer resuPlayer){
+        Player rika = rikaFurudePlayer.getPlayer();
+        Player target = resuPlayer.getPlayer();
+
+        if(rikaFurudePlayer.getRole().equals(Role.RIKA_FURUDE.getRole())){
+            RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
+
+            if(rikaFurude.getLives() <= 1){
+                rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
+                return;
+            }
+
+            rikaFurude.remove1Live();
+        }
 
     }
 

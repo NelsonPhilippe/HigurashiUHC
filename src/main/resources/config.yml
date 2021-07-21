@@ -1,3 +1,7 @@
 #Temps entre chaque phase de partie en minute.
 
 phase-time: 15
+
+#Temps restant au Hinamizawa pour remporter la partie.
+
+rika-death-time: 40

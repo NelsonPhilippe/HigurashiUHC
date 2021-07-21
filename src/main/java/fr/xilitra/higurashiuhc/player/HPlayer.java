@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.player;
 
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -10,12 +11,14 @@ public class HPlayer {
     private String name;
     private UUID uuid;
     private Player player;
-    private Role role;
+    private RoleTemplate role;
+    private Runnable deathTask;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;
         this.uuid = uuid;
         this.player = player;
+        this.deathTask = new DeathTask(player);
     }
 
     public String getName() {
@@ -30,11 +33,15 @@ public class HPlayer {
         return player;
     }
 
-    public Role getRole() {
+    public RoleTemplate getRole() {
         return role;
     }
 
-    public void setRole(Role role){
+    public void setRole(RoleTemplate role){
         this.role = role;
+    }
+
+    public Runnable getDeathTask(){
+        return this.deathTask;
     }
 }

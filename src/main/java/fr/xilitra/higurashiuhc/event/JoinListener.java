@@ -21,10 +21,13 @@ public class JoinListener implements Listener {
             if(p.hasPermission("huhc.hote.config")){
                 scoreboard.setLines(
                         "",
-                        "Configurer la partie",
+                        "Configurer la partie.",
                         "",
                         "ip: 127.0.0.1"
                 );
+
+
+                return;
             }
 
             scoreboard.setLines(

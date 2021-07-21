@@ -1,0 +1,46 @@
+package fr.xilitra.higurashiuhc.command;
+
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.DeathTask;
+import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public class RessuciteCmd implements CommandExecutor {
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+        if(sender instanceof Player){
+            Player p = (Player) sender;
+
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+
+            if(args.length != 2){
+                p.sendMessage(ChatColor.RED + "Commande invalide.");
+                return true;
+            }
+
+            Player target = Bukkit.getPlayer(args[1]);
+            HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayers().get(target.getUniqueId());
+
+            if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+
+                if(((DeathTask) hPlayerTarget.getDeathTask()).isStarted()){
+                    ((RikaFurude) hPlayer.getRole()).resurrection(hPlayer, hPlayerTarget);
+                    p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
+                    return true;
+                }
+
+            }
+
+        }
+
+        return false;
+    }
+}

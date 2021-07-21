@@ -1,21 +1,24 @@
 package fr.xilitra.higurashiuhc.roles;
 
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.MionSonozaki;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 
 public enum Role {
 
-    RIKA_FURUDE(new RikaFurude()),
-    MION_SONOZAKI(new MionSonozaki());
+    RIKA_FURUDE(RikaFurude.class),
+    MION_SONOZAKI(MionSonozaki.class),
+    HANYU(Hanyu.class),
+    SATOKO_HOJO(SatokoHojo.class),
+    KEIICHI_MAEBARA(KeiichiMaebara.class),
+    SHION_SONOSAKI(ShionSonozaki.class),
+    RENA_RYUGU(RenaRyugu.class);
 
-    private RoleTemplate role;
+    private Class role;
 
-    Role(RoleTemplate role) {
+    Role(Class role) {
         this.role = role;
     }
 
-    public RoleTemplate getRole() {
+    public Class getRole() {
         return role;
     }
 }

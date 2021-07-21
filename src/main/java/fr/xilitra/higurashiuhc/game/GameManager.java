@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
@@ -19,12 +20,13 @@ public class GameManager {
     private Map<UUID, HPlayer> spectator = new HashMap<>();
     private Map<UUID, HPlayer > players = new HashMap<>();
     private Scenario scenario;
+    private int episode = 0;
 
     public void config(){
         setStates(GameStates.CONFIG);
     }
 
-    public void start(){
+    public void start() throws InstantiationException, IllegalAccessException {
         Runnable runnable = new StartTask();
 
         List<Role> roles = Arrays.asList(Role.values());
@@ -35,7 +37,7 @@ public class GameManager {
 
             Role role = roles.get(number);
 
-            player.setRole(role);
+            player.setRole((RoleTemplate) role.getRole().newInstance());
             players.replace(player.getUuid(), player);
 
             roles.remove(role);
@@ -91,4 +93,11 @@ public class GameManager {
         this.scenario = scenario;
     }
 
+    public int getEpisode() {
+        return episode;
+    }
+
+    public void setEpisode(int ep){
+        this.episode = ep;
+    }
 }

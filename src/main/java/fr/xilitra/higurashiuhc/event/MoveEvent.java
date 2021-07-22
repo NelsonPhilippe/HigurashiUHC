@@ -6,6 +6,7 @@ import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -34,7 +35,10 @@ public class MoveEvent implements Listener {
 
                 if(rika != null){
                     if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
+
+                        if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){
+                            p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
+                        }
                     }
                 }
             }

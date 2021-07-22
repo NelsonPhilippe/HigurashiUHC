@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -58,6 +59,18 @@ public class RikaFurude extends RoleTemplate implements Listener {
             }
 
            if(rikaFurude.getLives() <= 1){
+
+               Player killer = player.getKiller();
+
+               HPlayer killerHPlayer = HigurashiUHC.getGameManager().getPlayers().get(killer.getUniqueId());
+
+               if(killerHPlayer.getRole().getClan().getClass().equals(Mercenaire.class)){
+                   for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+                       if(players.getRole().getClass().equals(Role.MIYO_TAKANO.getRole())){
+                           Bukkit.broadcastMessage("Miyo Takano est :" + players.getName());
+                       }
+                   }
+               }
 
                for (ItemStack itemStack : player.getInventory().getContents()) {
                    player.getWorld().dropItemNaturally(player.getLocation(), itemStack);

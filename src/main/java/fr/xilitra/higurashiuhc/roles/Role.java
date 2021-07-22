@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles;
 
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
+import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 
 public enum Role {
 
@@ -10,7 +11,8 @@ public enum Role {
     SATOKO_HOJO(SatokoHojo.class),
     KEIICHI_MAEBARA(KeiichiMaebara.class),
     SHION_SONOSAKI(ShionSonozaki.class),
-    RENA_RYUGU(RenaRyugu.class);
+    RENA_RYUGU(RenaRyugu.class),
+    MIYO_TAKANO(MiyoTakano.class);
 
     private Class role;
 

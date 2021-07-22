@@ -9,8 +9,4 @@ public class Mercenaire extends RoleTemplate {
         super("Mercenaire", Gender.NON_GENRE);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

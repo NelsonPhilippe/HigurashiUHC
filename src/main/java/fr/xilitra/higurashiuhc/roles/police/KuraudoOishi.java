@@ -9,8 +9,4 @@ public class KuraudoOishi extends RoleTemplate {
         super("Kuraudo Oishi", Gender.HOMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

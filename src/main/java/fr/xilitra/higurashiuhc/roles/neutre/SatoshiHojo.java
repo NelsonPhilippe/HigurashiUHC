@@ -9,8 +9,5 @@ public class SatoshiHojo extends RoleTemplate {
         super("Satoshi Hojo", Gender.HOMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
 
-    }
 }

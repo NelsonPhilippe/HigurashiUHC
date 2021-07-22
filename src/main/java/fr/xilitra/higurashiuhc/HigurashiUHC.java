@@ -8,6 +8,7 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,6 +33,9 @@ public final class HigurashiUHC extends JavaPlugin {
         //registry
         registerEvents();
         registerCommands();
+
+        //register custom craft
+        CustomCraft.addRecipeBaseball();
 
         manager.config();
 

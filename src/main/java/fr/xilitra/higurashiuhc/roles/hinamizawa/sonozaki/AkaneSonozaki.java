@@ -9,8 +9,4 @@ public class AkaneSonozaki extends RoleTemplate {
         super("Akane Sonozaki", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

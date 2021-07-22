@@ -9,8 +9,4 @@ public class Kumagai extends RoleTemplate {
         super("Kumagai", Gender.HOMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

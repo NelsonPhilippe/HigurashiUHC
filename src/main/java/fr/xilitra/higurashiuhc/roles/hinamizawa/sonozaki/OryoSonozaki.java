@@ -9,8 +9,4 @@ public class OryoSonozaki extends RoleTemplate {
         super("Oryo Sonozaki", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

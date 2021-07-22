@@ -9,8 +9,5 @@ public class ShionSonozaki extends RoleTemplate {
         super("Shion Sonozaki", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
 
-    }
 }

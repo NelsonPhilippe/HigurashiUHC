@@ -9,8 +9,4 @@ public class Akasaka extends RoleTemplate {
         super("Akasaka", Gender.HOMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

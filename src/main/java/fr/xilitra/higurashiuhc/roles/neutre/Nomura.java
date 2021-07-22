@@ -9,8 +9,4 @@ public class Nomura extends RoleTemplate {
         super("Nomura", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

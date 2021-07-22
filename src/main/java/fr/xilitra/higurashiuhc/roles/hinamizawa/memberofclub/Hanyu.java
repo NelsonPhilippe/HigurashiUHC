@@ -22,10 +22,6 @@ public class Hanyu extends RoleTemplate implements Listener {
         super("Hanyu", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
@@ -35,7 +31,6 @@ public class Hanyu extends RoleTemplate implements Listener {
 
         if(player.getRole().getClass().equals(Role.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
-
         }
     }
 }

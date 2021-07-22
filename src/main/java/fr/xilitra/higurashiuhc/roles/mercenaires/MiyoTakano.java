@@ -9,8 +9,4 @@ public class MiyoTakano extends RoleTemplate {
         super("Miyo Takano", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

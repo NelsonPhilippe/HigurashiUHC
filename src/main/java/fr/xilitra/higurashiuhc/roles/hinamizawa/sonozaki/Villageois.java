@@ -9,8 +9,5 @@ public class Villageois extends RoleTemplate {
         super("Villageois", Gender.NON_GENRE);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
 
-    }
 }

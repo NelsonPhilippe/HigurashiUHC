@@ -9,8 +9,4 @@ public class KyosukeIrie extends RoleTemplate {
         super("Kyosuke Irie", Gender.HOMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 }

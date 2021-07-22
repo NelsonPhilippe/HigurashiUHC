@@ -9,8 +9,5 @@ public class RenaRyugu extends RoleTemplate {
         super("Rena Ryugu", Gender.FEMME);
     }
 
-    @Override
-    public void rollEffect(HPlayer player) {
 
-    }
 }

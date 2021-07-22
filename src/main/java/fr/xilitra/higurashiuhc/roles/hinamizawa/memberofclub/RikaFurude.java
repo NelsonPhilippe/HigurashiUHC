@@ -4,6 +4,8 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
@@ -21,15 +23,12 @@ public class RikaFurude extends RoleTemplate implements Listener {
     private int lives;
 
     public RikaFurude() {
-        super("Rikka Furude", Gender.FEMME);
+        super("Rika Furude", Gender.FEMME);
         this.lives = 3;
+        this.clan = HigurashiUHC.getGameManager().getHinamizawa();
     }
 
 
-    @Override
-    public void rollEffect(HPlayer player) {
-
-    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
@@ -41,6 +40,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
             if(players.getRole().getClass().equals(Role.HANYU.getRole())){
                 if(players.getPlayer().getGameMode() == GameMode.SPECTATOR){
                     player.setGameMode(GameMode.SPECTATOR);
+                    HigurashiUHC.getGameManager().startRikaDeathTask();
                     return;
                 }
             }
@@ -69,6 +69,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
                }
 
                player.setGameMode(GameMode.SPECTATOR);
+               HigurashiUHC.getGameManager().startRikaDeathTask();
 
                for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()) {
 

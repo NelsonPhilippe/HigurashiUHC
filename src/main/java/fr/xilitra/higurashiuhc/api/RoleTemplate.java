@@ -1,12 +1,13 @@
 package fr.xilitra.higurashiuhc.api;
 
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
 
-public abstract class RoleTemplate {
+public abstract class RoleTemplate<T extends Clans> {
 
    private String name;
    private Gender sexe;
+   protected T clan;
 
 
    public RoleTemplate(String name, Gender sexe) {
@@ -22,5 +23,7 @@ public abstract class RoleTemplate {
       return sexe;
    }
 
-   public abstract void rollEffect(HPlayer player);
+   public T getClan() {
+      return clan;
+   }
 }

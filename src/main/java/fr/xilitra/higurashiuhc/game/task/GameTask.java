@@ -6,6 +6,9 @@ import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Map;
+import java.util.UUID;
+
 public class GameTask extends BukkitRunnable {
 
     private int time = 0;
@@ -17,11 +20,13 @@ public class GameTask extends BukkitRunnable {
 
         String formatTime = TimeUtils.formatTime(time);
 
-        for(Scoreboard scoreboard : HigurashiUHC.getScoreboardMap().values()){
+        for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
             if(time == 0 || time == 1 || time == 2 || time == 3){
-                scoreboard.setLines(
+                scoreboard.getValue().setLines(
                         "",
                         "La partie va commencer dans " + decount,
+                        "",
+                        "Vous êtes: " + HigurashiUHC.getGameManager().getPlayers().get(scoreboard.getKey()).getRole().getName(),
                         "",
                         "Episode: 0",
                         "",
@@ -31,7 +36,7 @@ public class GameTask extends BukkitRunnable {
                 decount--;
             }
 
-            scoreboard.setLine(1, "Temps de jeu: " + formatTime);
+            scoreboard.getValue().setLine(1, "Temps de jeu: " + formatTime);
         }
 
         int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time");

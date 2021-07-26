@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Hanyu extends RoleTemplate implements Listener {
 
+    private boolean isInvisible;
 
     public Hanyu() {
         super("Hanyu", Gender.FEMME);
@@ -32,5 +33,13 @@ public class Hanyu extends RoleTemplate implements Listener {
         if(player.getRole().getClass().equals(Role.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
         }
+    }
+
+    public void setInvisible(boolean invisible) {
+        isInvisible = invisible;
+    }
+
+    public boolean isInvisible() {
+        return isInvisible;
     }
 }

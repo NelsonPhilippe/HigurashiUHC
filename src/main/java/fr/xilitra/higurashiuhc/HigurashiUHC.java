@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc;
 
 import fr.xilitra.higurashiuhc.command.RessuciteCmd;
+import fr.xilitra.higurashiuhc.event.CraftEvent;
 import fr.xilitra.higurashiuhc.event.DeathListener;
 import fr.xilitra.higurashiuhc.event.JoinListener;
 import fr.xilitra.higurashiuhc.event.MoveEvent;
@@ -8,6 +9,7 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,11 +44,13 @@ public final class HigurashiUHC extends JavaPlugin {
     }
 
     private void registerEvents(){
+        this.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new RikaFurude(), this);
         this.getServer().getPluginManager().registerEvents(new Hanyu(), this);
+        this.getServer().getPluginManager().registerEvents(new SatokoHojo(), this);
     }
 
     private void registerCommands(){

@@ -7,6 +7,8 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 public class ItemBuilder {
 
     private String name;
@@ -33,6 +35,8 @@ public class ItemBuilder {
         if(enchant){
             addGlow(item);
         }
+
+        this.stack = item;
     }
 
     public static ItemStack addGlow(ItemStack item){
@@ -48,6 +52,19 @@ public class ItemBuilder {
         nmsStack.setTag(tag);
         return CraftItemStack.asCraftMirror(nmsStack);
     }
+
+    public void setLore(String ...lines){
+        ItemMeta meta = stack.getItemMeta();
+
+        meta.setLore(Arrays.asList(lines));
+
+        stack.setItemMeta(meta);
+    }
+
+    public String getLore(){
+        return this.getItemStack().getItemMeta().getLore().get(0);
+    }
+
 
     public ItemStack getItemStack() {
         return stack;

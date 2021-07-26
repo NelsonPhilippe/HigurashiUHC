@@ -13,6 +13,7 @@ import fr.xilitra.higurashiuhc.utils.HideNametag;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -68,6 +69,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
                    for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
                        if(players.getRole().getClass().equals(Role.MIYO_TAKANO.getRole())){
                            Bukkit.broadcastMessage("Miyo Takano est :" + players.getName());
+                           players.getPlayer().setDisplayName("[" + killerHPlayer.getRole().getName() + "] " + players.getName());
                        }
                    }
                }
@@ -94,6 +96,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
             for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
 
                 HideNametag.hide(player, players.getPlayer());
+                players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
 
             }
 

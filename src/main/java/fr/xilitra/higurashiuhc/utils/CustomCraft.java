@@ -1,16 +1,19 @@
 package fr.xilitra.higurashiuhc.utils;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.item.BaseballBat;
 import fr.xilitra.higurashiuhc.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
 
 public class CustomCraft {
 
-    public static void addRecipeBaseball(){
-        ItemBuilder builder = new ItemBuilder("Batte de Baseball", true, 1, Material.WOOD_SWORD);
+    public static BaseballBat baseballBat = new BaseballBat();
 
-        ShapedRecipe batte = new ShapedRecipe(builder.getItemStack());
+
+    public static void addRecipeBaseball(){
+
+        ShapedRecipe batte = new ShapedRecipe(baseballBat.getItemStack());
 
         batte.shape("  &", "*& ", "|* ");
         batte.setIngredient('&', Material.DIAMOND);

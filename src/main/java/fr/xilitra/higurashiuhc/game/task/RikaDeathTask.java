@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.game.task;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import org.bukkit.Sound;
 import org.bukkit.inventory.Inventory;
@@ -37,15 +38,7 @@ public class RikaDeathTask extends BukkitRunnable {
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }
 
-                if(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole())){
-                    Inventory inventory = hPlayer.getPlayer().getInventory();
-
-                    for(ItemStack item : inventory.getContents()){
-                        if(item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){
-                            inventory.remove(item);
-                        }
-                    }
-                }
+                SatokoHojo.removeTraps(hPlayer);
             }
 
 

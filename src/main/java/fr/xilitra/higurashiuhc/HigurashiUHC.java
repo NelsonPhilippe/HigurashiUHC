@@ -1,10 +1,7 @@
 package fr.xilitra.higurashiuhc;
 
 import fr.xilitra.higurashiuhc.command.RessuciteCmd;
-import fr.xilitra.higurashiuhc.event.CraftEvent;
-import fr.xilitra.higurashiuhc.event.DeathListener;
-import fr.xilitra.higurashiuhc.event.JoinListener;
-import fr.xilitra.higurashiuhc.event.MoveEvent;
+import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
@@ -44,6 +41,9 @@ public final class HigurashiUHC extends JavaPlugin {
     }
 
     private void registerEvents(){
+
+        this.getServer().getPluginManager().registerEvents(new ConfigListener(), this);
+        this.getServer().getPluginManager().registerEvents(new DamageListener(), this);
         this.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(), this);

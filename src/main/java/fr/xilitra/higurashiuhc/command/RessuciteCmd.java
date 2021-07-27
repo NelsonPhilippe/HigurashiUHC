@@ -32,6 +32,12 @@ public class RessuciteCmd implements CommandExecutor {
             if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
 
                 if(((DeathTask) hPlayerTarget.getDeathTask()).isStarted()){
+
+                    if(((RikaFurude) hPlayer.getRole()).getRessucite()){
+                        p.sendMessage("Vous ne pouvez plus ressuciter");
+                        return true;
+                    }
+
                     ((RikaFurude) hPlayer.getRole()).resurrection(hPlayer, hPlayerTarget);
                     p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
                     return true;

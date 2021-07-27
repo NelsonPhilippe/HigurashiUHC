@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 public class RikaFurude extends RoleTemplate implements Listener {
 
     private int lives;
+    private boolean ressucite = false;
 
     public RikaFurude() {
         super("Rika Furude", Gender.FEMME);
@@ -30,13 +31,32 @@ public class RikaFurude extends RoleTemplate implements Listener {
         this.clan = HigurashiUHC.getGameManager().getHinamizawa();
     }
 
-
-
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
         Player player = e.getEntity();
 
+        Player killer = null;
+        HPlayer killerHPlayer = null;
+
+        if(e.getEntity().getKiller() != null){
+            killer = e.getEntity().getKiller();
+            killerHPlayer = HigurashiUHC.getGameManager().getPlayers().get(killer.getUniqueId());
+        }
+
         HPlayer hp = HigurashiUHC.getGameManager().getPlayers().get(player.getUniqueId());
+
+        if(killerHPlayer != null){
+            if(killerHPlayer.getRole().getClan() == HigurashiUHC.getGameManager().getMercenaire()){
+                player.setGameMode(GameMode.SPECTATOR);
+                HigurashiUHC.getGameManager().startRikaDeathTask();
+                for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayers().values()){
+                    if(miyo.getRole().getClass().equals(Role.MIYO_TAKANO.getRole())){
+                        Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
+                    }
+                }
+                return;
+            }
+        }
 
         for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
             if(players.getRole().getClass().equals(Role.HANYU.getRole())){
@@ -60,19 +80,6 @@ public class RikaFurude extends RoleTemplate implements Listener {
             }
 
            if(rikaFurude.getLives() <= 1){
-
-               Player killer = player.getKiller();
-
-               HPlayer killerHPlayer = HigurashiUHC.getGameManager().getPlayers().get(killer.getUniqueId());
-
-               if(killerHPlayer.getRole().getClan().getClass().equals(Mercenaire.class)){
-                   for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
-                       if(players.getRole().getClass().equals(Role.MIYO_TAKANO.getRole())){
-                           Bukkit.broadcastMessage("Miyo Takano est :" + players.getName());
-                           players.getPlayer().setDisplayName("[" + killerHPlayer.getRole().getName() + "] " + players.getName());
-                       }
-                   }
-               }
 
                for (ItemStack itemStack : player.getInventory().getContents()) {
                    player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
@@ -121,17 +128,36 @@ public class RikaFurude extends RoleTemplate implements Listener {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
 
-        if(rikaFurudePlayer.getRole().equals(Role.RIKA_FURUDE.getRole())){
-            RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
+        Role[] roles = {Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU};
 
-            if(rikaFurude.getLives() <= 1){
-                rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
-                return;
+        HigurashiUHC.getGameManager().getPlayers().values().forEach(player -> {
+            if(!player.getRole().getClass().equals(Role.HANYU.getRole())){
+                if(player.getPlayer().getGameMode() != GameMode.SPECTATOR){
+                    for(Role role : roles){
+                        if(resuPlayer.getRole().getClass().equals(role.getRole())){
+                            if(rikaFurudePlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+                                RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
+
+                                if(rikaFurude.getLives() <= 1){
+                                    rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
+                                    return;
+                                }
+
+                                rikaFurude.remove1Live();
+                                ressucite = true;
+                            }
+                        }
+                    }
+                }
             }
+        });
 
-            rikaFurude.remove1Live();
-        }
 
+
+    }
+
+    public boolean getRessucite(){
+        return ressucite;
     }
 
     public void setLives(int lives){

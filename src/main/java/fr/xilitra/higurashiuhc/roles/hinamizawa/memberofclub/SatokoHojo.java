@@ -6,21 +6,28 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.traps.Traps;
-import org.bukkit.entity.Entity;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SatokoHojo extends RoleTemplate implements Listener {
+
+    public static List<Location> blockTraps = new ArrayList<>();
+
     public SatokoHojo() {
         super("SatokoHojo", Gender.FEMME);
     }
@@ -55,9 +62,31 @@ public class SatokoHojo extends RoleTemplate implements Listener {
 
 
         if(shooter.getItemInHand().getItemMeta().getLore().get(0).equals(Traps.slowBall.getLore())){
-
+            if(hPlayerShooter.getRole().getClass().equals(Role.SATOSHI_HOJO.getRole())){
+                victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 2, 200, true));
+            }
         }
+    }
 
+    @EventHandler
+    public void onInteractEvent(PlayerInteractEvent e){
+        Player p = e.getPlayer();
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+
+        if(!(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole()))) return;
+
+        ItemStack item = e.getItem();
+
+        if(item.getItemMeta().getLore().get(0).equals(Traps.hoeTrap.getLore())){
+
+            if(e.getClickedBlock().getType() != Material.GRASS || e.getClickedBlock().getType() != Material.DIRT) return;
+
+            Location loc = e.getClickedBlock().getLocation();
+
+            SatokoHojo.blockTraps.add(loc);
+
+            e.setCancelled(true);
+        }
     }
 
     public static void removeTraps(HPlayer hPlayer){

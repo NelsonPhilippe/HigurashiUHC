@@ -42,6 +42,9 @@ public final class HigurashiUHC extends JavaPlugin {
 
     private void registerEvents(){
 
+        this.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        this.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PickupListener(), this);
         this.getServer().getPluginManager().registerEvents(new ConfigListener(), this);
         this.getServer().getPluginManager().registerEvents(new DamageListener(), this);
         this.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
@@ -51,6 +54,7 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new RikaFurude(), this);
         this.getServer().getPluginManager().registerEvents(new Hanyu(), this);
         this.getServer().getPluginManager().registerEvents(new SatokoHojo(), this);
+
     }
 
     private void registerCommands(){

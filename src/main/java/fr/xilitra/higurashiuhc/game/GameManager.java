@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.game;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
+import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.GameTask;
@@ -23,6 +24,7 @@ public class GameManager {
     private Scenario scenario;
     private int episode = 0;
     private Hinamizawa hinamizawa = new Hinamizawa("Hinamizawa");
+    private Mercenaire mercenaire = new Mercenaire("Mercenaire");
     private Runnable rikaDeathTask = new RikaDeathTask();
 
     public void config(){
@@ -49,6 +51,16 @@ public class GameManager {
                     hinamizawa.addPlayerToSubClans("Membre du club", player.getPlayer());
                     break;
                 }
+            }
+
+            for(Mercenaire.roleList roleList : Mercenaire.roleList.values()){
+                if(roleList.getRole() == role.getRole()){
+                    mercenaire.addPlayer(player.getPlayer());
+                }
+            }
+
+            if(role.getClass().equals(Role.MION_SONOZAKI.getRole()) || role.getClass().equals(Role.SHION_SONOSAKI.getRole())){
+                player.getPlayer().setHealth(22);
             }
 
             roles.remove(role);
@@ -120,5 +132,9 @@ public class GameManager {
 
     public Hinamizawa getHinamizawa() {
         return hinamizawa;
+    }
+
+    public Mercenaire getMercenaire(){
+        return mercenaire;
     }
 }

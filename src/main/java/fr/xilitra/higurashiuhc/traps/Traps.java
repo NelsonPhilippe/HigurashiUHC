@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.traps;
 
 import fr.xilitra.higurashiuhc.item.FireCracker;
+import fr.xilitra.higurashiuhc.item.HoeTrap;
 import fr.xilitra.higurashiuhc.item.SlowBall;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ public class Traps {
 
     public static SlowBall slowBall = new SlowBall();
     public static FireCracker fireCracker = new FireCracker();
+    public static HoeTrap hoeTrap = new HoeTrap();
 
     public static void defense(Player target){
         target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,100, 2, false));

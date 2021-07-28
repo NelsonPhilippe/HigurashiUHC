@@ -1,12 +1,11 @@
 package fr.xilitra.higurashiuhc;
 
+import fr.xilitra.higurashiuhc.command.HigurashiCmd;
 import fr.xilitra.higurashiuhc.command.RessuciteCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,6 +41,7 @@ public final class HigurashiUHC extends JavaPlugin {
 
     private void registerEvents(){
 
+        //general listener
         this.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         this.getServer().getPluginManager().registerEvents(new PickupListener(), this);
@@ -51,14 +51,21 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+
+        //role listener
         this.getServer().getPluginManager().registerEvents(new RikaFurude(), this);
         this.getServer().getPluginManager().registerEvents(new Hanyu(), this);
         this.getServer().getPluginManager().registerEvents(new SatokoHojo(), this);
+        this.getServer().getPluginManager().registerEvents(new RenaRyugu(), this);
+        this.getServer().getPluginManager().registerEvents(new MionSonozaki(), this);
+        this.getServer().getPluginManager().registerEvents(new ShionSonozaki(), this);
+        this.getServer().getPluginManager().registerEvents(new KeiichiMaebara(), this);
 
     }
 
     private void registerCommands(){
         this.getCommand("ressucite").setExecutor(new RessuciteCmd());
+        this.getCommand("h").setExecutor(new HigurashiCmd());
     }
 
     public static HigurashiUHC getInstance(){

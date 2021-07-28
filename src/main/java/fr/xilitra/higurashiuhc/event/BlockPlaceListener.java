@@ -20,7 +20,7 @@ public class BlockPlaceListener implements Listener {
         ItemStack item = e.getItemInHand();
         Location loc = e.getBlock().getLocation();
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         if(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole())){
             if(item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){

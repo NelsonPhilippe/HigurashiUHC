@@ -18,7 +18,7 @@ public class DeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e){
         Player p = e.getEntity();
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), hPlayer.getDeathTask());
 
@@ -30,13 +30,13 @@ public class DeathListener implements Listener {
 
                 textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-                for(HPlayer hpr : HigurashiUHC.getGameManager().getPlayers().values()){
+                HPlayer hpr = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
 
-                    if(hpr.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+                if(hpr != null){
                         hpr.getPlayer().sendMessage(hPlayer.getName() + " viens de mourrir." + textComponent);
-                    }
-
                 }
+
+
                 break;
             }
         }

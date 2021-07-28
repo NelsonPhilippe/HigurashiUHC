@@ -28,7 +28,7 @@ public class Hanyu extends RoleTemplate implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event){
         Player p = event.getEntity();
 
-        HPlayer player = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         if(player.getRole().getClass().equals(Role.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);

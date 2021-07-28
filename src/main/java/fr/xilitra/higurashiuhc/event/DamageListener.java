@@ -45,7 +45,7 @@ public class DamageListener implements Listener {
         if(!(e.getEntity() instanceof Player)) return;
 
         Player p = (Player) e.getEntity();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         setLiveMionShion(e, p, hPlayer, Role.MION_SONOZAKI, Role.SHION_SONOSAKI);
 

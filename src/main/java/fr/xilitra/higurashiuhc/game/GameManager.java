@@ -137,4 +137,18 @@ public class GameManager {
     public Mercenaire getMercenaire(){
         return mercenaire;
     }
+
+    public HPlayer getPlayer(UUID uuid){
+        return players.get(uuid);
+    }
+
+    public HPlayer getPlayerWithRole(Role role){
+        for(HPlayer player : players.values()){
+            if(role.getRole().equals(player.getRole().getClass())){
+                return player;
+            }
+        }
+
+        return null;
+    }
 }

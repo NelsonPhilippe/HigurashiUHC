@@ -40,10 +40,10 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         if(e.getEntity().getKiller() != null){
             killer = e.getEntity().getKiller();
-            killerHPlayer = HigurashiUHC.getGameManager().getPlayers().get(killer.getUniqueId());
+            killerHPlayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
         }
 
-        HPlayer hp = HigurashiUHC.getGameManager().getPlayers().get(player.getUniqueId());
+        HPlayer hp = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
 
         if(killerHPlayer != null){
             if(killerHPlayer.getRole().getClan() == HigurashiUHC.getGameManager().getMercenaire()){

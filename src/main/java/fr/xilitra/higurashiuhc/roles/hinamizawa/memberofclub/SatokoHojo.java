@@ -38,7 +38,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
 
         Player p = e.getEntity();
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         removeTraps(hPlayer);
     }
@@ -57,8 +57,8 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         Player shooter = (Player) snowball.getShooter();
         Player victim = (Player) e.getEntity();
 
-        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getPlayers().get(shooter.getUniqueId());
-        HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getPlayers().get(victim.getUniqueId());
+        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getPlayer(shooter.getUniqueId());
+        HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getPlayer(victim.getUniqueId());
 
 
         if(shooter.getItemInHand().getItemMeta().getLore().get(0).equals(Traps.slowBall.getLore())){
@@ -71,7 +71,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
     @EventHandler
     public void onInteractEvent(PlayerInteractEvent e){
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         if(!(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole()))) return;
 

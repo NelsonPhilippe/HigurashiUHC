@@ -26,7 +26,7 @@ public class GameTask extends BukkitRunnable {
                         "",
                         "La partie va commencer dans " + decount,
                         "",
-                        "Vous êtes: " + HigurashiUHC.getGameManager().getPlayers().get(scoreboard.getKey()).getRole().getName(),
+                        "Vous êtes: " + HigurashiUHC.getGameManager().getPlayer(scoreboard.getKey()).getRole().getName(),
                         "",
                         "Episode: 0",
                         "",

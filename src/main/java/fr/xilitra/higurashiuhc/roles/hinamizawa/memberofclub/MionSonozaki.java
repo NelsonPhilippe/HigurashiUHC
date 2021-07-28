@@ -10,6 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozaki.removeHearth;
+
 public class MionSonozaki extends RoleTemplate implements Listener {
     public MionSonozaki() {
         super("Mion Sonozaki", Gender.FEMME);
@@ -17,14 +19,9 @@ public class MionSonozaki extends RoleTemplate implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
-        Player p = e.getEntity();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
-
-        if(hPlayer.getRole().getClass().equals(Role.MION_SONOZAKI.getRole())){
-
-
-
-        }
+        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
+        HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
+        removeHearth(e, deathPlayer, playerAlive);
     }
 
 }

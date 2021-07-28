@@ -17,7 +17,7 @@ public class CraftEvent implements Listener {
         ItemStack craftedItem = e.getCurrentItem();
 
         if(craftedItem.isSimilar(CustomCraft.baseballBat.getItemStack())){
-            HPlayer player = HigurashiUHC.getGameManager().getPlayers().get(e.getWhoClicked().getUniqueId());
+            HPlayer player = HigurashiUHC.getGameManager().getPlayer(e.getWhoClicked().getUniqueId());
 
             if(!player.getRole().getClass().equals(Role.KEIICHI_MAEBARA.getRole()) || !player.getRole().getClass().equals(Role.SATOKO_HOJO.getRole())){
                 e.setCancelled(true);

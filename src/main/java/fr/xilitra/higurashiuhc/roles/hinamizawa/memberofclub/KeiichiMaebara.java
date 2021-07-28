@@ -10,10 +10,11 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ShapedRecipe;
 
-public class KeiichiMaebara extends RoleTemplate {
+public class KeiichiMaebara extends RoleTemplate implements Listener {
 
     public KeiichiMaebara() {
         super("Keiichi Maebara", Gender.HOMME);
@@ -23,7 +24,7 @@ public class KeiichiMaebara extends RoleTemplate {
     public void onPlayerDeath(PlayerDeathEvent event){
         Player p = event.getEntity();
 
-        HPlayer player = HigurashiUHC.getGameManager().getPlayers().get(p.getUniqueId());
+        HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         if(player.getRole().getClass().equals(Role.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);

@@ -71,25 +71,20 @@ public class RikaFurude extends RoleTemplate implements Listener {
         if(hp.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
             RikaFurude rikaFurude = (RikaFurude) hp.getRole();
 
+            System.out.println(rikaFurude.getLives());
+
             rikaFurude.remove1Live();
 
             if(rikaFurude.getLives() == 2){
-                player.setHealth(5);
-                player.setMaxHealth(5);
+                player.setHealth(16);
+                player.setMaxHealth(16);
                 //player.teleport();
             }
 
-           if(rikaFurude.getLives() <= 1){
+           if(rikaFurude.getLives() == 1){
 
-               for (ItemStack itemStack : player.getInventory().getContents()) {
-                   player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                   player.getInventory().removeItem(itemStack);
-               }
-               for (ItemStack itemStack : player.getInventory().getArmorContents()) {
-                   player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                   player.getInventory().removeItem(itemStack);
-               }
-
+               player.setHealth(10);
+               player.setMaxHealth(10);
                player.setGameMode(GameMode.SPECTATOR);
                HigurashiUHC.getGameManager().startRikaDeathTask();
 
@@ -98,6 +93,24 @@ public class RikaFurude extends RoleTemplate implements Listener {
                    HideNametag.unhide(player, players.getPlayer());
                }
                return;
+           }
+
+           if(rikaFurude.getLives() == 0){
+               if(player.getPlayer().getInventory().getContents().length != 0){
+                   for (ItemStack itemStack : player.getInventory().getContents()) {
+                       player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
+                       player.getInventory().removeItem(itemStack);
+                   }
+               }
+
+               if(player.getPlayer().getInventory().getArmorContents().length != 0){
+                   for (ItemStack itemStack : player.getInventory().getArmorContents()) {
+                       player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
+                       player.getInventory().removeItem(itemStack);
+                   }
+               }
+
+               player.getPlayer().setGameMode(GameMode.SPECTATOR);
            }
 
             for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
@@ -165,7 +178,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
     }
 
     public void remove1Live(){
-        this.lives = this.lives - 1;
+        this.lives--;
     }
 
     public int getLives(){

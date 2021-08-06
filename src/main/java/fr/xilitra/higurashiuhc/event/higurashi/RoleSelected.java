@@ -21,4 +21,8 @@ public class RoleSelected extends Event {
     public HPlayer getPlayer() {
         return player;
     }
+
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
 }

@@ -19,6 +19,7 @@ public class Scoreboard {
     public Scoreboard(String title, Player player) {
         this.title = title;
         this.player = player;
+        this.create();
     }
 
     public void create(){
@@ -31,10 +32,7 @@ public class Scoreboard {
     }
 
     public void setLine(int line, String value){
-        List<String> lines = this.board.getLines();
-        lines.set(line, value);
-
-        this.board.updateLines(lines);
+        this.board.updateLine(line, value);
     }
 
     public void delete(){

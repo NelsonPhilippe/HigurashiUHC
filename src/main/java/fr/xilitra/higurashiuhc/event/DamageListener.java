@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +36,29 @@ public class DamageListener implements Listener {
                         }
                     }
                 }
+            }
+
+            for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
+
+                if(!(p.getLastDamageCause().getEntity() instanceof Player)) return;
+
+                if(player.getRole().getClass().equals(Role.RENA_RYUGU.getRole())){
+
+                    RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
+
+                    if(renaRyugu.gethPlayerPense() != null){
+
+                        if(renaRyugu.gethPlayerPense() == HigurashiUHC.getGameManager().getPlayer(p.getLastDamageCause().getEntity().getUniqueId())){
+
+                            HPlayer rena = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
+
+                            rena.getPlayer().sendMessage(p.getLastDamageCause().getEntity().getName() + " a mis un coup à " + p.getName());
+
+                        }
+
+                    }
+                }
+
             }
 
             linkMionShionHearth(e);

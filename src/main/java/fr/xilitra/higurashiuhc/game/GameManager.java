@@ -31,18 +31,35 @@ public class GameManager {
         setStates(GameStates.CONFIG);
     }
 
-    public void start() throws InstantiationException, IllegalAccessException {
-        Runnable runnable = new StartTask();
+    public void start() {
+        this.setStates(GameStates.START);
 
-        List<Role> roles = Arrays.asList(Role.values());
+        List<Role> roles = new ArrayList();
+
+        roles.addAll(Arrays.asList(Role.values()));
 
 
         for(HPlayer player : this.players.values()){
+
             int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
 
-            player.setRole((RoleTemplate) role.getRole().newInstance());
+            roles.remove(number);
+
+
+            Object roletemplate = null;
+            try {
+                roletemplate = role.getRole().newInstance();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println((RoleTemplate) roletemplate);
+
+            player.setRole((RoleTemplate) roletemplate);
             players.replace(player.getUuid(), player);
 
             for(MemberOfClub.roleList rolelist : MemberOfClub.roleList.values()){
@@ -63,19 +80,19 @@ public class GameManager {
                 player.getPlayer().setHealth(22);
             }
 
-            roles.remove(role);
 
             Bukkit.getPluginManager().callEvent(new RoleSelected(player));
         }
+        TimerTask task = new StartTask();
+        Timer run = new Timer("Start");
+        run.scheduleAtFixedRate(task, 1000, 1000);
 
-
-        Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), runnable);
-        this.setStates(GameStates.START);
     }
 
     public void game(){
-        Runnable runnable = new GameTask();
-        Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), runnable);
+        TimerTask timerTask = new GameTask();
+        Timer timer = new Timer("Game");
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
         this.setStates(GameStates.GAME);
     }
 
@@ -88,6 +105,10 @@ public class GameManager {
 
     public GameStates getStates() {
         return states;
+    }
+
+    public Map<UUID, HPlayer> getSpectator(){
+        return spectator;
     }
 
     public Scenario getSelectedScenario(){

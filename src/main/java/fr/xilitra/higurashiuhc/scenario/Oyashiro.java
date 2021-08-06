@@ -8,8 +8,8 @@ import java.util.List;
 public class Oyashiro extends Scenario {
 
 
-    public Oyashiro(String name, List<Role> roles) {
-        super(name, roles);
+    public Oyashiro(String name) {
+        super(name);
     }
 
     @Override

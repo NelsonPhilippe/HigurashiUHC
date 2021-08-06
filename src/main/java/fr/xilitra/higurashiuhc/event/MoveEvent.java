@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -24,6 +25,8 @@ public class MoveEvent implements Listener {
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         HPlayer rika = null;
+
+        if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
         for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
             if(player.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){

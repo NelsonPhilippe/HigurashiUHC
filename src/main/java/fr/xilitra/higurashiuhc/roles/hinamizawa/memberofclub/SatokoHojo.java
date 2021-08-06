@@ -73,6 +73,11 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
+
+        if(hPlayer.getRole() == null){
+            return;
+        }
+
         if(!(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole()))) return;
 
         ItemStack item = e.getItem();

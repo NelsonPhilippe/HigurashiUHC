@@ -29,12 +29,17 @@ repositories {
 
 dependencies {
     compileOnly name: 'spigot'
-    compile 'org.redisson:redisson:3.15.6'
     compile 'fr.mrmicky:fastboard:1.2.0'
 }
 
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
+task fatJar(type: Jar) {
+    manifest {
+
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'fr.lyneris.api'
     }
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

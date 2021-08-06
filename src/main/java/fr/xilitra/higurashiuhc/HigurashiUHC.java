@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc;
 
+import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.command.HigurashiCmd;
 import fr.xilitra.higurashiuhc.command.RessuciteCmd;
 import fr.xilitra.higurashiuhc.event.*;
@@ -8,6 +9,8 @@ import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -42,6 +45,7 @@ public final class HigurashiUHC extends JavaPlugin {
     private void registerEvents(){
 
         //general listener
+        this.getServer().getPluginManager().registerEvents(new InteractListener(), this);
         this.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
         this.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
         this.getServer().getPluginManager().registerEvents(new PickupListener(), this);
@@ -66,6 +70,7 @@ public final class HigurashiUHC extends JavaPlugin {
     private void registerCommands(){
         this.getCommand("ressucite").setExecutor(new RessuciteCmd());
         this.getCommand("h").setExecutor(new HigurashiCmd());
+        this.getCommand("debug").setExecutor(new DebugCmd());
     }
 
     public static HigurashiUHC getInstance(){
@@ -86,6 +91,8 @@ public final class HigurashiUHC extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        for(Player p : Bukkit.getOnlinePlayers()){
+            p.kickPlayer("Redémarrage du serveur.");
+        }
     }
 }

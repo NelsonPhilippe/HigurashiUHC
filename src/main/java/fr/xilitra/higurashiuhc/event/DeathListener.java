@@ -3,6 +3,8 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -35,8 +37,6 @@ public class DeathListener implements Listener {
                 if(hpr != null){
                         hpr.getPlayer().sendMessage(hPlayer.getName() + " viens de mourrir." + textComponent);
                 }
-
-
                 break;
             }
         }

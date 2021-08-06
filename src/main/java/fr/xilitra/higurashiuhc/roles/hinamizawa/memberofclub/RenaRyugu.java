@@ -15,9 +15,11 @@ import org.bukkit.potion.PotionEffectType;
 public class RenaRyugu extends RoleTemplate implements Listener {
 
     private HPlayer hPlayerPense;
+    private boolean penseIsUsed;
 
     public RenaRyugu() {
         super("Rena Ryugu", Gender.FEMME);
+        this.penseIsUsed = false;
     }
 
     @EventHandler
@@ -46,5 +48,13 @@ public class RenaRyugu extends RoleTemplate implements Listener {
 
     public HPlayer gethPlayerPense() {
         return hPlayerPense;
+    }
+
+    public boolean isPenseIsUsed() {
+        return penseIsUsed;
+    }
+
+    public void setPenseIsUsed(boolean penseIsUsed) {
+        this.penseIsUsed = penseIsUsed;
     }
 }

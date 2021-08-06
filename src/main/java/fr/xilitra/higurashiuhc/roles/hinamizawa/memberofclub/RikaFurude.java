@@ -71,8 +71,6 @@ public class RikaFurude extends RoleTemplate implements Listener {
         if(hp.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
             RikaFurude rikaFurude = (RikaFurude) hp.getRole();
 
-            System.out.println(rikaFurude.getLives());
-
             rikaFurude.remove1Live();
 
             if(rikaFurude.getLives() == 2){
@@ -85,8 +83,6 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
                player.setHealth(10);
                player.setMaxHealth(10);
-               player.setGameMode(GameMode.SPECTATOR);
-               HigurashiUHC.getGameManager().startRikaDeathTask();
 
                for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()) {
 
@@ -96,29 +92,35 @@ public class RikaFurude extends RoleTemplate implements Listener {
            }
 
            if(rikaFurude.getLives() == 0){
-               if(player.getPlayer().getInventory().getContents().length != 0){
+               if(player.getPlayer().getInventory().getContents().length > 0){
                    for (ItemStack itemStack : player.getInventory().getContents()) {
                        player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
                        player.getInventory().removeItem(itemStack);
                    }
                }
 
-               if(player.getPlayer().getInventory().getArmorContents().length != 0){
+               if(player.getPlayer().getInventory().getArmorContents().length > 0){
                    for (ItemStack itemStack : player.getInventory().getArmorContents()) {
                        player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
                        player.getInventory().removeItem(itemStack);
                    }
                }
 
+               for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+
+                   players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
+
+               }
+
+
                player.getPlayer().setGameMode(GameMode.SPECTATOR);
+               HigurashiUHC.getGameManager().startRikaDeathTask();
+
+               return;
+
            }
 
-            for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
 
-                HideNametag.hide(player, players.getPlayer());
-                players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
-
-            }
 
            //player.teleport(new Location());
 

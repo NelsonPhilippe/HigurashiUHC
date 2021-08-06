@@ -18,9 +18,11 @@ import org.bukkit.inventory.ItemStack;
 public class Hanyu extends RoleTemplate implements Listener {
 
     private boolean isInvisible;
+    private boolean dimensionIsUsed;
 
     public Hanyu() {
         super("Hanyu", Gender.FEMME);
+        this.dimensionIsUsed = false;
     }
 
 
@@ -41,5 +43,13 @@ public class Hanyu extends RoleTemplate implements Listener {
 
     public boolean isInvisible() {
         return isInvisible;
+    }
+
+    public boolean isDimensionIsUsed() {
+        return dimensionIsUsed;
+    }
+
+    public void setDimensionIsUsed(boolean dimensionIsUsed) {
+        this.dimensionIsUsed = dimensionIsUsed;
     }
 }

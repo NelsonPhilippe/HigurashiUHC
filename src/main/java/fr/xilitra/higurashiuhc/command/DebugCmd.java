@@ -81,7 +81,6 @@ public class DebugCmd implements CommandExecutor {
                         }
 
                         role = builder.toString();
-                        System.out.println(role);
                     }
 
 
@@ -93,7 +92,7 @@ public class DebugCmd implements CommandExecutor {
 
                             if(role.equalsIgnoreCase(roleTemplate.getName() + " ")){
                                 hPlayer.setRole(roleTemplate);
-                                p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + " à " + args[1]);
+                                p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
                                 return true;
                             }
 

@@ -5,3 +5,19 @@ phase-time: 15
 #Temps restant au Hinamizawa pour remporter la partie.
 
 rika-death-time: 40
+
+hanyu:
+  dimension:
+    spawn-location:
+      hanyu:
+        x: 10
+        y: 10
+        z: 10
+        world: world
+        pitch: 0
+      rika:
+        x: 15
+        y: 15
+        z: 15
+        world: world
+        pitch: 0

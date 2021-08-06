@@ -50,9 +50,14 @@ public class DamageListener implements Listener {
 
                         if(renaRyugu.gethPlayerPense() == HigurashiUHC.getGameManager().getPlayer(p.getLastDamageCause().getEntity().getUniqueId())){
 
+                            if(renaRyugu.isPenseIsUsed()){
+                                return;
+                            }
+
                             HPlayer rena = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
 
-                            rena.getPlayer().sendMessage(p.getLastDamageCause().getEntity().getName() + " a mis un coup à " + p.getName());
+                            rena.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
+                            renaRyugu.setPenseIsUsed(true);
 
                         }
 

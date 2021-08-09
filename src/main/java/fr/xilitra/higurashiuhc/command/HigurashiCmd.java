@@ -210,6 +210,29 @@ public class HigurashiCmd implements CommandExecutor {
 
         }
 
+        if(args[0].equalsIgnoreCase("heal")){
+            if(args.length == 2){
+                Player target = Bukkit.getPlayer(args[1]);
+
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                if(!hPlayer.getRole().getClass().equals(Role.KIICHIRO_KIMIYOSHI.getRole())) return true;
+
+                if(target == null) return true;
+
+                if(target.getHealth() <= 1){
+                    p.sendMessage("Vous ne possédez pas assez de vie pour en donner.");
+                    return true;
+                }
+
+                p.setMaxHealth(p.getMaxHealth() - 1);
+
+                if(target.getHealth() >= 18){
+                    target.setHealth(target.getHealth() + 2);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

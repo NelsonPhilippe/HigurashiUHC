@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.KiichiroKimiyoshi;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.neutre.SatoshiHojo;
@@ -21,7 +22,8 @@ public enum Role {
     SATOSHI_HOJO(SatoshiHojo.class),
     ORYO_SONOZAKI(OryoSonozaki.class),
     KASAI(Kasai.class),
-    AKANE_SONOZAKI(AkaneSonozaki.class);
+    AKANE_SONOZAKI(AkaneSonozaki.class),
+    KIICHIRO_KIMIYOSHI(KiichiroKimiyoshi.class);
 
     private Class role;
 

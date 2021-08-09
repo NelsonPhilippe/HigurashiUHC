@@ -7,15 +7,13 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -171,6 +169,43 @@ public class HigurashiCmd implements CommandExecutor {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000, 1));
                 p.sendMessage("Votre force a été boosté!");
                 return true;
+            }
+
+        }
+
+        if(args[0].equalsIgnoreCase("inverser")){
+
+            if(args.length == 3){
+                Player firstTarget = Bukkit.getPlayer(args[1]);
+                Player secondsTarget = Bukkit.getPlayer(args[2]);
+
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                if(!hPlayer.getRole().getClass().equals(Role.AKANE_SONOZAKI.getRole())) return true;
+                AkaneSonozaki akaneSonozaki = (AkaneSonozaki) hPlayer.getRole();
+
+                int time = p.getStatistic(Statistic.PLAY_ONE_TICK);
+
+                int days = time / 20 / 60 / 60 / 24;
+
+                if(akaneSonozaki.getNextDaySwap() < days) {
+                    p.sendMessage("Il est encore trop tot pour echanger les joueurs");
+                    return true;
+                }
+
+                if(akaneSonozaki.getSwapUsed() >= 2){
+                    p.sendMessage("Vous avez déjà atteint votre cota d'échange de joueur.");
+                    return true;
+                }
+
+                Location loc1 = firstTarget.getLocation();
+                Location loc2 = secondsTarget.getLocation();
+
+                firstTarget.teleport(loc2);
+                secondsTarget.teleport(loc1);
+
+                akaneSonozaki.setNextDaySwap(days + 1);
+                akaneSonozaki.setSwapUsed(akaneSonozaki.getSwapUsed() + 1);
             }
 
         }

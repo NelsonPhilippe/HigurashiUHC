@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
@@ -15,10 +16,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Hanyu extends RoleTemplate implements Listener {
 
     private boolean isInvisible;
     private boolean dimensionIsUsed;
+    private Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public Hanyu() {
         super("Hanyu", Gender.FEMME);
@@ -37,6 +42,8 @@ public class Hanyu extends RoleTemplate implements Listener {
         }
     }
 
+
+
     public void setInvisible(boolean invisible) {
         isInvisible = invisible;
     }
@@ -51,5 +58,9 @@ public class Hanyu extends RoleTemplate implements Listener {
 
     public void setDimensionIsUsed(boolean dimensionIsUsed) {
         this.dimensionIsUsed = dimensionIsUsed;
+    }
+
+    public Map<HPlayer, Location> getDimensionLastLoc() {
+        return dimensionLastLoc;
     }
 }

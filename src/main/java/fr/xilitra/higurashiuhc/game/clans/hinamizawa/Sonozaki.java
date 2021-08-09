@@ -6,4 +6,8 @@ public class Sonozaki extends Clans {
     public Sonozaki(String name) {
         super(name);
     }
+
+    public enum roleList{
+
+    }
 }

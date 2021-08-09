@@ -1,10 +1,17 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -13,6 +20,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class HigurashiCmd implements CommandExecutor {
     @Override
@@ -92,6 +101,77 @@ public class HigurashiCmd implements CommandExecutor {
             Location loc = new Location(Bukkit.getWorld(world), x, y, z);
             hanyu.getPlayer().teleport(loc);
 
+
+        }
+
+        if(args[0].equalsIgnoreCase("ban")){
+            if(args.length == 2){
+
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                if(!hPlayer.getRole().getClass().equals(Role.ORYO_SONOZAKI.getRole())) return true;
+
+                OryoSonozaki oryoSonozaki = (OryoSonozaki) hPlayer.getRole();
+
+                if(oryoSonozaki.isAsVoted()){
+                    p.sendMessage("Vous avez déjà enclenché un vote précédement");
+                    return true;
+                }
+
+                for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+
+                    Player target = Bukkit.getPlayer(args[1]);
+
+                    if(target == null) {
+                        p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
+                        return true;
+                    }
+
+
+                    HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                    if(targetHPlayer.getRole().getClan().getName().equalsIgnoreCase("Hinamizawa")){
+                        p.sendMessage("vous ne pouvez pas voter pour un membre de votre clans");
+                        return true;
+                    }
+
+                    if(players.getRole().getClan().getName().equalsIgnoreCase("Hinamizawa")){
+
+                        Player allPlayer = players.getPlayer();
+
+                        TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
+                        TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]" );
+                        message.addExtra(clickable.getText());
+                        BaseComponent component = message;
+
+                        clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "vote " + targetHPlayer.getUuid().toString()));
+                        allPlayer.sendMessage(component.toLegacyText());
+
+                        oryoSonozaki.setAsVoted(true);
+
+                        return true;
+
+                    }
+
+                }
+            }
+        }
+
+        if(args[0].equalsIgnoreCase("force")){
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+            if(hPlayer.getRole().getClass().equals(Role.KASAI.getRole())){
+
+                Kasai kasai = (Kasai) hPlayer.getRole();
+
+                if(kasai.isGiveForce()){
+                    p.sendMessage("Vous avez déjà bousté votre force!");
+                    return true;
+                }
+                p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000, 1));
+                p.sendMessage("Votre force a été boosté!");
+                return true;
+            }
 
         }
 

@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,10 +19,19 @@ public class MionSonozaki extends RoleTemplate implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e){
-        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
+    public void onPlayerDeath(PlayerDeathEvent e) {
+        Player p = e.getEntity();
+        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
         HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
-        removeHearth(e, deathPlayer, playerAlive);
+
+
+        if (deathPlayer.getRole().getClass().equals(Role.MION_SONOZAKI.getRole())) {
+
+            if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
+                removeHearth(e, deathPlayer, playerAlive);
+            }
+
+        }
     }
 
 }

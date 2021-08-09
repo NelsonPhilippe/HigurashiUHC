@@ -19,9 +19,24 @@ public class ShionSonozaki extends RoleTemplate implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e){
-        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
+        Player p = e.getEntity();
+        Player killer = e.getEntity().getKiller();
+        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
         HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
-        removeHearth(e, deathPlayer, playerAlive);
+
+
+        if(deathPlayer.getRole().getClass().equals(Role.SHION_SONOSAKI.getRole())){
+
+            if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
+                removeHearth(e, deathPlayer, playerAlive);
+            }
+
+            HPlayer kasai = HigurashiUHC.getGameManager().getPlayerWithRole(Role.KASAI);
+
+            if(kasai != null){
+                kasai.getPlayer().sendMessage(p.getName() + " à été tué par " + killer.getName());
+            }
+        }
     }
 
     public static void removeHearth(PlayerDeathEvent e, HPlayer deathPlayer, HPlayer playerAlive) {

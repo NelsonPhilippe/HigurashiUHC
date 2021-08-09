@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class RikaFurude extends RoleTemplate implements Listener {
@@ -137,6 +138,31 @@ public class RikaFurude extends RoleTemplate implements Listener {
         bPlayer.setHealthScale(8);
         bPlayer.setHealth(8);
         bPlayer.setMaxHealth(8);
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent e){
+        Player p = e.getPlayer();
+
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+        if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
+
+            Location hanyuLocation = hanyu.getPlayer().getLocation();
+            Location rikaLocation = p.getLocation();
+
+            if(hanyuLocation.distanceSquared(rikaLocation) < 30 * 30){
+                for(Player players : Bukkit.getOnlinePlayers()){
+                    players.hidePlayer(p);
+                }
+            }else {
+                for (Player players : Bukkit.getOnlinePlayers()) {
+                    players.showPlayer(p);
+                }
+            }
+        }
+
     }
 
     public void resurrection(HPlayer rikaFurudePlayer, HPlayer resuPlayer){

@@ -9,6 +9,7 @@ import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
+import fr.xilitra.higurashiuhc.item.SuspectBook;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
@@ -41,6 +42,8 @@ public class GameManager {
 
         for(HPlayer player : this.players.values()){
 
+            player.getPlayer().getInventory().clear();
+
             int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
@@ -57,10 +60,13 @@ public class GameManager {
                 e.printStackTrace();
             }
 
-            System.out.println((RoleTemplate) roletemplate);
 
             player.setRole((RoleTemplate) roletemplate);
             players.replace(player.getUuid(), player);
+
+            if(role.getRole().equals(Role.KURAUDO_OISHI.getRole())){
+                player.getPlayer().getInventory().addItem(SuspectBook.suspectBook.getItemStack());
+            }
 
             for(MemberOfClub.roleList rolelist : MemberOfClub.roleList.values()){
 

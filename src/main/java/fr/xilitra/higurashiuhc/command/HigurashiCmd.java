@@ -10,6 +10,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -233,6 +234,40 @@ public class HigurashiCmd implements CommandExecutor {
                 }
             }
         }
+
+        if(args[0].equalsIgnoreCase("suspecter")){
+
+            if(args.length == 2){
+
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if(!hPlayer.getRole().getClass().equals(Role.KURAUDO_OISHI.getRole())) return true;
+
+                if(target == null){
+                    p.sendMessage("Le joueur n'exitse pas");
+                    return true;
+                }
+
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+
+                KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRole();
+
+                if(kuraudoOishi.getCountSuspect() == 0){
+                    Bukkit.broadcastMessage(p.getName() + "est " + kuraudoOishi.getName());
+                }
+
+                if(kuraudoOishi.getCountSuspect() >= 3){
+                    p.sendMessage("Vous avez déjà suspecté 3 joeurs différents vous ne pouvez plus suspecté quelqu'un");
+                    return true;
+                }
+
+                kuraudoOishi.addSuspect(targetHPlayer);
+                return true;
+            }
+        }
+
+
         return false;
     }
 }

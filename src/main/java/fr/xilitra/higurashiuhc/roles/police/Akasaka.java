@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles.police;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.task.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -31,8 +32,14 @@ public class Akasaka extends RoleTemplate implements Listener {
         ItemStack item = event.getItem();
 
         if(item.getItemMeta().getLore().get(0).equals(MatraqueItem.matraqueItem.getLore())){
+
+            if(MatraqueItem.matraqueItem.isUse()){
+                return;
+            }
+
             hPlayer.setPlayerDontMove(true);
             Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new StuntTask(hPlayer), 20, 20);
+            Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new CouldownMatraque(), 20, 20);
         }
 
     }

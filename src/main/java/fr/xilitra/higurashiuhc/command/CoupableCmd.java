@@ -16,6 +16,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class CoupableCmd implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -42,10 +44,8 @@ public class CoupableCmd implements CommandExecutor {
                     oishi.setCoupableIsDesigned(true);
                 }
 
-
                 playerOishi.getPlayer().sendMessage("Vous avez désigné le joueur " + target.getName() + " coupable");
-                playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getName());
-                playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+
 
                 if(targetHPlayer.getRole().getClan().getName().equalsIgnoreCase("Sonozaki")){
                     ItemStack arc = new ItemStack(Material.BOW, 1);
@@ -63,6 +63,9 @@ public class CoupableCmd implements CommandExecutor {
                     RikaFurude rikaFurude = (RikaFurude) targetHPlayer.getRole();
                     rikaFurude.setClan(new Hinamizawa("Hinamizawa"));
                 }
+
+                playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getName());
+                playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
 
                 return true;
             }

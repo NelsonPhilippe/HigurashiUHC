@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.game.task.PolicierTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
@@ -14,6 +15,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.police.Policier;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -320,7 +322,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                List<String> clans = Arrays.asList("Hinamizawa", "Police", "Mercenaire", "Neutre");
+                List<String> clans = Arrays.asList("Sonozaki", "Club", "Police", "Mercenaire", "Neutre");
 
                 if(kumagai.getCompareClanUsed().contains(args[2])){
                     p.sendMessage("Vous avez déja comparer un joueur avec ce clan");
@@ -332,6 +334,22 @@ public class HigurashiCmd implements CommandExecutor {
                     kumagai.addClanToCompareUsed(args[2]);
 
                     for(String clan : clans){
+
+                        if(targetHPlayer.getRole().getClass().equals(Role.MION_SONOZAKI.getRole()) || targetHPlayer.getRole().getClass().equals(Role.SHION_SONOSAKI.getRole())){
+
+                            Random random = new Random();
+                            int randomClan = random.nextInt(100);
+
+                            if(randomClan > 50){
+                                p.sendMessage(args[2] + " est dans le camp Sonozaki");
+                                return true;
+
+                            }
+
+                            p.sendMessage(args[2] + " est dans le camp Member of Club");
+                            return true;
+
+                        }
 
                         if(targetHPlayer.getRole().getClan().getName().equalsIgnoreCase(clan) ||
                                 targetHPlayer.getRole().getClan().getName().equalsIgnoreCase("Club")){
@@ -394,6 +412,41 @@ public class HigurashiCmd implements CommandExecutor {
 
 
                 p.sendMessage(args[1] + " n'est pas Rika.");
+                return true;
+
+            }
+
+        }
+
+        if(args[0].equalsIgnoreCase("pv")){
+
+            if(args.length == 2){
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if(!hPlayer.getRole().getClass().equals(Role.POLICIER.getRole())) return true;
+
+                if(target == null){
+
+                    p.sendMessage("Le joueur n'existe pas");
+                    return true;
+                }
+
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+
+
+                Policier policier = (Policier) targetHPlayer.getRole();
+
+                if(policier.isPvIsUsed()){
+                    p.sendMessage("Vous avez déjà utilisé votre pv");
+                    return true;
+                }
+
+                target.setMaxHealth(target.getMaxHealth() - 1);
+                policier.setPvIsUsed(true);
+                Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new PolicierTask(hPlayer), 20, 20);
+                p.sendMessage("Vous venez de mettre un pv à " + target.getName());
+
                 return true;
 
             }

@@ -10,6 +10,7 @@ import fr.xilitra.higurashiuhc.roles.neutre.SatoshiHojo;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.police.Policier;
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 
 public enum Role {
@@ -29,7 +30,8 @@ public enum Role {
     KIICHIRO_KIMIYOSHI(KiichiroKimiyoshi.class),
     KURAUDO_OISHI(KuraudoOishi.class),
     KUMAGAI(Kumagai.class),
-    AKASAKA(Akasaka.class);
+    AKASAKA(Akasaka.class),
+    POLICIER(Policier.class);
 
     private Class role;
 

@@ -10,7 +10,6 @@ import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
-import fr.xilitra.higurashiuhc.item.SuspectBook;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
@@ -66,7 +65,7 @@ public class GameManager {
             players.replace(player.getUuid(), player);
 
 
-            if(role.getRole().equals(Role.AKASAKA.getRole())){
+            if(role.getRole().equals(Role.AKASAKA.getRole())) {
                 player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
             }
 

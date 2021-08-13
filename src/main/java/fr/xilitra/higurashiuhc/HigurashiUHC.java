@@ -1,6 +1,9 @@
 package fr.xilitra.higurashiuhc;
 
 import fr.xilitra.higurashiuhc.command.*;
+import fr.xilitra.higurashiuhc.command.DebugCmd;
+import fr.xilitra.higurashiuhc.command.HigurashiCmd;
+import fr.xilitra.higurashiuhc.command.RessuciteCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;

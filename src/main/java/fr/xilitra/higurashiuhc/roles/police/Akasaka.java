@@ -36,12 +36,12 @@ public class Akasaka extends RoleTemplate implements Listener {
         }
 
     }
-
+    
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
-
+        
         if(hPlayer.playerDontMove()){
             event.setCancelled(true);
         }

@@ -72,7 +72,11 @@ case "`uname`" in
   Darwin* )
     darwin=true
     ;;
+<<<<<<< HEAD
   MSYS* | MINGW* )
+=======
+  MINGW* )
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
     msys=true
     ;;
   NONSTOP* )
@@ -82,7 +86,10 @@ esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
@@ -130,7 +137,10 @@ fi
 if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
     APP_HOME=`cygpath --path --mixed "$APP_HOME"`
     CLASSPATH=`cygpath --path --mixed "$CLASSPATH"`
+<<<<<<< HEAD
 
+=======
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
     JAVACMD=`cygpath --unix "$JAVACMD"`
 
     # We build the pattern for arguments to be converted via cygpath
@@ -156,6 +166,7 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
         else
             eval `echo args$i`="\"$arg\""
         fi
+<<<<<<< HEAD
         i=`expr $i + 1`
     done
     case $i in
@@ -169,6 +180,21 @@ if [ "$cygwin" = "true" -o "$msys" = "true" ] ; then
         7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
         8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
         9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+=======
+        i=$((i+1))
+    done
+    case $i in
+        (0) set -- ;;
+        (1) set -- "$args0" ;;
+        (2) set -- "$args0" "$args1" ;;
+        (3) set -- "$args0" "$args1" "$args2" ;;
+        (4) set -- "$args0" "$args1" "$args2" "$args3" ;;
+        (5) set -- "$args0" "$args1" "$args2" "$args3" "$args4" ;;
+        (6) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" ;;
+        (7) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" ;;
+        (8) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" ;;
+        (9) set -- "$args0" "$args1" "$args2" "$args3" "$args4" "$args5" "$args6" "$args7" "$args8" ;;
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
     esac
 fi
 
@@ -177,9 +203,21 @@ save () {
     for i do printf %s\\n "$i" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/' \\\\/" ; done
     echo " "
 }
+<<<<<<< HEAD
 APP_ARGS=`save "$@"`
+=======
+APP_ARGS=$(save "$@")
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
 
 # Collect all arguments for the java command, following the shell quoting and substitution rules
 eval set -- $DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS "\"-Dorg.gradle.appname=$APP_BASE_NAME\"" -classpath "\"$CLASSPATH\"" org.gradle.wrapper.GradleWrapperMain "$APP_ARGS"
 
+<<<<<<< HEAD
+=======
+# by default we should be in the correct project dir, but when run from Finder on Mac, the cwd is wrong
+if [ "$(uname)" = "Darwin" ] && [ "$HOME" = "$PWD" ]; then
+  cd "$(dirname "$0")"
+fi
+
+>>>>>>> d77fbd443d433cbe50b55e13ccbdaff193f5e44e
 exec "$JAVACMD" "$@"

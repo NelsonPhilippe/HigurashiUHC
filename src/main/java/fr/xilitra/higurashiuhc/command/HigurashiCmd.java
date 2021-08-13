@@ -263,6 +263,10 @@ public class HigurashiCmd implements CommandExecutor {
                 }
 
                 if(kuraudoOishi.getCountSuspect() > 3) {
+                    Bukkit.broadcastMessage(p.getName() + "est " + kuraudoOishi.getName());
+                }
+
+                if(kuraudoOishi.getCountSuspect() >= 3){
                     p.sendMessage("Vous avez déjà suspecté 3 joeurs différents vous ne pouvez plus suspecté quelqu'un");
                     return true;
                 }
@@ -395,7 +399,6 @@ public class HigurashiCmd implements CommandExecutor {
             }
 
         }
-
 
         return false;
     }

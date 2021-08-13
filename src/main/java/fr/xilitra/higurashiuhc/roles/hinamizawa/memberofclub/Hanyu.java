@@ -2,17 +2,22 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.event.DamageListener;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.task.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,6 +45,57 @@ public class Hanyu extends RoleTemplate implements Listener {
         if(player.getRole().getClass().equals(Role.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
         }
+    }
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent e){
+        if(!(e.getEntity() instanceof Player)) return;
+
+        Player player = (Player) e.getEntity();
+
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
+
+        if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
+
+        Entity entityDamager = player.getPlayer().getLastDamageCause().getEntity();
+
+        if(!(entityDamager instanceof Player)) return;
+
+        Player damager = (Player) entityDamager;
+        HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getPlayer(damager.getUniqueId());
+
+
+
+        if(hPlayer.getRole().getClass().equals(Role.HANYU.getRole())){
+            Hanyu hanyu = (Hanyu) hPlayer.getRole();
+
+
+            if(hanyu.isInvisible){
+                hanyu.setInvisible(false);
+
+                for(Player players : Bukkit.getOnlinePlayers()){
+                    players.showPlayer(player);
+                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new HanyuTaskInvisble(), 20, 20);
+                }
+            }
+        }
+
+
+        if(hPlayerDamager.getRole().getClass().equals(Role.HANYU.getRole())){
+
+            Hanyu hanyu = (Hanyu) hPlayer.getRole();
+            if(hanyu.isInvisible){
+                hanyu.setInvisible(false);
+
+                for(Player players : Bukkit.getOnlinePlayers()){
+                    players.showPlayer(player);
+                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new HanyuTaskInvisble(), 20, 20);
+                }
+            }
+
+        }
+
+
     }
 
 

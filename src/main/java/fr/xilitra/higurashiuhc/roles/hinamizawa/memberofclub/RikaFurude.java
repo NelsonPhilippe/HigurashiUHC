@@ -149,10 +149,19 @@ public class RikaFurude extends RoleTemplate implements Listener {
         if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
             HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
 
+            if(hanyu == null) return;
+
+            Hanyu hanyuRole = (Hanyu) hanyu.getRole();
+
             Location hanyuLocation = hanyu.getPlayer().getLocation();
             Location rikaLocation = p.getLocation();
 
             if(hanyuLocation.distanceSquared(rikaLocation) < 30 * 30){
+
+                if(hanyuRole.isInvisible()) return;
+
+                hanyuRole.setInvisible(true);
+
                 for(Player players : Bukkit.getOnlinePlayers()){
                     players.hidePlayer(p);
                 }

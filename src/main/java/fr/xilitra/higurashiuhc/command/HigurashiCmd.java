@@ -115,7 +115,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRole().getClass().equals(Role.ORYO_SONOZAKI.getRole())) return true;
+                if(!hPlayer.getRole().getClass().getName().equals(Role.ORYO_SONOZAKI.getRole().getName())) return true;
 
                 OryoSonozaki oryoSonozaki = (OryoSonozaki) hPlayer.getRole();
 
@@ -147,11 +147,11 @@ public class HigurashiCmd implements CommandExecutor {
 
                         TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
                         TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]" );
-                        message.addExtra(clickable.getText());
-                        BaseComponent component = message;
+                        message.addExtra(clickable);
 
                         clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "vote " + targetHPlayer.getUuid().toString()));
-                        allPlayer.sendMessage(component.toLegacyText());
+
+                        allPlayer.spigot().sendMessage(message);
 
                         oryoSonozaki.setAsVoted(true);
 
@@ -166,7 +166,7 @@ public class HigurashiCmd implements CommandExecutor {
         if(args[0].equalsIgnoreCase("force")){
             HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-            if(hPlayer.getRole().getClass().equals(Role.KASAI.getRole())){
+            if(hPlayer.getRole().getClass().getName().equals(Role.KASAI.getRole().getName())){
 
                 Kasai kasai = (Kasai) hPlayer.getRole();
 
@@ -189,7 +189,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRole().getClass().equals(Role.AKANE_SONOZAKI.getRole())) return true;
+                if(!hPlayer.getRole().getClass().getName().equals(Role.AKANE_SONOZAKI.getRole().getName())) return true;
                 AkaneSonozaki akaneSonozaki = (AkaneSonozaki) hPlayer.getRole();
 
                 int time = p.getStatistic(Statistic.PLAY_ONE_TICK);
@@ -224,7 +224,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRole().getClass().equals(Role.KIICHIRO_KIMIYOSHI.getRole())) return true;
+                if(!hPlayer.getRole().getClass().getName().equals(Role.KIICHIRO_KIMIYOSHI.getRole().getName())) return true;
 
                 if(target == null) return true;
 
@@ -249,7 +249,7 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
                 Player target = Bukkit.getPlayer(args[1]);
 
-                if(!hPlayer.getRole().getClass().equals(Role.KURAUDO_OISHI.getRole())) return true;
+                if(!hPlayer.getRole().getClass().getName().equals(Role.KURAUDO_OISHI.getRole().getName())) return true;
 
                 if(target == null){
                     p.sendMessage("Le joueur n'exitse pas");
@@ -299,6 +299,27 @@ public class HigurashiCmd implements CommandExecutor {
                     p.sendMessage("- " + info.getType() + " : " + infos.get(info));
                 }
 
+                TextComponent textComponent = new TextComponent("Désigner le joueur ");
+                TextComponent coupableClickable = new TextComponent("[Coupable]");
+                TextComponent ou = new TextComponent(" ou ");
+                TextComponent nonCoupableClickable = new TextComponent("[Non coupable]");
+
+                textComponent.addExtra(coupableClickable);
+                textComponent.addExtra(ou);
+                textComponent.addExtra(nonCoupableClickable);
+
+                coupableClickable.setBold(true);
+                coupableClickable.setColor(net.md_5.bungee.api.ChatColor.GOLD);
+
+                nonCoupableClickable.setBold(true);
+                nonCoupableClickable.setColor(net.md_5.bungee.api.ChatColor.GOLD);
+
+                coupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "coupable c"));
+
+                nonCoupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "coupable n"));
+
+                p.spigot().sendMessage(textComponent);
+
                 kuraudoOishi.addSuspect(targetHPlayer);
                 return true;
             }
@@ -310,7 +331,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRole().getClass().equals(Role.KUMAGAI.getRole())){
+                if(!hPlayer.getRole().getClass().getName().equals(Role.KUMAGAI.getRole().getName())){
                     return true;
                 }
 
@@ -335,7 +356,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                     for(String clan : clans){
 
-                        if(targetHPlayer.getRole().getClass().equals(Role.MION_SONOZAKI.getRole()) || targetHPlayer.getRole().getClass().equals(Role.SHION_SONOSAKI.getRole())){
+                        if(targetHPlayer.getRole().getClass().getName().equals(Role.MION_SONOZAKI.getRole().getName()) || targetHPlayer.getRole().getClass().getName().equals(Role.SHION_SONOSAKI.getRole().getName())){
 
                             Random random = new Random();
                             int randomClan = random.nextInt(100);
@@ -383,7 +404,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRole().getClass().equals(Role.AKASAKA.getRole())){
+                if(!hPlayer.getRole().getClass().getName().equals(Role.AKASAKA.getRole().getName())){
                     return true;
                 }
 
@@ -393,7 +414,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 akasaka.setCountCompare(akasaka.getCountCompare() + 1);
 
-                if(targetHPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+                if(targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
 
                     if(akasaka.getCountCompare() == 1){
                         p.setMaxHealth(1.5);
@@ -424,7 +445,7 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
                 Player target = Bukkit.getPlayer(args[1]);
 
-                if(!hPlayer.getRole().getClass().equals(Role.POLICIER.getRole())) return true;
+                if(!hPlayer.getRole().getClass().getName().equals(Role.POLICIER.getRole().getName())) return true;
 
                 if(target == null){
 

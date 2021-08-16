@@ -28,7 +28,7 @@ public class CoupableCmd implements CommandExecutor {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole().getClass().equals(Role.KURAUDO_OISHI.getRole())){
+        if(hPlayer.getRole().getClass().getName().equals(Role.KURAUDO_OISHI.getRole().getName())){
 
             if(args[0].equalsIgnoreCase("c")){
 
@@ -58,7 +58,7 @@ public class CoupableCmd implements CommandExecutor {
                     p.sendMessage("L'enquête a échoué.");
                 }
 
-                if(targetHPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+                if(targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
 
                     RikaFurude rikaFurude = (RikaFurude) targetHPlayer.getRole();
                     rikaFurude.setClan(new Hinamizawa("Hinamizawa"));

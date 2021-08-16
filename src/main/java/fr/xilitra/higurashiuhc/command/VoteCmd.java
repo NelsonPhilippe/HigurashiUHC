@@ -34,6 +34,8 @@ public class VoteCmd implements CommandExecutor {
                 oryoSonozaki.addVote(player);
 
                 Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new VoteTask(), 20, 20);
+
+                return true;
             }
         }
 

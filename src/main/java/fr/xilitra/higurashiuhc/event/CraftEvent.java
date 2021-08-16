@@ -19,10 +19,18 @@ public class CraftEvent implements Listener {
         if(craftedItem.isSimilar(CustomCraft.baseballBat.getItemStack())){
             HPlayer player = HigurashiUHC.getGameManager().getPlayer(e.getWhoClicked().getUniqueId());
 
-            if(!player.getRole().getClass().equals(Role.KEIICHI_MAEBARA.getRole()) || !player.getRole().getClass().equals(Role.SATOKO_HOJO.getRole())){
+            if(player.getRole() == null){
                 e.setCancelled(true);
                 return;
             }
+
+            if(!player.getRole().getName().equalsIgnoreCase("keiichi maebara")){
+                e.setCancelled(true);
+                return;
+            }//else if(!player.getRole().getClass().equals(Role..getRole())){
+               // e.setCancelled(true);
+               // return;
+            //}
 
             if(CustomCraft.baseballBat.isCrafted()){
                 e.setCancelled(true);
@@ -32,7 +40,7 @@ public class CraftEvent implements Listener {
             player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
 
             HigurashiUHC.getGameManager().getPlayers().values().forEach(players -> {
-                if(players.getRole().getClass().equals(Role.SATOSHI_HOJO.getRole())){
+                if(players.getRole().getName().equalsIgnoreCase("Satoshi Hojo")){
                     players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
                     CustomCraft.baseballBat.setCrafted(true);
                 }

@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.item.StartGameItem;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,12 +17,18 @@ public class InteractListener implements Listener {
         Player p = e.getPlayer();
 
         if(p.isOp()){
-            ItemStack item = e.getItem();
+            ItemStack item = e.getPlayer().getInventory().getItemInHand();
+
+            if (p.getItemInHand().getType() == Material.AIR || p.getItemInHand() == null || !p.getItemInHand().getItemMeta().hasLore()) {
+                return;
+            }
             String lore = item.getItemMeta().getLore().get(0);
+
 
             if(lore.equals(StartGameItem.startGameItem.getLore())){
                 HigurashiUHC.getGameManager().start();
                 e.setCancelled(true);
+                return;
             }
 
         }

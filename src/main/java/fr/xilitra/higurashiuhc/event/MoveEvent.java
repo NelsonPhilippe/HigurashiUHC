@@ -35,7 +35,7 @@ public class MoveEvent implements Listener {
         }
 
         for(MemberOfClub.roleList roleList : MemberOfClub.roleList.values()){
-            if(roleList.getRole().equals(hPlayer.getRole().getClass())){
+            if(roleList.getRole().getName().equals(hPlayer.getRole().getClass().getName())){
 
                 if(rika != null){
                     if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {

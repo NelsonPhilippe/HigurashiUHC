@@ -1,11 +1,13 @@
 package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -17,6 +19,8 @@ public class GameTask extends TimerTask {
 
     private int time = 0;
     private int decount = 3;
+    private int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
+
 
 
     @Override
@@ -58,12 +62,10 @@ public class GameTask extends TimerTask {
 
         }
 
-        int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time");
-
-        timePhase = timePhase * 60;
-
         if(time == timePhase){
+            timePhase = timePhase + timePhase;
             HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
+            Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));
         }
         time++;
     }

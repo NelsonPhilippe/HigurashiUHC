@@ -27,7 +27,7 @@ public class DeathListener implements Listener {
         Role[] rolesRikaResu = {Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU};
 
         for(Role role : rolesRikaResu){
-            if(role.getRole().equals(hPlayer.getRole().getClass())){
+            if(role.getRole().getName().equals(hPlayer.getRole().getClass().getName())){
                 TextComponent textComponent = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
 
                 textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));

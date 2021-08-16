@@ -6,7 +6,6 @@ import fr.xilitra.higurashiuhc.command.HigurashiCmd;
 import fr.xilitra.higurashiuhc.command.RessuciteCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
-import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
@@ -56,6 +55,7 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
         this.getServer().getPluginManager().registerEvents(new DeathListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
 
         //role listener
         this.getServer().getPluginManager().registerEvents(new RikaFurude(), this);

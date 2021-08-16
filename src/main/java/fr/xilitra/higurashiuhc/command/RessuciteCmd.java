@@ -29,7 +29,7 @@ public class RessuciteCmd implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[1]);
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-            if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+            if(hPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
 
                 if(((DeathTask) hPlayerTarget.getDeathTask()).isStarted()){
 

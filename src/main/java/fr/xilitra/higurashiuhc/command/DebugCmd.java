@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.Bukkit;
@@ -33,7 +34,9 @@ public class DebugCmd implements CommandExecutor {
 
                         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);
 
-                        hPlayer.getPlayer().sendMessage(
+                        System.out.println(hPlayer.getRole().getName());
+
+                        p.sendMessage(
                                 ChatColor.GOLD + hPlayer.getRole().getName()
                                         + " : "
                                         + ChatColor.GREEN  + hPlayer.getName());
@@ -68,7 +71,10 @@ public class DebugCmd implements CommandExecutor {
 
                 if(HigurashiUHC.getGameManager().getPlayers().containsKey(bTarget.getUniqueId())){
 
-                    HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                    HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(bTarget.getUniqueId());
+
+                    System.out.println(hPlayer.getName());
 
                     String role = args[2];
 
@@ -90,9 +96,13 @@ public class DebugCmd implements CommandExecutor {
                         try {
                             RoleTemplate roleTemplate = (RoleTemplate) roleList.getRole().newInstance();
 
+
                             if(role.equalsIgnoreCase(roleTemplate.getName() + " ")){
                                 hPlayer.setRole(roleTemplate);
+                                Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                                 p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
+                                HigurashiUHC.getGameManager().getPlayers().put(hPlayer.getUuid(), hPlayer);
+                                Bukkit.getServer().getPluginManager().callEvent(new RoleSelected(hPlayer));
                                 return true;
                             }
 
@@ -116,6 +126,8 @@ public class DebugCmd implements CommandExecutor {
 
         try{
             HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);
+
+            System.out.println(hPlayer.getName());
 
             if(hPlayer == null){
                 return false;

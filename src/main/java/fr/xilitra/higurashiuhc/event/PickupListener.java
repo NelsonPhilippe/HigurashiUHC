@@ -19,8 +19,10 @@ public class PickupListener implements Listener {
 
         ItemStack item = e.getItem().getItemStack();
 
+        if(!item.getItemMeta().hasLore()) return;
+
         if(item.getItemMeta().getLore().get(0).equalsIgnoreCase(CustomCraft.baseballBat.getLore())){
-            if(!hPlayer.getRole().getClass().equals(Role.KEIICHI_MAEBARA.getRole()) || !hPlayer.getRole().getClass().equals(Role.SATOSHI_HOJO.getRole())){
+            if(!hPlayer.getRole().getClass().getName().equals(Role.KEIICHI_MAEBARA.getRole().getName()) || !hPlayer.getRole().getClass().getName().equals(Role.SATOSHI_HOJO.getRole().getName())){
                 e.setCancelled(true);
             }
         }

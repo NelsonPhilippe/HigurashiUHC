@@ -25,7 +25,7 @@ public class MionSonozaki extends RoleTemplate implements Listener {
         HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
 
 
-        if (deathPlayer.getRole().getClass().equals(Role.MION_SONOZAKI.getRole())) {
+        if (deathPlayer.getRole().getClass().getName().equals(Role.MION_SONOZAKI.getRole().getName())) {
 
             if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
                 removeHearth(e, deathPlayer, playerAlive);

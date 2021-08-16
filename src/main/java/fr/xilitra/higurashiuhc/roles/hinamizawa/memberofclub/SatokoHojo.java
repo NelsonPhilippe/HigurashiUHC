@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -23,13 +24,14 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SatokoHojo extends RoleTemplate implements Listener {
 
     public static List<Location> blockTraps = new ArrayList<>();
 
     public SatokoHojo() {
-        super("SatokoHojo", Gender.FEMME);
+        super("Satoko Hojo", Gender.FEMME);
     }
 
 
@@ -78,7 +80,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
             return;
         }
 
-        if(!(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole()))) return;
+        if(!(hPlayer.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName()))) return;
 
         ItemStack item = e.getItem();
 
@@ -94,8 +96,27 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         }
     }
 
+    @EventHandler
+    public void onRoleSelected(RoleSelected e){
+
+        HPlayer player = e.getPlayer();
+
+        if(player.getRole().getClass().getName().equalsIgnoreCase(Role.SATOKO_HOJO.getRole().getName())){
+
+            Random random = new Random();
+
+            int itemNumber = random.nextInt(3);
+
+            ItemStack[] itemStacks = {Traps.slowBall.getItemStack(), Traps.hoeTrap.getItemStack(), Traps.fireCracker.getItemStack()};
+
+            player.getPlayer().getInventory().addItem(itemStacks[itemNumber]);
+
+        }
+
+    }
+
     public static void removeTraps(HPlayer hPlayer){
-        if(hPlayer.getRole().getClass().equals(Role.SATOKO_HOJO.getRole())){
+        if(hPlayer.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName())){
             Inventory inventory = hPlayer.getPlayer().getInventory();
 
             for(ItemStack item : inventory.getContents()){

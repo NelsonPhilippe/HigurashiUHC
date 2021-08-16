@@ -135,9 +135,13 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         Player bPlayer = player.getPlayer();
 
-        bPlayer.setHealthScale(8);
-        bPlayer.setHealth(8);
-        bPlayer.setMaxHealth(8);
+        if(player.getRole().getClass().getName().equalsIgnoreCase(Role.RIKA_FURUDE.getRole().getName())){
+            bPlayer.setHealthScale(8);
+            bPlayer.setHealth(8);
+            bPlayer.setMaxHealth(8);
+        }
+
+
     }
 
     @EventHandler
@@ -146,7 +150,9 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
+        if(hPlayer.getRole() == null) return;
+
+        if(hPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
             HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
 
             if(hanyu == null) return;

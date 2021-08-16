@@ -171,10 +171,19 @@ public class GameManager {
     }
 
     public HPlayer getPlayerWithRole(Role role){
-        for(HPlayer player : players.values()){
-            if(role.getRole().equals(player.getRole().getClass())){
-                return player;
+        try{
+            for(HPlayer player : players.values()){
+
+                if(player.getRole() != null) {
+
+
+                    if (role.getRole().equals(player.getRole().getClass())) {
+                        return player;
+                    }
+                }
             }
+        }catch (NullPointerException e){
+            return null;
         }
 
         return null;

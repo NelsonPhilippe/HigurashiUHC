@@ -17,6 +17,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -48,7 +49,7 @@ public class Hanyu extends RoleTemplate implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageEvent e){
+    public void onPlayerDamage(EntityDamageByEntityEvent e){
         if(!(e.getEntity() instanceof Player)) return;
 
         Player player = (Player) e.getEntity();
@@ -57,7 +58,7 @@ public class Hanyu extends RoleTemplate implements Listener {
 
         if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
 
-        Entity entityDamager = player.getPlayer().getLastDamageCause().getEntity();
+        Entity entityDamager = e.getDamager();
 
         if(!(entityDamager instanceof Player)) return;
 
@@ -66,7 +67,7 @@ public class Hanyu extends RoleTemplate implements Listener {
 
 
 
-        if(hPlayer.getRole().getClass().equals(Role.HANYU.getRole())){
+        if(hPlayer.getRole().getClass().getName().equals(Role.HANYU.getRole().getName())){
             Hanyu hanyu = (Hanyu) hPlayer.getRole();
 
 

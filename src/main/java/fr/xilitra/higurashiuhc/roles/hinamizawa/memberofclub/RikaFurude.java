@@ -120,9 +120,6 @@ public class RikaFurude extends RoleTemplate implements Listener {
                return;
 
            }
-
-
-
            //player.teleport(new Location());
 
         }
@@ -136,9 +133,9 @@ public class RikaFurude extends RoleTemplate implements Listener {
         Player bPlayer = player.getPlayer();
 
         if(player.getRole().getClass().getName().equalsIgnoreCase(Role.RIKA_FURUDE.getRole().getName())){
-            bPlayer.setHealthScale(8);
-            bPlayer.setHealth(8);
-            bPlayer.setMaxHealth(8);
+            bPlayer.setHealthScale(16);
+            bPlayer.setHealth(16);
+            bPlayer.setMaxHealth(16);
         }
 
 

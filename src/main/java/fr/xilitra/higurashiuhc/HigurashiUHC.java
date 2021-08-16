@@ -95,6 +95,7 @@ public final class HigurashiUHC extends JavaPlugin {
     @Override
     public void onDisable() {
         for(Player p : Bukkit.getOnlinePlayers()){
+            p.getInventory().clear();
             p.kickPlayer("Redémarrage du serveur.");
         }
     }

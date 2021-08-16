@@ -2,8 +2,6 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Clans;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.game.task.PolicierTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -16,7 +14,6 @@ import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.roles.police.Policier;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -107,7 +104,7 @@ public class HigurashiCmd implements CommandExecutor {
             Location loc = new Location(Bukkit.getWorld(world), x, y, z);
             hanyu.getPlayer().teleport(loc);
 
-
+            return true;
         }
 
         if(args[0].equalsIgnoreCase("ban")){

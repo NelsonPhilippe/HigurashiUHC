@@ -68,56 +68,83 @@ public class DamageListener implements Listener {
                 }
             }
 
-            for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
+            HPlayer player = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
 
-                if(!(e.getDamager() instanceof Player)) return;
+            if(player != null){
 
-                if(player.getRole().getClass().equals(Role.RENA_RYUGU.getRole())){
+                RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
 
-                    RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
+                if(renaRyugu.gethPlayerPense() != null){
 
-                    if(renaRyugu.gethPlayerPense() != null){
+                    System.out.println(renaRyugu.gethPlayerPense().getUuid().toString());
 
-                        if(renaRyugu.gethPlayerPense() == HigurashiUHC.getGameManager().getPlayer(p.getLastDamageCause().getEntity().getUniqueId())){
 
-                            if(renaRyugu.isPenseIsUsed()){
-                                return;
-                            }
+                    if(renaRyugu.gethPlayerPense().getUuid().equals(damager.getUniqueId())){
 
-                            HPlayer rena = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
 
-                            rena.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
-                            renaRyugu.setPenseIsUsed(true);
-
+                        if(renaRyugu.isPenseIsUsed()){
+                            return;
                         }
 
-                    }
-                }
 
+                        player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
+                        renaRyugu.setPenseIsUsed(true);
+
+                    }
+
+                }
             }
 
-            linkMionShionHearth(e);
+
+
         }
     }
 
-    private void linkMionShionHearth(EntityDamageEvent e){
+    @EventHandler
+    public void linkMionShionHearth(EntityDamageEvent e){
+
         if(!(e.getEntity() instanceof Player)) return;
+
 
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        setLiveMionShion(e, p, hPlayer, Role.MION_SONOZAKI, Role.SHION_SONOSAKI);
+        double damage = limitDamege(e.getDamage());
 
-        setLiveMionShion(e, p, hPlayer, Role.SHION_SONOSAKI, Role.MION_SONOZAKI);
+        if(p.getHealth() <= 20) return;
+
+        if(hPlayer.getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
+
+
+            HPlayer shionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
+
+            if(shionPlayer == null) return;
+
+            if(shionPlayer.getPlayer().getHealth() <= 20) return;
+
+            shionPlayer.getPlayer().damage(damage);
+
+        }
+
+        if(hPlayer.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+            HPlayer mionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
+
+            if(mionPlayer == null) return;
+
+            if(mionPlayer.getPlayer().getHealth() <= 20) return;
+
+
+            mionPlayer.getPlayer().damage(damage);
+        }
     }
 
-    private void setLiveMionShion(EntityDamageEvent e, Player p, HPlayer hPlayer, Role shionSonosaki, Role mionSonozaki) {
-        if(hPlayer.getRole().getClass().getName().equals(shionSonosaki.getRole().getName())){
+    private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
+        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
                 for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayers().values()){
 
-                    if(hPlayers.getRole().getClass().equals(mionSonozaki.getRole())){
+                    if(hPlayers.getRole().getName().equalsIgnoreCase(role2)){
                         double damage = limitDamege(e.getDamage());
                         hPlayer.getPlayer().damage(damage);
                         break;

@@ -9,6 +9,8 @@ import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Map;
@@ -20,12 +22,19 @@ public class GameTask extends TimerTask {
     private int time = 0;
     private int decount = 3;
     private int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
-
+    private int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
 
 
     @Override
     public void run() {
 
+        if(time == worldborderActivation){
+            World world = Bukkit.getWorld("world");
+
+            WorldBorder border = world.getWorldBorder();
+            border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder"));
+        }
+        
         String formatTime = TimeUtils.formatTime(time);
         int player_remaining = HigurashiUHC.getGameManager().getPlayers().size() - HigurashiUHC.getGameManager().getSpectator().size();
 

@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -14,6 +15,16 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class ShionSonozaki extends RoleTemplate implements Listener {
     public ShionSonozaki() {
         super("Shion Sonozaki", Gender.FEMME);
+    }
+
+    @EventHandler
+    public void onRoleSelected(RoleSelected e){
+        HPlayer player = e.getPlayer();
+
+        if(player.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+            player.getPlayer().setMaxHealth(24);
+            player.getPlayer().setHealth(24);
+        }
     }
 
 

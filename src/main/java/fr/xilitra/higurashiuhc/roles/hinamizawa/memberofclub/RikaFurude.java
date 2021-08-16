@@ -133,7 +133,6 @@ public class RikaFurude extends RoleTemplate implements Listener {
         Player bPlayer = player.getPlayer();
 
         if(player.getRole().getClass().getName().equalsIgnoreCase(Role.RIKA_FURUDE.getRole().getName())){
-            bPlayer.setHealthScale(16);
             bPlayer.setHealth(16);
             bPlayer.setMaxHealth(16);
         }

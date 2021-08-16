@@ -69,11 +69,11 @@ public class MoveEvent implements Listener {
                         return;
                     }
 
-                    if(satokoHojo != null){
-                        satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
-                        SatokoHojo.blockTraps.remove(loc);
-                        break;
-                    }
+
+                    satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
+                    SatokoHojo.blockTraps.remove(loc);
+                    break;
+
                 }
             }
         }

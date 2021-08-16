@@ -29,6 +29,7 @@ repositories {
 
 dependencies {
     compileOnly name: 'spigot'
+    compile name: 'DatouNms-1.2.1'
     compile 'fr.mrmicky:fastboard:1.2.0'
 }
 

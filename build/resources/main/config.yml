@@ -6,6 +6,15 @@ phase-time: 15
 
 rika-death-time: 40
 
+#Taille de bordure au commencement de partie
+worldborder: 2000
+#Temps Activation de la barriere en seconde
+activation-time: 3500
+#Taille de bordure minimum apres réduction
+worldborder-min: 200
+#block par seconde réduit (moitié de block par défaut)
+wordborder-time-reduce: 0.5
+
 hanyu:
   dimension:
     spawn-location:

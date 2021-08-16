@@ -9,7 +9,11 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
+import me.lulu.datounms.model.biome.BiomeData;
+import me.lulu.datounms.v1_8_R3.BiomeReplacer;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -39,6 +43,10 @@ public final class HigurashiUHC extends JavaPlugin {
         CustomCraft.addRecipeBaseball();
 
         manager.config();
+
+        BiomeReplacer biomeReplacer = new BiomeReplacer();
+        biomeReplacer.swap(BiomeData.JUNGLE, BiomeData.FOREST);
+        biomeReplacer.swap(BiomeData.OCEAN, BiomeData.FOREST);
 
     }
 

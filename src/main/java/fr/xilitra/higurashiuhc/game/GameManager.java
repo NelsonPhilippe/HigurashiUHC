@@ -14,6 +14,8 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 
 import java.util.*;
 
@@ -93,6 +95,12 @@ public class GameManager {
         TimerTask task = new StartTask();
         Timer run = new Timer("Start");
         run.scheduleAtFixedRate(task, 1000, 1000);
+
+        World world = Bukkit.getWorld("world");
+
+        WorldBorder border = world.getWorldBorder();
+        border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder"));
+        border.setCenter(0.0, 0.0);
 
     }
 

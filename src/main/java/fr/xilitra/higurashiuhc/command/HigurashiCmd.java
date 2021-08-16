@@ -23,6 +23,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
@@ -41,7 +43,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 if(rena == null || rena.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
-                if(((RenaRyugu) rena.getRole()).gethPlayerPense() == null) return true;
+                if(((RenaRyugu) rena.getRole()).gethPlayerPense() != null) return true;
 
                 Player target = Bukkit.getPlayer(args[1]);
 
@@ -79,30 +81,58 @@ public class HigurashiCmd implements CommandExecutor {
                 return true;
             }
 
+            boolean teleportRika = false;
+
+            int xH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.x");
+            int yH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.y");
+            int zH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.z");
+            float pitchH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.pitch");
+            String worldH = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
+
+            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
+            if(rika == null) return true;
+
+            int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
+            int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");
+            int z = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.z");
+            float pitch = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.pitch");
+            String world = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.rika.world");
+
             if(args.length == 2){
+
+
                 if(args[1].equalsIgnoreCase("rika")){
-                    HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
-                    if(rika == null) return true;
+                    teleportRika = true;
+                    rika.getPlayer().sendMessage("Vous allez être téléporté dans la dimension de Hanyu dans 1 minute");
+                    hanyu.getPlayer().sendMessage("Vous allez être téléporté dans la dimension avec rika dans 1 minute");
 
-                    int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
-                    int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");
-                    int z = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.z");
-                    float pitch = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.pitch");
-                    String world = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.rika.world");
-                    Location loc = new Location(Bukkit.getWorld(world), x, y, z);
-                    rika.getPlayer().teleport(loc);
-
-                    return true;
                 }
+
+            }else {
+                hanyu.getPlayer().sendMessage("Vous allez être téléporté dans la dimension dans 1 minute");
+
             }
 
-            int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.x");
-            int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.y");
-            int z = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.z");
-            float pitch = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.pitch");
-            String world = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
-            Location loc = new Location(Bukkit.getWorld(world), x, y, z);
-            hanyu.getPlayer().teleport(loc);
+
+            boolean finalTeleportRika = teleportRika;
+            Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new BukkitRunnable() {
+
+                int time = 60;
+
+                @Override
+                public void run() {
+
+                    if(time == 0){
+                        hanyu.getPlayer().teleport(new Location(Bukkit.getWorld(worldH), xH, yH, zH));
+
+                        if(finalTeleportRika){
+                            Location loc = new Location(Bukkit.getWorld(world), x, y, z);
+                            rika.getPlayer().teleport(loc);
+                        }
+                        this.cancel();
+                    }
+                }
+            }, 20 ,20);
 
             return true;
         }

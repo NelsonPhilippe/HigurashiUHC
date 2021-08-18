@@ -9,6 +9,7 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -71,6 +72,7 @@ public class MoveEvent implements Listener {
 
 
                     satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
+                    loc.getBlock().setType(Material.SOIL);
                     SatokoHojo.blockTraps.remove(loc);
                     break;
 

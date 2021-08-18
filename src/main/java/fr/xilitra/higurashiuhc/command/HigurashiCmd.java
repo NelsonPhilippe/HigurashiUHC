@@ -319,6 +319,32 @@ public class HigurashiCmd implements CommandExecutor {
 
                     KuraudoOishi.infoList info = infoList[randomInfo];
 
+                    if(info.equals(KuraudoOishi.infoList.EFFECT)){
+
+
+                        if(p.getActivePotionEffects().size() > 0){
+                            int randomEffect = random.nextInt(p.getActivePotionEffects().size());
+                            p.sendMessage("- " + info.getType() + " : " + p.getActivePotionEffects().toArray()[randomEffect]);
+
+                        }
+
+
+                    }else {
+
+                        if(info.equals(KuraudoOishi.infoList.ROLE)){
+                            char letter = 0;
+
+                            for(int c = 0; c < targetHPlayer.getRole().getName().length(); c++){
+                                letter = targetHPlayer.getRole().getName().charAt(c);
+                            }
+
+                            p.sendMessage("- " + info.getType() + " : " + letter);
+
+                        }else {
+                            p.sendMessage("- " + info.getType() + " : " + infos.get(info));
+                        }
+                    }
+
                     p.sendMessage("- " + info.getType() + " : " + infos.get(info));
                 }
 

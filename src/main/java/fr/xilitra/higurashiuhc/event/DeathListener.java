@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -64,6 +65,14 @@ public class DeathListener implements Listener {
             }
 
         }
+
+        Player killer = e.getEntity().getKiller();
+        HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+
+        killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
+                String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
+
+        System.out.println(killer.getName() + " : kill " + killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL));
 
     }
 }

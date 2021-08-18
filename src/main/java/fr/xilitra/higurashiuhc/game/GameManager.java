@@ -12,6 +12,7 @@ import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -67,6 +68,7 @@ public class GameManager {
 
             player.setRole((RoleTemplate) roletemplate);
             players.replace(player.getUuid(), player);
+            player.getInfo().put(KuraudoOishi.infoList.SEXE, player.getRole().getSexe().name());
 
 
             if(role.getRole().equals(Role.AKASAKA.getRole())) {
@@ -91,8 +93,8 @@ public class GameManager {
                 player.getPlayer().setHealth(22);
             }
 
-
             Bukkit.getPluginManager().callEvent(new RoleSelected(player));
+
         }
         TimerTask task = new StartTask();
         Timer run = new Timer("Start");

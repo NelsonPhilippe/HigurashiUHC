@@ -1,10 +1,11 @@
-package fr.xilitra.higurashiuhc.item;
+package fr.xilitra.higurashiuhc.item.config;
 
+import fr.xilitra.higurashiuhc.item.ItemBuilder;
 import org.bukkit.Material;
 
 import java.util.UUID;
 
-public class StartGameItem extends ItemBuilder{
+public class StartGameItem extends ItemBuilder {
 
     public static StartGameItem startGameItem = new StartGameItem();
 

@@ -13,19 +13,19 @@ public class TimeUtils {
         String formatMinutes;
         String time = "00:00";
 
-        if(s > 60){
+        if(s > 59){
             s = 0;
-            m+=1;
+            m++;
         }
 
 
-        if(s < 10){
+        if(s < 9){
             formatSeconds = "0" + s;
         }else{
             formatSeconds = String.valueOf(s);
         }
 
-        if(m < 10){
+        if(m < 9){
             formatMinutes = "0" + m;
         }else {
             formatMinutes = String.valueOf(m);

@@ -28,10 +28,12 @@ public class GameManager {
     private int episode = 0;
     private Hinamizawa hinamizawa = new Hinamizawa("Hinamizawa");
     private Mercenaire mercenaire = new Mercenaire("Mercenaire");
+    private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
     private Runnable rikaDeathTask = new RikaDeathTask();
 
     public void config(){
         setStates(GameStates.CONFIG);
+
     }
 
     public void start() {
@@ -46,7 +48,7 @@ public class GameManager {
 
             player.getPlayer().getInventory().clear();
 
-            int number = new Random().nextInt(roles.size()) - 1;
+            int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
 
@@ -176,6 +178,14 @@ public class GameManager {
 
     public HPlayer getPlayer(UUID uuid){
         return players.get(uuid);
+    }
+
+    public double getWorldBorder() {
+        return worldBorder;
+    }
+
+    public void setWorldBorder(double worldBorder) {
+        this.worldBorder = worldBorder;
     }
 
     public HPlayer getPlayerWithRole(Role role){

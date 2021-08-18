@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.task.DimensionTaskTp;
 import fr.xilitra.higurashiuhc.game.task.PolicierTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -75,6 +76,8 @@ public class HigurashiCmd implements CommandExecutor {
 
             Hanyu hanyuRole = (Hanyu) hanyu.getRole();
 
+            System.out.println("test");
+
             if(hanyuRole.isDimensionIsUsed()) {
 
                 p.sendMessage("Vous avez déjà utilisé la téléportation a votre dimension.");
@@ -90,7 +93,6 @@ public class HigurashiCmd implements CommandExecutor {
             String worldH = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
 
             HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
-            if(rika == null) return true;
 
             int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
             int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");
@@ -102,11 +104,21 @@ public class HigurashiCmd implements CommandExecutor {
 
 
                 if(args[1].equalsIgnoreCase("rika")){
-                    teleportRika = true;
-                    rika.getPlayer().sendMessage("Vous allez être téléporté dans la dimension de Hanyu dans 1 minute");
-                    hanyu.getPlayer().sendMessage("Vous allez être téléporté dans la dimension avec rika dans 1 minute");
+
+                    if(rika != null) {
+                        teleportRika = true;
+                        rika.getPlayer().sendMessage("Vous allez être téléporté dans la dimension de Hanyu dans 1 minute");
+                        hanyu.getPlayer().sendMessage("Vous allez être téléporté dans la dimension avec rika dans 1 minute");
+
+                    }else {
+
+                        p.sendMessage("Rika n'est pas dans la partie.");
+
+                    }
 
                 }
+
+
 
             }else {
                 hanyu.getPlayer().sendMessage("Vous allez être téléporté dans la dimension dans 1 minute");
@@ -115,24 +127,8 @@ public class HigurashiCmd implements CommandExecutor {
 
 
             boolean finalTeleportRika = teleportRika;
-            Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new BukkitRunnable() {
+            Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new DimensionTaskTp(hanyu, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)), 20 ,20);
 
-                int time = 60;
-
-                @Override
-                public void run() {
-
-                    if(time == 0){
-                        hanyu.getPlayer().teleport(new Location(Bukkit.getWorld(worldH), xH, yH, zH));
-
-                        if(finalTeleportRika){
-                            Location loc = new Location(Bukkit.getWorld(world), x, y, z);
-                            rika.getPlayer().teleport(loc);
-                        }
-                        this.cancel();
-                    }
-                }
-            }, 20 ,20);
 
             return true;
         }

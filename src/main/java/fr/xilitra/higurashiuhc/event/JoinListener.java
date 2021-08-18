@@ -2,7 +2,8 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameStates;
-import fr.xilitra.higurashiuhc.item.StartGameItem;
+import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
+import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
@@ -25,6 +26,7 @@ public class JoinListener implements Listener {
 
         if(p.isOp()){
             p.getInventory().setItem(8, StartGameItem.startGameItem.getItemStack());
+            p.getInventory().setItem(0, MapItemConfig.mapItemConfig.getItemStack());
         }
 
         if(HigurashiUHC.getGameManager().getStates() == GameStates.CONFIG){

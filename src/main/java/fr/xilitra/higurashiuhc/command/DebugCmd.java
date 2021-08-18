@@ -79,7 +79,7 @@ public class DebugCmd implements CommandExecutor {
                     String role = args[2];
 
 
-                    if(args.length > 3) {
+                    if(args.length >= 4) {
                         StringBuilder builder = new StringBuilder();
 
                         for(int i = 2; i < args.length; i++){
@@ -89,6 +89,8 @@ public class DebugCmd implements CommandExecutor {
                         role = builder.toString();
                     }
 
+                    System.out.println(role);
+
 
 
                     for(Role roleList : Role.values()){
@@ -97,7 +99,7 @@ public class DebugCmd implements CommandExecutor {
                             RoleTemplate roleTemplate = (RoleTemplate) roleList.getRole().newInstance();
 
 
-                            if(role.equalsIgnoreCase(roleTemplate.getName() + " ")){
+                            if(role.equalsIgnoreCase(roleTemplate.getName() + " ") || role.equalsIgnoreCase(roleTemplate.getName())){
                                 hPlayer.setRole(roleTemplate);
                                 Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                                 p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);

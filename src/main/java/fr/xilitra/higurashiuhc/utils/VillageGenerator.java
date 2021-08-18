@@ -1,7 +1,13 @@
 package fr.xilitra.higurashiuhc.utils;
 
-import org.bukkit.World;
-import org.bukkit.block.Biome;
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+import net.minecraft.server.v1_8_R3.StructureBoundingBox;
+import net.minecraft.server.v1_8_R3.World;
+import net.minecraft.server.v1_8_R3.WorldGenVillage;
+import org.bukkit.ChatColor;
+import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -9,37 +15,31 @@ import java.util.Random;
 
 public class VillageGenerator {
 
-    private String nms;
-    private String cb;
-    private Biome biomes[] = new Biome[] { Biome.PLAINS, Biome.DESERT, Biome.SAVANNA, Biome.TAIGA };
-
-
-    public void create(World w, int i, int j, int k, int r, int t) {
-        if (t < 0 || t > 3)
-            throw new ArrayIndexOutOfBoundsException();
+    public static void generate(org.bukkit.World world, int x, int z, int size, int radius) {
 
 
         try {
-            Class<?> wg = Class.forName(this.nms + "WorldGenVillage$WorldGenVillageStart");
-            Class<?> cw = Class.forName(this.cb + "CraftWorld");
-            Class<?> sb = Class.forName(this.nms + "StructureBoundingBox");
+            Class<?> wg = WorldGenVillage.WorldGenVillageStart.class;
+            Class<?> cw = CraftWorld.class;
+            Class<?> sb = StructureBoundingBox.class;
             Class<Integer> Int = Integer.TYPE;
             Method cwm = cw.getMethod("getHandle", new Class[0]);
-            Method wgm = wg.getMethod("a", new Class[] { Class.forName(this.nms + "World"), Random.class, sb });
+            Method wgm = wg.getMethod("a", new Class[] { World.class, Random.class, sb });
 
             Constructor<?> sbc = sb.getConstructor(new Class[] { Int, Int, Int, Int });
-            Object sbo = sbc.newInstance(new Object[] { Integer.valueOf(i - r), Integer.valueOf(j - r),
-                    Integer.valueOf(i + r), Integer.valueOf(j + r) });
+            Object sbo = sbc.newInstance(new Object[] { Integer.valueOf(x - radius), Integer.valueOf(x - radius),
+                    Integer.valueOf(x + radius), Integer.valueOf(z + radius) });
 
             Constructor<?> wgc = wg
-                    .getConstructor(new Class[] { Class.forName(this.nms + "World"), Random.class, Int, Int, Int });
+                    .getConstructor(new Class[] { World.class, Random.class, Int, Int, Int });
 
-            Object wgo = wgc.newInstance(new Object[] { cwm.invoke(cw.cast(w), new Object[0]), new Random(),
-                    Integer.valueOf(i >> 4), Integer.valueOf(j >> 4), Integer.valueOf(k) });
+            Object wgo = wgc.newInstance(new Object[] { cwm.invoke(cw.cast(world), new Object[0]), new Random(),
+                    Integer.valueOf(x >> 4), Integer.valueOf(z >> 4), Integer.valueOf(size) });
 
-            wgm.invoke(wgo, new Object[] { cwm.invoke(cw.cast(w), new Object[0]), new Random(), sbo });
+            wgm.invoke(wgo, new Object[] { cwm.invoke(cw.cast(world), new Object[0]), new Random(), sbo });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

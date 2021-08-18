@@ -28,11 +28,13 @@ public class GameTask extends TimerTask {
     @Override
     public void run() {
 
-        if(time == worldborderActivation){
+        if(time >= worldborderActivation){
             World world = Bukkit.getWorld("world");
 
             WorldBorder border = world.getWorldBorder();
-            border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder"));
+            double blockReduce = HigurashiUHC.getInstance().getConfig().getInt("wordborder-time-reduce");
+            border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder") - blockReduce);
+            HigurashiUHC.getGameManager().setWorldBorder(border.getSize());
         }
         
         String formatTime = TimeUtils.formatTime(time);

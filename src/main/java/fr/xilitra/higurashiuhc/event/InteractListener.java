@@ -1,8 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.GameStates;
-import fr.xilitra.higurashiuhc.item.StartGameItem;
+import fr.xilitra.higurashiuhc.gui.config.MapMenu;
+import fr.xilitra.higurashiuhc.item.ItemConfig;
+import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
+import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +29,12 @@ public class InteractListener implements Listener {
 
             if(lore.equals(StartGameItem.startGameItem.getLore())){
                 HigurashiUHC.getGameManager().start();
+                e.setCancelled(true);
+                return;
+            }
+
+            if(lore.equals(MapItemConfig.mapItemConfig.getLore())){
+                p.openInventory(MapMenu.mapMenu.getInventory());
                 e.setCancelled(true);
                 return;
             }

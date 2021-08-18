@@ -4,16 +4,18 @@ import fr.xilitra.higurashiuhc.item.ItemConfig;
 import org.bukkit.inventory.ItemStack;
 
 public enum Scenario {
-    DOLL(Doll.class, ItemConfig.DOLL.getItem()),
-    MISTREATMENT(Mistreatment.class, null),
-    OYASHIRO(Oyashiro.class, null);
+    DOLL(Doll.class, ItemConfig.DOLL.getItem(), false),
+    MISTREATMENT(Mistreatment.class, null, false),
+    OYASHIRO(Oyashiro.class, null, false);
 
     Class scenario;
     ItemStack item;
+    boolean active;
 
-    Scenario(Class scenario, ItemStack item) {
+    Scenario(Class scenario, ItemStack item, boolean active) {
         this.scenario = scenario;
         this.item = item;
+        this.active = active;
     }
 
     public Class getScenario() {
@@ -22,5 +24,13 @@ public enum Scenario {
 
     public ItemStack getItem() {
         return item;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

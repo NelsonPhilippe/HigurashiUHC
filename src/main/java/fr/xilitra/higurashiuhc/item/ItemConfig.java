@@ -5,14 +5,15 @@ import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.gui.config.TragediesConfig;
 import fr.xilitra.higurashiuhc.gui.config.tragedies.DollItem;
 import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
+import fr.xilitra.higurashiuhc.item.config.ScenarioItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public enum ItemConfig {
 
-    TRAGEDIES("Tragedies (Mode de jeu)", new ItemBuilder("Tragedies", true, 1, Material.ANVIL).getItemStack(), new TragediesConfig("Tragedies", 9*3)),
+    TRAGEDIES("Tragedies (Mode de jeu)", ScenarioItem.scenarioItem.getItemStack(), new TragediesConfig()),
     DOLL("Poupée", new DollItem("Poupée", true, 1, Material.SKULL).getItemStack(), null),
-    MAP_CONFiG("Map Config", new MapItemConfig().getItemStack(), new MapMenu());
+    MAP_CONFiG("Map Config", MapItemConfig.mapItemConfig.getItemStack(), new MapMenu());
 
     String name;
     ItemStack item;

@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.item.ItemConfig;
 import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
+import fr.xilitra.higurashiuhc.item.config.ScenarioItem;
 import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,8 +34,14 @@ public class InteractListener implements Listener {
                 return;
             }
 
-            if(lore.equals(MapItemConfig.mapItemConfig.getLore())){
+            if(item.isSimilar(ItemConfig.MAP_CONFiG.getItem())){
                 p.openInventory(MapMenu.mapMenu.getInventory());
+                e.setCancelled(true);
+                return;
+            }
+
+            if(item.isSimilar(ItemConfig.TRAGEDIES.getItem())){
+                p.openInventory(ItemConfig.TRAGEDIES.getMenu().getInventory());
                 e.setCancelled(true);
                 return;
             }

@@ -86,4 +86,15 @@ public abstract class Role {
       this.player = player;
    }
 
+   public boolean isRole(Role role){
+      return getName().equals(role.getName());
+   }
+
+   public boolean isRole(Role... roles){
+      for(Role role : roles)
+         if(getName().equals(role.getName()))
+            return true;
+         return false;
+   }
+
 }

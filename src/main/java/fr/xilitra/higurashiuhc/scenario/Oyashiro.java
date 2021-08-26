@@ -1,12 +1,10 @@
 package fr.xilitra.higurashiuhc.scenario;
 
-import fr.xilitra.higurashiuhc.api.Scenario;
-
 public class Oyashiro extends Scenario {
 
 
-    public Oyashiro(String name) {
-        super(name);
+    public Oyashiro() {
+        super("Oyashiro");
     }
 
     @Override

@@ -44,8 +44,10 @@ public class PickupListener implements Listener {
             }else if(playerRole.equals(RoleList.MION_SONOZAKI.getRole().getName())){
                 RoleList.MION_SONOZAKI.getRole().setMarriedWith(RoleList.KEIICHI_MAEBARA, MariedReason.DOLL_TRAGEDY);
                 RoleList.KEIICHI_MAEBARA.getRole().setMarriedWith(RoleList.MION_SONOZAKI, MariedReason.DOLL_TRAGEDY);
-            }else if(HigurashiUHC.getGameManager().isWatanagashi()){
-                //// Missing else if(playerRole.equals(RoleList))
+            }else if(!HigurashiUHC.getGameManager().isWatanagashi()){
+                Player player = RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer();
+                player.setMaxHealth(player.getMaxHealth()-5);
+                RoleList.KEIICHI_MAEBARA.getRole().setMalediction(true);
             }
 
             item.setType(Material.AIR);

@@ -174,22 +174,4 @@ public class GameManager {
         this.worldBorder = worldBorder;
     }
 
-    public HPlayer getPlayerWithRole(RoleList role){
-        try{
-            for(HPlayer player : players.values()){
-
-                if(player.getRoleList() != null) {
-
-
-                    if (role.getRole().equals(player.getRoleList().getRole())) {
-                        return player;
-                    }
-                }
-            }
-        }catch (NullPointerException e){
-            return null;
-        }
-
-        return null;
-    }
 }

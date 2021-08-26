@@ -3,20 +3,15 @@ package fr.xilitra.higurashiuhc.game;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
-import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
-import fr.xilitra.higurashiuhc.game.clans.Neutre;
-import fr.xilitra.higurashiuhc.game.clans.Police;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
+import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
-import fr.xilitra.higurashiuhc.scenario.Scenario;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
@@ -28,7 +23,7 @@ public class GameManager {
     private GameStates states;
     private Map<UUID, HPlayer> spectator = new HashMap<>();
     private Map<UUID, HPlayer > players = new HashMap<>();
-    private Scenario scenario;
+    private ScenarioList scenarioList;
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
     private Runnable rikaDeathTask = new RikaDeathTask();
@@ -66,6 +61,10 @@ public class GameManager {
 
             if(role.getRole().equals(RoleList.AKASAKA.getRole())) {
                 player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
+            }
+
+            if(ScenarioList.DOLL.isActive() && role.getRole().equals(RoleList.KEIICHI_MAEBARA.getRole())){
+                player.getPlayer().getInventory().addItem(DollItem.dollItem.getItemStack());
             }
 
             if(role.getRole().equals(RoleList.MION_SONOZAKI.getRole()) || role.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
@@ -117,12 +116,12 @@ public class GameManager {
         return spectator;
     }
 
-    public Scenario getSelectedScenario(){
-        return scenario;
+    public ScenarioList getSelectedScenario(){
+        return scenarioList;
     }
 
     public boolean scenarioIsSelected(){
-        return scenario != null;
+        return scenarioList != null;
     }
 
     public void setStates(GameStates states) {
@@ -145,8 +144,8 @@ public class GameManager {
         players.remove(player);
     }
 
-    public void setScenario(Scenario scenario){
-        this.scenario = scenario;
+    public void setScenario(ScenarioList scenarioList){
+        this.scenarioList = scenarioList;
     }
 
     public int getEpisode() {
@@ -169,22 +168,4 @@ public class GameManager {
         this.worldBorder = worldBorder;
     }
 
-    public HPlayer getPlayerWithRole(RoleList role){
-        try{
-            for(HPlayer player : players.values()){
-
-                if(player.getRoleList() != null) {
-
-
-                    if (role.getRole().equals(player.getRoleList().getRole())) {
-                        return player;
-                    }
-                }
-            }
-        }catch (NullPointerException e){
-            return null;
-        }
-
-        return null;
-    }
 }

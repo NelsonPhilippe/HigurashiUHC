@@ -26,24 +26,19 @@ public class DamageListener implements Listener {
 
             if (!(e.getDamager() instanceof Player)) return;
 
-
-
             Player damager = (Player) e.getDamager();
-
 
             ItemStack item = damager.getItemInHand();
 
             if (item.isSimilar(CustomCraft.baseballBat.getItemStack())) {
 
                 if(CustomCraft.baseballBat.isUsedOnEpisode()){
-
                     damager.sendMessage("Vous avez déjà utilisé la batte de baseball pour cet episode.");
                     CustomCraft.baseballBat.setUsedOnEpisode(true);
                     return;
                 }
 
                 if(CustomCraft.baseballBat.getUsed() == 0){
-
                     damager.sendMessage("Vous avez déja utilisé 3 fois la batte de baseball");
                     return;
                 }
@@ -58,10 +53,10 @@ public class DamageListener implements Listener {
                     if (players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
                         if (players.getPlayer() != damager) {
 
-
                             players.getPlayer().damage(5);
                             e.setDamage(5);
                             CustomCraft.baseballBat.setUsed(CustomCraft.baseballBat.getUsed() - 1);
+
                         }
                     }
                 }
@@ -77,26 +72,23 @@ public class DamageListener implements Listener {
 
                     System.out.println(renaRyugu.gethPlayerPense().getUuid().toString());
 
-
                     if(renaRyugu.gethPlayerPense().getUuid().equals(damager.getUniqueId())){
 
+                        if(!renaRyugu.isPenseIsUsed()) {
 
-                        if(renaRyugu.isPenseIsUsed()){
-                            return;
+                            player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
+                            renaRyugu.setPenseIsUsed(true);
+
                         }
-
-
-                        player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
-                        renaRyugu.setPenseIsUsed(true);
 
                     }
 
                 }
+
             }
 
-
-
         }
+
     }
 
     @EventHandler
@@ -112,11 +104,10 @@ public class DamageListener implements Listener {
 
         if(p.getHealth() <= 20) return;
 
-        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
+        if(hPlayer.getRoleList().getRole().isRole(RoleList.MION_SONOZAKI.getRole())){
 
 
             HPlayer shionPlayer =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
-
             if(shionPlayer == null) return;
 
             if(shionPlayer.getPlayer().getHealth() <= 20) return;
@@ -125,15 +116,16 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
-            HPlayer mionPlayer =  RoleList.MION_SONOZAKI.getRole().getPlayer();
+        if(hPlayer.getRoleList().getRole().isRole(RoleList.SHION_SONOSAKI.getRole())){
+
+            HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getPlayer();
 
             if(mionPlayer == null) return;
 
             if(mionPlayer.getPlayer().getHealth() <= 20) return;
 
-
             mionPlayer.getPlayer().damage(damage);
+
         }
     }
 

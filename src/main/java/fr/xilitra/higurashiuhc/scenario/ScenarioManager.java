@@ -1,7 +1,5 @@
 package fr.xilitra.higurashiuhc.scenario;
 
-import fr.xilitra.higurashiuhc.api.Scenario;
-
 public class ScenarioManager {
 
     private Scenario doll;

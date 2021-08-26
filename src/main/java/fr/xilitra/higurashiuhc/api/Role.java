@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 
 public abstract class Role {
 
@@ -12,6 +13,9 @@ public abstract class Role {
    private boolean malediction;
    private String displayName;
    private HPlayer player;
+   private RoleList linkedToDeath = null;
+   private RoleList mariedWith = null;
+   private MariedReason mariedReason = null;
 
 
    public Role(String name, Gender sexe, Clans clans) {
@@ -19,6 +23,27 @@ public abstract class Role {
       this.sexe = sexe;
       this.malediction = false;
       setClans(clans);
+   }
+
+   public void setLinkedToDeathWith(RoleList roleList){
+      linkedToDeath = roleList;
+   }
+
+   public RoleList linkedToDeathWith(){
+      return linkedToDeath;
+   }
+
+   public void setMarriedWith(RoleList roleList, MariedReason mr){
+      mariedWith = roleList;
+      this.mariedReason = mr;
+   }
+
+   public MariedReason getMariedReason(){
+      return mariedReason;
+   }
+
+   public RoleList getMarriedWith(){
+      return mariedWith;
    }
 
    public String getName() {
@@ -59,6 +84,17 @@ public abstract class Role {
 
    public void setPlayer(HPlayer player){
       this.player = player;
+   }
+
+   public boolean isRole(Role role){
+      return getName().equals(role.getName());
+   }
+
+   public boolean isRole(Role... roles){
+      for(Role role : roles)
+         if(getName().equals(role.getName()))
+            return true;
+         return false;
    }
 
 }

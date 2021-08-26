@@ -1,13 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.scenario.Scenario;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.item.ItemConfig;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -20,12 +17,12 @@ public class ConfigListener implements Listener {
         ItemStack item = event.getCurrentItem();
 
         if(inventory.getHolder().equals(ItemConfig.TRAGEDIES.getMenu())){
-            if(item.isSimilar(Scenario.DOLL.getItem())){
-                if(Scenario.DOLL.isActive()){
-                    Scenario.DOLL.setActive(false);
+            if(item.isSimilar(ScenarioList.DOLL.getItem())){
+                if(ScenarioList.DOLL.isActive()){
+                    ScenarioList.DOLL.setActive(false);
                     return;
                 }
-                Scenario.DOLL.setActive(true);
+                ScenarioList.DOLL.setActive(true);
 
             }
         }

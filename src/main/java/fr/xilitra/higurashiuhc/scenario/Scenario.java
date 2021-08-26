@@ -1,36 +1,17 @@
 package fr.xilitra.higurashiuhc.scenario;
 
-import fr.xilitra.higurashiuhc.item.ItemConfig;
-import org.bukkit.inventory.ItemStack;
+public abstract class Scenario {
 
-public enum Scenario {
-    DOLL(Doll.class, ItemConfig.DOLL.getItem(), false),
-    MISTREATMENT(Mistreatment.class, null, false),
-    OYASHIRO(Oyashiro.class, null, false);
+    private String name;
 
-    Class scenario;
-    ItemStack item;
-    boolean active;
-
-    Scenario(Class scenario, ItemStack item, boolean active) {
-        this.scenario = scenario;
-        this.item = item;
-        this.active = active;
+    public Scenario(String name) {
+        this.name = name;
     }
 
-    public Class getScenario() {
-        return scenario;
+    public abstract void solution(int solNumber, Object... objects); //(CDC)
+
+    public String getName() {
+        return name;
     }
 
-    public ItemStack getItem() {
-        return item;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 }

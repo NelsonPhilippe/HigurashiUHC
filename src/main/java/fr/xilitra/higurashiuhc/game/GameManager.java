@@ -32,6 +32,7 @@ public class GameManager {
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
     private Runnable rikaDeathTask = new RikaDeathTask();
+    private boolean watanagashi;
 
     public GameManager(){
         new ClansManager();
@@ -100,6 +101,13 @@ public class GameManager {
         }
     }
 
+    public boolean isWatanagashi() {
+        return watanagashi;
+    }
+
+    public void setWatanagashi(boolean watanagashi) {
+        this.watanagashi = watanagashi;
+    }
 
     public GameStates getStates() {
         return states;

@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.api.MariedReason;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,21 +34,16 @@ public class PickupListener implements Listener {
                 e.setCancelled(true);
             }
 
-        }else if(lore.equalsIgnoreCase(DollItem.dollItem.getLore())){
+        }else if(ScenarioList.DOLL.isActive() && lore.equalsIgnoreCase(DollItem.dollItem.getLore())){
 
             if(playerRole.equals(RoleList.SHION_SONOSAKI.getRole().getName())){
-                RoleList.MION_SONOZAKI.getRole().setMalediction(true);
-                RoleList.MION_SONOZAKI.getRole().setLinkedToDeathWith(RoleList.KEIICHI_MAEBARA);
+                ScenarioList.DOLL.getScenario().solution(1);
             }else if(playerRole.equals(RoleList.RENA_RYUGU.getRole().getName())){
-                RoleList.SHION_SONOSAKI.getRole().setMalediction(true);
-                RoleList.SHION_SONOSAKI.getRole().setLinkedToDeathWith(RoleList.KEIICHI_MAEBARA);
+                ScenarioList.DOLL.getScenario().solution(2);
             }else if(playerRole.equals(RoleList.MION_SONOZAKI.getRole().getName())){
-                RoleList.MION_SONOZAKI.getRole().setMarriedWith(RoleList.KEIICHI_MAEBARA, MariedReason.DOLL_TRAGEDY);
-                RoleList.KEIICHI_MAEBARA.getRole().setMarriedWith(RoleList.MION_SONOZAKI, MariedReason.DOLL_TRAGEDY);
-            }else if(!HigurashiUHC.getGameManager().isWatanagashi()){
-                Player player = RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer();
-                player.setMaxHealth(player.getMaxHealth()-5);
-                RoleList.KEIICHI_MAEBARA.getRole().setMalediction(true);
+                ScenarioList.DOLL.getScenario().solution(3);
+            }else{
+                ScenarioList.DOLL.getScenario().solution(4);
             }
 
             item.setType(Material.AIR);

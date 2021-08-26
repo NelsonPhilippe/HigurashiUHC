@@ -6,6 +6,8 @@ import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
+import fr.xilitra.higurashiuhc.scenario.Scenario;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -43,6 +45,7 @@ public class EpisodeListener implements Listener {
 
                 if(itemStack.getItemMeta().getLore().get(0).equalsIgnoreCase(DollItem.dollItem.getLore())){
 
+                    ScenarioList.DOLL.getScenario().solution(4);
                     itemStack.setType(Material.AIR);
 
                 }

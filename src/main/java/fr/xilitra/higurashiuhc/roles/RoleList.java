@@ -9,6 +9,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
+import fr.xilitra.higurashiuhc.roles.neutre.JiroTomitake;
 import fr.xilitra.higurashiuhc.roles.neutre.SatoshiHojo;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
@@ -35,7 +36,8 @@ public enum RoleList {
     AKASAKA(new Akasaka()),
     POLICIER(new Policier()),
     MERCENAIRE(new Mercenaire()),
-    OKONOGI(new Okonogi());
+    OKONOGI(new Okonogi()),
+    JIRO_TOMITAKE(new JiroTomitake());
 
     private Role role;
 

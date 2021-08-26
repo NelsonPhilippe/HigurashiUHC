@@ -4,10 +4,12 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,7 +42,7 @@ public class DeathListener implements Listener {
 
                 textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-                HPlayer hpr = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+                HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
                 if(hpr != null){
                         hpr.getPlayer().spigot().sendMessage(text);
@@ -51,7 +53,7 @@ public class DeathListener implements Listener {
 
         if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Rika Furude")){
 
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null) return;
 
@@ -101,12 +103,27 @@ public class DeathListener implements Listener {
                 hPlayerList.add(hPlayer1);
             }
 
-            HPlayer miyo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MIYO_TAKANO);
+            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
-            if(miyo == null) return;
+            if(miyo != null) {
 
-            miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRoleList().getRole().getName());
+                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRoleList().getRole().getName());
+
+            }
 
         }
+
+        if(hPlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+
+            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
+
+            if(miyo != null){
+
+                Bukkit.broadcastMessage(miyo.getRoleList().getRole().getName() + " est " + miyo.getName());
+
+            }
+
+        }
+
     }
 }

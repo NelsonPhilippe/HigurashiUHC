@@ -62,7 +62,7 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player = RoleList.RENA_RYUGU.getRole().getPlayer();
+            HPlayer player =  RoleList.RENA_RYUGU.getRole().getPlayer();
 
             if(player != null){
 
@@ -106,8 +106,8 @@ public class DamageListener implements Listener {
 
         if(hPlayer.getRoleList().getRole().isRole(RoleList.MION_SONOZAKI.getRole())){
 
-            HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getPlayer();
 
+            HPlayer shionPlayer =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
             if(shionPlayer == null) return;
 
             if(shionPlayer.getPlayer().getHealth() <= 20) return;

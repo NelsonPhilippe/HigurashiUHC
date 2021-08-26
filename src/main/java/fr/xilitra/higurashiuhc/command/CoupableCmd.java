@@ -36,7 +36,7 @@ public class CoupableCmd implements CommandExecutor {
 
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                HPlayer playerOishi = RoleList.KURAUDO_OISHI.getRole().getPlayer();
+                HPlayer playerOishi =  RoleList.KURAUDO_OISHI.getRole().getPlayer();
                 KuraudoOishi oishi = (KuraudoOishi) playerOishi.getRoleList().getRole();
 
                 if(oishi.isCoupableIsDesigned()){

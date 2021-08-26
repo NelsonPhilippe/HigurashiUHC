@@ -13,6 +13,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -40,7 +41,7 @@ public class HigurashiCmd implements CommandExecutor {
         if(args.length == 2){
             if(args[0].equalsIgnoreCase("pense")){
 
-                HPlayer rena = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
+                HPlayer rena =  RoleList.RENA_RYUGU.getRole().getPlayer();
 
                 if(rena == null || rena.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
@@ -70,7 +71,7 @@ public class HigurashiCmd implements CommandExecutor {
 
         }
         if(args[0].equalsIgnoreCase("dimension")){
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null || hanyu.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
@@ -92,7 +93,7 @@ public class HigurashiCmd implements CommandExecutor {
             float pitchH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.pitch");
             String worldH = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
 
-            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+            HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
             int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
             int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");
@@ -564,6 +565,38 @@ public class HigurashiCmd implements CommandExecutor {
 
                 }
             }
+        }
+
+        if(args[0].equalsIgnoreCase("list")){
+
+            if (args.length == 2){
+
+                Player target = Bukkit.getPlayer(args[1]);
+
+                if(target == null) return true;
+
+                HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+
+                if(hPlayerTarget.isChatOkonogi()){
+
+                    p.sendMessage("Le joueur est déjà dans le chat");
+                    return true;
+                }
+
+                hPlayerTarget.setChatOkonogi(true);
+
+                Okonogi okonogi = (Okonogi) RoleList.OKONOGI.getRole();
+
+                okonogi.addPlayer(hPlayerTarget);
+
+                target.sendMessage("Vous avez été ajouté au chat des mercenaires");
+
+                p.sendMessage("Vous avez ajouté " + target.getName() + " au chat des mercenaires");
+
+                return true;
+
+            }
+
         }
 
         return false;

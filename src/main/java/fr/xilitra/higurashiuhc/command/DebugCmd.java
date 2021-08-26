@@ -115,6 +115,20 @@ public class DebugCmd implements CommandExecutor {
     }
 
     private boolean roleIsAssigned(RoleList role){
-        return role.getRole().getPlayer()!= null;
+
+        try{
+            HPlayer hPlayer =  role.getRole().getPlayer();
+
+            System.out.println(hPlayer.getName());
+
+            if(hPlayer == null){
+                return false;
+            }
+        }catch(NullPointerException e){
+            return false;
+        }
+
+        return true;
+
     }
 }

@@ -21,6 +21,7 @@ public class HPlayer {
     private Runnable deathTask;
     private Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private boolean playerDontMove;
+    private boolean chatOkonogi;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;
@@ -69,5 +70,13 @@ public class HPlayer {
 
     public void setPlayerDontMove(boolean playerDontMove) {
         this.playerDontMove = playerDontMove;
+    }
+
+    public boolean isChatOkonogi() {
+        return chatOkonogi;
+    }
+
+    public void setChatOkonogi(boolean chatOkonogi) {
+        this.chatOkonogi = chatOkonogi;
     }
 }

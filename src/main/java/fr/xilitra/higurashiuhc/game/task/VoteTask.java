@@ -21,7 +21,7 @@ public class VoteTask extends TimerTask {
         isRunning = true;
 
         if(time == 0){
-            HPlayer oryo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.ORYO_SONOZAKI);
+            HPlayer oryo =  RoleList.ORYO_SONOZAKI.getRole().getPlayer();
             OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRoleList().getRole();
 
             int majorite = 0;

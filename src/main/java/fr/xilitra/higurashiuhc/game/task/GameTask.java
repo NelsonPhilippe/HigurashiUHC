@@ -58,7 +58,7 @@ public class GameTask extends TimerTask {
         }
 
         if(HigurashiUHC.getGameManager().getEpisode() >= 6){
-            HPlayer player = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.KURAUDO_OISHI);
+            HPlayer player =  RoleList.KURAUDO_OISHI.getRole().getPlayer();
 
             if(player != null){
 

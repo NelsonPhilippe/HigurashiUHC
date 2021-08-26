@@ -13,6 +13,7 @@ import fr.xilitra.higurashiuhc.game.task.GameTask;
 import fr.xilitra.higurashiuhc.game.task.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
+import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -65,6 +66,10 @@ public class GameManager {
 
             if(role.getRole().equals(RoleList.AKASAKA.getRole())) {
                 player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
+            }
+
+            if(Scenario.DOLL.isActive() && role.getRole().equals(RoleList.KEIICHI_MAEBARA.getRole())){
+                player.getPlayer().getInventory().addItem(DollItem.dollItem.getItemStack());
             }
 
             if(role.getRole().equals(RoleList.MION_SONOZAKI.getRole()) || role.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){

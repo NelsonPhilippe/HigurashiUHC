@@ -37,7 +37,9 @@ public class PickupListener implements Listener {
 
             }else if(playerRole.equals(RoleList.RENA_RYUGU.getRole().getName())){
 
-            }
+            }else if(playerRole.equals(RoleList.MION_SONOZAKI.getRole().getName())){
+
+            }//// Missing else if(playerRole.equals(RoleList))
 
         }
 

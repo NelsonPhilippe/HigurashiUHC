@@ -2,12 +2,11 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -68,11 +67,11 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
+            HPlayer player = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
 
             if(player != null){
 
-                RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
+                RenaRyugu renaRyugu = (RenaRyugu) player.getRoleList().getRole();
 
                 if(renaRyugu.gethPlayerPense() != null){
 
@@ -113,10 +112,10 @@ public class DamageListener implements Listener {
 
         if(p.getHealth() <= 20) return;
 
-        if(hPlayer.getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
+        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
 
 
-            HPlayer shionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SHION_SONOSAKI);
+            HPlayer shionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.SHION_SONOSAKI);
 
             if(shionPlayer == null) return;
 
@@ -126,8 +125,8 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
-            HPlayer mionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
+        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+            HPlayer mionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MION_SONOZAKI);
 
             if(mionPlayer == null) return;
 
@@ -139,12 +138,12 @@ public class DamageListener implements Listener {
     }
 
     private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
-        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
+        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
                 for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayers().values()){
 
-                    if(hPlayers.getRole().getName().equalsIgnoreCase(role2)){
+                    if(hPlayers.getRoleList().getRole().getName().equalsIgnoreCase(role2)){
                         double damage = limitDamege(e.getDamage());
                         hPlayer.getPlayer().damage(damage);
                         break;

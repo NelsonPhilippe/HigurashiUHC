@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 
 import java.util.TimerTask;
@@ -15,9 +15,9 @@ public class SuspectTask extends TimerTask {
     public void run() {
 
         if(time == 0){
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.KURAUDO_OISHI);
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.KURAUDO_OISHI);
 
-            KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRole();
+            KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRoleList().getRole();
 
             HPlayer suspect = kuraudoOishi.getSuspect().get(kuraudoOishi.getSuspect().size() - 1);
 

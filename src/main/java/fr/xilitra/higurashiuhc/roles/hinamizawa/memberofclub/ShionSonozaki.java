@@ -1,20 +1,21 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class ShionSonozaki extends RoleTemplate implements Listener {
+public class ShionSonozaki extends Role implements Listener {
     public ShionSonozaki() {
-        super("Shion Sonozaki", Gender.FEMME);
+        super("Shion Sonozaki", Gender.FEMME, MemberOfClub.getClans());
         this.setDisplayName("Mion Sonozaki");
     }
 
@@ -22,7 +23,7 @@ public class ShionSonozaki extends RoleTemplate implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+        if(player.getRoleList().getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -34,16 +35,16 @@ public class ShionSonozaki extends RoleTemplate implements Listener {
         Player p = e.getEntity();
         Player killer = e.getEntity().getKiller();
         HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-        HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MION_SONOZAKI);
+        HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MION_SONOZAKI);
 
 
-        if(deathPlayer.getRole().getClass().getName().equals(Role.SHION_SONOSAKI.getRole().getName())){
+        if(deathPlayer.getRoleList().getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
 
             if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
                 removeHearth(e, deathPlayer, playerAlive);
             }
 
-            HPlayer kasai = HigurashiUHC.getGameManager().getPlayerWithRole(Role.KASAI);
+            HPlayer kasai = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.KASAI);
 
             if(kasai != null){
                 kasai.getPlayer().sendMessage(p.getName() + " à été tué par " + killer.getName());

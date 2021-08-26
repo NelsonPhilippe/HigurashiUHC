@@ -3,9 +3,7 @@ package fr.xilitra.higurashiuhc.command;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.VoteTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
-import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -29,7 +27,7 @@ public class VoteCmd implements CommandExecutor {
 
                 HPlayer player = HigurashiUHC.getGameManager().getPlayer(UUID.fromString(target));
 
-                OryoSonozaki oryoSonozaki = (OryoSonozaki) player.getRole();
+                OryoSonozaki oryoSonozaki = (OryoSonozaki) player.getRoleList().getRole();
 
                 oryoSonozaki.addVote(player);
 

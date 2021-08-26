@@ -1,18 +1,24 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
-import org.bukkit.entity.Player;
-
 public class Police extends Clans{
 
-    public Police(String name) {
-        super(name);
+    public static Police hinamizawa = new Police();
+
+    public static Police getClans(){
+        return hinamizawa;
     }
 
-    public void addPlayer(Player p){
-        this.players.add(p);
+    public Police() {
+        super("Police");
     }
 
-    public void removePlayer(Player p){
-        this.players.remove(p);
+    @Override
+    public boolean isSubClans() {
+        return false;
+    }
+
+    @Override
+    public Clans getMajorClans() {
+        return null;
     }
 }

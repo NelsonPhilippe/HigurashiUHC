@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -18,8 +18,8 @@ public class HanyuTaskInvisble extends BukkitRunnable {
 
         if(time == 0){
 
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
-            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
 
             if(rika == null){
                 return;

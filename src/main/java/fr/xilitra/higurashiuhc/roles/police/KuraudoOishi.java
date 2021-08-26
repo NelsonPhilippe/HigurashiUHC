@@ -1,21 +1,15 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.item.SuspectBook;
+import fr.xilitra.higurashiuhc.game.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KuraudoOishi extends RoleTemplate implements Listener {
+public class KuraudoOishi extends Role implements Listener {
 
 
     private List<HPlayer> suspect = new ArrayList<>();
@@ -24,7 +18,7 @@ public class KuraudoOishi extends RoleTemplate implements Listener {
 
 
     public KuraudoOishi() {
-        super("Kuraudo Oishi", Gender.HOMME);
+        super("Kuraudo Oishi", Gender.HOMME, Police.getClans());
         countSuspect = 0;
         coupableIsDesigned = false;
     }

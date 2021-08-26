@@ -1,13 +1,14 @@
 package fr.xilitra.higurashiuhc.player;
 
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class HPlayer {
     private String name;
     private UUID uuid;
     private Player player;
-    private RoleTemplate role;
+    private RoleList role;
     private Runnable deathTask;
     private Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private boolean playerDontMove;
@@ -41,12 +42,17 @@ public class HPlayer {
         return player;
     }
 
-    public RoleTemplate getRole() {
+    public RoleList getRoleList() {
         return role;
     }
 
-    public void setRole(RoleTemplate role){
+    public void setRoleList(RoleList role){
         this.role = role;
+        role.getRole().setPlayer(this);
+    }
+
+    public Clans getClans(){
+        return ClansManager.getInstance().getClans(getRoleList().getRole());
     }
 
     public Runnable getDeathTask(){

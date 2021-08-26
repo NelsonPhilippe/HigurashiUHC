@@ -2,20 +2,23 @@ package fr.xilitra.higurashiuhc.api;
 
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.ClansManager;
+import fr.xilitra.higurashiuhc.player.HPlayer;
 
-public abstract class RoleTemplate<T extends Clans> {
+public abstract class Role {
 
    private String name;
    private Gender sexe;
-   protected T clan;
    private boolean malediction;
    private String displayName;
+   private HPlayer player;
 
 
-   public RoleTemplate(String name, Gender sexe) {
+   public Role(String name, Gender sexe, Clans clans) {
       this.name = name;
       this.sexe = sexe;
       this.malediction = false;
+      setClans(clans);
    }
 
    public String getName() {
@@ -26,8 +29,12 @@ public abstract class RoleTemplate<T extends Clans> {
       return sexe;
    }
 
-   public T getClan() {
-      return clan;
+   public void setClans(Clans clans){
+      ClansManager.getInstance().setClans(this, clans);
+   }
+
+   public Clans getClans(){
+      return ClansManager.getInstance().getClans(this);
    }
 
    public boolean isMalediction() {
@@ -38,10 +45,6 @@ public abstract class RoleTemplate<T extends Clans> {
       this.malediction = malediction;
    }
 
-   public void setClan(T clan) {
-      this.clan = clan;
-   }
-
    public String getDisplayName() {
       return displayName;
    }
@@ -49,4 +52,13 @@ public abstract class RoleTemplate<T extends Clans> {
    public void setDisplayName(String displayName) {
       this.displayName = displayName;
    }
+
+   public HPlayer getPlayer() {
+      return player;
+   }
+
+   public void setPlayer(HPlayer player){
+      this.player = player;
+   }
+
 }

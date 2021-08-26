@@ -18,7 +18,7 @@ public class PolicierTask extends BukkitRunnable {
 
         if(time == 0){
 
-            Policier policier = (Policier) hPlayer.getRole();
+            Policier policier = (Policier) hPlayer.getRoleList().getRole();
 
             policier.setPvIsUsed(false);
             this.cancel();

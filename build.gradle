@@ -29,8 +29,8 @@ repositories {
 
 dependencies {
     compileOnly name: 'spigot'
-    compile name: 'DatouNms-1.2.1'
-    compile 'fr.mrmicky:fastboard:1.2.0'
+    compileOnly name: 'DatouNms-1.2.1'
+    compileOnly 'fr.mrmicky:fastboard:1.2.0'
 }
 
 task fatJar(type: Jar) {

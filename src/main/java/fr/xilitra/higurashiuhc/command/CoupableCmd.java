@@ -2,9 +2,9 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.item.ItemBuilder;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
@@ -17,8 +17,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Random;
-
 public class CoupableCmd implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -29,7 +27,7 @@ public class CoupableCmd implements CommandExecutor {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole().getClass().getName().equals(Role.KURAUDO_OISHI.getRole().getName())){
+        if(hPlayer.getRoleList().getRole().getName().equals(RoleList.KURAUDO_OISHI.getRole().getName())){
 
             if(args[0].equalsIgnoreCase("c")){
 
@@ -38,8 +36,8 @@ public class CoupableCmd implements CommandExecutor {
 
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                HPlayer playerOishi = HigurashiUHC.getGameManager().getPlayerWithRole(Role.KURAUDO_OISHI);
-                KuraudoOishi oishi = (KuraudoOishi) playerOishi.getRole();
+                HPlayer playerOishi = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.KURAUDO_OISHI);
+                KuraudoOishi oishi = (KuraudoOishi) playerOishi.getRoleList().getRole();
 
                 if(oishi.isCoupableIsDesigned()){
                     oishi.setCoupableIsDesigned(true);
@@ -48,28 +46,28 @@ public class CoupableCmd implements CommandExecutor {
                 playerOishi.getPlayer().sendMessage("Vous avez désigné le joueur " + target.getName() + " coupable");
 
 
-                if(targetHPlayer.getRole().getClan().getName().equalsIgnoreCase("Sonozaki")){
+                if(targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase(Sonozaki.getClans().getName())){
                     ItemStack arc = new ItemStack(Material.BOW, 1);
                     arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 
                     p.getInventory().addItem(arc);
                 }
 
-                if(targetHPlayer.getRole().getClan().getName().equalsIgnoreCase("Hinamizawa")){
+                if(targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase(Hinamizawa.getClans().getName())){
                     p.sendMessage("L'enquête a échoué.");
                 }
 
-                if(targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
+                if(targetHPlayer.getRoleList().getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
 
-                    RikaFurude rikaFurude = (RikaFurude) targetHPlayer.getRole();
-                    rikaFurude.setClan(new Hinamizawa("Hinamizawa"));
+                    RikaFurude rikaFurude = (RikaFurude) targetHPlayer.getRoleList().getRole();
+                    rikaFurude.setClans(Hinamizawa.getClans());
                 }
 
-                if(targetHPlayer.getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
+                if(targetHPlayer.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.MION_SONOZAKI.getRole().getName())){
 
                     if(Scenario.DOLL.isActive()){
-                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
-                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRoleList().getRole().getDisplayName());
+                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRoleList().getRole().getClans().getName());
 
                         return true;
                     }
@@ -77,18 +75,18 @@ public class CoupableCmd implements CommandExecutor {
 
                 }
 
-                if(targetHPlayer.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+                if(targetHPlayer.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.SHION_SONOSAKI.getRole().getName())){
                     if(Scenario.DOLL.isActive()){
-                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
-                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRoleList().getRole().getDisplayName());
+                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRoleList().getRole().getClans().getName());
 
                         return true;
                     }
 
                 }
 
-                playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getName());
-                playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+                playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRoleList().getRole().getName());
+                playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRoleList().getRole().getClans().getName());
 
                 return true;
             }

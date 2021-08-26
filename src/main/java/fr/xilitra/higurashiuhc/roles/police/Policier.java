@@ -1,15 +1,15 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.game.clans.Police;
 
-public class Policier extends RoleTemplate {
+public class Policier extends Role {
 
     private boolean pvIsUsed;
 
     public Policier() {
-        super("Policier", Gender.NON_GENRE);
+        super("Policier", Gender.NON_GENRE, Police.getClans());
         pvIsUsed = false;
     }
 

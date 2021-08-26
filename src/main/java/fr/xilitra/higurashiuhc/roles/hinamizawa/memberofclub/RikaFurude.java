@@ -1,14 +1,13 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -21,15 +20,14 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class RikaFurude extends RoleTemplate implements Listener {
+public class RikaFurude extends Role implements Listener {
 
     private int lives;
     private boolean ressucite = false;
 
     public RikaFurude() {
-        super("Rika Furude", Gender.FEMME);
+        super("Rika Furude", Gender.FEMME, MemberOfClub.getClans());
         this.lives = 3;
-        this.clan = HigurashiUHC.getGameManager().getHinamizawa();
     }
 
     @EventHandler
@@ -47,11 +45,11 @@ public class RikaFurude extends RoleTemplate implements Listener {
         HPlayer hp = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
 
         if(killerHPlayer != null){
-            if(killerHPlayer.getRole().getClan() == HigurashiUHC.getGameManager().getMercenaire()){
+            if(killerHPlayer.getRoleList().getRole().getClans() == Mercenaire.getClans()){
                 player.setGameMode(GameMode.SPECTATOR);
                 HigurashiUHC.getGameManager().startRikaDeathTask();
                 for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayers().values()){
-                    if(miyo.getRole().getClass().equals(Role.MIYO_TAKANO.getRole())){
+                    if(miyo.getRoleList().getRole().equals(RoleList.MIYO_TAKANO.getRole())){
                         Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                     }
                 }
@@ -60,7 +58,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
         }
 
         for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
-            if(players.getRole().getClass().equals(Role.HANYU.getRole())){
+            if(players.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
                 if(players.getPlayer().getGameMode() == GameMode.SPECTATOR){
                     player.setGameMode(GameMode.SPECTATOR);
                     HigurashiUHC.getGameManager().startRikaDeathTask();
@@ -69,8 +67,8 @@ public class RikaFurude extends RoleTemplate implements Listener {
             }
         }
 
-        if(hp.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
-            RikaFurude rikaFurude = (RikaFurude) hp.getRole();
+        if(hp.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+            RikaFurude rikaFurude = (RikaFurude) hp.getRoleList().getRole();
 
             rikaFurude.remove1Live();
 
@@ -132,7 +130,7 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         Player bPlayer = player.getPlayer();
 
-        if(player.getRole().getClass().getName().equalsIgnoreCase(Role.RIKA_FURUDE.getRole().getName())){
+        if(player.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.RIKA_FURUDE.getRole().getName())){
             bPlayer.setHealth(16);
             bPlayer.setMaxHealth(16);
         }
@@ -146,14 +144,14 @@ public class RikaFurude extends RoleTemplate implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole() == null) return;
+        if(hPlayer.getRoleList() == null) return;
 
-        if(hPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getRole().getName())){
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
+        if(hPlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
 
             if(hanyu == null) return;
 
-            Hanyu hanyuRole = (Hanyu) hanyu.getRole();
+            Hanyu hanyuRole = (Hanyu) hanyu.getRoleList().getRole();
 
             Location hanyuLocation = hanyu.getPlayer().getLocation();
             Location rikaLocation = p.getLocation();
@@ -180,15 +178,15 @@ public class RikaFurude extends RoleTemplate implements Listener {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
 
-        Role[] roles = {Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU};
+        RoleList[] roles = {RoleList.SATOKO_HOJO, RoleList.KEIICHI_MAEBARA, RoleList.MION_SONOZAKI, RoleList.SHION_SONOSAKI, RoleList.RENA_RYUGU};
 
         HigurashiUHC.getGameManager().getPlayers().values().forEach(player -> {
-            if(!player.getRole().getClass().equals(Role.HANYU.getRole())){
+            if(!player.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
                 if(player.getPlayer().getGameMode() != GameMode.SPECTATOR){
-                    for(Role role : roles){
-                        if(resuPlayer.getRole().getClass().equals(role.getRole())){
-                            if(rikaFurudePlayer.getRole().getClass().equals(Role.RIKA_FURUDE.getRole())){
-                                RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
+                    for(RoleList role : roles){
+                        if(resuPlayer.getRoleList().getRole().equals(role.getRole())){
+                            if(rikaFurudePlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+                                RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRoleList().getRole();
 
                                 if(rikaFurude.getLives() <= 1){
                                     rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());

@@ -1,11 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -26,15 +25,15 @@ public class MoveEvent implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
+        HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
-        if(hPlayer.getRole() == null) return;
+        if(hPlayer.getRoleList().getRole() == null) return;
 
 
         for(MemberOfClub.roleList roleList : MemberOfClub.roleList.values()){
-            if(roleList.getRole().getName().equals(hPlayer.getRole().getClass().getName())){
+            if(roleList.getRole().getName().equals(hPlayer.getRoleList().getRole().getName())){
 
                 if(rika != null){
                     if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
@@ -64,14 +63,14 @@ public class MoveEvent implements Listener {
             for(Location loc : SatokoHojo.blockTraps){
 
                 if(loc.getBlock().getLocation().equals(blockLoc)){
-                    HPlayer satokoHojo = HigurashiUHC.getGameManager().getPlayerWithRole(Role.SATOKO_HOJO);
+                    HPlayer satokoHojo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.SATOKO_HOJO);
 
                     if(satokoHojo.getUuid().equals(p.getUniqueId())){
                         return;
                     }
 
 
-                    satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
+                    satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRoleList().getRole().getName());
                     loc.getBlock().setType(Material.SOIL);
                     SatokoHojo.blockTraps.remove(loc);
                     break;

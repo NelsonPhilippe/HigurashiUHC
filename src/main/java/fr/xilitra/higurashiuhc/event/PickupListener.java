@@ -1,8 +1,9 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,10 +22,23 @@ public class PickupListener implements Listener {
 
         if(!item.getItemMeta().hasLore()) return;
 
-        if(item.getItemMeta().getLore().get(0).equalsIgnoreCase(CustomCraft.baseballBat.getLore())){
-            if(!hPlayer.getRole().getClass().getName().equals(Role.KEIICHI_MAEBARA.getRole().getName()) || !hPlayer.getRole().getClass().getName().equals(Role.SATOSHI_HOJO.getRole().getName())){
+        String lore = item.getItemMeta().getLore().get(0);
+        String playerRole = hPlayer.getRoleList().getRole().getName();
+
+        if(lore.equalsIgnoreCase(CustomCraft.baseballBat.getLore())){
+
+            if(!playerRole.equals(RoleList.KEIICHI_MAEBARA.getRole().getName()) || !playerRole.equals(RoleList.SATOSHI_HOJO.getRole().getName())){
                 e.setCancelled(true);
             }
+
+        }else if(lore.equalsIgnoreCase(DollItem.dollItem.getLore())){
+
+            if(playerRole.equals(RoleList.SHION_SONOSAKI.getRole().getName())){
+
+            }else if(playerRole.equals(RoleList.RENA_RYUGU.getRole().getName())){
+
+            }
+
         }
 
     }

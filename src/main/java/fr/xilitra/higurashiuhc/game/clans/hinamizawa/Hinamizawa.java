@@ -10,34 +10,24 @@ import java.util.Map;
 
 public class Hinamizawa extends Clans {
 
-    private static Map<String, Clans> subClans = new HashMap<>();
+    public static Hinamizawa hinamizawa = new Hinamizawa();
 
-    public Hinamizawa(String name) {
-        super(name);
-        subClans.put("Membre du club", new MemberOfClub("Membre du club"));
-        subClans.put("Sonozaki", new Sonozaki("Sonozaki"));
+    public static Hinamizawa getClans(){
+        return hinamizawa;
     }
 
-    public void addPlayerToSubClans(String clans, Player p){
-
-        Clans newClans = subClans.get(clans);
-
-        players.add(p);
-        newClans.addPlayer(p);
-
-        subClans.replace(clans, newClans);
+    public Hinamizawa() {
+        super("Hinamizawa");
     }
 
-    public void removePlayerToSubClans(String clans, Player p) {
-        Clans newClans = subClans.get(clans);
-
-        players.remove(p);
-        newClans.getPlayers().remove(p);
-
-        subClans.replace(clans, newClans);
+    @Override
+    public boolean isSubClans() {
+        return false;
     }
 
-    public static Map<String, Clans> getSubClans() {
-        return subClans;
+    @Override
+    public Clans getMajorClans() {
+        return null;
     }
+
 }

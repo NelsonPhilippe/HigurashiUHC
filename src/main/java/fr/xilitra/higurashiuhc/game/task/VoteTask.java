@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import org.bukkit.Bukkit;
 
@@ -21,13 +21,13 @@ public class VoteTask extends TimerTask {
         isRunning = true;
 
         if(time == 0){
-            HPlayer oryo = HigurashiUHC.getGameManager().getPlayerWithRole(Role.ORYO_SONOZAKI);
-            OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRole();
+            HPlayer oryo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.ORYO_SONOZAKI);
+            OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRoleList().getRole();
 
             int majorite = 0;
 
             for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
-                if(player.getRole().getClan().getName().equalsIgnoreCase("Hinamizawa")){
+                if(player.getClans().getName().equalsIgnoreCase("Hinamizawa")){
                     majorite++;
                 }
             }

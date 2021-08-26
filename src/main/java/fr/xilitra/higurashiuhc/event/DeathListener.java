@@ -2,15 +2,12 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -33,18 +29,18 @@ public class DeathListener implements Listener {
         p.setGameMode(GameMode.SPECTATOR);
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        Role[] rolesRikaResu = {Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU};
+        RoleList[] rolesRikaResu = {RoleList.SATOKO_HOJO, RoleList.KEIICHI_MAEBARA, RoleList.MION_SONOZAKI, RoleList.SHION_SONOSAKI, RoleList.RENA_RYUGU};
 
-        for(Role role : rolesRikaResu){
-            if(role.getRole().getName().equals(hPlayer.getRole().getClass().getName())){
+        for(RoleList role : rolesRikaResu){
+            if(role.getRole().getName().equals(hPlayer.getRoleList().getRole().getName())){
                 TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
-                TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
+                TextComponent text = new TextComponent(hPlayer.getRoleList().getRole().getName() + " vien de mourrir ");
 
                 text.addExtra(textClick);
 
                 textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-                HPlayer hpr = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RIKA_FURUDE);
+                HPlayer hpr = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
 
                 if(hpr != null){
                         hpr.getPlayer().spigot().sendMessage(text);
@@ -53,9 +49,9 @@ public class DeathListener implements Listener {
             }
         }
 
-        if(hPlayer.getRole().getName().equalsIgnoreCase("Rika Furude")){
+        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Rika Furude")){
 
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(Role.HANYU);
+            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
 
             if(hanyu == null) return;
 
@@ -78,9 +74,9 @@ public class DeathListener implements Listener {
         killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
                 String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
 
-        if(killerHplayer.getRole().getClass().getName().equalsIgnoreCase(Role.MERCENAIRE.getRole().getName())){
+        if(killerHplayer.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.MERCENAIRE.getRole().getName())){
 
-            Mercenaire mercenaire = (Mercenaire) killerHplayer.getRole();
+            Mercenaire mercenaire = (Mercenaire) killerHplayer.getRoleList().getRole();
 
             if(mercenaire.getCible() != null){
 
@@ -95,7 +91,7 @@ public class DeathListener implements Listener {
 
         }
 
-        if(hPlayer.getRole().getClan().getName().equalsIgnoreCase("Mercenaire")){
+        if(hPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Mercenaire")){
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
 
@@ -105,11 +101,11 @@ public class DeathListener implements Listener {
                 hPlayerList.add(hPlayer1);
             }
 
-            HPlayer miyo = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MIYO_TAKANO);
+            HPlayer miyo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MIYO_TAKANO);
 
             if(miyo == null) return;
 
-            miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
+            miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRoleList().getRole().getName());
 
         }
     }

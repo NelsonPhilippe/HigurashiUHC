@@ -5,7 +5,7 @@ import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
 import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public class JoinListener implements Listener {
             if(p.hasPermission("huhc.hote.config")){
                 scoreboard.setLines(
                         "",
-                        ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
+                        ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + RoleList.values().length,
                         "",
                         ChatColor.RED + "Titre de game",
                         "",
@@ -50,7 +50,7 @@ public class JoinListener implements Listener {
 
             scoreboard.setLines(
                     "",
-                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
+                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + RoleList.values().length,
                     "",
                     ChatColor.RED + "Titre de game",
                     "",

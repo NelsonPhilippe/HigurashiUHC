@@ -1,3 +1,6 @@
+build.gradle
+.gitignore
+
 # Compiled class file
 *.class
 

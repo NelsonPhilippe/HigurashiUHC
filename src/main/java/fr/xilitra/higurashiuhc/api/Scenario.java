@@ -1,8 +1,5 @@
 package fr.xilitra.higurashiuhc.api;
 
-import fr.xilitra.higurashiuhc.roles.Role;
-import org.bukkit.entity.Player;
-
 public abstract class Scenario {
 
     private String name;
@@ -11,9 +8,10 @@ public abstract class Scenario {
         this.name = name;
     }
 
-    public abstract void solution();
+    public abstract void solution(int solNumber, Object... objects); //(CDC)
 
     public String getName() {
         return name;
     }
+
 }

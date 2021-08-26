@@ -1,23 +1,22 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockFadeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -25,7 +24,6 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.MetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -33,12 +31,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SatokoHojo extends RoleTemplate implements Listener {
+public class SatokoHojo extends Role implements Listener {
 
     public static List<Location> blockTraps = new ArrayList<>();
 
     public SatokoHojo() {
-        super("Satoko Hojo", Gender.FEMME);
+        super("Satoko Hojo", Gender.FEMME, MemberOfClub.getClans());
     }
 
 
@@ -74,7 +72,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
 
         if(snowball.getCustomName().equalsIgnoreCase(Traps.slowBall.getLore())){
 
-            if(hPlayerShooter.getRole().getName().equals("Satoko Hojo")){
+            if(hPlayerShooter.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2, true));
             }
@@ -87,11 +85,11 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
 
-        if(hPlayer.getRole() == null){
+        if(hPlayer.getRoleList() == null){
             return;
         }
 
-        if(!(hPlayer.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName()))) return;
+        if(!(hPlayer.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole()))) return;
 
 
         if(p.getItemInHand() == null || !p.getItemInHand().getItemMeta().hasLore() || p.getItemInHand().getType() == Material.AIR) return;
@@ -133,7 +131,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         Player shooter = (Player) snowball.getShooter();
         HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getPlayer(shooter.getUniqueId());
 
-        if(hPlayerShooter.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName())){
+        if(hPlayerShooter.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
 
             snowball.setCustomName(Traps.slowBall.getLore());
@@ -150,7 +148,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
 
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().getClass().getName().equalsIgnoreCase(Role.SATOKO_HOJO.getRole().getName())){
+        if(player.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
             Random random = new Random();
 
@@ -169,7 +167,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName())){
+        if(hPlayer.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
             ItemStack itemStack = e.getItemInHand();
 
@@ -186,7 +184,7 @@ public class SatokoHojo extends RoleTemplate implements Listener {
     }
 
     public static void removeTraps(HPlayer hPlayer){
-        if(hPlayer.getRole().getClass().getName().equals(Role.SATOKO_HOJO.getRole().getName())){
+        if(hPlayer.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
             Inventory inventory = hPlayer.getPlayer().getInventory();
 
             for(ItemStack item : inventory.getContents()){

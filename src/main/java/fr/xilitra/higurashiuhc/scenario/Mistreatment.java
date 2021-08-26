@@ -1,9 +1,6 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.api.Scenario;
-import fr.xilitra.higurashiuhc.roles.Role;
-
-import java.util.List;
 
 public class Mistreatment extends Scenario {
 
@@ -13,7 +10,7 @@ public class Mistreatment extends Scenario {
     }
 
     @Override
-    public void solution() {
+    public void solution(int solution, Object... objects) {
 
     }
 }

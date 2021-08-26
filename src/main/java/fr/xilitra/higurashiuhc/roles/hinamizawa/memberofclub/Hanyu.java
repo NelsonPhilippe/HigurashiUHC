@@ -1,18 +1,15 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
-import fr.xilitra.higurashiuhc.event.DamageListener;
-import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,19 +17,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Hanyu extends RoleTemplate implements Listener {
+public class Hanyu extends Role implements Listener {
 
     private boolean isInvisible;
     private boolean dimensionIsUsed;
     private Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public Hanyu() {
-        super("Hanyu", Gender.FEMME);
+        super("Hanyu", Gender.FEMME, MemberOfClub.getClans());
         this.dimensionIsUsed = false;
     }
 
@@ -43,7 +39,7 @@ public class Hanyu extends RoleTemplate implements Listener {
 
         HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(player.getRole().getClass().equals(Role.HANYU.getRole())){
+        if(player.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
         }
     }
@@ -67,8 +63,8 @@ public class Hanyu extends RoleTemplate implements Listener {
 
 
 
-        if(hPlayer.getRole().getClass().getName().equals(Role.HANYU.getRole().getName())){
-            Hanyu hanyu = (Hanyu) hPlayer.getRole();
+        if(hPlayer.getRoleList().getClass().getName().equals(RoleList.HANYU.getRole().getName())){
+            Hanyu hanyu = (Hanyu) hPlayer.getRoleList().getRole();
 
 
             if(hanyu.isInvisible){
@@ -82,9 +78,9 @@ public class Hanyu extends RoleTemplate implements Listener {
         }
 
 
-        if(hPlayerDamager.getRole().getClass().equals(Role.HANYU.getRole())){
+        if(hPlayerDamager.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
 
-            Hanyu hanyu = (Hanyu) hPlayer.getRole();
+            Hanyu hanyu = (Hanyu) hPlayer.getRoleList().getRole();
             if(hanyu.isInvisible){
                 hanyu.setInvisible(false);
 

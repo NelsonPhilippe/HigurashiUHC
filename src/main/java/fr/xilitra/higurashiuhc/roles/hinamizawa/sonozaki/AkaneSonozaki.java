@@ -1,16 +1,16 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 
-public class AkaneSonozaki extends RoleTemplate {
+public class AkaneSonozaki extends Role {
 
     private int nextDaySwap;
     private int swapUsed;
 
     public AkaneSonozaki() {
-        super("Akane Sonozaki", Gender.FEMME);
+        super("Akane Sonozaki", Gender.FEMME, Sonozaki.getClans());
         swapUsed = 0;
         nextDaySwap = 0;
     }

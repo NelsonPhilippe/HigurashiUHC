@@ -5,8 +5,24 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 
 public class MemberOfClub extends Clans {
 
-    public MemberOfClub(String name) {
-        super(name);
+    public static MemberOfClub hinamizawa = new MemberOfClub();
+
+    public static MemberOfClub getClans(){
+        return hinamizawa;
+    }
+
+    public MemberOfClub() {
+        super("MemberOfClub");
+    }
+
+    @Override
+    public boolean isSubClans() {
+        return true;
+    }
+
+    @Override
+    public Clans getMajorClans() {
+        return Hinamizawa.getClans();
     }
 
     public enum roleList{
@@ -28,4 +44,5 @@ public class MemberOfClub extends Clans {
             return role;
         }
     }
+
 }

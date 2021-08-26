@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles;
 
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
@@ -13,37 +14,36 @@ import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.roles.police.Policier;
-import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 
-public enum Role {
+public enum RoleList {
 
-    RIKA_FURUDE(RikaFurude.class),
-    MION_SONOZAKI(MionSonozaki.class),
-    HANYU(Hanyu.class),
-    SATOKO_HOJO(SatokoHojo.class),
-    KEIICHI_MAEBARA(KeiichiMaebara.class),
-    SHION_SONOSAKI(ShionSonozaki.class),
-    RENA_RYUGU(RenaRyugu.class),
-    MIYO_TAKANO(MiyoTakano.class),
-    SATOSHI_HOJO(SatoshiHojo.class),
-    ORYO_SONOZAKI(OryoSonozaki.class),
-    KASAI(Kasai.class),
-    AKANE_SONOZAKI(AkaneSonozaki.class),
-    KIICHIRO_KIMIYOSHI(KiichiroKimiyoshi.class),
-    KURAUDO_OISHI(KuraudoOishi.class),
-    KUMAGAI(Kumagai.class),
-    AKASAKA(Akasaka.class),
-    POLICIER(Policier.class),
-    MERCENAIRE(Mercenaire.class),
-    OKONOGI(Okonogi.class);
+    RIKA_FURUDE(new RikaFurude()),
+    MION_SONOZAKI(new MionSonozaki()),
+    HANYU(new Hanyu()),
+    SATOKO_HOJO(new SatokoHojo()),
+    KEIICHI_MAEBARA(new KeiichiMaebara()),
+    SHION_SONOSAKI(new ShionSonozaki()),
+    RENA_RYUGU(new RenaRyugu()),
+    MIYO_TAKANO(new MiyoTakano()),
+    SATOSHI_HOJO(new SatoshiHojo()),
+    ORYO_SONOZAKI(new OryoSonozaki()),
+    KASAI(new Kasai()),
+    AKANE_SONOZAKI(new AkaneSonozaki()),
+    KIICHIRO_KIMIYOSHI(new KiichiroKimiyoshi()),
+    KURAUDO_OISHI(new KuraudoOishi()),
+    KUMAGAI(new Kumagai()),
+    AKASAKA(new Akasaka()),
+    POLICIER(new Policier()),
+    MERCENAIRE(new Mercenaire()),
+    OKONOGI(new Okonogi());
 
-    private Class role;
+    private Role role;
 
-    Role(Class role) {
+    RoleList(Role role) {
         this.role = role;
     }
 
-    public Class getRole() {
+    public Role getRole() {
         return role;
     }
 }

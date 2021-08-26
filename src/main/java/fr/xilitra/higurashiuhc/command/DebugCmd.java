@@ -1,10 +1,10 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,27 +28,23 @@ public class DebugCmd implements CommandExecutor {
 
                 p.sendMessage(ChatColor.DARK_PURPLE + "--- Liste des roles ---");
 
-                for(Role role : Role.values()){
+                for(RoleList role : RoleList.values()){
 
                     if(roleIsAssigned(role)){
 
                         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);
 
-                        System.out.println(hPlayer.getRole().getName());
+                        System.out.println(hPlayer.getRoleList().getRole().getName());
 
                         p.sendMessage(
-                                ChatColor.GOLD + hPlayer.getRole().getName()
+                                ChatColor.GOLD + hPlayer.getRoleList().getRole().getName()
                                         + " : "
                                         + ChatColor.GREEN  + hPlayer.getName());
 
                     }else {
 
-                        try {
-                            RoleTemplate roleTemplate = (RoleTemplate) role.getRole().newInstance();
-                            p.sendMessage(ChatColor.GOLD + roleTemplate.getName());
-                        } catch (InstantiationException | IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
+                        Role roleTemplate = role.getRole();
+                        p.sendMessage(ChatColor.GOLD + roleTemplate.getName());
                     }
 
                 }
@@ -93,24 +89,18 @@ public class DebugCmd implements CommandExecutor {
 
 
 
-                    for(Role roleList : Role.values()){
-
-                        try {
-                            RoleTemplate roleTemplate = (RoleTemplate) roleList.getRole().newInstance();
+                    for(RoleList roleList : RoleList.values()){
 
 
-                            if(role.equalsIgnoreCase(roleTemplate.getName() + " ") || role.equalsIgnoreCase(roleTemplate.getName())){
-                                hPlayer.setRole(roleTemplate);
-                                Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
-                                p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
-                                HigurashiUHC.getGameManager().getPlayers().put(hPlayer.getUuid(), hPlayer);
-                                Bukkit.getServer().getPluginManager().callEvent(new RoleSelected(hPlayer));
-                                return true;
-                            }
-
-                        } catch (InstantiationException | IllegalAccessException e) {
-                            e.printStackTrace();
+                        if(role.equalsIgnoreCase(roleList.getRole().getName() + " ") || role.equalsIgnoreCase(roleList.getRole().getName())){
+                            hPlayer.setRoleList(roleList);
+                            Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRoleList().getRole().getName());
+                            p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
+                            HigurashiUHC.getGameManager().getPlayers().put(hPlayer.getUuid(), hPlayer);
+                            Bukkit.getServer().getPluginManager().callEvent(new RoleSelected(hPlayer));
+                            return true;
                         }
+
                     }
 
                     p.sendMessage(ChatColor.RED + "Aucun role de ce nom existe.");
@@ -124,7 +114,7 @@ public class DebugCmd implements CommandExecutor {
         return false;
     }
 
-    private boolean roleIsAssigned(Role role){
+    private boolean roleIsAssigned(RoleList role){
 
         try{
             HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);

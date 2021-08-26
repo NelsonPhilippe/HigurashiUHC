@@ -1,21 +1,22 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class MiyoTakano extends RoleTemplate implements Listener {
+public class MiyoTakano extends Role implements Listener {
 
     private int order = 2;
 
     public MiyoTakano() {
-        super("Miyo Takano", Gender.FEMME);
+        super("Miyo Takano", Gender.FEMME, Mercenaire.getClans());
     }
 
 
@@ -23,16 +24,16 @@ public class MiyoTakano extends RoleTemplate implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().getName().equalsIgnoreCase(this.getName())){
+        if(player.getRoleList().getRole().equals(this)){
 
-            Role[] mercenenaire = {Role.MERCENAIRE, Role.OKONOGI};
+            RoleList[] mercenenaire = {RoleList.MERCENAIRE, RoleList.OKONOGI};
 
             for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayers().values()){
-                for(Role role : mercenenaire){
-                    if(hPlayer.getRole().getClass().getName().equalsIgnoreCase(role.getRole().getClass().getName())){
+                for(RoleList role : mercenenaire){
+                    if(hPlayer.getRoleList().getRole().equals(role.getRole())){
 
                         player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
-                        player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
+                        player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRoleList().getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
 
                     }
                 }

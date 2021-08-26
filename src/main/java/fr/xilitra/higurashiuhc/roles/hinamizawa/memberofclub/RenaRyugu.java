@@ -1,10 +1,11 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,13 +13,13 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RenaRyugu extends RoleTemplate implements Listener {
+public class RenaRyugu extends Role implements Listener {
 
     private HPlayer hPlayerPense;
     private boolean penseIsUsed;
 
     public RenaRyugu() {
-        super("Rena Ryugu", Gender.FEMME);
+        super("Rena Ryugu", Gender.FEMME, MemberOfClub.getClans());
         this.penseIsUsed = false;
     }
 
@@ -27,10 +28,10 @@ public class RenaRyugu extends RoleTemplate implements Listener {
         Player p = e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole().isMalediction()){
+        if(hPlayer.getRoleList().getRole().isMalediction()){
 
             Player killer = p.getKiller();
-            HPlayer killerHPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(Role.RENA_RYUGU);
+            HPlayer killerHPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
 
             if(killerHPlayer != null){
 

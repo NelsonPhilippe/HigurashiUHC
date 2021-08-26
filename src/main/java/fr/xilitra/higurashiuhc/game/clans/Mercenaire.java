@@ -2,19 +2,27 @@ package fr.xilitra.higurashiuhc.game.clans;
 
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
-import org.bukkit.entity.Player;
 
 public class Mercenaire extends Clans{
-    public Mercenaire(String name) {
-        super(name);
+
+    public static Mercenaire hinamizawa = new Mercenaire();
+
+    public static Mercenaire getClans(){
+        return hinamizawa;
     }
 
-    public void addPlayer(Player p){
-        this.players.add(p);
+    public Mercenaire() {
+        super("Mercenaire");
     }
 
-    public void removePlayer(Player p){
-        this.players.remove(p);
+    @Override
+    public boolean isSubClans() {
+        return false;
+    }
+
+    @Override
+    public Clans getMajorClans() {
+        return null;
     }
 
     public enum roleList{

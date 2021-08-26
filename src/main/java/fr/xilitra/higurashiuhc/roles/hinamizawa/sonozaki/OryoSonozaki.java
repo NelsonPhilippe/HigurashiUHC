@@ -1,22 +1,21 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.RoleTemplate;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OryoSonozaki extends RoleTemplate {
+public class OryoSonozaki extends Role {
 
     private Map<HPlayer, Integer> voteBan = new HashMap<>();
     private boolean asVoted;
 
     public OryoSonozaki() {
-        super("Oryo Sonozaki", Gender.FEMME);
+        super("Oryo Sonozaki", Gender.FEMME, Sonozaki.getClans());
 
         asVoted = false;
 

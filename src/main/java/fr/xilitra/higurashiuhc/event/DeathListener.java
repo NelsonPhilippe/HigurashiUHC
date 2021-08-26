@@ -40,7 +40,7 @@ public class DeathListener implements Listener {
 
                 textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-                HPlayer hpr = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+                HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
                 if(hpr != null){
                         hpr.getPlayer().spigot().sendMessage(text);
@@ -51,7 +51,7 @@ public class DeathListener implements Listener {
 
         if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Rika Furude")){
 
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null) return;
 
@@ -101,7 +101,7 @@ public class DeathListener implements Listener {
                 hPlayerList.add(hPlayer1);
             }
 
-            HPlayer miyo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MIYO_TAKANO);
+            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
             if(miyo == null) return;
 

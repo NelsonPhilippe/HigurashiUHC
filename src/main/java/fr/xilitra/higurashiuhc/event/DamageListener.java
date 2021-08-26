@@ -67,7 +67,7 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
+            HPlayer player =  RoleList.RENA_RYUGU.getRole().getPlayer();
 
             if(player != null){
 
@@ -115,7 +115,7 @@ public class DamageListener implements Listener {
         if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
 
 
-            HPlayer shionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.SHION_SONOSAKI);
+            HPlayer shionPlayer =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
 
             if(shionPlayer == null) return;
 
@@ -126,7 +126,7 @@ public class DamageListener implements Listener {
         }
 
         if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
-            HPlayer mionPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MION_SONOZAKI);
+            HPlayer mionPlayer =  RoleList.MION_SONOZAKI.getRole().getPlayer();
 
             if(mionPlayer == null) return;
 

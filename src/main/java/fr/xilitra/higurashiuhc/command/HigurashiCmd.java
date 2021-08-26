@@ -40,7 +40,7 @@ public class HigurashiCmd implements CommandExecutor {
         if(args.length == 2){
             if(args[0].equalsIgnoreCase("pense")){
 
-                HPlayer rena = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
+                HPlayer rena =  RoleList.RENA_RYUGU.getRole().getPlayer();
 
                 if(rena == null || rena.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
@@ -70,7 +70,7 @@ public class HigurashiCmd implements CommandExecutor {
 
         }
         if(args[0].equalsIgnoreCase("dimension")){
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null || hanyu.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
@@ -92,7 +92,7 @@ public class HigurashiCmd implements CommandExecutor {
             float pitchH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.pitch");
             String worldH = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
 
-            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+            HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
             int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
             int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");

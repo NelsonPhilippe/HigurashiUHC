@@ -25,7 +25,7 @@ public class MoveEvent implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+        HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
@@ -63,7 +63,7 @@ public class MoveEvent implements Listener {
             for(Location loc : SatokoHojo.blockTraps){
 
                 if(loc.getBlock().getLocation().equals(blockLoc)){
-                    HPlayer satokoHojo = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.SATOKO_HOJO);
+                    HPlayer satokoHojo =  RoleList.SATOKO_HOJO.getRole().getPlayer();
 
                     if(satokoHojo.getUuid().equals(p.getUniqueId())){
                         return;

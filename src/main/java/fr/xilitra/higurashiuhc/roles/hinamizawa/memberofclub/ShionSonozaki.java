@@ -35,7 +35,7 @@ public class ShionSonozaki extends Role implements Listener {
         Player p = e.getEntity();
         Player killer = e.getEntity().getKiller();
         HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-        HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.MION_SONOZAKI);
+        HPlayer playerAlive =  RoleList.MION_SONOZAKI.getRole().getPlayer();
 
 
         if(deathPlayer.getRoleList().getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
@@ -44,7 +44,7 @@ public class ShionSonozaki extends Role implements Listener {
                 removeHearth(e, deathPlayer, playerAlive);
             }
 
-            HPlayer kasai = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.KASAI);
+            HPlayer kasai =  RoleList.KASAI.getRole().getPlayer();
 
             if(kasai != null){
                 kasai.getPlayer().sendMessage(p.getName() + " à été tué par " + killer.getName());

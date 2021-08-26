@@ -147,7 +147,7 @@ public class RikaFurude extends Role implements Listener {
         if(hPlayer.getRoleList() == null) return;
 
         if(hPlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
-            HPlayer hanyu = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
+            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null) return;
 

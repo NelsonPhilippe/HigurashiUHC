@@ -35,7 +35,7 @@ public class MionSonozaki extends Role implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-        HPlayer playerAlive = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.SHION_SONOSAKI);
+        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
 
 
         if (deathPlayer.getRoleList().getRole().getName().equals(RoleList.MION_SONOZAKI.getRole().getName())) {

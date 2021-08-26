@@ -18,8 +18,8 @@ public class HanyuTaskInvisble extends BukkitRunnable {
 
         if(time == 0){
 
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.HANYU);
-            HPlayer rika = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RIKA_FURUDE);
+            HPlayer hPlayer = RoleList.HANYU.getRole().getPlayer();
+            HPlayer rika = RoleList.RIKA_FURUDE.getRole().getPlayer();
 
             if(rika == null){
                 return;

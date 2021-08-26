@@ -32,7 +32,7 @@ public class DebugCmd implements CommandExecutor {
 
                     if(roleIsAssigned(role)){
 
-                        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);
+                        HPlayer hPlayer = role.getRole().getPlayer();
 
                         System.out.println(hPlayer.getRoleList().getRole().getName());
 
@@ -117,7 +117,7 @@ public class DebugCmd implements CommandExecutor {
     private boolean roleIsAssigned(RoleList role){
 
         try{
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(role);
+            HPlayer hPlayer =  role.getRole().getPlayer();
 
             System.out.println(hPlayer.getName());
 

@@ -31,7 +31,7 @@ public class RenaRyugu extends Role implements Listener {
         if(hPlayer.getRoleList().getRole().isMalediction()){
 
             Player killer = p.getKiller();
-            HPlayer killerHPlayer = HigurashiUHC.getGameManager().getPlayerWithRole(RoleList.RENA_RYUGU);
+            HPlayer killerHPlayer =  RoleList.RENA_RYUGU.getRole().getPlayer();
 
             if(killerHPlayer != null){
 

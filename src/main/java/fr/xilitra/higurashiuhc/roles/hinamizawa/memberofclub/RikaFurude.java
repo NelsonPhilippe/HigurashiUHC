@@ -57,13 +57,13 @@ public class RikaFurude extends Role implements Listener {
             }
         }
 
-        for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
-            if(players.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
-                if(players.getPlayer().getGameMode() == GameMode.SPECTATOR){
-                    player.setGameMode(GameMode.SPECTATOR);
-                    HigurashiUHC.getGameManager().startRikaDeathTask();
-                    return;
-                }
+        HPlayer hanyu = RoleList.HANYU.getRole().getPlayer();
+
+        if(hanyu != null){
+            if(hanyu.getPlayer().getGameMode() == GameMode.SPECTATOR){
+                player.setGameMode(GameMode.SPECTATOR);
+                HigurashiUHC.getGameManager().startRikaDeathTask();
+                return;
             }
         }
 

@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.api.RoleTemplate;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.task.DimensionTaskTp;
 import fr.xilitra.higurashiuhc.game.task.PolicierTask;
@@ -11,6 +12,8 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
+import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -521,6 +524,49 @@ public class HigurashiCmd implements CommandExecutor {
 
             }
 
+        }
+
+        if (args[0].equalsIgnoreCase("assassiner")) {
+
+            if(args.length == 3){
+                Player targetMercenaire = Bukkit.getPlayer(args[1]);
+                Player targetVictim = Bukkit.getPlayer(args[2]);
+
+                if(targetVictim == null) return true;
+
+                if(targetMercenaire == null) return true;
+
+                HPlayer targetHPlayerMercenaire = HigurashiUHC.getGameManager().getPlayer(targetMercenaire.getUniqueId());
+                HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getPlayer(targetVictim.getUniqueId());
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+                if(hPlayer.getRole().getName().equalsIgnoreCase("Miyo Takano")){
+
+                    MiyoTakano miyoTakano = (MiyoTakano) hPlayer.getRole();
+
+                    if(miyoTakano.getOrder() == 0){
+
+                        p.sendMessage("Vous avez déjà donné 2 ordres");
+                        return true;
+                    }
+
+
+
+                    if(targetHPlayerMercenaire.getRole().getClass().getName().equalsIgnoreCase(Role.MERCENAIRE.getRole().getName())){
+
+                        Mercenaire roleTemplate = (Mercenaire) targetHPlayerMercenaire.getRole();
+
+                        roleTemplate.setCible(targetHPlayerVictim);
+
+
+                        miyoTakano.setOrder(miyoTakano.getOrder() - 1);
+
+                        return true;
+
+                    }
+
+                }
+            }
         }
 
         return false;

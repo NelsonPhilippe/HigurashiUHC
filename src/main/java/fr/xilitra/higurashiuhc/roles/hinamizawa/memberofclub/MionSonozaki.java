@@ -17,6 +17,7 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 public class MionSonozaki extends RoleTemplate implements Listener {
     public MionSonozaki() {
         super("Mion Sonozaki", Gender.FEMME);
+        this.setDisplayName("Shion Sonozaki");
     }
 
     @EventHandler

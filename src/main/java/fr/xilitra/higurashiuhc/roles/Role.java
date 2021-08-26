@@ -5,7 +5,9 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.KiichiroKimiyoshi;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import fr.xilitra.higurashiuhc.roles.neutre.SatoshiHojo;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
@@ -31,7 +33,9 @@ public enum Role {
     KURAUDO_OISHI(KuraudoOishi.class),
     KUMAGAI(Kumagai.class),
     AKASAKA(Akasaka.class),
-    POLICIER(Policier.class);
+    POLICIER(Policier.class),
+    MERCENAIRE(Mercenaire.class),
+    OKONOGI(Okonogi.class);
 
     private Class role;
 

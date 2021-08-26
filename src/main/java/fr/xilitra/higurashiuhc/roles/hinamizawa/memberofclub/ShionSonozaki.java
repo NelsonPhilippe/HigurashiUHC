@@ -15,6 +15,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class ShionSonozaki extends RoleTemplate implements Listener {
     public ShionSonozaki() {
         super("Shion Sonozaki", Gender.FEMME);
+        this.setDisplayName("Mion Sonozaki");
     }
 
     @EventHandler

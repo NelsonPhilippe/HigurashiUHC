@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -15,6 +16,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 public class DeathListener implements Listener {
 
@@ -72,7 +78,39 @@ public class DeathListener implements Listener {
         killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
                 String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
 
-        System.out.println(killer.getName() + " : kill " + killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL));
+        if(killerHplayer.getRole().getClass().getName().equalsIgnoreCase(Role.MERCENAIRE.getRole().getName())){
 
+            Mercenaire mercenaire = (Mercenaire) killerHplayer.getRole();
+
+            if(mercenaire.getCible() != null){
+
+                if(hPlayer == mercenaire.getCible()){
+
+                    killer.setMaxHealth(killer.getMaxHealth() + 1);
+                    mercenaire.setCible(null);
+
+                }
+
+            }
+
+        }
+
+        if(hPlayer.getRole().getClan().getName().equalsIgnoreCase("Mercenaire")){
+
+            int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
+
+            List<HPlayer> hPlayerList = new ArrayList<>();
+
+            for(HPlayer hPlayer1 : HigurashiUHC.getGameManager().getPlayers().values()){
+                hPlayerList.add(hPlayer1);
+            }
+
+            HPlayer miyo = HigurashiUHC.getGameManager().getPlayerWithRole(Role.MIYO_TAKANO);
+
+            if(miyo == null) return;
+
+            miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
+
+        }
     }
 }

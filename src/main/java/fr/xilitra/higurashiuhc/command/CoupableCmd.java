@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.scenario.Scenario;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -62,6 +63,28 @@ public class CoupableCmd implements CommandExecutor {
 
                     RikaFurude rikaFurude = (RikaFurude) targetHPlayer.getRole();
                     rikaFurude.setClan(new Hinamizawa("Hinamizawa"));
+                }
+
+                if(targetHPlayer.getRole().getName().equalsIgnoreCase("Mion Sonozaki")){
+
+                    if(Scenario.DOLL.isActive()){
+                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
+                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+
+                        return true;
+                    }
+
+
+                }
+
+                if(targetHPlayer.getRole().getName().equalsIgnoreCase("Shion Sonozaki")){
+                    if(Scenario.DOLL.isActive()){
+                        playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
+                        playerOishi.getPlayer().sendMessage("Le clan du joueur est : " + targetHPlayer.getRole().getClan().getName());
+
+                        return true;
+                    }
+
                 }
 
                 playerOishi.getPlayer().sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getName());

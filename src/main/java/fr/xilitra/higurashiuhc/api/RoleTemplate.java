@@ -9,6 +9,7 @@ public abstract class RoleTemplate<T extends Clans> {
    private Gender sexe;
    protected T clan;
    private boolean malediction;
+   private String displayName;
 
 
    public RoleTemplate(String name, Gender sexe) {
@@ -39,5 +40,13 @@ public abstract class RoleTemplate<T extends Clans> {
 
    public void setClan(T clan) {
       this.clan = clan;
+   }
+
+   public String getDisplayName() {
+      return displayName;
+   }
+
+   public void setDisplayName(String displayName) {
+      this.displayName = displayName;
    }
 }

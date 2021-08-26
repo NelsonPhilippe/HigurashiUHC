@@ -6,9 +6,19 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 
 public class Mercenaire extends RoleTemplate {
+
+    private HPlayer cible;
+
     public Mercenaire() {
         super("Mercenaire", Gender.NON_GENRE);
         this.clan = HigurashiUHC.getGameManager().getMercenaire();
     }
 
+    public HPlayer getCible() {
+        return cible;
+    }
+
+    public void setCible(HPlayer cible) {
+        this.cible = cible;
+    }
 }

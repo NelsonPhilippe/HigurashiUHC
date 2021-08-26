@@ -35,7 +35,7 @@ public class InteractListener implements Listener {
             }
 
             if(item.isSimilar(ItemConfig.MAP_CONFiG.getItem())){
-                p.openInventory(MapMenu.mapMenu.getInventory());
+                p.openInventory(ItemConfig.MAP_CONFiG.getMenu().getInventory());
                 e.setCancelled(true);
                 return;
             }

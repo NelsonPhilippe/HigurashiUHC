@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.event;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,12 @@ public class EpisodeListener implements Listener {
     public void onEpisodeUpdated(EpisodeUpdate e){
 
         CustomCraft.baseballBat.setUsedOnEpisode(false);
+
+        if(HigurashiUHC.getGameManager().getEpisode() == 6){
+
+            HigurashiUHC.getGameManager().setWatanagashi(true);
+
+        }
 
     }
 

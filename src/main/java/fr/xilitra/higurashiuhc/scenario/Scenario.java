@@ -14,4 +14,6 @@ public abstract class Scenario {
         return name;
     }
 
+    public abstract Integer getSolutionNumber();
+
 }

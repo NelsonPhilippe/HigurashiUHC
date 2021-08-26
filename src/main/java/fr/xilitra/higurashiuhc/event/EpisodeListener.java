@@ -31,6 +31,15 @@ public class EpisodeListener implements Listener {
 
         }
 
+        if(ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4){
+
+            Player keiichi = RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer();
+            if(keiichi == null) return;
+            if(keiichi.getMaxHealth() < 20)
+                keiichi.setMaxHealth(keiichi.getMaxHealth()+1);
+
+        }
+
         if(HigurashiUHC.getGameManager().isWatanagashi()){
 
             HPlayer keiichi = RoleList.KEIICHI_MAEBARA.getRole().getPlayer();

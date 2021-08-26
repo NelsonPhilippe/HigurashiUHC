@@ -58,15 +58,15 @@ public class GameManager {
             player.getInfo().put(KuraudoOishi.infoList.SEXE, role.getRole().getSexe().name());
 
 
-            if(role.getRole().equals(RoleList.AKASAKA.getRole())) {
+            if(role.getRole().isRole(RoleList.AKASAKA.getRole())) {
                 player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
             }
 
-            if(ScenarioList.DOLL.isActive() && role.getRole().equals(RoleList.KEIICHI_MAEBARA.getRole())){
+            if(ScenarioList.DOLL.isActive() && role.getRole().isRole(RoleList.KEIICHI_MAEBARA.getRole())){
                 player.getPlayer().getInventory().addItem(DollItem.dollItem.getItemStack());
             }
 
-            if(role.getRole().equals(RoleList.MION_SONOZAKI.getRole()) || role.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
+            if(role.getRole().isRole(RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole())){
                 player.getPlayer().setHealth(22);
             }
 

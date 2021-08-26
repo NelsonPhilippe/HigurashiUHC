@@ -11,4 +11,9 @@ public class Mistreatment extends Scenario {
     public void solution(int solution, Object... objects) {
 
     }
+
+    @Override
+    public Integer getSolutionNumber() {
+        return null;
+    }
 }

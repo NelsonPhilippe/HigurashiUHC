@@ -11,4 +11,9 @@ public class Oyashiro extends Scenario {
     public void solution(int solution, Object... o) {
 
     }
+
+    @Override
+    public Integer getSolutionNumber() {
+        return null;
+    }
 }

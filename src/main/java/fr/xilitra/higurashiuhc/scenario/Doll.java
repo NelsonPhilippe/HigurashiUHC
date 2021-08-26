@@ -37,6 +37,11 @@ public class Doll extends Scenario {
         }
     }
 
+    @Override
+    public Integer getSolutionNumber() {
+        return appliedSolution;
+    }
+
     public Integer getAppliedSolution(){
         return appliedSolution;
     }

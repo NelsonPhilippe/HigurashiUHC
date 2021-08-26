@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
+import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -37,7 +38,7 @@ public class GameTask extends TimerTask {
         }
         
         String formatTime = TimeUtils.formatTime(time);
-        int player_remaining = HigurashiUHC.getGameManager().getPlayers().size() - HigurashiUHC.getGameManager().getSpectator().size();
+        int player_remaining = HigurashiUHC.getGameManager().getPlayerWithState(PlayerState.INGAME, PlayerState.WAITING_DEATH).size();
 
         for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
             scoreboard.getValue().setLines(

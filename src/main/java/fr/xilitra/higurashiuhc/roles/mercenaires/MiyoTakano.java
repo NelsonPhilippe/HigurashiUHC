@@ -4,7 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
+import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ public class MiyoTakano extends Role implements Listener {
     private int order = 2;
 
     public MiyoTakano() {
-        super("Miyo Takano", Gender.FEMME, Mercenaire.getClans());
+        super("Miyo Takano", Gender.FEMME, MercenaireClan.getClans());
     }
 
 

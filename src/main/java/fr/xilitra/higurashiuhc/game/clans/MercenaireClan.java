@@ -3,15 +3,15 @@ package fr.xilitra.higurashiuhc.game.clans;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 
-public class Mercenaire extends Clans{
+public class MercenaireClan extends Clans{
 
-    public static Mercenaire hinamizawa = new Mercenaire();
+    public static MercenaireClan hinamizawa = new MercenaireClan();
 
-    public static Mercenaire getClans(){
+    public static MercenaireClan getClans(){
         return hinamizawa;
     }
 
-    public Mercenaire() {
+    public MercenaireClan() {
         super("Mercenaire");
     }
 

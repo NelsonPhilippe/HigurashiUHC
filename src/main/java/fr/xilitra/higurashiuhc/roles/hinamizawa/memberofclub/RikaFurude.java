@@ -4,7 +4,8 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
+import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -45,7 +46,7 @@ public class RikaFurude extends Role implements Listener {
         HPlayer hp = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
 
         if(killerHPlayer != null){
-            if(killerHPlayer.getRoleList().getRole().getClans() == Mercenaire.getClans()){
+            if(killerHPlayer.getRoleList().getRole().getClans() == MercenaireClan.getClans()){
                 player.setGameMode(GameMode.SPECTATOR);
                 HigurashiUHC.getGameManager().startRikaDeathTask();
                 for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayers().values()){
@@ -174,36 +175,31 @@ public class RikaFurude extends Role implements Listener {
 
     }
 
-    public void resurrection(HPlayer rikaFurudePlayer, HPlayer resuPlayer){
+    public void resurrection(HPlayer rikaFurudePlayer, HPlayer resuPlayer) {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
 
-        RoleList[] roles = {RoleList.SATOKO_HOJO, RoleList.KEIICHI_MAEBARA, RoleList.MION_SONOZAKI, RoleList.SHION_SONOSAKI, RoleList.RENA_RYUGU};
+        if(!resuPlayer.getRoleList().getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole()))
+            return;
 
-        HigurashiUHC.getGameManager().getPlayers().values().forEach(player -> {
-            if(!player.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
-                if(player.getPlayer().getGameMode() != GameMode.SPECTATOR){
-                    for(RoleList role : roles){
-                        if(resuPlayer.getRoleList().getRole().equals(role.getRole())){
-                            if(rikaFurudePlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
-                                RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRoleList().getRole();
+        if (!HigurashiUHC.getGameManager().getPlayerState(RoleList.HANYU.getRole().getPlayer()).isState(PlayerState.WAITING_DEATH, PlayerState.SPECTATE)) {
+            if (HigurashiUHC.getGameManager().getPlayerState(resuPlayer).isState(PlayerState.WAITING_DEATH)) {
+                if (rikaFurudePlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())) {
+                    RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRoleList().getRole();
 
-                                if(rikaFurude.getLives() <= 1){
-                                    rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
-                                    return;
-                                }
-
-                                rikaFurude.remove1Live();
-                                ressucite = true;
-                            }
-                        }
+                    if (rikaFurude.getLives() <= 1) {
+                        rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
+                        return;
                     }
+
+                    rikaFurude.remove1Live();
+                    HigurashiUHC.getGameManager().setPlayerState(resuPlayer, PlayerState.INGAME);
+                    target.setGameMode(GameMode.SURVIVAL);
+                    target.setHealth(target.getMaxHealth());
+                    ressucite = true;
                 }
             }
-        });
-
-
-
+        }
     }
 
     public boolean getRessucite(){

@@ -1,10 +1,12 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.GameManager;
+import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -29,29 +31,25 @@ public class DeathListener implements Listener {
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         p.setGameMode(GameMode.SPECTATOR);
+        HigurashiUHC.getGameManager().setPlayerState(hPlayer, PlayerState.WAITING_DEATH);
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        RoleList[] rolesRikaResu = {RoleList.SATOKO_HOJO, RoleList.KEIICHI_MAEBARA, RoleList.MION_SONOZAKI, RoleList.SHION_SONOSAKI, RoleList.RENA_RYUGU};
+        if(hPlayer.getRoleList().getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
+            TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
+            TextComponent text = new TextComponent(hPlayer.getRoleList().getRole().getName() + " vien de mourrir ");
 
-        for(RoleList role : rolesRikaResu){
-            if(role.getRole().getName().equals(hPlayer.getRoleList().getRole().getName())){
-                TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
-                TextComponent text = new TextComponent(hPlayer.getRoleList().getRole().getName() + " vien de mourrir ");
+            text.addExtra(textClick);
 
-                text.addExtra(textClick);
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-                textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
+            HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 
-                HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
-
-                if(hpr != null){
-                        hpr.getPlayer().spigot().sendMessage(text);
-                }
-                break;
+            if(hpr != null){
+                hpr.getPlayer().spigot().sendMessage(text);
             }
         }
 
-        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Rika Furude")){
+        if(hPlayer.getRoleList().getRole().isRole(RoleList.RIKA_FURUDE.getRole())){
 
             HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
@@ -93,7 +91,7 @@ public class DeathListener implements Listener {
 
         }
 
-        if(hPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Mercenaire")){
+        if(MercenaireClan.getClans().hisInClans(hPlayer.getRoleList().getRole())){
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
 

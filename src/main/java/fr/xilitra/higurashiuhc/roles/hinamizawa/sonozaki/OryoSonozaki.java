@@ -16,7 +16,7 @@ public class OryoSonozaki extends Role {
     private boolean asVoted;
 
     public OryoSonozaki() {
-        super("Oryo Sonozaki", Gender.FEMME, Sonozaki.getClans());
+        super("Oryo Sonozaki", Gender.FEMME, Sonozaki.getClans(), 1);
 
         asVoted = false;
 
@@ -43,12 +43,12 @@ public class OryoSonozaki extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

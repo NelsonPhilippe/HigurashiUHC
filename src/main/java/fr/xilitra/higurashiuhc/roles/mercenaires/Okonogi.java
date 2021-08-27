@@ -11,31 +11,17 @@ import java.util.List;
 
 public class Okonogi extends Role {
 
-    private List<HPlayer> hPlayerList = new ArrayList<>();
-
     public Okonogi() {
-        super("Okonogi", Gender.HOMME, MercenaireClan.getClans());
-    }
-
-    public List<HPlayer> gethPlayerList() {
-        return hPlayerList;
-    }
-
-    public void addPlayer(HPlayer player){
-        this.hPlayerList.add(player);
-    }
-
-    public void removePlayer(HPlayer player){
-        this.hPlayerList.remove(player);
+        super("Okonogi", Gender.HOMME, MercenaireClan.getClans(), 1);
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

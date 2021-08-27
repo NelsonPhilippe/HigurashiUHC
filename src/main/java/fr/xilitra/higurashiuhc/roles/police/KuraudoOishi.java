@@ -19,7 +19,7 @@ public class KuraudoOishi extends Role implements Listener {
 
 
     public KuraudoOishi() {
-        super("Kuraudo Oishi", Gender.HOMME, Police.getClans());
+        super("Kuraudo Oishi", Gender.HOMME, Police.getClans(), 1);
         countSuspect = 0;
         coupableIsDesigned = false;
     }
@@ -50,12 +50,12 @@ public class KuraudoOishi extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 

@@ -31,7 +31,7 @@ public class RikaFurude extends Role implements Listener {
     private boolean ressucite = false;
 
     public RikaFurude() {
-        super("Rika Furude", Gender.FEMME, MemberOfClub.getClans());
+        super("Rika Furude", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.lives = 3;
     }
 
@@ -50,11 +50,11 @@ public class RikaFurude extends Role implements Listener {
         HPlayer hp = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
 
         if(killerHPlayer != null){
-            if(killerHPlayer.getRoleList().getRole().getClans() == MercenaireClan.getClans()){
+            if(killerHPlayer.getClans() == MercenaireClan.getClans()){
                 player.setGameMode(GameMode.SPECTATOR);
                 HigurashiUHC.getGameManager().startRikaDeathTask();
                 for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayers().values()){
-                    if(miyo.getRoleList().getRole().equals(RoleList.MIYO_TAKANO.getRole())){
+                    if(miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())){
                         Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                     }
                 }
@@ -72,8 +72,8 @@ public class RikaFurude extends Role implements Listener {
             }
         }
 
-        if(hp.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
-            RikaFurude rikaFurude = (RikaFurude) hp.getRoleList().getRole();
+        if(hp.getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+            RikaFurude rikaFurude = (RikaFurude) hp.getRole();
 
             rikaFurude.remove1Live();
 
@@ -135,7 +135,7 @@ public class RikaFurude extends Role implements Listener {
 
         Player bPlayer = player.getPlayer();
 
-        if(player.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.RIKA_FURUDE.getRole().getName())){
+        if(player.getRole().getName().equalsIgnoreCase(RoleList.RIKA_FURUDE.getRole().getName())){
             bPlayer.setHealth(16);
             bPlayer.setMaxHealth(16);
         }
@@ -149,14 +149,14 @@ public class RikaFurude extends Role implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRoleList() == null) return;
+        if(hPlayer.getRole()== null) return;
 
-        if(hPlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())){
+        if(hPlayer.getRole().equals(RoleList.RIKA_FURUDE.getRole())){
             HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
             if(hanyu == null) return;
 
-            Hanyu hanyuRole = (Hanyu) hanyu.getRoleList().getRole();
+            Hanyu hanyuRole = (Hanyu) hanyu.getRole();
 
             Location hanyuLocation = hanyu.getPlayer().getLocation();
             Location rikaLocation = p.getLocation();
@@ -183,13 +183,13 @@ public class RikaFurude extends Role implements Listener {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
 
-        if(!resuPlayer.getRoleList().getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole()))
+        if(!resuPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole()))
             return;
 
-        if (!HigurashiUHC.getGameManager().getPlayerState(RoleList.HANYU.getRole().getPlayer()).isState(PlayerState.WAITING_DEATH, PlayerState.SPECTATE)) {
-            if (HigurashiUHC.getGameManager().getPlayerState(resuPlayer).isState(PlayerState.WAITING_DEATH)) {
-                if (rikaFurudePlayer.getRoleList().getRole().equals(RoleList.RIKA_FURUDE.getRole())) {
-                    RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRoleList().getRole();
+        if (!RoleList.HANYU.getRole().getPlayer().getPlayerState().isState(PlayerState.WAITING_DEATH, PlayerState.SPECTATE)) {
+            if (resuPlayer.getPlayerState().isState(PlayerState.WAITING_DEATH)) {
+                if (rikaFurudePlayer.getRole().equals(RoleList.RIKA_FURUDE.getRole())) {
+                    RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
 
                     if (rikaFurude.getLives() <= 1) {
                         rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
@@ -197,7 +197,7 @@ public class RikaFurude extends Role implements Listener {
                     }
 
                     rikaFurude.remove1Live();
-                    HigurashiUHC.getGameManager().setPlayerState(resuPlayer, PlayerState.INGAME);
+                    resuPlayer.setPlayerState(PlayerState.INGAME);
                     target.setGameMode(GameMode.SURVIVAL);
                     target.setHealth(target.getMaxHealth());
                     ressucite = true;
@@ -223,18 +223,18 @@ public class RikaFurude extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
         HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
         if(miyo != null){
 
-            Bukkit.broadcastMessage(miyo.getRoleList().getRole().getName() + " est " + miyo.getName());
+            Bukkit.broadcastMessage(miyo.getRole().getName() + " est " + miyo.getName());
 
         }
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
         HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
         if(hanyu == null) return;

@@ -12,7 +12,7 @@ public class Mercenaire extends Role {
     private HPlayer cible;
 
     public Mercenaire() {
-        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans());
+        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1);
     }
 
     public HPlayer getCible() {
@@ -24,7 +24,7 @@ public class Mercenaire extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
         if(getCible() != null){
 
             if(killed == getCible()){
@@ -38,7 +38,7 @@ public class Mercenaire extends Role {
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 

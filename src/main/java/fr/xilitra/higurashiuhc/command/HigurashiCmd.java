@@ -45,7 +45,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 if(rena == null || rena.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
-                if(((RenaRyugu) rena.getRoleList().getRole()).gethPlayerPense() != null) return true;
+                if(((RenaRyugu) rena.getRole()).gethPlayerPense() != null) return true;
 
                 Player target = Bukkit.getPlayer(args[1]);
 
@@ -57,7 +57,7 @@ public class HigurashiCmd implements CommandExecutor {
                 for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayers().values()){
 
                     if(hPlayer.getName().equalsIgnoreCase(args[1])){
-                        ((RenaRyugu) rena.getRoleList().getRole()).setHPlayerPense(hPlayer);
+                        ((RenaRyugu) rena.getRole()).setHPlayerPense(hPlayer);
                         rena.getPlayer().sendMessage("Vous lisez dans les pensé de " + args[1]);
                         break;
                     }
@@ -75,7 +75,7 @@ public class HigurashiCmd implements CommandExecutor {
 
             if(hanyu == null || hanyu.getPlayer().getUniqueId() != p.getUniqueId()) return true;
 
-            Hanyu hanyuRole = (Hanyu) hanyu.getRoleList().getRole();
+            Hanyu hanyuRole = (Hanyu) hanyu.getRole();
 
             System.out.println("test");
 
@@ -139,9 +139,9 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.ORYO_SONOZAKI.getRole().getName())) return true;
+                if(!hPlayer.getRole().getName().equals(RoleList.ORYO_SONOZAKI.getRole().getName())) return true;
 
-                OryoSonozaki oryoSonozaki = (OryoSonozaki) hPlayer.getRoleList().getRole();
+                OryoSonozaki oryoSonozaki = (OryoSonozaki) hPlayer.getRole();
 
                 if(oryoSonozaki.isAsVoted()){
                     p.sendMessage("Vous avez déjà enclenché un vote précédement");
@@ -160,12 +160,12 @@ public class HigurashiCmd implements CommandExecutor {
 
                     HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                    if(targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Hinamizawa")){
+                    if(targetHPlayer.getClans().getName().equalsIgnoreCase("Hinamizawa")){
                         p.sendMessage("vous ne pouvez pas voter pour un membre de votre clans");
                         return true;
                     }
 
-                    if(players.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Hinamizawa")){
+                    if(players.getClans().getName().equalsIgnoreCase("Hinamizawa")){
 
                         Player allPlayer = players.getPlayer();
 
@@ -190,9 +190,9 @@ public class HigurashiCmd implements CommandExecutor {
         if(args[0].equalsIgnoreCase("force")){
             HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-            if(hPlayer.getRoleList().getRole().getName().equals(RoleList.KASAI.getRole().getName())){
+            if(hPlayer.getRole().getName().equals(RoleList.KASAI.getRole().getName())){
 
-                Kasai kasai = (Kasai) hPlayer.getRoleList().getRole();
+                Kasai kasai = (Kasai) hPlayer.getRole();
 
                 if(kasai.isGiveForce()){
                     p.sendMessage("Vous avez déjà bousté votre force!");
@@ -213,8 +213,8 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.AKANE_SONOZAKI.getRole().getName())) return true;
-                AkaneSonozaki akaneSonozaki = (AkaneSonozaki) hPlayer.getRoleList().getRole();
+                if(!hPlayer.getRole().getName().equals(RoleList.AKANE_SONOZAKI.getRole().getName())) return true;
+                AkaneSonozaki akaneSonozaki = (AkaneSonozaki) hPlayer.getRole();
 
                 int time = p.getStatistic(Statistic.PLAY_ONE_TICK);
 
@@ -248,7 +248,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.KIICHIRO_KIMIYOSHI.getRole().getName())) return true;
+                if(!hPlayer.getRole().getName().equals(RoleList.KIICHIRO_KIMIYOSHI.getRole().getName())) return true;
 
                 if(target == null) return true;
 
@@ -273,7 +273,7 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
                 Player target = Bukkit.getPlayer(args[1]);
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.KURAUDO_OISHI.getRole().getName())) return true;
+                if(!hPlayer.getRole().getName().equals(RoleList.KURAUDO_OISHI.getRole().getName())) return true;
 
                 if(target == null){
                     p.sendMessage("Le joueur n'exitse pas");
@@ -282,7 +282,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRoleList().getRole();
+                KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRole();
 
                 if(kuraudoOishi.getCountSuspect() == 0){
                     Bukkit.broadcastMessage(p.getName() + " est " + kuraudoOishi.getName());
@@ -312,9 +312,9 @@ public class HigurashiCmd implements CommandExecutor {
                 p.sendMessage("Le joueur suspecté est " + target.getName() + " :");
 
 
-                for(int i = 0; i > randomInfoSelect; i++){
+                for(int i = 0; i < randomInfoSelect; i++){
 
-                    if(targetHPlayer.getRoleList().getRole().getSexe() == Gender.NON_GENRE){
+                    if(targetHPlayer.getRole().getSexe() == Gender.NON_GENRE){
                         i--;
                     }
 
@@ -335,8 +335,8 @@ public class HigurashiCmd implements CommandExecutor {
                         if(info.equals(KuraudoOishi.infoList.ROLE)){
                             char letter = 0;
 
-                            for(int c = 0; c < targetHPlayer.getRoleList().getRole().getName().length(); c++){
-                                letter = targetHPlayer.getRoleList().getRole().getName().charAt(c);
+                            for(int c = 0; c < targetHPlayer.getRole().getName().length(); c++){
+                                letter = targetHPlayer.getRole().getName().charAt(c);
                             }
 
                             p.sendMessage("- " + info.getType() + " : " + letter);
@@ -381,11 +381,11 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.KUMAGAI.getRole().getName())){
+                if(!hPlayer.getRole().getName().equals(RoleList.KUMAGAI.getRole().getName())){
                     return true;
                 }
 
-                Kumagai kumagai = (Kumagai) hPlayer.getRoleList().getRole();
+                Kumagai kumagai = (Kumagai) hPlayer.getRole();
 
                 Player target = Bukkit.getPlayer(args[1]);
 
@@ -406,7 +406,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                     for(String clan : clans){
 
-                        if(targetHPlayer.getRoleList().getRole().getClass().getName().equals(RoleList.MION_SONOZAKI.getRole().getName()) || targetHPlayer.getRoleList().getRole().getClass().getName().equals(RoleList.SHION_SONOSAKI.getRole().getName())){
+                        if(targetHPlayer.getRole().getClass().getName().equals(RoleList.MION_SONOZAKI.getRole().getName()) || targetHPlayer.getRole().getClass().getName().equals(RoleList.SHION_SONOSAKI.getRole().getName())){
 
                             Random random = new Random();
                             int randomClan = random.nextInt(100);
@@ -422,8 +422,8 @@ public class HigurashiCmd implements CommandExecutor {
 
                         }
 
-                        if(targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase(clan) ||
-                                targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Club")){
+                        if(targetHPlayer.getClans().getName().equalsIgnoreCase(clan) ||
+                                targetHPlayer.getClans().getName().equalsIgnoreCase("Club")){
 
                             p.sendMessage(args[2] + " est dans le camp " + clan);
                             return true;
@@ -454,17 +454,17 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.AKASAKA.getRole().getName())){
+                if(!hPlayer.getRole().getName().equals(RoleList.AKASAKA.getRole().getName())){
                     return true;
                 }
 
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                Akasaka akasaka = (Akasaka) targetHPlayer.getRoleList().getRole();
+                Akasaka akasaka = (Akasaka) targetHPlayer.getRole();
 
                 akasaka.setCountCompare(akasaka.getCountCompare() + 1);
 
-                if(targetHPlayer.getRoleList().getRole().getClass().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
+                if(targetHPlayer.getRole().getClass().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
 
                     if(akasaka.getCountCompare() == 1){
                         p.setMaxHealth(1.5);
@@ -495,7 +495,7 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
                 Player target = Bukkit.getPlayer(args[1]);
 
-                if(!hPlayer.getRoleList().getRole().getName().equals(RoleList.POLICIER.getRole().getName())) return true;
+                if(!hPlayer.getRole().getName().equals(RoleList.POLICIER.getRole().getName())) return true;
 
                 if(target == null){
 
@@ -506,7 +506,7 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
 
-                Policier policier = (Policier) targetHPlayer.getRoleList().getRole();
+                Policier policier = (Policier) targetHPlayer.getRole();
 
                 if(policier.isPvIsUsed()){
                     p.sendMessage("Vous avez déjà utilisé votre pv");
@@ -538,9 +538,9 @@ public class HigurashiCmd implements CommandExecutor {
                 HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getPlayer(targetVictim.getUniqueId());
                 HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-                if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Miyo Takano")){
+                if(hPlayer.getRole().getName().equalsIgnoreCase("Miyo Takano")){
 
-                    MiyoTakano miyoTakano = (MiyoTakano) hPlayer.getRoleList().getRole();
+                    MiyoTakano miyoTakano = (MiyoTakano) hPlayer.getRole();
 
                     if(miyoTakano.getOrder() == 0){
 
@@ -550,9 +550,9 @@ public class HigurashiCmd implements CommandExecutor {
 
 
 
-                    if(targetHPlayerMercenaire.getRoleList().getRole().getName().equalsIgnoreCase(RoleList.MERCENAIRE.getRole().getName())){
+                    if(targetHPlayerMercenaire.getRole().getName().equalsIgnoreCase(RoleList.MERCENAIRE.getRole().getName())){
 
-                        Mercenaire roleTemplate = (Mercenaire) targetHPlayerMercenaire.getRoleList().getRole();
+                        Mercenaire roleTemplate = (Mercenaire) targetHPlayerMercenaire.getRole();
 
                         roleTemplate.setCible(targetHPlayerVictim);
 

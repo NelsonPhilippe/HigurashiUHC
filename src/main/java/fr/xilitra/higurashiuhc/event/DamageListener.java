@@ -1,20 +1,18 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.MariedReason;
+import fr.xilitra.higurashiuhc.player.MariedReason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -80,7 +78,7 @@ public class DamageListener implements Listener {
 
             if(player != null){
 
-                RenaRyugu renaRyugu = (RenaRyugu) player.getRoleList().getRole();
+                RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
 
                 if(renaRyugu.gethPlayerPense() != null){
 
@@ -125,7 +123,7 @@ public class DamageListener implements Listener {
 
             }
 
-            if (hPlayer.getRoleList().getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
+            if (hPlayer.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
 
                 HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getPlayer();
                 if (shionPlayer == null) return;
@@ -136,7 +134,7 @@ public class DamageListener implements Listener {
 
             }
 
-            if (hPlayer.getRoleList().getRole().isRole(RoleList.SHION_SONOSAKI.getRole())) {
+            if (hPlayer.getRole().isRole(RoleList.SHION_SONOSAKI.getRole())) {
 
                 HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getPlayer();
 
@@ -159,12 +157,12 @@ public class DamageListener implements Listener {
     }
 
     private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
-        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase(role1)){
+        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
                 for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayers().values()){
 
-                    if(hPlayers.getRoleList().getRole().getName().equalsIgnoreCase(role2)){
+                    if(hPlayers.getRole().getName().equalsIgnoreCase(role2)){
                         double damage = limitDamege(e.getDamage());
                         hPlayer.getPlayer().damage(damage);
                         break;
@@ -180,21 +178,21 @@ public class DamageListener implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(HigurashiUHC.getGameManager().getPlayerState(hPlayer).isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
+        if(hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
             return;
 
         p.setGameMode(GameMode.SPECTATOR);
-        HigurashiUHC.getGameManager().setPlayerState(hPlayer, PlayerState.WAITING_DEATH);
+        hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        hPlayer.getRoleList().getRole().onDeath(dc);
+        hPlayer.getRole().onDeath(dc, hPlayer);
 
         ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
 
-        if(hPlayer.getRoleList().getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
+        if(hPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
 
             TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
-            TextComponent text = new TextComponent(hPlayer.getRoleList().getRole().getName() + " vien de mourrir ");
+            TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
 
             text.addExtra(textClick);
 
@@ -211,12 +209,12 @@ public class DamageListener implements Listener {
         Player killer = p.getKiller();
         HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
 
-        killerHplayer.getRoleList().getRole().onKill(hPlayer);
+        killerHplayer.getRole().onKill(killerHplayer, hPlayer);
 
         killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
                 String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
 
-        if(MercenaireClan.getClans().hisInClans(hPlayer.getRoleList().getRole())){
+        if(MercenaireClan.getClans().hisInClans(hPlayer)){
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
 
@@ -226,7 +224,7 @@ public class DamageListener implements Listener {
 
             if(miyo != null) {
 
-                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRoleList().getRole().getName());
+                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
 
             }
 
@@ -241,7 +239,7 @@ public class DamageListener implements Listener {
 
             if (marriedReason.isMariedReason(MariedReason.DOLL_TRAGEDY)) {
 
-                married.getRoleList().getRole().setMalediction(true);
+                married.setMaledictionPower(married.getMaledictionPower()+1);
 
             }
 

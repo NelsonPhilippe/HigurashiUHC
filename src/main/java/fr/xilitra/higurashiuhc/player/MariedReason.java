@@ -1,4 +1,4 @@
-package fr.xilitra.higurashiuhc.api;
+package fr.xilitra.higurashiuhc.player;
 
 public enum MariedReason {
     DOLL_TRAGEDY("DOLLTRAGEDY");

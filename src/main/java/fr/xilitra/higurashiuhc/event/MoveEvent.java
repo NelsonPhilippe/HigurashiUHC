@@ -29,11 +29,11 @@ public class MoveEvent implements Listener {
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
-        if(hPlayer.getRoleList().getRole() == null) return;
+        if(hPlayer.getRole() == null) return;
 
 
         for(MemberOfClub.roleList roleList : MemberOfClub.roleList.values()){
-            if(roleList.getRole().getName().equals(hPlayer.getRoleList().getRole().getName())){
+            if(roleList.getRole().getName().equals(hPlayer.getRole().getName())){
 
                 if(rika != null){
                     if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
@@ -70,7 +70,7 @@ public class MoveEvent implements Listener {
                     }
 
 
-                    satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRoleList().getRole().getName());
+                    satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
                     loc.getBlock().setType(Material.SOIL);
                     ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
                     break;

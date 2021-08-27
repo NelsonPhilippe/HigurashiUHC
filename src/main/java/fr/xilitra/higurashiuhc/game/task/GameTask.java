@@ -63,7 +63,7 @@ public class GameTask extends TimerTask {
 
             if(player != null){
 
-                KuraudoOishi oishi = (KuraudoOishi) player.getRoleList().getRole();
+                KuraudoOishi oishi = (KuraudoOishi) player.getRole();
 
                 if(!oishi.isCoupableIsDesigned()){
                     player.getPlayer().setMaxHealth(2.5);

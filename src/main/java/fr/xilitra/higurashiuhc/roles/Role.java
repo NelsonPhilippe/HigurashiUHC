@@ -2,24 +2,28 @@ package fr.xilitra.higurashiuhc.roles;
 
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
-import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Role {
 
-   private String name;
-   private Gender sexe;
-   private boolean malediction;
+   private final String name;
+   private final Gender sexe;
    private String displayName;
-   private HPlayer player;
+   private final List<HPlayer> players = new ArrayList<>();
+   private final int maxPlayers;
+   private final Clans defaultClans;
 
 
-   public Role(String name, Gender sexe, Clans clans) {
+   public Role(String name, Gender sexe, Clans clans, int maxPlayers) {
       this.name = name;
       this.sexe = sexe;
-      this.malediction = false;
-      setClans(clans);
+      this.displayName = name;
+      this.defaultClans = clans;
+      this.maxPlayers = maxPlayers;
    }
 
    public String getName() {
@@ -28,22 +32,6 @@ public abstract class Role {
 
    public Gender getSexe() {
       return sexe;
-   }
-
-   public void setClans(Clans clans){
-      ClansManager.getInstance().setClans(this, clans);
-   }
-
-   public Clans getClans(){
-      return ClansManager.getInstance().getClans(this);
-   }
-
-   public boolean isMalediction() {
-      return malediction;
-   }
-
-   public void setMalediction(boolean malediction) {
-      this.malediction = malediction;
    }
 
    public String getDisplayName() {
@@ -55,16 +43,32 @@ public abstract class Role {
    }
 
    public HPlayer getPlayer() {
-      return player;
+      return players.get(0);
    }
 
-   public void setPlayer(HPlayer player){
-      this.player = player;
+   public List<HPlayer> getPlayers(){
+      return players;
    }
 
-   public abstract void onKill(HPlayer killed);
+   public boolean addPlayer(HPlayer player){
+      if(players.size()<maxPlayers) {
+         players.add(player);
+         return true;
+      }
+      return false;
+   }
 
-   public abstract void onDeath(EntityDamageEvent.DamageCause killer);
+   public boolean removePlayer(HPlayer player){
+      return players.remove(player);
+   }
+
+   public abstract void onKill(HPlayer killer, HPlayer killed);
+
+   public abstract void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed);
+
+   public Clans getDefaultClans(){
+      return defaultClans;
+   }
 
    public boolean isRole(Role role){
       return getName().equals(role.getName());

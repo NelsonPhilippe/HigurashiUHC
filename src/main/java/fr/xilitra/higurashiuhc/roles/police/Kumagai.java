@@ -14,7 +14,7 @@ public class Kumagai extends Role {
     private List<String> CompareClanUsed = new ArrayList<>();
 
     public Kumagai() {
-        super("Kumagai", Gender.HOMME, Police.getClans());
+        super("Kumagai", Gender.HOMME, Police.getClans(), 1);
     }
 
     public List<String> getCompareClanUsed() {
@@ -26,12 +26,12 @@ public class Kumagai extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

@@ -1,7 +1,6 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.MariedReason;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -26,7 +25,7 @@ public class PickupListener implements Listener {
         if(!item.getItemMeta().hasLore()) return;
 
         String lore = item.getItemMeta().getLore().get(0);
-        String playerRole = hPlayer.getRoleList().getRole().getName();
+        String playerRole = hPlayer.getRole().getName();
 
         if(lore.equalsIgnoreCase(CustomCraft.baseballBat.getLore())){
 

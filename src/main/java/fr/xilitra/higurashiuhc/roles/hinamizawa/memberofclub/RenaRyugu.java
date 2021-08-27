@@ -20,7 +20,7 @@ public class RenaRyugu extends Role implements Listener {
     private boolean penseIsUsed;
 
     public RenaRyugu() {
-        super("Rena Ryugu", Gender.FEMME, MemberOfClub.getClans());
+        super("Rena Ryugu", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.penseIsUsed = false;
     }
 
@@ -29,7 +29,7 @@ public class RenaRyugu extends Role implements Listener {
         Player p = e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRoleList().getRole().isMalediction()){
+        if(hPlayer.hasMalediction()){
 
             Player killer = p.getKiller();
             HPlayer killerHPlayer =  RoleList.RENA_RYUGU.getRole().getPlayer();
@@ -61,12 +61,12 @@ public class RenaRyugu extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

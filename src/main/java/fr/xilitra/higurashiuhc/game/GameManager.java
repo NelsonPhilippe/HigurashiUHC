@@ -21,7 +21,6 @@ import java.util.*;
 public class GameManager {
 
     private GameStates states;
-    private final Map<UUID, PlayerState> playerState = new HashMap<>();
     private final Map<UUID, HPlayer > players = new HashMap<>();
     private ScenarioList scenarioList;
     private int episode = 0;
@@ -53,7 +52,7 @@ public class GameManager {
 
             roles.remove(number);
 
-            player.setRoleList(role);
+            player.setRole(role.getRole());
             players.replace(player.getUuid(), player);
             player.getInfo().put(KuraudoOishi.infoList.SEXE, role.getRole().getSexe().name());
 
@@ -163,25 +162,13 @@ public class GameManager {
         this.worldBorder = worldBorder;
     }
 
-    public void removePlayerState(HPlayer hPlayer){
-        playerState.remove(hPlayer.getUuid());
-    }
-
-    public void setPlayerState(HPlayer hPlayer, PlayerState playerState){
-        this.playerState.put(hPlayer.getUuid(), playerState);
-    }
-
-    public PlayerState getPlayerState(HPlayer hPlayer){
-        return this.playerState.get(hPlayer.getUuid());
-    }
-
     public List<HPlayer> getPlayerWithState(PlayerState... playerState){
 
         List<HPlayer> playerList = new ArrayList<>();
 
-        for(Map.Entry<UUID, PlayerState> map : this.playerState.entrySet())
-            if (map.getValue().isState(playerState))
-                playerList.add(getPlayer(map.getKey()));
+        for(HPlayer player : this.players.values())
+            if (player.getPlayerState().isState(playerState))
+                playerList.add(player);
 
         return playerList;
 

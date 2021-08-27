@@ -73,7 +73,7 @@ public class EpisodeListener implements Listener {
 
             Player bMiyo = miyo.getPlayer();
 
-            bMiyo.sendMessage(tomitake.getRoleList().getRole().getName() + " est " + bTomitake.getName());
+            bMiyo.sendMessage(tomitake.getRole().getName() + " est " + bTomitake.getName());
 
 
         }

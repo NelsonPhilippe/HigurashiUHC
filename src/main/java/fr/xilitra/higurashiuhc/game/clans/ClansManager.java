@@ -1,8 +1,10 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
+import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class ClansManager {
 
@@ -17,27 +19,27 @@ public class ClansManager {
     }
 
 
-    private final HashMap<Role, Clans> playerLink = new HashMap<>();
+    private final HashMap<UUID, Clans> playerLink = new HashMap<>();
 
-    public boolean hasClans(Role player){
-        return playerLink.containsKey(player);
+    public boolean hasClans(HPlayer player){
+        return playerLink.containsKey(player.getUuid());
     }
 
-    public Clans getClans(Role player){
-        return playerLink.get(player);
+    public Clans getClans(HPlayer player){
+        return playerLink.get(player.getUuid());
     }
 
-    public boolean removeClans(Role player){
+    public boolean removeClans(HPlayer player){
         if(!hasClans(player)) return false;
-        getClans(player).removeRole(player);
-        playerLink.remove(player);
+        getClans(player).removePlayer(player.getUuid());
+        playerLink.remove(player.getUuid());
         return true;
     }
 
-    public void setClans(Role player, Clans clans){
+    public void setClans(HPlayer player, Clans clans){
         removeClans(player);
-        playerLink.put(player, clans);
-        clans.addRole(player);
+        playerLink.put(player.getUuid(), clans);
+        clans.addPlayer(player.getUuid());
     }
 
 }

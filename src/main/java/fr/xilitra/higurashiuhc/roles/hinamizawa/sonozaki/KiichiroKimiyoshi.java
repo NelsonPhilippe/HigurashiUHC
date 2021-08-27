@@ -8,16 +8,16 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class KiichiroKimiyoshi extends Role {
     public KiichiroKimiyoshi() {
-        super("Kiichiro Kimiyoshi", Gender.HOMME, Sonozaki.getClans());
+        super("Kiichiro Kimiyoshi", Gender.HOMME, Sonozaki.getClans(), 1);
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

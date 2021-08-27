@@ -16,7 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class ShionSonozaki extends Role implements Listener {
     public ShionSonozaki() {
-        super("Shion Sonozaki", Gender.FEMME, MemberOfClub.getClans());
+        super("Shion Sonozaki", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.setDisplayName("Mion Sonozaki");
     }
 
@@ -24,7 +24,7 @@ public class ShionSonozaki extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRoleList().getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
+        if(player.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -39,7 +39,7 @@ public class ShionSonozaki extends Role implements Listener {
         HPlayer playerAlive =  RoleList.MION_SONOZAKI.getRole().getPlayer();
 
 
-        if(deathPlayer.getRoleList().getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
+        if(deathPlayer.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
 
             if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
                 removeHearth(e, deathPlayer, playerAlive);
@@ -70,12 +70,12 @@ public class ShionSonozaki extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

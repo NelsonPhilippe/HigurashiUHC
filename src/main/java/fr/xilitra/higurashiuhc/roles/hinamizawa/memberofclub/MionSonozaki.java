@@ -18,7 +18,7 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 
 public class MionSonozaki extends Role implements Listener {
     public MionSonozaki() {
-        super("Mion Sonozaki", Gender.FEMME, MemberOfClub.getClans());
+        super("Mion Sonozaki", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.setDisplayName("Shion Sonozaki");
     }
 
@@ -26,7 +26,7 @@ public class MionSonozaki extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRoleList().getRole().equals(RoleList.MION_SONOZAKI.getRole())){
+        if(player.getRole().equals(RoleList.MION_SONOZAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -39,7 +39,7 @@ public class MionSonozaki extends Role implements Listener {
         HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
 
 
-        if (deathPlayer.getRoleList().getRole().getName().equals(RoleList.MION_SONOZAKI.getRole().getName())) {
+        if (deathPlayer.getRole().getName().equals(RoleList.MION_SONOZAKI.getRole().getName())) {
 
             if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
                 removeHearth(e, deathPlayer, playerAlive);
@@ -49,12 +49,12 @@ public class MionSonozaki extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

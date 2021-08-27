@@ -1,14 +1,17 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
+import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class Clans {
 
     private final String name;
-    protected List<Role> roles = new ArrayList<>();
+    protected List<UUID> playerList = new ArrayList<>();
 
     public Clans(String name) {
         this.name = name;
@@ -18,25 +21,25 @@ public abstract class Clans {
         return name;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<UUID> getPlayerList() {
+        return playerList;
     }
 
-    protected void addRole(Role p){
-        this.roles.add(p);
+    protected void addPlayer(UUID p){
+        this.playerList.add(p);
     }
 
-    protected void removeRole(Role p){
-        this.roles.remove(p);
+    protected void removePlayer(UUID p){
+        this.playerList.remove(p);
     }
 
     public abstract boolean isSubClans();
 
     public abstract Clans getMajorClans();
 
-    public boolean hisInClans(Role role){
+    public boolean hisInClans(HPlayer player){
 
-        Clans playerClans = role.getClans();
+        Clans playerClans = player.getClans();
 
         if(playerClans.isSubClans()){
 

@@ -11,7 +11,7 @@ public class Kasai extends Role {
     private boolean isGiveForce;
 
     public Kasai() {
-        super("Kasai", Gender.HOMME, Sonozaki.getClans());
+        super("Kasai", Gender.HOMME, Sonozaki.getClans(), 1);
         isGiveForce = false;
     }
 
@@ -24,12 +24,12 @@ public class Kasai extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

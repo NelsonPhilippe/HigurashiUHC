@@ -29,16 +29,16 @@ public class RessuciteCmd implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[1]);
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-            if(hPlayer.getRoleList().getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
+            if(hPlayer.getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
 
                 if(((DeathTask) hPlayerTarget.getDeathTask()).isStarted()){
 
-                    if(((RikaFurude) hPlayer.getRoleList().getRole()).getRessucite()){
+                    if(((RikaFurude) hPlayer.getRole()).getRessucite()){
                         p.sendMessage("Vous ne pouvez plus ressuciter");
                         return true;
                     }
 
-                    ((RikaFurude) hPlayer.getRoleList().getRole()).resurrection(hPlayer, hPlayerTarget);
+                    ((RikaFurude) hPlayer.getRole()).resurrection(hPlayer, hPlayerTarget);
                     p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
                     return true;
                 }

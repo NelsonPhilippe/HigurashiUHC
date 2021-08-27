@@ -17,7 +17,7 @@ public class ChatListener implements Listener {
         Player player = event.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
 
-        Okonogi okonogi = (Okonogi) hPlayer.getRoleList().getRole();
+        Okonogi okonogi = (Okonogi) hPlayer.getRole();
 
         if(hPlayer.isChatOkonogi() ){
 
@@ -27,7 +27,7 @@ public class ChatListener implements Listener {
 
                 message = message.replace("!", "");
 
-                for(HPlayer hPlayers : okonogi.gethPlayerList()){
+                for(HPlayer hPlayers : okonogi.getPlayers()){
 
                     if(hPlayers.getClans().equals(MercenaireClan.getClans())){
                         hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);

@@ -8,16 +8,16 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class JiroTomitake extends Role {
     public JiroTomitake() {
-        super("Jiro Tomitake", Gender.HOMME, Neutre.getClans());
+        super("Jiro Tomitake", Gender.HOMME, Neutre.getClans(), 1);
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

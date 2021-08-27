@@ -27,7 +27,7 @@ public class VoteCmd implements CommandExecutor {
 
                 HPlayer player = HigurashiUHC.getGameManager().getPlayer(UUID.fromString(target));
 
-                OryoSonozaki oryoSonozaki = (OryoSonozaki) player.getRoleList().getRole();
+                OryoSonozaki oryoSonozaki = (OryoSonozaki) player.getRole();
 
                 oryoSonozaki.addVote(player);
 

@@ -52,7 +52,7 @@ public class StartTask extends TimerTask {
 
         if(time == 0){
             HigurashiUHC.getGameManager().getPlayers().values().forEach(player -> {
-                player.getPlayer().sendMessage("Vous êtes " + player.getRoleList().getRole().getName());
+                player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName());
             });
 
             HigurashiUHC.getGameManager().game();

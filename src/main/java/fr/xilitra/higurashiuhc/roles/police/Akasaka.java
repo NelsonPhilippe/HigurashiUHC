@@ -22,7 +22,7 @@ public class Akasaka extends Role implements Listener {
     private int countCompare = 0;
 
     public Akasaka() {
-        super("Akasaka", Gender.HOMME, Police.getClans());
+        super("Akasaka", Gender.HOMME, Police.getClans(), 1);
     }
 
     @EventHandler
@@ -64,12 +64,12 @@ public class Akasaka extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

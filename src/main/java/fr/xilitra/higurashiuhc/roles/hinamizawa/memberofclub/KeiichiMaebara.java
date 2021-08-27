@@ -16,7 +16,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class KeiichiMaebara extends Role implements Listener {
 
     public KeiichiMaebara() {
-        super("Keiichi Maebara", Gender.HOMME, MemberOfClub.getClans());
+        super("Keiichi Maebara", Gender.HOMME, MemberOfClub.getClans(), 1);
     }
 
     @EventHandler
@@ -25,19 +25,19 @@ public class KeiichiMaebara extends Role implements Listener {
 
         HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(player.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
+        if(player.getRole().equals(RoleList.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
         }
     }
 
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

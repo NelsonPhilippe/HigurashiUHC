@@ -17,7 +17,7 @@ public class MiyoTakano extends Role implements Listener {
     private int order = 2;
 
     public MiyoTakano() {
-        super("Miyo Takano", Gender.FEMME, MercenaireClan.getClans());
+        super("Miyo Takano", Gender.FEMME, MercenaireClan.getClans(), 1);
     }
 
 
@@ -25,16 +25,16 @@ public class MiyoTakano extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRoleList().getRole().equals(this)){
+        if(player.getRole().equals(this)){
 
             RoleList[] mercenenaire = {RoleList.MERCENAIRE, RoleList.OKONOGI};
 
             for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayers().values()){
                 for(RoleList role : mercenenaire){
-                    if(hPlayer.getRoleList().getRole().equals(role.getRole())){
+                    if(hPlayer.getRole().equals(role.getRole())){
 
                         player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
-                        player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRoleList().getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
+                        player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
 
                     }
                 }
@@ -53,12 +53,12 @@ public class MiyoTakano extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

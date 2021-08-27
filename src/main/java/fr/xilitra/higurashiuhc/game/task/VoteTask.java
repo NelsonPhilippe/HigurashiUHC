@@ -22,7 +22,7 @@ public class VoteTask extends TimerTask {
 
         if(time == 0){
             HPlayer oryo =  RoleList.ORYO_SONOZAKI.getRole().getPlayer();
-            OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRoleList().getRole();
+            OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRole();
 
             int majorite = 0;
 

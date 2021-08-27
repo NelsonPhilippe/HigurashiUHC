@@ -8,16 +8,16 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Nomura extends Role {
     public Nomura() {
-        super("Nomura", Gender.FEMME, Neutre.getClans());
+        super("Nomura", Gender.FEMME, Neutre.getClans(), 1);
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

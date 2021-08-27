@@ -12,7 +12,7 @@ public class AkaneSonozaki extends Role {
     private int swapUsed;
 
     public AkaneSonozaki() {
-        super("Akane Sonozaki", Gender.FEMME, Sonozaki.getClans());
+        super("Akane Sonozaki", Gender.FEMME, Sonozaki.getClans(), 1);
         swapUsed = 0;
         nextDaySwap = 0;
     }
@@ -34,12 +34,12 @@ public class AkaneSonozaki extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

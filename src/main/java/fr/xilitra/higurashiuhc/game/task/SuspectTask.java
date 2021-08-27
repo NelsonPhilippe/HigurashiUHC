@@ -17,7 +17,7 @@ public class SuspectTask extends TimerTask {
         if(time == 0){
             HPlayer hPlayer =  RoleList.KURAUDO_OISHI.getRole().getPlayer();
 
-            KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRoleList().getRole();
+            KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRole();
 
             HPlayer suspect = kuraudoOishi.getSuspect().get(kuraudoOishi.getSuspect().size() - 1);
 

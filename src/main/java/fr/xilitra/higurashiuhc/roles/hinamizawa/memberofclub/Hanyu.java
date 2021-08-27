@@ -28,7 +28,7 @@ public class Hanyu extends Role implements Listener {
     private Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public Hanyu() {
-        super("Hanyu", Gender.FEMME, MemberOfClub.getClans());
+        super("Hanyu", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.dimensionIsUsed = false;
     }
 
@@ -39,7 +39,7 @@ public class Hanyu extends Role implements Listener {
 
         HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(player.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
+        if(player.getRole().equals(RoleList.HANYU.getRole())){
             p.setGameMode(GameMode.SPECTATOR);
         }
     }
@@ -63,8 +63,8 @@ public class Hanyu extends Role implements Listener {
 
 
 
-        if(hPlayer.getRoleList().getClass().getName().equals(RoleList.HANYU.getRole().getName())){
-            Hanyu hanyu = (Hanyu) hPlayer.getRoleList().getRole();
+        if(hPlayer.getRole().isRole(RoleList.HANYU.getRole())){
+            Hanyu hanyu = (Hanyu) hPlayer.getRole();
 
 
             if(hanyu.isInvisible){
@@ -78,9 +78,9 @@ public class Hanyu extends Role implements Listener {
         }
 
 
-        if(hPlayerDamager.getRoleList().getRole().equals(RoleList.HANYU.getRole())){
+        if(hPlayerDamager.getRole().equals(RoleList.HANYU.getRole())){
 
-            Hanyu hanyu = (Hanyu) hPlayer.getRoleList().getRole();
+            Hanyu hanyu = (Hanyu) hPlayer.getRole();
             if(hanyu.isInvisible){
                 hanyu.setInvisible(false);
 
@@ -118,12 +118,12 @@ public class Hanyu extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

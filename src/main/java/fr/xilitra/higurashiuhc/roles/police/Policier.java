@@ -11,7 +11,7 @@ public class Policier extends Role {
     private boolean pvIsUsed;
 
     public Policier() {
-        super("Policier", Gender.NON_GENRE, Police.getClans());
+        super("Policier", Gender.NON_GENRE, Police.getClans(), 1);
         pvIsUsed = false;
     }
 
@@ -24,12 +24,12 @@ public class Policier extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer) {
+    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
 
     }
 }

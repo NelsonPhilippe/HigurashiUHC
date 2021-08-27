@@ -24,7 +24,7 @@ public class TeleportRikaCmd implements CommandExecutor {
         if(args.length != 1) return true;
 
         if(args[0].equalsIgnoreCase("rika")){
-            if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Hanyu")){
+            if(hPlayer.getRole().getName().equalsIgnoreCase("Hanyu")){
 
                 HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
 

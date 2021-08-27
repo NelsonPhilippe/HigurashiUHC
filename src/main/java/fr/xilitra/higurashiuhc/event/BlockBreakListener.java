@@ -31,7 +31,7 @@ public class BlockBreakListener implements Listener {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRoleList().getRole().getName().equalsIgnoreCase("Satoko Hojo")){
+        if(hPlayer.getRole().getName().equalsIgnoreCase("Satoko Hojo")){
 
             ItemStack item = e.getPlayer().getItemInHand();
 

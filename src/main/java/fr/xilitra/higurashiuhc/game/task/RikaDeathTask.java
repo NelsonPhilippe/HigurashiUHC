@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class RikaDeathTask extends BukkitRunnable {
 
-    private int time = HigurashiUHC.getInstance().getConfig().getInt("rika-death-time");
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("rika-death-time") * 60;
     private boolean isStarted = false;
 
     @Override

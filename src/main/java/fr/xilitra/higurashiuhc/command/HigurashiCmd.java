@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.game.task.ChatTask;
 import fr.xilitra.higurashiuhc.game.task.DimensionTaskTp;
 import fr.xilitra.higurashiuhc.game.task.PolicierTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -569,6 +570,10 @@ public class HigurashiCmd implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("list")){
 
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+            if(!hPlayer.getRoleList().getRole().isRole(RoleList.OKONOGI.getRole())) return true;
+
             if (args.length == 2){
 
                 Player target = Bukkit.getPlayer(args[1]);
@@ -581,20 +586,14 @@ public class HigurashiCmd implements CommandExecutor {
 
                     p.sendMessage("Le joueur est déjà dans le chat");
                     return true;
+
                 }
 
-                hPlayerTarget.setChatOkonogi(true);
+                Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new ChatTask(hPlayerTarget), 20, 20);
 
-                Okonogi okonogi = (Okonogi) RoleList.OKONOGI.getRole();
 
-                okonogi.addPlayer(hPlayerTarget);
-
-                target.sendMessage("Vous avez été ajouté au chat des mercenaires");
-
-                p.sendMessage("Vous avez ajouté " + target.getName() + " au chat des mercenaires");
 
                 return true;
-
             }
 
         }

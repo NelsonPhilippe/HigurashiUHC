@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.api.MariedReason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -109,44 +110,51 @@ public class DamageListener implements Listener {
 
         if(!(e.getEntity() instanceof Player)) return;
 
-
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
         double damage = limitDamege(e.getDamage());
 
-        if(p.getHealth() <= 20) return;
+        if(p.getHealth() <= 20) {
 
-        if(hPlayer.getRoleList().getRole().isRole(RoleList.MION_SONOZAKI.getRole())){
+            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 && hPlayer.getMarriedWith() != null){
 
+                if(hPlayer.getMariedReason().isMariedReason(MariedReason.DOLL_TRAGEDY)) {
+                    hPlayer.getMarriedWith().getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs");
+                }
 
-            HPlayer shionPlayer =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
-            if(shionPlayer == null) return;
+            }
 
-            if(shionPlayer.getPlayer().getHealth() <= 20) return;
+            if (hPlayer.getRoleList().getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
 
-            shionPlayer.getPlayer().damage(damage);
+                HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getPlayer();
+                if (shionPlayer == null) return;
+
+                if (shionPlayer.getPlayer().getHealth() <= 20) return;
+
+                shionPlayer.getPlayer().damage(damage);
+
+            }
+
+            if (hPlayer.getRoleList().getRole().isRole(RoleList.SHION_SONOSAKI.getRole())) {
+
+                HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getPlayer();
+
+                if (mionPlayer == null) return;
+
+                if (mionPlayer.getPlayer().getHealth() <= 20) return;
+
+                mionPlayer.getPlayer().damage(damage);
+
+            }
 
         }
 
-        if(hPlayer.getRoleList().getRole().isRole(RoleList.SHION_SONOSAKI.getRole())){
-
-            HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getPlayer();
-
-            if(mionPlayer == null) return;
-
-            if(mionPlayer.getPlayer().getHealth() <= 20) return;
-
-            mionPlayer.getPlayer().damage(damage);
-
-        }
-
-        if(e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
-        if(!e.isCancelled() && p.getHealth()-e.getFinalDamage()<=0){
+        if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
+        if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
             playDeath(p, e.getCause());
         }
-
 
     }
 
@@ -200,9 +208,6 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.linkedToDeathWith() != null)
-            playDeath(hPlayer.linkedToDeathWith().getPlayer(), dc);
-
         Player killer = p.getKiller();
         HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
 
@@ -226,6 +231,24 @@ public class DamageListener implements Listener {
             }
 
         }
+
+        if(hPlayer.getMarriedWith() != null){
+
+            MariedReason marriedReason= hPlayer.getMariedReason();
+            HPlayer married = hPlayer.getMarriedWith();
+
+            married.setMarriedWith(null, null);
+
+            if (marriedReason.isMariedReason(MariedReason.DOLL_TRAGEDY)) {
+
+                married.getRoleList().getRole().setMalediction(true);
+
+            }
+
+        }
+
+        if(hPlayer.linkedToDeathWith() != null)
+            playDeath(hPlayer.linkedToDeathWith().getPlayer(), dc);
 
     }
 

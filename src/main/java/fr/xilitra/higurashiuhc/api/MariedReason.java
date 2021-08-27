@@ -9,4 +9,13 @@ public enum MariedReason {
     public String getName(){
         return name;
     }
+    public boolean isMariedReason(MariedReason... mrList){
+
+        for(MariedReason mr : mrList)
+            if(getName().equals(mr.getName()))
+                return true;
+
+            return false;
+
+    }
 }

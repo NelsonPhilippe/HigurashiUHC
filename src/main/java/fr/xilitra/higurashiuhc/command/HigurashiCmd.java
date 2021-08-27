@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.task.ChatTask;
 import fr.xilitra.higurashiuhc.game.task.DimensionTaskTp;
 import fr.xilitra.higurashiuhc.game.task.PolicierTask;
+import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.Hanyu;
@@ -418,13 +419,33 @@ public class HigurashiCmd implements CommandExecutor {
 
                             }
 
-                            p.sendMessage(args[2] + " est dans le camp Member of Club");
+                            p.sendMessage(args[2] + " est dans le camp Club");
                             return true;
 
                         }
 
                         if(targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase(clan) ||
                                 targetHPlayer.getRoleList().getRole().getClans().getName().equalsIgnoreCase("Club")){
+
+                            if(targetHPlayer.hasKit()){
+
+                                if(targetHPlayer.getKit() == KitList.JARDINIER){
+
+                                    int percent = new Random().nextInt(100);
+
+                                    if(percent <= 70){
+                                        int random = new Random().nextInt(clan.length() - 1);
+
+                                        while (clans.get(random).equalsIgnoreCase("Mercenaire")){
+                                            random = new Random().nextInt(clan.length() - 1);
+                                        }
+                                        p.sendMessage(args[2] + " est dans le camp " + clans.get(random));
+                                        return true;
+                                    }
+
+                                }
+
+                            }
 
                             p.sendMessage(args[2] + " est dans le camp " + clan);
                             return true;

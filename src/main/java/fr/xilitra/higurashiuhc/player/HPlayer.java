@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.api.MariedReason;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
+import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import org.bukkit.entity.Player;
@@ -23,6 +24,9 @@ public class HPlayer {
     private Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private boolean playerDontMove;
     private boolean chatOkonogi;
+
+    private boolean kit;
+    private KitList kitList;
 
     private HPlayer linkedToDeath = null;
     private HPlayer mariedWith = null;
@@ -106,4 +110,19 @@ public class HPlayer {
         this.mariedReason = mr;
     }
 
+    public boolean hasKit() {
+        return kit;
+    }
+
+    public void setKit(boolean kit) {
+        this.kit = kit;
+    }
+
+    public KitList getKit() {
+        return kitList;
+    }
+
+    public void setKit(KitList kitList) {
+        this.kitList = kitList;
+    }
 }

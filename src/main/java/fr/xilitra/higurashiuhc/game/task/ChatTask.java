@@ -50,7 +50,7 @@ public class ChatTask extends TimerTask {
 
             for(HPlayer hPlayer : okonogiRole.getPlayerList()){
 
-                if(hPlayer.getClans().getMajorClans().equals(Hinamizawa.getClans())){
+                if(Hinamizawa.getClans().hisInClans(hPlayer)){
 
                     mercenary++;
 

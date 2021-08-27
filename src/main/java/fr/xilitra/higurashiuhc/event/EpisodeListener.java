@@ -51,22 +51,12 @@ public class EpisodeListener implements Listener {
 
             if(tomitake == null) return;
 
-            if(HigurashiUHC.getGameManager().getPlayerState(tomitake) == PlayerState.SPECTATE) return;
+            if(tomitake.getPlayerState() == PlayerState.SPECTATE) return;
 
-            for(Role role : MercenaireClan.getClans().getRoles()){
+            for(HPlayer hPlayer : RoleList.MERCENAIRE.getRole().getPlayerList()){
 
-                if(role.isRole(RoleList.MERCENAIRE.getRole())){
-                    fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire mercenaire = (fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire) role;
+                hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 
-                    for(HPlayer hPlayer : mercenaire.getListMercenary()){
-                        hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-
-                    }
-
-                }else {
-                    role.getPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-
-                }
             }
 
         }
@@ -106,9 +96,8 @@ public class EpisodeListener implements Listener {
 
             bMiyo.sendMessage(tomitake.getRole().getName() + " est " + bTomitake.getName());
 
-            for(Role role : MercenaireClan.getClans().getRoles()){
-
-                role.getPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+            for(HPlayer player : RoleList.MERCENAIRE.getRole().getPlayerList()){
+                player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
             }
 
 

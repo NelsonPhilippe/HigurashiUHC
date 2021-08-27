@@ -55,7 +55,7 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayers().values()){
+                for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayerList().values()){
 
                     if(hPlayer.getName().equalsIgnoreCase(args[1])){
                         ((RenaRyugu) rena.getRole()).setHPlayerPense(hPlayer);
@@ -149,7 +149,7 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+                for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()){
 
                     Player target = Bukkit.getPlayer(args[1]);
 
@@ -572,7 +572,7 @@ public class HigurashiCmd implements CommandExecutor {
 
             HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-            if(!hPlayer.getRoleList().getRole().isRole(RoleList.OKONOGI.getRole())) return true;
+            if(!hPlayer.getRole().isRole(RoleList.OKONOGI.getRole())) return true;
 
             if (args.length == 2){
 

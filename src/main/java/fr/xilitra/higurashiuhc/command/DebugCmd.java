@@ -65,7 +65,7 @@ public class DebugCmd implements CommandExecutor {
                     return true;
                 }
 
-                if(HigurashiUHC.getGameManager().getPlayers().containsKey(bTarget.getUniqueId())){
+                if(HigurashiUHC.getGameManager().getPlayerList().containsKey(bTarget.getUniqueId())){
 
 
                     HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(bTarget.getUniqueId());
@@ -96,7 +96,7 @@ public class DebugCmd implements CommandExecutor {
                             hPlayer.setRole(roleList.getRole());
                             Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                             p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
-                            HigurashiUHC.getGameManager().getPlayers().put(hPlayer.getUuid(), hPlayer);
+                            HigurashiUHC.getGameManager().getPlayerList().put(hPlayer.getUuid(), hPlayer);
                             Bukkit.getServer().getPluginManager().callEvent(new RoleSelected(hPlayer));
                             return true;
                         }

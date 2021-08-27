@@ -16,7 +16,7 @@ public class Mercenaire extends Role {
     private List<HPlayer> listMercenary = new ArrayList<>();
 
     public Mercenaire() {
-        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1);
+        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1000 );
     }
 
     public HPlayer getCible() {
@@ -46,15 +46,4 @@ public class Mercenaire extends Role {
 
     }
 
-    public void addPlayerToMercenary(HPlayer hPlayer){
-        this.listMercenary.add(hPlayer);
-    }
-
-    public void removePlayerToMercenary(HPlayer hPlayer){
-        this.listMercenary.remove(hPlayer);
-    }
-
-    public List<HPlayer> getListMercenary() {
-        return listMercenary;
-    }
 }

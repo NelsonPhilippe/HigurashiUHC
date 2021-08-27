@@ -51,16 +51,9 @@ public class GameManager {
 
             RoleList role = roles.get(number);
 
-            if(!role.getRole().isRole(RoleList.MERCENAIRE.getRole())){
-                roles.remove(number);
-            }else {
-
-                ((Mercenaire) role.getRole()).addPlayerToMercenary(player);
-
-            }
-
-
             player.setRole(role.getRole());
+            player.setClans(role.getRole().getDefaultClans());
+
             players.replace(player.getUuid(), player);
             player.getInfo().put(KuraudoOishi.infoList.SEXE, role.getRole().getSexe().name());
 
@@ -130,7 +123,7 @@ public class GameManager {
         this.states = states;
     }
 
-    public Map<UUID, HPlayer> getPlayers() {
+    public Map<UUID, HPlayer> getPlayerList() {
         return players;
     }
 

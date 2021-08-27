@@ -53,7 +53,7 @@ public class RikaFurude extends Role implements Listener {
             if(killerHPlayer.getClans() == MercenaireClan.getClans()){
                 player.setGameMode(GameMode.SPECTATOR);
                 HigurashiUHC.getGameManager().startRikaDeathTask();
-                for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayers().values()){
+                for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayerList().values()){
                     if(miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())){
                         Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                     }
@@ -88,7 +88,7 @@ public class RikaFurude extends Role implements Listener {
                player.setHealth(10);
                player.setMaxHealth(10);
 
-               for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()) {
+               for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
 
                    HideNametag.unhide(player, players.getPlayer());
                }
@@ -110,7 +110,7 @@ public class RikaFurude extends Role implements Listener {
                    }
                }
 
-               for(HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()){
+               for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()){
 
                    players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
 

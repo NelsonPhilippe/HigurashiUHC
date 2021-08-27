@@ -26,7 +26,7 @@ public class VoteTask extends TimerTask {
 
             int majorite = 0;
 
-            for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
+            for(HPlayer player : HigurashiUHC.getGameManager().getPlayerList().values()){
                 if(player.getClans().getName().equalsIgnoreCase("Hinamizawa")){
                     majorite++;
                 }

@@ -1,5 +1,7 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.entity.Player;
@@ -21,7 +23,17 @@ public abstract class Clans {
         return name;
     }
 
-    public List<UUID> getPlayerList() {
+    public List<HPlayer> getPlayerList() {
+
+        GameManager gm = HigurashiUHC.getGameManager();
+        return new ArrayList<HPlayer>(){{
+           for(UUID uuid : getPlayerListUUID())
+               add(gm.getPlayer(uuid));
+        }};
+
+    }
+
+    public List<UUID> getPlayerListUUID() {
         return playerList;
     }
 

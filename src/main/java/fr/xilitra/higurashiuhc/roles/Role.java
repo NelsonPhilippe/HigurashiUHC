@@ -46,7 +46,11 @@ public abstract class Role {
       return players.get(0);
    }
 
-   public List<HPlayer> getPlayers(){
+   public boolean hasPlayer(HPlayer player){
+      return players.contains(player);
+   }
+
+   public List<HPlayer> getPlayerList(){
       return players;
    }
 

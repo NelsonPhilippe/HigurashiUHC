@@ -29,7 +29,7 @@ public class MiyoTakano extends Role implements Listener {
 
             RoleList[] mercenenaire = {RoleList.MERCENAIRE, RoleList.OKONOGI};
 
-            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayers().values()){
+            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayerList().values()){
                 for(RoleList role : mercenenaire){
                     if(hPlayer.getRole().equals(role.getRole())){
 

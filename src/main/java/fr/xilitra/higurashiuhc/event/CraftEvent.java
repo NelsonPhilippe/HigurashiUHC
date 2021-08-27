@@ -38,7 +38,7 @@ public class CraftEvent implements Listener {
 
             player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
 
-            HigurashiUHC.getGameManager().getPlayers().values().forEach(players -> {
+            HigurashiUHC.getGameManager().getPlayerList().values().forEach(players -> {
                 if(players.getRole().getName().equalsIgnoreCase("Satoshi Hojo")){
                     players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
                     CustomCraft.baseballBat.setCrafted(true);

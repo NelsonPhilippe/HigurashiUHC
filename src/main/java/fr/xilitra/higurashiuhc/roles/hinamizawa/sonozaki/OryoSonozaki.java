@@ -20,7 +20,7 @@ public class OryoSonozaki extends Role {
 
         asVoted = false;
 
-        for(HPlayer player : HigurashiUHC.getGameManager().getPlayers().values()){
+        for(HPlayer player : HigurashiUHC.getGameManager().getPlayerList().values()){
             voteBan.put(player, 0);
         }
     }

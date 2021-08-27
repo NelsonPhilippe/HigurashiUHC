@@ -61,7 +61,7 @@ public class DamageListener implements Listener {
                     return;
                 }
 
-                for (HPlayer players : HigurashiUHC.getGameManager().getPlayers().values()) {
+                for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
                     if (players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
                         if (players.getPlayer() != damager) {
 
@@ -160,7 +160,7 @@ public class DamageListener implements Listener {
         if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
-                for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayers().values()){
+                for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayerList().values()){
 
                     if(hPlayers.getRole().getName().equalsIgnoreCase(role2)){
                         double damage = limitDamege(e.getDamage());
@@ -216,9 +216,9 @@ public class DamageListener implements Listener {
 
         if(MercenaireClan.getClans().hisInClans(hPlayer)){
 
-            int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
+            int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayerList().size()) - 1;
 
-            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getPlayers().values());
+            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getPlayerList().values());
 
             HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 

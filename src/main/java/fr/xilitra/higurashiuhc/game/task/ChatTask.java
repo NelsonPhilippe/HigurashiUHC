@@ -1,5 +1,7 @@
 package fr.xilitra.higurashiuhc.game.task;
 
+import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
@@ -47,7 +49,23 @@ public class ChatTask extends TimerTask {
 
         if(time == 0){
 
-            okonogiRole.addPlayer(okonogi);
+            okonogiRole.addPlayer(target);
+
+            int mercenary = 0;
+
+            for(HPlayer hPlayer : okonogiRole.gethPlayerList()){
+
+                if(hPlayer.getClans().getMajorClans().equals(Hinamizawa.getClans())){
+
+                    mercenary++;
+
+                }
+
+            }
+
+            if(mercenary == Mercenaire.getClans().getRoles().size()){
+                okonogi.getPlayer().setMaxHealth(okonogi.getPlayer().getMaxHealth() + 1);
+            }
 
             this.cancel();
         }

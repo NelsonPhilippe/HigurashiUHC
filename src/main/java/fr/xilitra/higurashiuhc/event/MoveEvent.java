@@ -58,9 +58,9 @@ public class MoveEvent implements Listener {
         Location blockLoc = e.getTo().getBlock().getRelative(BlockFace.DOWN).getLocation();
 
 
-        if(SatokoHojo.blockTraps.size() > 0){
+        if(((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.size() > 0){
 
-            for(Location loc : SatokoHojo.blockTraps){
+            for(Location loc : ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps){
 
                 if(loc.getBlock().getLocation().equals(blockLoc)){
                     HPlayer satokoHojo =  RoleList.SATOKO_HOJO.getRole().getPlayer();
@@ -72,7 +72,7 @@ public class MoveEvent implements Listener {
 
                     satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRoleList().getRole().getName());
                     loc.getBlock().setType(Material.SOIL);
-                    SatokoHojo.blockTraps.remove(loc);
+                    ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
                     break;
 
                 }

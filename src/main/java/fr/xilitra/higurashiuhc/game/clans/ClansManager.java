@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 
 import java.util.HashMap;
 

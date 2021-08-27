@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.traps.Traps;
@@ -25,11 +26,7 @@ public class BlockBreakListener implements Listener {
 
         Location loc = block.getLocation();
 
-        if(SatokoHojo.blockTraps.contains(loc)){
-
-            SatokoHojo.blockTraps.remove(loc);
-
-        }
+        ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
 
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
@@ -55,7 +52,7 @@ public class BlockBreakListener implements Listener {
 
                 }
 
-                SatokoHojo.blockTraps.add(loc);
+                ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.add(loc);
 
             }
 

@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -9,6 +9,7 @@ import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -57,5 +58,15 @@ public class RenaRyugu extends Role implements Listener {
 
     public void setPenseIsUsed(boolean penseIsUsed) {
         this.penseIsUsed = penseIsUsed;
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 }

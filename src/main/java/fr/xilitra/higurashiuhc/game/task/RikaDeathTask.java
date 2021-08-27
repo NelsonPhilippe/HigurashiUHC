@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.game.task;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffect;
@@ -35,7 +36,7 @@ public class RikaDeathTask extends BukkitRunnable {
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }
 
-                SatokoHojo.removeTraps(hPlayer);
+                ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
             }
 
 

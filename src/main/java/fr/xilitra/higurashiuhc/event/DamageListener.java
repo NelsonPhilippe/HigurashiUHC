@@ -1,10 +1,20 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,10 +24,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class DamageListener implements Listener {
 
-    @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent e) {
+    public void onPlayerDamageByEntity(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
 
         Player p = (Player) e.getEntity();
@@ -92,7 +105,7 @@ public class DamageListener implements Listener {
     }
 
     @EventHandler
-    public void linkMionShionHearth(EntityDamageEvent e){
+    public void onPlayerDamage(EntityDamageEvent e){
 
         if(!(e.getEntity() instanceof Player)) return;
 
@@ -127,6 +140,14 @@ public class DamageListener implements Listener {
             mionPlayer.getPlayer().damage(damage);
 
         }
+
+        if(e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
+        if(!e.isCancelled() && p.getHealth()-e.getFinalDamage()<=0){
+            e.setCancelled(true);
+            playDeath(p, e.getCause());
+        }
+
+
     }
 
     private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
@@ -143,6 +164,67 @@ public class DamageListener implements Listener {
 
                 }
             }
+        }
+
+    }
+
+    private void playDeath(Player p, EntityDamageEvent.DamageCause dc){
+
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+
+        if(HigurashiUHC.getGameManager().getPlayerState(hPlayer).isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
+            return;
+
+        p.setGameMode(GameMode.SPECTATOR);
+        HigurashiUHC.getGameManager().setPlayerState(hPlayer, PlayerState.WAITING_DEATH);
+        HigurashiUHC.getGameManager().startRikaDeathTask();
+
+        hPlayer.getRoleList().getRole().onDeath(dc);
+
+        ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
+
+        if(hPlayer.getRoleList().getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
+
+            TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
+            TextComponent text = new TextComponent(hPlayer.getRoleList().getRole().getName() + " vien de mourrir ");
+
+            text.addExtra(textClick);
+
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
+
+            HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
+
+            if(hpr != null){
+                hpr.getPlayer().spigot().sendMessage(text);
+            }
+
+        }
+
+        if(hPlayer.linkedToDeathWith() != null)
+            playDeath(hPlayer.linkedToDeathWith().getPlayer(), dc);
+
+        Player killer = p.getKiller();
+        HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+
+        killerHplayer.getRoleList().getRole().onKill(hPlayer);
+
+        killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
+                String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
+
+        if(MercenaireClan.getClans().hisInClans(hPlayer.getRoleList().getRole())){
+
+            int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayers().size()) - 1;
+
+            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getPlayers().values());
+
+            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
+
+            if(miyo != null) {
+
+                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRoleList().getRole().getName());
+
+            }
+
         }
 
     }

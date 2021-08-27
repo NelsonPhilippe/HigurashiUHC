@@ -1,10 +1,11 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,5 +40,15 @@ public class OryoSonozaki extends Role {
 
     public Map<HPlayer, Integer> getVoteBan() {
         return voteBan;
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 }

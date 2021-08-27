@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.PlayerState;
@@ -10,6 +10,9 @@ import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -17,6 +20,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -216,5 +220,34 @@ public class RikaFurude extends Role implements Listener {
 
     public int getLives(){
         return lives;
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+        HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
+
+        if(miyo != null){
+
+            Bukkit.broadcastMessage(miyo.getRoleList().getRole().getName() + " est " + miyo.getName());
+
+        }
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+        HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
+
+        if(hanyu == null) return;
+
+        if(hanyu.getPlayer().getGameMode() != GameMode.SPECTATOR){
+
+            TextComponent textClick = new TextComponent(ChatColor.GOLD + "[Oui]");
+            textClick.setBold(true);
+            TextComponent message = new TextComponent("Voulez vous teleporter Rika dans la dimension : ");
+            message.addExtra(textClick);
+
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "t rika"));
+
+        }
     }
 }

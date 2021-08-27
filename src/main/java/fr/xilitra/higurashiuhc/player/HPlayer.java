@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.player;
 
+import fr.xilitra.higurashiuhc.api.MariedReason;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
@@ -22,6 +23,10 @@ public class HPlayer {
     private Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private boolean playerDontMove;
     private boolean chatOkonogi;
+
+    private HPlayer linkedToDeath = null;
+    private HPlayer mariedWith = null;
+    private MariedReason mariedReason = null;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;
@@ -79,4 +84,26 @@ public class HPlayer {
     public void setChatOkonogi(boolean chatOkonogi) {
         this.chatOkonogi = chatOkonogi;
     }
+
+    public void setLinkedToDeathWith(HPlayer roleList){
+        linkedToDeath = roleList;
+    }
+
+    public HPlayer linkedToDeathWith(){
+        return linkedToDeath;
+    }
+
+    public MariedReason getMariedReason(){
+        return mariedReason;
+    }
+
+    public HPlayer getMarriedWith(){
+        return mariedWith;
+    }
+
+    public void setMarriedWith(HPlayer roleList, MariedReason mr){
+        mariedWith = roleList;
+        this.mariedReason = mr;
+    }
+
 }

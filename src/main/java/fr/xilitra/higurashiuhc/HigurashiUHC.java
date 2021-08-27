@@ -67,15 +67,6 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
         this.getServer().getPluginManager().registerEvents(new MapMenu(), this);
 
-        //role listener
-        this.getServer().getPluginManager().registerEvents(new RikaFurude(), this);
-        this.getServer().getPluginManager().registerEvents(new Hanyu(), this);
-        this.getServer().getPluginManager().registerEvents(new SatokoHojo(), this);
-        this.getServer().getPluginManager().registerEvents(new RenaRyugu(), this);
-        this.getServer().getPluginManager().registerEvents(new MionSonozaki(), this);
-        this.getServer().getPluginManager().registerEvents(new ShionSonozaki(), this);
-        this.getServer().getPluginManager().registerEvents(new KeiichiMaebara(), this);
-
     }
 
     private void registerCommands(){

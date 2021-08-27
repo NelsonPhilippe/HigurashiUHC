@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.roles;
 
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozaki;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
@@ -15,6 +15,8 @@ import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.roles.police.Policier;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 
 public enum RoleList {
 
@@ -39,10 +41,12 @@ public enum RoleList {
     OKONOGI(new Okonogi()),
     JIRO_TOMITAKE(new JiroTomitake());
 
-    private Role role;
+    private final Role role;
 
     RoleList(Role role) {
         this.role = role;
+        if(role instanceof Listener)
+            Bukkit.getPluginManager().registerEvents((Listener) role, HigurashiUHC.getInstance());
     }
 
     public Role getRole() {

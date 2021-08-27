@@ -1,8 +1,10 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Police;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,5 +23,15 @@ public class Kumagai extends Role {
 
     public void addClanToCompareUsed(String clan){
         CompareClanUsed.add(clan);
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 }

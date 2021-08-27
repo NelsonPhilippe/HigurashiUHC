@@ -1,10 +1,11 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,16 @@ public class KuraudoOishi extends Role implements Listener {
 
     public void setCoupableIsDesigned(boolean coupableIsDesigned) {
         this.coupableIsDesigned = coupableIsDesigned;
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 
     public enum infoList {

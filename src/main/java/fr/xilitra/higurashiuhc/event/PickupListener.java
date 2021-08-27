@@ -37,7 +37,7 @@ public class PickupListener implements Listener {
         }else if(ScenarioList.DOLL.isActive() && lore.equalsIgnoreCase(DollItem.dollItem.getLore())){
 
             if(playerRole.equals(RoleList.SHION_SONOSAKI.getRole().getName())){
-                ScenarioList.DOLL.getScenario().solution(1);
+                ScenarioList.DOLL.getScenario().solution(1, hPlayer);
             }else if(playerRole.equals(RoleList.RENA_RYUGU.getRole().getName())){
                 ScenarioList.DOLL.getScenario().solution(2);
             }else if(playerRole.equals(RoleList.MION_SONOZAKI.getRole().getName())){

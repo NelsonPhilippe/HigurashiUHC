@@ -1,8 +1,6 @@
 package fr.xilitra.higurashiuhc.game.clans;
 
-import fr.xilitra.higurashiuhc.api.Role;
-import fr.xilitra.higurashiuhc.player.HPlayer;
-import org.bukkit.entity.Player;
+import fr.xilitra.higurashiuhc.roles.Role;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Police;
 import fr.xilitra.higurashiuhc.game.task.CouldownMatraque;
@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -60,5 +61,15 @@ public class Akasaka extends Role implements Listener {
 
     public void setCountCompare(int countCompare) {
         this.countCompare = countCompare;
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 }

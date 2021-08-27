@@ -1,10 +1,9 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.api.Role;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -19,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,7 +33,7 @@ import java.util.Random;
 
 public class SatokoHojo extends Role implements Listener {
 
-    public static List<Location> blockTraps = new ArrayList<>();
+    public List<Location> blockTraps = new ArrayList<>();
 
     public SatokoHojo() {
         super("Satoko Hojo", Gender.FEMME, MemberOfClub.getClans());
@@ -114,7 +114,7 @@ public class SatokoHojo extends Role implements Listener {
 
             }
 
-            SatokoHojo.blockTraps.add(loc);
+            blockTraps.add(loc);
 
         }
     }
@@ -183,7 +183,7 @@ public class SatokoHojo extends Role implements Listener {
 
     }
 
-    public static void removeTraps(HPlayer hPlayer){
+    public void removeTraps(HPlayer hPlayer){
         if(hPlayer.getRoleList().getRole().equals(RoleList.SATOKO_HOJO.getRole())){
             Inventory inventory = hPlayer.getPlayer().getInventory();
 
@@ -193,5 +193,15 @@ public class SatokoHojo extends Role implements Listener {
                 }
             }
         }
+    }
+
+    @Override
+    public void onKill(HPlayer killed) {
+
+    }
+
+    @Override
+    public void onDeath(EntityDamageEvent.DamageCause killer) {
+
     }
 }

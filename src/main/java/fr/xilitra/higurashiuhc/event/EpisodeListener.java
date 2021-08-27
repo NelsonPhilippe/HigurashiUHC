@@ -1,7 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.api.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
+import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.Mercenaire;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -15,6 +18,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class EpisodeListener implements Listener {
 
@@ -28,6 +33,22 @@ public class EpisodeListener implements Listener {
         if(HigurashiUHC.getGameManager().getEpisode() == 6){
 
             HigurashiUHC.getGameManager().setWatanagashi(true);
+
+        }
+
+        if(HigurashiUHC.getGameManager().getEpisode() == 7){
+
+            HPlayer tomitake = RoleList.JIRO_TOMITAKE.getRole().getPlayer();
+
+            if(tomitake == null) return;
+
+            if(HigurashiUHC.getGameManager().getPlayerState(tomitake) == PlayerState.SPECTATE) return;
+
+            for(Role role : Mercenaire.getClans().getRoles()){
+
+                role.getPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+            }
 
         }
 
@@ -65,6 +86,11 @@ public class EpisodeListener implements Listener {
             Player bMiyo = miyo.getPlayer();
 
             bMiyo.sendMessage(tomitake.getRoleList().getRole().getName() + " est " + bTomitake.getName());
+
+            for(Role role : Mercenaire.getClans().getRoles()){
+
+                role.getPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+            }
 
 
         }

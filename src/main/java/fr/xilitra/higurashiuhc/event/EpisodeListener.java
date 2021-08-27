@@ -46,8 +46,18 @@ public class EpisodeListener implements Listener {
 
             for(Role role : Mercenaire.getClans().getRoles()){
 
-                role.getPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                if(role.isRole(RoleList.MERCENAIRE.getRole())){
+                    fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire mercenaire = (fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire) role;
 
+                    for(HPlayer hPlayer : mercenaire.getListMercenary()){
+                        hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+                    }
+
+                }else {
+                    role.getPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+                }
             }
 
         }

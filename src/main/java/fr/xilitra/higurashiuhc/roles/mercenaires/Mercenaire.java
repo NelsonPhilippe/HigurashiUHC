@@ -7,9 +7,13 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Mercenaire extends Role {
 
     private HPlayer cible;
+    private List<HPlayer> listMercenary = new ArrayList<>();
 
     public Mercenaire() {
         super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans());
@@ -42,4 +46,15 @@ public class Mercenaire extends Role {
 
     }
 
+    public void addPlayerToMercenary(HPlayer hPlayer){
+        this.listMercenary.add(hPlayer);
+    }
+
+    public void removePlayerToMercenary(HPlayer hPlayer){
+        this.listMercenary.remove(hPlayer);
+    }
+
+    public List<HPlayer> getListMercenary() {
+        return listMercenary;
+    }
 }

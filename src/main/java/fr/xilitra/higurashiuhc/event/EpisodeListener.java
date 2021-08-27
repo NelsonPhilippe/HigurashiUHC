@@ -2,9 +2,13 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
+import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
@@ -15,6 +19,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class EpisodeListener implements Listener {
 
@@ -31,12 +37,37 @@ public class EpisodeListener implements Listener {
 
         }
 
-        if(ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4){
+        if(ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
 
             Player keiichi = RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer();
-            if(keiichi == null) return;
-            if(keiichi.getMaxHealth() < 20)
-                keiichi.setMaxHealth(keiichi.getMaxHealth()+1);
+            if (keiichi == null) return;
+            if (keiichi.getMaxHealth() < 20)
+                keiichi.setMaxHealth(keiichi.getMaxHealth() + 1);
+
+        }
+        if(HigurashiUHC.getGameManager().getEpisode() == 7){
+
+            HPlayer tomitake = RoleList.JIRO_TOMITAKE.getRole().getPlayer();
+
+            if(tomitake == null) return;
+
+            if(HigurashiUHC.getGameManager().getPlayerState(tomitake) == PlayerState.SPECTATE) return;
+
+            for(Role role : MercenaireClan.getClans().getRoles()){
+
+                if(role.isRole(RoleList.MERCENAIRE.getRole())){
+                    fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire mercenaire = (fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire) role;
+
+                    for(HPlayer hPlayer : mercenaire.getListMercenary()){
+                        hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+                    }
+
+                }else {
+                    role.getPlayer().getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+
+                }
+            }
 
         }
 
@@ -74,6 +105,11 @@ public class EpisodeListener implements Listener {
             Player bMiyo = miyo.getPlayer();
 
             bMiyo.sendMessage(tomitake.getRoleList().getRole().getName() + " est " + bTomitake.getName());
+
+            for(Role role : MercenaireClan.getClans().getRoles()){
+
+                role.getPlayer().getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+            }
 
 
         }

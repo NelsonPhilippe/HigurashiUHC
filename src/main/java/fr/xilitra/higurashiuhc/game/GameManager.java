@@ -10,6 +10,7 @@ import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import org.bukkit.Bukkit;
@@ -51,7 +52,14 @@ public class GameManager {
 
             RoleList role = roles.get(number);
 
-            roles.remove(number);
+            if(!role.getRole().isRole(RoleList.MERCENAIRE.getRole())){
+                roles.remove(number);
+            }else {
+
+                ((Mercenaire) role.getRole()).addPlayerToMercenary(player);
+
+            }
+
 
             player.setRoleList(role);
             players.replace(player.getUuid(), player);

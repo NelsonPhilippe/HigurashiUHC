@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.player.MariedReason;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -117,8 +117,8 @@ public class DamageListener implements Listener {
 
             if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 && hPlayer.getMarriedWith() != null){
 
-                if(hPlayer.getMariedReason().isMariedReason(MariedReason.DOLL_TRAGEDY)) {
-                    hPlayer.getMarriedWith().getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs");
+                if(hPlayer.hasMariedReason(Reason.DOLL_TRAGEDY)) {
+                    hPlayer.getMariedPlayer(Reason.DOLL_TRAGEDY).getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs");
                 }
 
             }
@@ -151,7 +151,7 @@ public class DamageListener implements Listener {
         if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
-            playDeath(p, e.getCause());
+            playDeath(p, e);
         }
 
     }
@@ -174,7 +174,7 @@ public class DamageListener implements Listener {
 
     }
 
-    private void playDeath(Player p, EntityDamageEvent.DamageCause dc){
+    private void playDeath(Player p, EntityDamageEvent damageEvent){
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
@@ -183,9 +183,12 @@ public class DamageListener implements Listener {
 
         p.setGameMode(GameMode.SPECTATOR);
         hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
+        if(p.getKiller() != null)
+            hPlayer.setKillerRole(HigurashiUHC.getGameManager().getPlayer(p.getKiller().getUniqueId()).getRole());
+
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        hPlayer.getRole().onDeath(dc, hPlayer);
+        hPlayer.getRole().onDeath(damageEvent, hPlayer);
 
         ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
 
@@ -206,15 +209,7 @@ public class DamageListener implements Listener {
 
         }
 
-        Player killer = p.getKiller();
-        HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
-
-        killerHplayer.getRole().onKill(killerHplayer, hPlayer);
-
-        killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
-                String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
-
-        if(MercenaireClan.getClans().hisInClans(hPlayer)){
+        if (MercenaireClan.getClans().hisInClans(hPlayer)) {
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayerList().size()) - 1;
 
@@ -222,7 +217,7 @@ public class DamageListener implements Listener {
 
             HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
-            if(miyo != null) {
+            if (miyo != null) {
 
                 miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
 
@@ -230,23 +225,39 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.getMarriedWith() != null){
+        if (hPlayer.hisMarried()) {
 
-            MariedReason marriedReason= hPlayer.getMariedReason();
-            HPlayer married = hPlayer.getMarriedWith();
+            List<HPlayer> marriedPlayer = new ArrayList<>(hPlayer.getMarriedWith());
 
-            married.setMarriedWith(null, null);
+            for(HPlayer married : marriedPlayer){
 
-            if (marriedReason.isMariedReason(MariedReason.DOLL_TRAGEDY)) {
+                Reason marriedReason = hPlayer.getMariedReason(married);
+                married.removeMarriedWith(hPlayer);
 
-                married.setMaledictionPower(married.getMaledictionPower()+1);
+                if (marriedReason.isReason(Reason.DOLL_TRAGEDY)) {
+
+                    married.incrMalediction(Reason.DOLL_TRAGEDY);
+
+                }
 
             }
 
         }
 
-        if(hPlayer.linkedToDeathWith() != null)
-            playDeath(hPlayer.linkedToDeathWith().getPlayer(), dc);
+        if(p.getKiller() != null) {
+
+            Player killer = p.getKiller();
+            HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+
+            killerHplayer.getRole().onKill(damageEvent, killerHplayer, hPlayer);
+
+            killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
+                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
+
+        }
+
+        if(hPlayer.hisDeathLinked())
+            hPlayer.getDeathLinkWith().forEach((playerDL) -> playDeath(playerDL.getPlayer(), damageEvent));
 
     }
 

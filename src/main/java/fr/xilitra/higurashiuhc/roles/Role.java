@@ -66,9 +66,9 @@ public abstract class Role {
       return players.remove(player);
    }
 
-   public abstract void onKill(HPlayer killer, HPlayer killed);
+   public abstract void onKill(EntityDamageEvent ed, HPlayer killer, HPlayer killed);
 
-   public abstract void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed);
+   public abstract void onDeath(EntityDamageEvent ed, HPlayer killed);
 
    public Clans getDefaultClans(){
       return defaultClans;
@@ -80,7 +80,7 @@ public abstract class Role {
 
    public boolean isRole(Role... roles){
       for(Role role : roles)
-         if(getName().equals(role.getName()))
+         if(isRole(role))
             return true;
          return false;
    }

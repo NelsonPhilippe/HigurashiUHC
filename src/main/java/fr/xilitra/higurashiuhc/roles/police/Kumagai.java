@@ -26,12 +26,12 @@ public class Kumagai extends Role {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed) {
+    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
+    public void onDeath(EntityDamageEvent de, HPlayer killed) {
 
     }
 }

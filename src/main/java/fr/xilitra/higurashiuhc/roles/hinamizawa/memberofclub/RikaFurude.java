@@ -223,7 +223,7 @@ public class RikaFurude extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed) {
+    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
         HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
         if(miyo != null){
@@ -234,7 +234,7 @@ public class RikaFurude extends Role implements Listener {
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
+    public void onDeath(EntityDamageEvent de, HPlayer killed) {
         HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
         if(hanyu == null) return;

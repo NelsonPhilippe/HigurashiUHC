@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
@@ -13,6 +14,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShionSonozaki extends Role implements Listener {
     public ShionSonozaki() {
@@ -70,12 +76,45 @@ public class ShionSonozaki extends Role implements Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed) {
+    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
+
+        if(!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
+            return;
+
+        if(!killed.getRole().isRole(RoleList.ORYO_SONOZAKI.getRole(), RoleList.KIICHIRO_KIMIYOSHI.getRole(), RoleList.SATOKO_HOJO.getRole(), RoleList.MION_SONOZAKI.getRole()))
+            return;
+
+        if(killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)){
+            HPlayer ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
+            if(ltd != null) {
+                killer.removeDeathLink(ltd);
+                ltd.removeDeathLink(killer);
+            }
+        }
+
+        List<Role> roleList = new ArrayList<Role>(){{
+            add(RoleList.ORYO_SONOZAKI.getRole());
+            add(RoleList.KIICHIRO_KIMIYOSHI.getRole());
+            add(RoleList.SATOKO_HOJO.getRole());
+            add(RoleList.MION_SONOZAKI.getRole());
+        }};
+
+        killer.getPlayer().setMaxHealth(killed.getPlayer().getMaxHealth()+1);
+
+        for(Role role : roleList){
+            Role killerRole = role.getPlayer().getKillerRole();
+            if(killerRole == null)
+                return;
+            if(killerRole != this)
+                return;
+        }
+
+        killer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1), true);
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent.DamageCause killer, HPlayer killed) {
+    public void onDeath(EntityDamageEvent de, HPlayer killed) {
 
     }
 }

@@ -45,6 +45,7 @@ public enum RoleList {
 
     RoleList(Role role) {
         this.role = role;
+        if(role != null)
         if(role instanceof Listener)
             Bukkit.getPluginManager().registerEvents((Listener) role, HigurashiUHC.getInstance());
     }

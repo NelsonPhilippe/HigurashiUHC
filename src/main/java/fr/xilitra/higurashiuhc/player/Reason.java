@@ -1,17 +1,17 @@
 package fr.xilitra.higurashiuhc.player;
 
-public enum MariedReason {
+public enum Reason {
     DOLL_TRAGEDY("DOLLTRAGEDY");
     final String name;
-    MariedReason(String name){
+    Reason(String name){
         this.name = name;
     }
     public String getName(){
         return name;
     }
-    public boolean isMariedReason(MariedReason... mrList){
+    public boolean isReason(Reason... mrList){
 
-        for(MariedReason mr : mrList)
+        for(Reason mr : mrList)
             if(getName().equals(mr.getName()))
                 return true;
 

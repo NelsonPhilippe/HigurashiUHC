@@ -19,8 +19,8 @@ public class HPlayer {
     private Role killerRole = null;
     private final Runnable deathTask;
     private final Map<KuraudoOishi.infoList, String> info = new HashMap<>();
-    private boolean playerDontMove;
-    private boolean chatOkonogi;
+    private boolean playerDontMove = false;
+    private boolean chatOkonogi = false;
     private int maledictionPower = 0;
     private final List<Reason> mrList = new ArrayList<>();
     private PlayerState playerState = PlayerState.WAITING_ROLE;
@@ -33,7 +33,6 @@ public class HPlayer {
         this.uuid = uuid;
         this.player = player;
         this.deathTask = new DeathTask(player);
-        this.playerDontMove = false;
     }
 
     public String getName() {

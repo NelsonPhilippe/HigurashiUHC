@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import org.bukkit.entity.Player;
 
@@ -27,6 +28,12 @@ public class HPlayer {
 
     private final Map<HPlayer, Reason> deathLinked = new HashMap<>();
     private final Map<HPlayer, Reason> maried = new HashMap<>();
+    private boolean kit;
+    private KitList kitList;
+
+    private HPlayer linkedToDeath = null;
+    private HPlayer mariedWith = null;
+    private MariedReason mariedReason = null;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;
@@ -228,4 +235,19 @@ public class HPlayer {
         return killerRole;
     }
 
+    public boolean hasKit() {
+        return kit;
+    }
+
+    public void setKit(boolean kit) {
+        this.kit = kit;
+    }
+
+    public KitList getKit() {
+        return kitList;
+    }
+
+    public void setKit(KitList kitList) {
+        this.kitList = kitList;
+    }
 }

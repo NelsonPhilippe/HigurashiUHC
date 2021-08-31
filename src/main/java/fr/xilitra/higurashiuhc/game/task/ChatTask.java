@@ -2,9 +2,9 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
+import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Location;
 
 import java.util.TimerTask;

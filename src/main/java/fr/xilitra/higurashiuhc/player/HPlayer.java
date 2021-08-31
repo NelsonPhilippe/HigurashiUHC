@@ -33,7 +33,7 @@ public class HPlayer {
 
     private HPlayer linkedToDeath = null;
     private HPlayer mariedWith = null;
-    private MariedReason mariedReason = null;
+    private Reason mariedReason = null;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;

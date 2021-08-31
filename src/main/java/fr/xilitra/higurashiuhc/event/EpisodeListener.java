@@ -6,8 +6,10 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.scenario.Scenario;
@@ -31,9 +33,20 @@ public class EpisodeListener implements Listener {
         MiyoTakano miyoTakano = (MiyoTakano) RoleList.MIYO_TAKANO.getRole();
         miyoTakano.setOrder(2);
 
-        if(HigurashiUHC.getGameManager().getEpisode() == 6){
+        if(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")){
 
             HigurashiUHC.getGameManager().setWatanagashi(true);
+            KeiichiMaebara role = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+            HPlayer player = role.getPlayer();
+            if(player != null){
+
+                if(player.hasMariedReason(Reason.DOLL_TRAGEDY)){
+
+                    RoleList.SHION_SONOSAKI.getRole().getPlayer().getPlayer().sendMessage("Je te donne une petite info: "+player.getName()+" est marié à "+player.getMariedPlayer(Reason.DOLL_TRAGEDY).getName());
+
+                }
+
+            }
 
         }
 
@@ -45,6 +58,7 @@ public class EpisodeListener implements Listener {
                 keiichi.setMaxHealth(keiichi.getMaxHealth() + 1);
 
         }
+
         if(HigurashiUHC.getGameManager().getEpisode() == 7){
 
             HPlayer tomitake = RoleList.JIRO_TOMITAKE.getRole().getPlayer();

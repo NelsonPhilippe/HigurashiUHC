@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 public class VoteTask extends TimerTask {
 
-    private int time = 60 * 10;
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
     public static boolean isRunning = false;
     public static HPlayer banPlayer;
 

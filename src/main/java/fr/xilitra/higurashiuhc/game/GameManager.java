@@ -14,6 +14,7 @@ import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
@@ -42,6 +43,7 @@ public class GameManager {
 
         ArrayList<RoleList> roles = new ArrayList<>(Arrays.asList(RoleList.values()));
 
+        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.startsound"));
 
         for(HPlayer player : this.players.values()){
 
@@ -70,6 +72,7 @@ public class GameManager {
                 player.getPlayer().setHealth(22);
             }
 
+            player.getPlayer().playSound(player.getPlayer().getLocation(), sound, 1, 1);
             Bukkit.getPluginManager().callEvent(new RoleSelected(player));
 
         }

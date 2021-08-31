@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 public class DimensionTaskTp extends TimerTask {
 
-    private int time = 60;
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.hanyu");
     private HPlayer hanyu;
     private HPlayer rika;
     private boolean finalTeleportRika;

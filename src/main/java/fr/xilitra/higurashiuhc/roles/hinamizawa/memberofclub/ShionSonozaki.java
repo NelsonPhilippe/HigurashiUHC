@@ -78,6 +78,9 @@ public class ShionSonozaki extends Role implements Listener {
     @Override
     public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
 
+        if(killed.hasMariedReason(Reason.DOLL_TRAGEDY))
+            killed.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,9999,1), true);
+
         if(!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
             return;
 

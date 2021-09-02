@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.HashMap;
@@ -43,12 +44,12 @@ public class OryoSonozaki extends Role {
     }
 
     @Override
-    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent de, HPlayer killed) {
+    public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
 }

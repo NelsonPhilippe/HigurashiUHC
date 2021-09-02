@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Police;
+import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Policier extends Role {
@@ -24,12 +25,12 @@ public class Policier extends Role {
     }
 
     @Override
-    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent de, HPlayer killed) {
+    public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
 }

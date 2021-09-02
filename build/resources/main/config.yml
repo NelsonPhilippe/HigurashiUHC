@@ -1,11 +1,5 @@
 #Temps entre chaque phase de partie en minute.
-
 phase-time: 15
-
-#Temps restant au Hinamizawa pour remporter la partie.
-
-rika-death-time: 40
-
 #Taille de bordure au commencement de partie
 worldborder: 2000
 #Temps Activation de la barriere en seconde

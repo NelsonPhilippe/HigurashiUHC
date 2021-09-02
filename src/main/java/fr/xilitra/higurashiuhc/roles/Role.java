@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.ArrayList;
@@ -66,9 +67,9 @@ public abstract class Role {
       return players.remove(player);
    }
 
-   public abstract void onKill(EntityDamageEvent ed, HPlayer killer, HPlayer killed);
+   public abstract void onKill(HPlayer killer, HPlayer killed, DeathReason deathReason);
 
-   public abstract void onDeath(EntityDamageEvent ed, HPlayer killed);
+   public abstract void onDeath(HPlayer killed, DeathReason deathReason);
 
    public Clans getDefaultClans(){
       return defaultClans;

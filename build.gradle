@@ -1,7 +1,5 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
-    id 'java'
+    id 'java-library'
 }
 
 group = 'fr.xilitra'
@@ -34,14 +32,11 @@ dependencies {
 }
 
 task fatJar(type: Jar) {
-
     manifest {
-
         attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'fr.lyneris.api'
+                'Main-Class': 'fr.xilitra.higurashiuhc.HigurashiUHC'
     }
-    baseName = project.name
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

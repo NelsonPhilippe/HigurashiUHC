@@ -102,6 +102,8 @@ public final class HigurashiUHC extends JavaPlugin {
         if(!config.isSet("role.rika.hanyu") || !config.isInt("role.rika.hanyu"))
             config.set("role.rika.hanyu", 60*2);
 
+        saveConfig();
+
     }
 
     private void registerEvents(){
@@ -115,7 +117,6 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new DamageListener(), this);
         this.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
         this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
-        this.getServer().getPluginManager().registerEvents(new DeathListener(), this);
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
         this.getServer().getPluginManager().registerEvents(new MapMenu(), this);

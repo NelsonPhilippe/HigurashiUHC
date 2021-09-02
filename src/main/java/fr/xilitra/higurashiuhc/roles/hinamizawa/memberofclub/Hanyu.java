@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -118,12 +119,12 @@ public class Hanyu extends Role implements Listener {
     }
 
     @Override
-    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent de, HPlayer killed) {
+    public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
 }

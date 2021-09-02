@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -53,12 +54,12 @@ public class MiyoTakano extends Role implements Listener {
     }
 
     @Override
-    public void onKill(EntityDamageEvent de, HPlayer killer, HPlayer killed) {
+    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }
 
     @Override
-    public void onDeath(EntityDamageEvent de, HPlayer killed) {
+    public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
 }

@@ -114,22 +114,29 @@ public class HPlayer {
         return new ArrayList<>(this.deathLinked.keySet());
     }
 
-    public boolean addDeathLinkWith(HPlayer roleList, Reason r){
-        if(this.deathLinked.containsKey(roleList) || this.deathLinked.containsValue(r))
+    public boolean addDeathLinkWith(HPlayer target, Reason r, boolean applyToBoth){
+        if(this.deathLinked.containsKey(target) || this.deathLinked.containsValue(r))
             return false;
-        this.deathLinked.put(roleList, r);
+
+        if(applyToBoth)
+            if(!target.addDeathLinkWith(this, r, false))
+                return false;
+
+        this.deathLinked.put(target, r);
         return true;
     }
 
-    public Reason removeDeathLink(HPlayer player){
+    public Reason removeDeathLink(HPlayer player, boolean applyToBoth){
+        if(applyToBoth)
+            player.removeDeathLink(this, false);
         return this.deathLinked.remove(player);
     }
 
-    public HPlayer removeDeathLink(Reason R){
+    public HPlayer removeDeathLink(Reason R, boolean applyToBoth){
         HPlayer mp = getDeathLinkPlayer(R);
         if(mp == null)
             return null;
-        removeDeathLink(mp);
+        removeDeathLink(mp, applyToBoth);
         return mp;
     }
 
@@ -157,22 +164,27 @@ public class HPlayer {
         return new ArrayList<>(this.maried.keySet());
     }
 
-    public boolean addMarriedWith(HPlayer roleList, Reason r){
-        if(this.maried.containsKey(roleList) || this.maried.containsValue(r))
+    public boolean addMarriedWith(HPlayer player, Reason r, boolean applyToBoth){
+        if(this.maried.containsKey(player) || this.maried.containsValue(r))
             return false;
-        this.maried.put(roleList, r);
+        if(applyToBoth)
+            if(!player.addMarriedWith(this, r, false))
+                return false;
+        this.maried.put(player, r);
         return true;
     }
 
-    public Reason removeMarriedWith(HPlayer player){
+    public Reason removeMarriedWith(HPlayer player, boolean applyToBoth){
+        if(applyToBoth)
+            player.removeMarriedWith(this, false);
         return this.maried.remove(player);
     }
 
-    public HPlayer removeMarriedWith(Reason R){
+    public HPlayer removeMarriedWith(Reason R, boolean applyToBoth){
         HPlayer mp = getMariedPlayer(R);
         if(mp == null)
             return null;
-        removeMarriedWith(mp);
+        removeMarriedWith(mp, applyToBoth);
         return mp;
     }
 

@@ -31,6 +31,8 @@ public abstract class Role {
       return name;
    }
 
+   public abstract String getDecription();
+
    public Gender getSexe() {
       return sexe;
    }

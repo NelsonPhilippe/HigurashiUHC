@@ -13,6 +13,7 @@ import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
+import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -54,6 +55,8 @@ public class GameManager {
             RoleList role = roles.get(number);
 
             player.setRole(role.getRole());
+            TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getRole().getName(), "");
+            player.getPlayer().sendMessage(role.getRole().getDecription());
             player.setClans(role.getRole().getDefaultClans());
 
             players.replace(player.getUuid(), player);

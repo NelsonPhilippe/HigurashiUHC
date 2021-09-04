@@ -14,7 +14,6 @@ import java.util.List;
 public class Mercenaire extends Role {
 
     private HPlayer cible;
-    private List<HPlayer> listMercenary = new ArrayList<>();
 
     public Mercenaire() {
         super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1000 );
@@ -26,6 +25,11 @@ public class Mercenaire extends Role {
 
     public void setCible(HPlayer cible) {
         this.cible = cible;
+    }
+
+    @Override
+    public String getDecription() {
+        return "null";
     }
 
     @Override

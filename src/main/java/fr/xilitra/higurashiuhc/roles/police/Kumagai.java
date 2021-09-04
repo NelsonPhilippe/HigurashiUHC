@@ -26,6 +26,11 @@ public class Kumagai extends Role {
     }
 
     @Override
+    public String getDecription() {
+        return "";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

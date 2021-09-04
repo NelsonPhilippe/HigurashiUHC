@@ -25,6 +25,11 @@ public class Policier extends Role {
     }
 
     @Override
+    public String getDecription() {
+        return "null";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

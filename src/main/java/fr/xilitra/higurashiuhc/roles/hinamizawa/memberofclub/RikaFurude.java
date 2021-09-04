@@ -224,6 +224,11 @@ public class RikaFurude extends Role implements Listener {
     }
 
     @Override
+    public String getDecription() {
+        return "null";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
         HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 

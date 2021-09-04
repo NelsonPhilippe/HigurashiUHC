@@ -119,6 +119,11 @@ public class Hanyu extends Role implements Listener {
     }
 
     @Override
+    public String getDecription() {
+        return "null";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

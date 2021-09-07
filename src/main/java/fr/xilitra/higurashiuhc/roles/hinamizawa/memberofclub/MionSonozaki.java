@@ -1,20 +1,16 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.player.Reason;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.Reason;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -36,22 +32,6 @@ public class MionSonozaki extends Role implements Listener {
         if(player.getRole().equals(RoleList.MION_SONOZAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
-        }
-    }
-
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e) {
-        Player p = e.getEntity();
-        HPlayer deathPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
-
-
-        if (deathPlayer.getRole().getName().equals(RoleList.MION_SONOZAKI.getRole().getName())) {
-
-            if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
-                removeHearth(e, deathPlayer, playerAlive);
-            }
-
         }
     }
 
@@ -99,6 +79,17 @@ public class MionSonozaki extends Role implements Listener {
 
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
+
+        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
+
+
+        if (killed.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
+
+            if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
+                removeHearth(killed, playerAlive);
+            }
+
+        }
 
     }
 }

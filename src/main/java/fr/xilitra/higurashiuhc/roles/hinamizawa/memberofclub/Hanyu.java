@@ -1,15 +1,14 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,7 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,23 +24,11 @@ public class Hanyu extends Role implements Listener {
 
     private boolean isInvisible;
     private boolean dimensionIsUsed;
-    private Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
+    private final Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public Hanyu() {
         super("Hanyu", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.dimensionIsUsed = false;
-    }
-
-
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent event){
-        Player p = event.getEntity();
-
-        HPlayer player = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-
-        if(player.getRole().equals(RoleList.HANYU.getRole())){
-            p.setGameMode(GameMode.SPECTATOR);
-        }
     }
 
     @EventHandler

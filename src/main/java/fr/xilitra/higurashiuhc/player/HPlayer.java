@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -17,7 +18,8 @@ public class HPlayer {
     private final UUID uuid;
     private final Player player;
     private Role role = null;
-    private Role killerRole = null;
+    private Entity killer = null;
+    private Role roleKiller = null;
     private final Runnable deathTask;
     private final Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private boolean playerDontMove = false;
@@ -30,10 +32,6 @@ public class HPlayer {
     private final Map<HPlayer, Reason> maried = new HashMap<>();
     private boolean kit;
     private KitList kitList;
-
-    private HPlayer linkedToDeath = null;
-    private HPlayer mariedWith = null;
-    private Reason mariedReason = null;
 
     public HPlayer(String name, UUID uuid, Player player) {
         this.name = name;
@@ -238,12 +236,17 @@ public class HPlayer {
         this.playerState = playerState;
     }
 
-    public void setKillerRole(Role role){
-        killerRole = role;
+    public void setKiller(Entity killer, Role role){
+        this.killer = killer;
+        this.roleKiller = role;
+    }
+
+    public Entity getKiller(){
+        return killer;
     }
 
     public Role getKillerRole(){
-        return killerRole;
+        return roleKiller;
     }
 
     public boolean hasKit() {

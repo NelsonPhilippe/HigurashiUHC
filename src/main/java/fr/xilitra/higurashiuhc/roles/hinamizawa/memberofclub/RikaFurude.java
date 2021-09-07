@@ -1,13 +1,13 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
@@ -18,11 +18,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,100 +33,6 @@ public class RikaFurude extends Role implements Listener {
     public RikaFurude() {
         super("Rika Furude", Gender.FEMME, MemberOfClub.getClans(), 1);
         this.lives = 3;
-    }
-
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e){
-        Player player = e.getEntity();
-
-        Player killer = null;
-        HPlayer killerHPlayer = null;
-
-        if(e.getEntity().getKiller() != null){
-            killer = e.getEntity().getKiller();
-            killerHPlayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
-        }
-
-        HPlayer hp = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
-
-        if(killerHPlayer != null){
-            if(killerHPlayer.getClans() == MercenaireClan.getClans()){
-                player.setGameMode(GameMode.SPECTATOR);
-                HigurashiUHC.getGameManager().startRikaDeathTask();
-                for(HPlayer miyo : HigurashiUHC.getGameManager().getPlayerList().values()){
-                    if(miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())){
-                        Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
-                    }
-                }
-                return;
-            }
-        }
-
-        HPlayer hanyu = RoleList.HANYU.getRole().getPlayer();
-
-        if(hanyu != null){
-            if(hanyu.getPlayer().getGameMode() == GameMode.SPECTATOR){
-                player.setGameMode(GameMode.SPECTATOR);
-                HigurashiUHC.getGameManager().startRikaDeathTask();
-                return;
-            }
-        }
-
-        if(hp.getRole().equals(RoleList.RIKA_FURUDE.getRole())){
-            RikaFurude rikaFurude = (RikaFurude) hp.getRole();
-
-            rikaFurude.remove1Live();
-
-            if(rikaFurude.getLives() == 2){
-                player.setHealth(16);
-                player.setMaxHealth(16);
-                //player.teleport();
-            }
-
-           if(rikaFurude.getLives() == 1){
-
-               player.setHealth(10);
-               player.setMaxHealth(10);
-
-               for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
-
-                   HideNametag.unhide(player, players.getPlayer());
-               }
-               return;
-           }
-
-           if(rikaFurude.getLives() == 0){
-               if(player.getPlayer().getInventory().getContents().length > 0){
-                   for (ItemStack itemStack : player.getInventory().getContents()) {
-                       player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                       player.getInventory().removeItem(itemStack);
-                   }
-               }
-
-               if(player.getPlayer().getInventory().getArmorContents().length > 0){
-                   for (ItemStack itemStack : player.getInventory().getArmorContents()) {
-                       player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                       player.getInventory().removeItem(itemStack);
-                   }
-               }
-
-               for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()){
-
-                   players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
-
-               }
-
-
-               player.getPlayer().setGameMode(GameMode.SPECTATOR);
-               HigurashiUHC.getGameManager().startRikaDeathTask();
-
-               return;
-
-           }
-           //player.teleport(new Location());
-
-        }
-
     }
 
     @EventHandler
@@ -241,11 +146,96 @@ public class RikaFurude extends Role implements Listener {
 
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
+
+        Entity killer = null;
+        HPlayer killerHPlayer = null;
+        Player player = killed.getPlayer();
+
+        if(killed.getKiller() != null){
+            killer = killed.getKiller();
+            killerHPlayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+        }
+
+        if(killer instanceof Player) {
+
+            if (killerHPlayer != null) {
+                if (killerHPlayer.getClans() == MercenaireClan.getClans()) {
+                    HigurashiUHC.getGameManager().startRikaDeathTask();
+                    for (HPlayer miyo : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                        if (miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())) {
+                            Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
+                        }
+                    }
+                    return;
+                }
+            }
+
+            HPlayer hanyu = RoleList.HANYU.getRole().getPlayer();
+
+            if (hanyu != null) {
+                if (hanyu.getPlayer().getGameMode() == GameMode.SPECTATOR) {
+                    HigurashiUHC.getGameManager().startRikaDeathTask();
+                    return;
+                }
+            }
+
+            if (killed.getRole().equals(RoleList.RIKA_FURUDE.getRole())) {
+                RikaFurude rikaFurude = (RikaFurude) killed.getRole();
+
+                rikaFurude.remove1Live();
+
+                if (rikaFurude.getLives() == 2) {
+                    killed.getPlayer().setMaxHealth(16);
+                    killed.getPlayer().setHealth(16);
+                }
+
+                if (rikaFurude.getLives() == 1) {
+
+                    killed.getPlayer().setMaxHealth(10);
+                    killed.getPlayer().setHealth(10);
+
+                    for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                        HideNametag.unhide(killed.getPlayer(), players.getPlayer());
+                    }
+                    return;
+                }
+
+                if (rikaFurude.getLives() == 0) {
+                    if (player.getPlayer().getInventory().getContents().length > 0) {
+                        for (ItemStack itemStack : player.getInventory().getContents()) {
+                            player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
+                            player.getInventory().removeItem(itemStack);
+                        }
+                    }
+
+                    if (player.getPlayer().getInventory().getArmorContents().length > 0) {
+                        for (ItemStack itemStack : player.getInventory().getArmorContents()) {
+                            player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
+                            player.getInventory().removeItem(itemStack);
+                        }
+                    }
+
+                    for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
+
+                        players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
+
+                    }
+
+                    HigurashiUHC.getGameManager().startRikaDeathTask();
+                    return;
+
+                }
+                //player.teleport(new Location());
+
+            }
+
+        }
+
         HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
 
         if(hanyu == null) return;
 
-        if(hanyu.getPlayer().getGameMode() != GameMode.SPECTATOR){
+        if(hanyu.getPlayerState() == PlayerState.INGAME){
 
             TextComponent textClick = new TextComponent(ChatColor.GOLD + "[Oui]");
             textClick.setBold(true);

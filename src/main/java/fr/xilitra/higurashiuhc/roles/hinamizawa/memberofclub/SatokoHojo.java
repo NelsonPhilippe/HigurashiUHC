@@ -1,11 +1,11 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -19,8 +19,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
@@ -38,17 +36,6 @@ public class SatokoHojo extends Role implements Listener {
 
     public SatokoHojo() {
         super("Satoko Hojo", Gender.FEMME, MemberOfClub.getClans(), 1);
-    }
-
-
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent e){
-
-        Player p = e.getEntity();
-
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
-
-        removeTraps(hPlayer);
     }
 
     @EventHandler
@@ -208,6 +195,8 @@ public class SatokoHojo extends Role implements Listener {
 
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
+
+        removeTraps(killed);
 
     }
 }

@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
@@ -153,12 +154,16 @@ public class DamageListener implements Listener {
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
             if(e instanceof EntityDamageByEntityEvent) {
-                if(((EntityDamageByEntityEvent) e).getDamager() instanceof Player)
-                    playDeath(p, DeathReason.PLAYER_ATTACK);
-                else
-                    playDeath(p, DeathReason.ENTITY_ATTACK);
+                Role killerRole = null;
+                DeathReason dr = DeathReason.ENTITY_ATTACK;
+                if(((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
+                    dr = DeathReason.PLAYER_ATTACK;
+                    killerRole = HigurashiUHC.getGameManager().getPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getRole();
+                }
+                hPlayer.setKiller(((EntityDamageByEntityEvent) e).getDamager(), killerRole);
+                playDeath(hPlayer, dr);
             }else
-                playDeath(p, DeathReason.WORLD_DAMAGE);
+                playDeath(hPlayer, DeathReason.WORLD_DAMAGE);
         }
 
     }
@@ -181,17 +186,15 @@ public class DamageListener implements Listener {
 
     }
 
-    public static void playDeath(Player p, DeathReason deathReason){
-
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+    public static void playDeath(HPlayer hPlayer, DeathReason deathReason){
 
         if(hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
             return;
 
+        Player p = hPlayer.getPlayer();
+
         p.setGameMode(GameMode.SPECTATOR);
         hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
-        if(p.getKiller() != null)
-            hPlayer.setKillerRole(HigurashiUHC.getGameManager().getPlayer(p.getKiller().getUniqueId()).getRole());
 
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
@@ -264,7 +267,7 @@ public class DamageListener implements Listener {
         }
 
         if(hPlayer.hisDeathLinked())
-            hPlayer.getDeathLinkWith().forEach((playerDL) -> playDeath(playerDL.getPlayer(), DeathReason.DEATH_LINKED));
+            hPlayer.getDeathLinkWith().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
     }
 

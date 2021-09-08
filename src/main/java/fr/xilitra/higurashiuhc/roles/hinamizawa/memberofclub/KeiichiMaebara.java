@@ -6,8 +6,11 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.event.Listener;
+import org.inventivetalent.bossbar.BossBar;
 
 public class KeiichiMaebara extends Role implements Listener {
+
+    private BossBar bossBar = null;
 
     public KeiichiMaebara() {
         super("Keiichi Maebara", Gender.HOMME, MemberOfClub.getClans(), 1);
@@ -27,4 +30,13 @@ public class KeiichiMaebara extends Role implements Listener {
     public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
+
+    public BossBar getBossBar(){
+        return bossBar;
+    }
+
+    public void setBossBar(BossBar bossBar){
+        this.bossBar = bossBar;
+    }
+
 }

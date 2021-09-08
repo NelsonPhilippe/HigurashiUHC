@@ -1,7 +1,8 @@
 package fr.xilitra.higurashiuhc.player;
 
 public enum Reason {
-    DOLL_TRAGEDY("DOLLTRAGEDY");
+    DOLL_TRAGEDY("DOLLTRAGEDY"),
+    OYASHIRO_TRAGEDY("OYATRAGEDY");
     final String name;
     Reason(String name){
         this.name = name;

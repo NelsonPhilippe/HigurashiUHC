@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class ChatTask extends TimerTask {
 
     private int time = 30;
-    private HPlayer target;
+    private final HPlayer target;
 
     public ChatTask(HPlayer target) {
         this.target = target;

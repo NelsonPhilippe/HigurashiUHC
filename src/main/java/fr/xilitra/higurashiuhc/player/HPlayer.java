@@ -6,7 +6,9 @@ import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.DeathTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.kit.KitList;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -213,8 +215,10 @@ public class HPlayer {
     }
 
      public void addMaledictionReason(Reason mr){
-        if(!hasMaledictionReason(mr))
-        mrList.add(mr);
+        if(!hasMaledictionReason(mr)) {
+            getPlayer().sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: "+mr.getName());
+            mrList.add(mr);
+        }
     }
 
     public void removeMaledictionReason(Reason mr){

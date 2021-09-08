@@ -10,11 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.inventivetalent.bossbar.BossBar;
 
 public class RenaRyugu extends Role implements Listener {
 
     private HPlayer hPlayerPense;
     private boolean penseIsUsed;
+    private BossBar bossBar;
 
     public RenaRyugu() {
         super("Rena Ryugu", Gender.FEMME, MemberOfClub.getClans(), 1);
@@ -64,4 +66,13 @@ public class RenaRyugu extends Role implements Listener {
         }
 
     }
+
+    public BossBar getBossBar(){
+        return bossBar;
+    }
+
+    public void setBossBar(BossBar bossBar){
+        this.bossBar = bossBar;
+    }
+
 }

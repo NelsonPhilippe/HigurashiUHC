@@ -1,11 +1,9 @@
 package fr.xilitra.higurashiuhc.utils;
 
-import net.minecraft.server.v1_8_R3.EntityArmorStand;
 import net.minecraft.server.v1_8_R3.EntityLiving;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -23,7 +21,7 @@ public class HideNametag {
         if(player == hideFrom)
             return;
         //Add Players to the List
-        ArrayList<UUID> list = new ArrayList<UUID>();
+        ArrayList<UUID> list = new ArrayList<>();
         list.add(player.getUniqueId());
         list.add(hideFrom.getUniqueId());
         if(hiddenmap.containsKey(list)) {
@@ -51,7 +49,7 @@ public class HideNametag {
     public static void unhide(Player player, Player hiddenFrom) {
         if(player == hiddenFrom)
             return;
-        ArrayList<UUID> list = new ArrayList<UUID>();
+        ArrayList<UUID> list = new ArrayList<>();
         list.add(player.getUniqueId());
         list.add(hiddenFrom.getUniqueId());
         if(!(hiddenmap.containsKey(list))) {

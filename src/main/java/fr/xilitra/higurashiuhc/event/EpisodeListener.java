@@ -3,16 +3,13 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
-import fr.xilitra.higurashiuhc.scenario.Scenario;
+import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.Material;
@@ -49,6 +46,9 @@ public class EpisodeListener implements Listener {
             }
 
         }
+
+        if(ScenarioList.OYASHIRO.isActive())
+            ((Oyashiro)ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
 
         if(ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
 

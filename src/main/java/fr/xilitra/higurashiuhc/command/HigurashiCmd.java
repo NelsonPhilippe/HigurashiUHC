@@ -15,14 +15,16 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.Kasai;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import fr.xilitra.higurashiuhc.roles.police.Akasaka;
 import fr.xilitra.higurashiuhc.roles.police.Kumagai;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.roles.police.Policier;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +32,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class HigurashiCmd implements CommandExecutor {
     @Override

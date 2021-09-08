@@ -29,14 +29,11 @@ dependencies {
     compileOnly name: 'spigot'
     compileOnly name: 'DatouNms-1.2.1'
     compileOnly 'fr.mrmicky:fastboard:1.2.0'
+    implementation name: 'BossBarAPI_v2.4.1'
 }
 
 task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Main-Class': 'fr.xilitra.higurashiuhc.HigurashiUHC'
-    }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }

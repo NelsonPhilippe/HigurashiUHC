@@ -102,6 +102,9 @@ public final class HigurashiUHC extends JavaPlugin {
         if(!config.isSet("role.rika.hanyu") || !config.isInt("role.rika.hanyu"))
             config.set("role.rika.hanyu", 60*2);
 
+        if(!config.isSet("tragedy.oyashiro.episode") || !config.isInt("tragedy.oyashiro.episode"))
+            config.set("tragedy.oyashiro.episode", 3);
+
         saveConfig();
 
     }

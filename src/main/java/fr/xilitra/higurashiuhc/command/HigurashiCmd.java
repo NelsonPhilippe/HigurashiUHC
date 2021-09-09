@@ -2,9 +2,9 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.task.ChatTask;
-import fr.xilitra.higurashiuhc.game.task.DimensionTaskTp;
-import fr.xilitra.higurashiuhc.game.task.PolicierTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.ChatTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DimensionTaskTp;
+import fr.xilitra.higurashiuhc.game.task.taskClass.PolicierTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -135,8 +135,7 @@ public class HigurashiCmd implements CommandExecutor {
 
 
             boolean finalTeleportRika = teleportRika;
-            Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new DimensionTaskTp(hanyu, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)), 20 ,20);
-
+            new DimensionTaskTp(hanyu, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)).runTask(1000,1000);
 
             return true;
         }
@@ -542,7 +541,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 target.setMaxHealth(target.getMaxHealth() - 1);
                 policier.setPvIsUsed(true);
-                Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new PolicierTask(hPlayer), 20, 20);
+                new PolicierTask(hPlayer).runTask(1000,1000);
                 p.sendMessage("Vous venez de mettre un pv à " + target.getName());
 
                 return true;
@@ -608,16 +607,14 @@ public class HigurashiCmd implements CommandExecutor {
 
                 HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
 
-                if(hPlayerTarget.isChatOkonogi()){
+                if(hPlayerTarget.isChatOkonogi()) {
 
                     p.sendMessage("Le joueur est déjà dans le chat");
                     return true;
 
                 }
 
-                Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new ChatTask(hPlayerTarget), 20, 20);
-
-
+                new ChatTask(hPlayerTarget).runTask(1000,1000);
 
                 return true;
             }

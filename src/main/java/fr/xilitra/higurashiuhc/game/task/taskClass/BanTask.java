@@ -1,11 +1,14 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import java.util.TimerTask;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 
-public class BanTask extends TimerTask {
+public class BanTask extends JavaTask {
 
     private int time = 60 * 10;
 
+    public BanTask() {
+        super("banTask");
+    }
 
     @Override
     public void run() {
@@ -14,7 +17,7 @@ public class BanTask extends TimerTask {
             if(VoteTask.banPlayer != null){
                 VoteTask.banPlayer.getPlayer().setMaxHealth(20);
             }
-            this.cancel();
+            stopTask();
         }
 
         time--;

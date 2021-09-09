@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.DimensionDeathRikaTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DimensionDeathRikaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.Bukkit;
@@ -44,7 +44,7 @@ public class TeleportRikaCmd implements CommandExecutor {
                     rika.getPlayer().teleport(new Location(worldR, xR, yR, zR));
                     p.teleport(new Location(world, x, y, z));
 
-                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new DimensionDeathRikaTask(rika, hPlayer), 20, 20);
+                    new DimensionDeathRikaTask(rika, hPlayer).runTask(1000,1000);
 
                     p.sendMessage("Attention vous allez être retéléporté dans 30 secondes");
 

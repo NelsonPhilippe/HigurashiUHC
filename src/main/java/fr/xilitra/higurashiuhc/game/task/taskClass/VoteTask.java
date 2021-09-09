@@ -1,19 +1,22 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
-import org.bukkit.Bukkit;
 
 import java.util.Map;
-import java.util.TimerTask;
 
-public class VoteTask extends TimerTask {
+public class VoteTask extends JavaTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
     public static boolean isRunning = false;
     public static HPlayer banPlayer;
+
+    public VoteTask(){
+        super("voteTask");
+    }
 
     @Override
     public void run() {
@@ -36,7 +39,7 @@ public class VoteTask extends TimerTask {
                 if(votesPlayer.getValue() >= majorite / 2){
                     votesPlayer.getKey().getPlayer().setMaxHealth(10);
                     banPlayer = votesPlayer.getKey();
-                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new BanTask(), 20, 20);
+                    new BanTask().runTask(1000,1000);
                     break;
                 }
             }

@@ -1,24 +1,27 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class RikaDeathTask extends BukkitRunnable {
+public class RikaDeathTask extends JavaTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.weakness") * 60;
-    private boolean isStarted = false;
+
+    public RikaDeathTask(){
+        super("rdt");
+    }
 
     @Override
     public void run() {
 
-        if(!isStarted){
+        if(!isRunning()){
             for(HPlayer player : HigurashiUHC.getGameManager().getPlayerList().values()){
 
                 if(player.getClans() == Hinamizawa.getClans()){
@@ -26,8 +29,6 @@ public class RikaDeathTask extends BukkitRunnable {
                 }
             }
         }
-
-        this.isStarted = true;
 
         if(time == 0){
             for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayerList().values()){
@@ -47,7 +48,4 @@ public class RikaDeathTask extends BukkitRunnable {
         time--;
     }
 
-    public boolean isStarted() {
-        return isStarted;
-    }
 }

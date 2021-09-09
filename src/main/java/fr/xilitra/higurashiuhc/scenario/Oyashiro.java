@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.taskClass.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -21,7 +22,7 @@ public class Oyashiro extends Scenario {
 
     @Override
     public void solution(int solution, Object... o) {
-
+        RenaOyashiroTask.instance.stopTask();
     }
 
     @Override
@@ -59,6 +60,8 @@ public class Oyashiro extends Scenario {
 
         BossBar rrBB = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
         rr.setBossBar(rrBB);
+
+        new RenaOyashiroTask().runTask(1000,1000);
 
     }
 

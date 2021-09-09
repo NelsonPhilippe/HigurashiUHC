@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
-import fr.xilitra.higurashiuhc.game.task.HanyuTaskInvisble;
+import fr.xilitra.higurashiuhc.game.task.taskClass.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -48,32 +48,19 @@ public class Hanyu extends Role implements Listener {
         Player damager = (Player) entityDamager;
         HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getPlayer(damager.getUniqueId());
 
+        if(hPlayerDamager.getRole().equals(RoleList.HANYU.getRole()) || hPlayer.getRole().isRole(RoleList.HANYU.getRole())){
 
-
-        if(hPlayer.getRole().isRole(RoleList.HANYU.getRole())){
-            Hanyu hanyu = (Hanyu) hPlayer.getRole();
-
+            Hanyu hanyu;
+            if(hPlayerDamager.getRole().equals(RoleList.HANYU.getRole()))
+                hanyu = (Hanyu) hPlayerDamager.getRole();
+            else hanyu = (Hanyu) hPlayer.getRole();
 
             if(hanyu.isInvisible){
                 hanyu.setInvisible(false);
 
                 for(Player players : Bukkit.getOnlinePlayers()){
                     players.showPlayer(player);
-                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new HanyuTaskInvisble(), 20, 20);
-                }
-            }
-        }
-
-
-        if(hPlayerDamager.getRole().equals(RoleList.HANYU.getRole())){
-
-            Hanyu hanyu = (Hanyu) hPlayer.getRole();
-            if(hanyu.isInvisible){
-                hanyu.setInvisible(false);
-
-                for(Player players : Bukkit.getOnlinePlayers()){
-                    players.showPlayer(player);
-                    Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new HanyuTaskInvisble(), 20, 20);
+                    new HanyuTaskInvisble(players).runTask(1000,1000);
                 }
             }
 

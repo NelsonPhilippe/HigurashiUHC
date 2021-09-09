@@ -1,6 +1,7 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
@@ -8,12 +9,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.util.Map;
-import java.util.TimerTask;
 import java.util.UUID;
 
-public class StartTask extends TimerTask {
+public class StartTask extends JavaTask {
 
     private int time = 10;
+
+    public StartTask(){
+        super("startTask");
+    }
 
     @Override
     public void run() {
@@ -51,9 +55,7 @@ public class StartTask extends TimerTask {
         }
 
         if(time == 0){
-            HigurashiUHC.getGameManager().getPlayerList().values().forEach(player -> {
-                player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName());
-            });
+            HigurashiUHC.getGameManager().getPlayerList().values().forEach(player -> player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName()));
 
             HigurashiUHC.getGameManager().game();
 

@@ -1,20 +1,20 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
-import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Location;
 
-import java.util.TimerTask;
-
-public class ChatTask extends TimerTask {
+public class ChatTask extends JavaTask {
 
     private int time = 30;
     private final HPlayer target;
 
     public ChatTask(HPlayer target) {
+        super("chattask-"+target.getName());
         this.target = target;
     }
 
@@ -26,11 +26,13 @@ public class ChatTask extends TimerTask {
         Okonogi okonogiRole = (Okonogi) RoleList.OKONOGI.getRole();
 
         if(okonogiRole.hasPlayer(target)){
-            this.cancel();
+            this.stopTask();
+            return;
         }
 
         if(this.target == null){
-            this.cancel();
+            this.stopTask();
+            return;
         }
 
         Location okoLoc = okonogi.getPlayer().getLocation();
@@ -38,7 +40,7 @@ public class ChatTask extends TimerTask {
 
         if(okoLoc.distanceSquared(hPlayerLoc) > 20 * 20){
             okonogi.getPlayer().sendMessage("Vous êtes trop éloigné de la cible.");
-            this.cancel();
+            this.stopTask();
         }
 
 
@@ -62,7 +64,7 @@ public class ChatTask extends TimerTask {
                 okonogi.getPlayer().setMaxHealth(okonogi.getPlayer().getMaxHealth() + 1);
             }
 
-            this.cancel();
+            this.stopTask();
         }
         time--;
     }

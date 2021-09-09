@@ -2,15 +2,13 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
-import fr.xilitra.higurashiuhc.game.clans.ClansManager;
-import fr.xilitra.higurashiuhc.game.task.GameTask;
-import fr.xilitra.higurashiuhc.game.task.RikaDeathTask;
-import fr.xilitra.higurashiuhc.game.task.StartTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Mercenaire;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
@@ -28,11 +26,11 @@ public class GameManager {
     private ScenarioList scenarioList;
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
-    private Runnable rikaDeathTask = new RikaDeathTask();
+    private final Runnable rikaDeathTask;
     private boolean watanagashi;
 
     public GameManager(){
-        new ClansManager();
+        rikaDeathTask = new RikaDeathTask();
     }
 
     public void config(){
@@ -80,9 +78,7 @@ public class GameManager {
 
         }
 
-        TimerTask task = new StartTask();
-        Timer run = new Timer("Start");
-        run.scheduleAtFixedRate(task, 1000, 1000);
+        new StartTask().runTask(1000,1000);
 
         World world = Bukkit.getWorld("world");
 
@@ -93,14 +89,12 @@ public class GameManager {
     }
 
     public void game(){
-        TimerTask timerTask = new GameTask();
-        Timer timer = new Timer("Game");
-        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
+        new GameTask().runTask(1000,1000);
         this.setStates(GameStates.GAME);
     }
 
     public void startRikaDeathTask(){
-        if(!((RikaDeathTask) rikaDeathTask).isStarted()){
+        if(!((RikaDeathTask) rikaDeathTask).isRunning()){
             Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), rikaDeathTask);
         }
     }
@@ -137,12 +131,12 @@ public class GameManager {
         players.put(player.getUuid(), player);
     }
 
-    public void removePlayer(HPlayer player){
-        players.remove(player.getUuid());
+    public HPlayer removePlayer(HPlayer player){
+        return players.remove(player.getUuid());
     }
 
-    public void removePlayer(UUID player){
-        players.remove(player);
+    public HPlayer removePlayer(UUID player){
+        return players.remove(player);
     }
 
     public void setScenario(ScenarioList scenarioList){

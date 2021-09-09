@@ -1,10 +1,9 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.VoteTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.VoteTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,7 +30,7 @@ public class VoteCmd implements CommandExecutor {
 
                 oryoSonozaki.addVote(player);
 
-                Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), new VoteTask(), 20, 20);
+                new VoteTask().runTask(1000,1000);
 
                 return true;
             }

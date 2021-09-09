@@ -188,6 +188,8 @@ public class DamageListener implements Listener {
 
     public static void playDeath(HPlayer hPlayer, DeathReason deathReason){
 
+        if(hPlayer == null) return;
+
         if(hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
             return;
 

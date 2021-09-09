@@ -1,15 +1,16 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class StuntTask extends BukkitRunnable {
+public class StuntTask extends JavaTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.stunt");
-    private HPlayer player;
+    private final HPlayer player;
 
-    public StuntTask(HPlayer player) {
+    public StuntTask(HPlayer player){
+        super("stuntTask");
         this.player = player;
     }
 

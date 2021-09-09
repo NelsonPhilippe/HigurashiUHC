@@ -1,24 +1,22 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class DeathTask extends BukkitRunnable {
+public class DeathTask extends JavaTask {
 
     private int time = 5;
     private Player p;
-    private boolean isStarted = false;
 
     public DeathTask(Player p) {
+        super("deathtask-"+p.getName());
         this.p = p;
     }
 
     @Override
     public void run() {
-
-        isStarted = true;
 
         if(time == 0){
             for(ItemStack item : p.getInventory().getContents()){
@@ -28,14 +26,10 @@ public class DeathTask extends BukkitRunnable {
                 p.getInventory().remove(item);
             }
 
-            isStarted = false;
-            this.cancel();
+            this.stopTask();
         }
 
         time--;
     }
 
-    public boolean isStarted() {
-        return isStarted;
-    }
 }

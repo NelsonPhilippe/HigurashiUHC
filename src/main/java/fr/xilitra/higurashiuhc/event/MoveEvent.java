@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
-import fr.xilitra.higurashiuhc.game.task.DeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
@@ -47,7 +47,7 @@ public class MoveEvent implements Listener {
         }
 
         if(hPlayer.getDeathTask() instanceof DeathTask){
-           if(((DeathTask) hPlayer.getDeathTask()).isStarted()){
+           if(((DeathTask) hPlayer.getDeathTask()).isRunning()){
                System.out.println("dont move!");
                e.setCancelled(true);
            }else {

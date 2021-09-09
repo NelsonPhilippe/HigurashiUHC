@@ -1,15 +1,17 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 
-import java.util.TimerTask;
-
-public class SuspectTask extends TimerTask {
+public class SuspectTask extends JavaTask {
 
     private int time;
+
+    public SuspectTask(){
+        super("suspectTask");
+    }
 
     @Override
     public void run() {

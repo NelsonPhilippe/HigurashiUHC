@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.DeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
@@ -31,7 +31,7 @@ public class RessuciteCmd implements CommandExecutor {
 
             if(hPlayer.getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
 
-                if(((DeathTask) hPlayerTarget.getDeathTask()).isStarted()){
+                if(((DeathTask) hPlayerTarget.getDeathTask()).isRunning()){
 
                     if(((RikaFurude) hPlayer.getRole()).getRessucite()){
                         p.sendMessage("Vous ne pouvez plus ressuciter");

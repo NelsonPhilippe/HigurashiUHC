@@ -6,6 +6,7 @@ public enum DeathReason {
     ENTITY_ATTACK(),
     DEATH_MARRIED(),
     DEATH_LINKED(),
-    WORLD_DAMAGE()
+    WORLD_DAMAGE(),
+    DISCONNECTED()
 
 }

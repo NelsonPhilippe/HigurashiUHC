@@ -1,16 +1,19 @@
-package fr.xilitra.higurashiuhc.game.task;
+package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class HanyuTaskInvisble extends BukkitRunnable {
+public class HanyuTaskInvisble extends JavaTask {
 
     private int time = 60;
+
+    public HanyuTaskInvisble(Player player){
+        super("hanyuInvisible"+"->"+player.getName());
+    }
 
     @Override
     public void run() {
@@ -34,11 +37,12 @@ public class HanyuTaskInvisble extends BukkitRunnable {
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
 
-
                         player.hidePlayer(hPlayer.getPlayer());
 
                     }
+
                 }
+
             }
 
 

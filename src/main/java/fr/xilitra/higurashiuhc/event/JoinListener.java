@@ -20,7 +20,7 @@ public class JoinListener implements Listener {
         Player p = e.getPlayer();
         p.setMaxHealth(20);
         p.setHealth(20);
-        HPlayer hPlayer = new HPlayer(p.getName(), p.getUniqueId(), p);
+        HPlayer hPlayer = new HPlayer(p.getName(), p);
         HigurashiUHC.getGameManager().addPlayer(hPlayer);
         Scoreboard scoreboard = new Scoreboard(ChatColor.DARK_PURPLE + "HigurashiUHC", p);
 

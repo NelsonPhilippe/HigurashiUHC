@@ -4,8 +4,8 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
-import org.bukkit.event.entity.EntityDamageEvent;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +45,7 @@ public abstract class Role {
       this.displayName = displayName;
    }
 
+   @Nullable
    public HPlayer getPlayer() {
       return players.get(0);
    }

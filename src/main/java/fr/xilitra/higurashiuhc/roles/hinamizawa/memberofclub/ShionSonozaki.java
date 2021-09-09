@@ -52,7 +52,7 @@ public class ShionSonozaki extends Role implements Listener {
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
-        if(killed.hasMariedReason(Reason.DOLL_TRAGEDY))
+        if(killed.hasMarriedReason(Reason.DOLL_TRAGEDY))
             killed.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,9999,1), true);
 
         if(!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
@@ -62,10 +62,8 @@ public class ShionSonozaki extends Role implements Listener {
             return;
 
         if(killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)){
-            HPlayer ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
-            if(ltd != null) {
-                killer.removeDeathLink(ltd, true);
-            }
+            List<HPlayer> ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
+            ltd.forEach((lp) -> killer.getLinkData(lp).setDeathLinked(null, true));
         }
 
         List<Role> roleList = new ArrayList<Role>(){{

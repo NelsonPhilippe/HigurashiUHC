@@ -7,17 +7,18 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class HPlayer {
 
     private final String name;
     private final UUID uuid;
-    private final Player player;
     private Role role = null;
     private Entity killer = null;
     private Role roleKiller = null;
@@ -28,16 +29,13 @@ public class HPlayer {
     private int maledictionPower = 0;
     private final List<Reason> mrList = new ArrayList<>();
     private PlayerState playerState = PlayerState.WAITING_ROLE;
-
-    private final Map<HPlayer, Reason> deathLinked = new HashMap<>();
-    private final Map<HPlayer, Reason> maried = new HashMap<>();
+    private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private boolean kit;
     private KitList kitList;
 
-    public HPlayer(String name, UUID uuid, Player player) {
+    public HPlayer(String name, Player player) {
         this.name = name;
-        this.uuid = uuid;
-        this.player = player;
+        this.uuid = player.getUniqueId();
         this.deathTask = new DeathTask(player);
     }
 
@@ -49,8 +47,9 @@ public class HPlayer {
         return uuid;
     }
 
+    @Nullable
     public Player getPlayer() {
-        return player;
+        return Bukkit.getPlayer(getUuid());
     }
 
     public Role getRole(){
@@ -88,103 +87,64 @@ public class HPlayer {
         this.chatOkonogi = chatOkonogi;
     }
 
+    public LinkData getLinkData(HPlayer hPlayer){
 
+        if(linkData.containsKey(hPlayer))
+            return linkData.get(hPlayer);
 
-    public boolean hisDeathLinked(){
-        return !deathLinked.isEmpty();
+        linkData.put(hPlayer, new LinkData(this, hPlayer));
+        return getLinkData(hPlayer);
+
     }
 
-    public Reason getDeathLinkReason(HPlayer hPlayer){
-        return deathLinked.get(hPlayer);
-    }
-
-    public boolean hasDeathLinkReason(Reason reason){
-        return deathLinked.containsValue(reason);
-    }
-
-    public HPlayer getDeathLinkPlayer(Reason reason){
-        for(Map.Entry<HPlayer, Reason> map : deathLinked.entrySet())
-            if(map.getValue().isReason(reason))
-                return map.getKey();
-        return null;
-    }
-
-    public List<HPlayer> getDeathLinkWith(){
-        return new ArrayList<>(this.deathLinked.keySet());
-    }
-
-    public boolean addDeathLinkWith(HPlayer target, Reason r, boolean applyToBoth){
-        if(this.deathLinked.containsKey(target) || this.deathLinked.containsValue(r))
+    public boolean hasMarriedReason(Reason reason){
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
+                return true;
             return false;
-
-        if(applyToBoth)
-            if(!target.addDeathLinkWith(this, r, false))
-                return false;
-
-        this.deathLinked.put(target, r);
-        return true;
     }
 
-    public Reason removeDeathLink(HPlayer player, boolean applyToBoth){
-        if(applyToBoth)
-            player.removeDeathLink(this, false);
-        return this.deathLinked.remove(player);
+    public List<HPlayer> getMarriedPlayer(Reason reason){
+        List<HPlayer> playerList = new ArrayList<>();
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
     }
 
-    public HPlayer removeDeathLink(Reason R, boolean applyToBoth){
-        HPlayer mp = getDeathLinkPlayer(R);
-        if(mp == null)
-            return null;
-        removeDeathLink(mp, applyToBoth);
-        return mp;
+    public List<HPlayer> getMarriedPlayerList(){
+        List<HPlayer> playerList = new ArrayList<>();
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getMariedLinkReason() != null)
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
     }
 
     public boolean hisMarried(){
-        return !maried.isEmpty();
+        return !getMarriedPlayerList().isEmpty();
     }
 
-    public Reason getMariedReason(HPlayer hPlayer){
-        return maried.get(hPlayer);
+    public boolean hasDeathLinkReason(Reason reason){
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+                return true;
+        return false;
     }
 
-
-    public boolean hasMariedReason(Reason reason){
-        return maried.containsValue(reason);
+    public List<HPlayer> getDeathLinkPlayer(){
+        List<HPlayer> playerList = new ArrayList<>();
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getDeathLinkReason() != null)
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
     }
 
-    public HPlayer getMariedPlayer(Reason reason){
-        for(Map.Entry<HPlayer, Reason> map : maried.entrySet())
-            if(map.getValue().isReason(reason))
-                return map.getKey();
-        return null;
-    }
-
-    public List<HPlayer> getMarriedWith(){
-        return new ArrayList<>(this.maried.keySet());
-    }
-
-    public boolean addMarriedWith(HPlayer player, Reason r, boolean applyToBoth){
-        if(this.maried.containsKey(player) || this.maried.containsValue(r))
-            return false;
-        if(applyToBoth)
-            if(!player.addMarriedWith(this, r, false))
-                return false;
-        this.maried.put(player, r);
-        return true;
-    }
-
-    public Reason removeMarriedWith(HPlayer player, boolean applyToBoth){
-        if(applyToBoth)
-            player.removeMarriedWith(this, false);
-        return this.maried.remove(player);
-    }
-
-    public HPlayer removeMarriedWith(Reason R, boolean applyToBoth){
-        HPlayer mp = getMariedPlayer(R);
-        if(mp == null)
-            return null;
-        removeMarriedWith(mp, applyToBoth);
-        return mp;
+    public List<HPlayer> getDeathLinkPlayer(Reason reason){
+        List<HPlayer> playerList = new ArrayList<>();
+        for(LinkData linkData : this.linkData.values())
+            if(linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
     }
 
     public void setClans(Clans clans){

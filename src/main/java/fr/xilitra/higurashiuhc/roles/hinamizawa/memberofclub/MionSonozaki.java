@@ -50,10 +50,8 @@ public class MionSonozaki extends Role implements Listener {
             return;
 
         if(killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)){
-            HPlayer ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
-            if(ltd != null) {
-                killer.removeDeathLink(ltd, true);
-            }
+            List<HPlayer> ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
+            ltd.forEach((pl) -> killer.getLinkData(pl).setDeathLinked(null, false));
         }
 
         List<Role> roleList = new ArrayList<Role>(){{

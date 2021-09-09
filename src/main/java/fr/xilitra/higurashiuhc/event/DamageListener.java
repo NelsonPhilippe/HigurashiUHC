@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
@@ -117,10 +118,10 @@ public class DamageListener implements Listener {
 
         if(p.getHealth() <= 20) {
 
-            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 && hPlayer.getMarriedWith() != null){
+            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 ){
 
-                if(hPlayer.hasMariedReason(Reason.DOLL_TRAGEDY)) {
-                    hPlayer.getMariedPlayer(Reason.DOLL_TRAGEDY).getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs");
+                if(hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
+                    hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> player.getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs"));
                 }
 
             }
@@ -239,14 +240,15 @@ public class DamageListener implements Listener {
 
         if (hPlayer.hisMarried()) {
 
-            List<HPlayer> marriedPlayer = new ArrayList<>(hPlayer.getMarriedWith());
+            List<HPlayer> marriedPlayer = new ArrayList<>(hPlayer.getMarriedPlayerList());
 
             for(HPlayer married : marriedPlayer){
 
-                Reason marriedReason = hPlayer.getMariedReason(married);
-                married.removeMarriedWith(hPlayer, true);
+                LinkData linkData = hPlayer.getLinkData(married);
+                Reason mariedReason = linkData.getMariedLinkReason();
+                linkData.setMariedLinked(null, true);
 
-                if (marriedReason.isReason(Reason.DOLL_TRAGEDY)) {
+                if (mariedReason.isReason(Reason.DOLL_TRAGEDY)) {
 
                     married.incrMalediction(Reason.DOLL_TRAGEDY);
 
@@ -268,8 +270,7 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.hisDeathLinked())
-            hPlayer.getDeathLinkWith().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
+        hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
     }
 

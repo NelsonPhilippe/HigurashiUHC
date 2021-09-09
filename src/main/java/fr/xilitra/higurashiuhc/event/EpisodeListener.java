@@ -37,9 +37,9 @@ public class EpisodeListener implements Listener {
             HPlayer player = role.getPlayer();
             if(player != null){
 
-                if(player.hasMariedReason(Reason.DOLL_TRAGEDY)){
+                if(player.hasMarriedReason(Reason.DOLL_TRAGEDY)){
 
-                    RoleList.SHION_SONOSAKI.getRole().getPlayer().getPlayer().sendMessage("Je te donne une petite info: "+player.getName()+" est marié à "+player.getMariedPlayer(Reason.DOLL_TRAGEDY).getName());
+                    RoleList.SHION_SONOSAKI.getRole().getPlayer().getPlayer().sendMessage("Je te donne une petite info: "+player.getName()+" est marié à "+player.getMarriedPlayer(Reason.DOLL_TRAGEDY).get(0).getName());
 
                 }
 

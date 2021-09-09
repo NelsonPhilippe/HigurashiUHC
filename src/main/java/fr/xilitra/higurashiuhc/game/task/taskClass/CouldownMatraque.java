@@ -8,10 +8,6 @@ public class CouldownMatraque extends JavaTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.matraque");
 
-    public CouldownMatraque() {
-        super("CouldownMatraque");
-    }
-
     @Override
     public void run() {
 

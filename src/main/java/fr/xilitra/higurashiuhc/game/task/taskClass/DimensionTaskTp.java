@@ -1,24 +1,23 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-public class DimensionTaskTp extends JavaTask {
+public class DimensionTaskTp extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.hanyu");
-    private HPlayer hanyu;
-    private HPlayer rika;
-    private boolean finalTeleportRika;
-    private Location hLoc;
-    private Location rLoc;
+    private final HPlayer hanyu;
+    private final HPlayer rika;
+    private final boolean finalTeleportRika;
+    private final Location hLoc;
+    private final Location rLoc;
     private boolean firstTeleport = false;
 
     public DimensionTaskTp(HPlayer hanyu, HPlayer rika, boolean finalTeleportRika, Location hLoc, Location rLoc){
-        super("dtt-"+hanyu.getName()+"->"+rika.getName());
         this.hanyu = hanyu;
         this.rika = rika;
         this.finalTeleportRika = finalTeleportRika;
@@ -101,7 +100,7 @@ public class DimensionTaskTp extends JavaTask {
                 rika.getPlayer().teleport(fLocR);
             }
 
-            this.cancel();
+            this.stopTask();
         }
 
         time--;

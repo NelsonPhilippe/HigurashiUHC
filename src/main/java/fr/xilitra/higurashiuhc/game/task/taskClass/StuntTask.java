@@ -10,7 +10,6 @@ public class StuntTask extends JavaTask {
     private final HPlayer player;
 
     public StuntTask(HPlayer player){
-        super("stuntTask");
         this.player = player;
     }
 
@@ -20,7 +19,7 @@ public class StuntTask extends JavaTask {
 
         if(time == 0){
             this.player.setPlayerDontMove(false);
-            this.cancel();
+            this.stopTask();
         }
 
         time--;

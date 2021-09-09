@@ -11,10 +11,6 @@ public class RenaOyashiroTask extends JavaTask {
 
     private int time = 50*60;
 
-    public RenaOyashiroTask(){
-        super("rotTask");
-    }
-
     @Override
     public void run() {
 

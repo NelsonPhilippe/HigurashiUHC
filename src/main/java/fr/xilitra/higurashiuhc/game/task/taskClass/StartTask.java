@@ -15,10 +15,6 @@ public class StartTask extends JavaTask {
 
     private int time = 10;
 
-    public StartTask(){
-        super("startTask");
-    }
-
     @Override
     public void run() {
 
@@ -59,7 +55,7 @@ public class StartTask extends JavaTask {
 
             HigurashiUHC.getGameManager().game();
 
-            this.cancel();
+            this.stopTask();
         }
 
         time--;

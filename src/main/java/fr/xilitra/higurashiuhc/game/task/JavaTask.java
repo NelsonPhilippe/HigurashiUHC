@@ -2,28 +2,23 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import java.util.TimerTask;
 
-public abstract class JavaTask extends TimerTask {
+public abstract class JavaTask extends TimerTask implements Task{
 
-    public static JavaTask instance;
-    public String taskInstance;
     private boolean running = false;
-    private static int instNum = 1;
+    private final int taskID;
 
-    public JavaTask(String taskInstance){
-        instance = this;
-        this.taskInstance = taskInstance+instNum;
-        instNum+=1;
-        TaskRunner.hash.put(this.taskInstance, this);
+    public JavaTask(){
+        this.taskID = TaskRunner.instNum;
+        TaskRunner.instNum+=1;
+        TaskRunner.hash.put(this.taskID, this);
     }
 
-    public String getTaskInstanceName(){
-        return taskInstance;
+    @Override
+    public int getTaskID(){
+        return taskID;
     }
 
-    public JavaTask getInstance(){
-        return instance;
-    }
-
+    @Override
     public boolean stopTask(){
         if(cancel()){
             running = false;
@@ -32,6 +27,7 @@ public abstract class JavaTask extends TimerTask {
         return false;
     }
 
+    @Override
     public boolean runTask(long l1, long l2){
         if(running) return false;
         TaskRunner.timer.schedule(this, l1, l2);
@@ -39,13 +35,9 @@ public abstract class JavaTask extends TimerTask {
         return true;
     }
 
+    @Override
     public boolean isRunning(){
         return running;
-    }
-
-    public void delete(){
-        stopTask();
-        TaskRunner.hash.remove(getTaskInstanceName());
     }
 
 }

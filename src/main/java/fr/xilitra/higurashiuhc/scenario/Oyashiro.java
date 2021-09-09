@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -15,6 +16,7 @@ import org.inventivetalent.bossbar.BossBarAPI;
 public class Oyashiro extends Scenario {
 
     public boolean reveal = false;
+    public Integer taskID = null;
 
     public Oyashiro() {
         super("Oyashiro");
@@ -22,7 +24,8 @@ public class Oyashiro extends Scenario {
 
     @Override
     public void solution(int solution, Object... o) {
-        RenaOyashiroTask.instance.stopTask();
+        if(taskID != null)
+            TaskRunner.getTask(taskID).deleteTask();
     }
 
     @Override

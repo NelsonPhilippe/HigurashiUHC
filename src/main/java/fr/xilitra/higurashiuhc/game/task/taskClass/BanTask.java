@@ -1,14 +1,10 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 
-public class BanTask extends JavaTask {
+public class BanTask extends BukkitTask {
 
     private int time = 60 * 10;
-
-    public BanTask() {
-        super("banTask");
-    }
 
     @Override
     public void run() {

@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
@@ -10,13 +10,9 @@ import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RikaDeathTask extends JavaTask {
+public class RikaDeathTask extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.weakness") * 60;
-
-    public RikaDeathTask(){
-        super("rdt");
-    }
 
     @Override
     public void run() {
@@ -42,7 +38,7 @@ public class RikaDeathTask extends JavaTask {
 
 
 
-            this.cancel();
+            this.stopTask();
         }
 
         time--;

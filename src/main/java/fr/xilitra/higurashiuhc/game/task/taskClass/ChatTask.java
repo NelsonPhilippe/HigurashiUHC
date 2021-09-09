@@ -2,19 +2,18 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import org.bukkit.Location;
 
-public class ChatTask extends JavaTask {
+public class ChatTask extends BukkitTask {
 
     private int time = 30;
     private final HPlayer target;
 
     public ChatTask(HPlayer target) {
-        super("chattask-"+target.getName());
         this.target = target;
     }
 

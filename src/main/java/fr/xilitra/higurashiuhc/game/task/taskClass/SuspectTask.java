@@ -1,17 +1,13 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 
-public class SuspectTask extends JavaTask {
+public class SuspectTask extends BukkitTask {
 
     private int time;
-
-    public SuspectTask(){
-        super("suspectTask");
-    }
 
     @Override
     public void run() {
@@ -23,9 +19,9 @@ public class SuspectTask extends JavaTask {
 
             HPlayer suspect = kuraudoOishi.getSuspect().get(kuraudoOishi.getSuspect().size() - 1);
 
-            
 
-            this.cancel();
+
+            this.stopTask();
         }
 
         time--;

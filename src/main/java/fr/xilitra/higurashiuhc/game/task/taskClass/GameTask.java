@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -17,16 +18,12 @@ import org.bukkit.WorldBorder;
 import java.util.Map;
 import java.util.UUID;
 
-public class GameTask extends JavaTask {
+public class GameTask extends BukkitTask {
 
     private int time = 0;
     private int decount = 3;
     private int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
-    private int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
-
-    public GameTask(){
-        super("gameTask");
-    }
+    private final int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
 
     @Override
     public void run() {

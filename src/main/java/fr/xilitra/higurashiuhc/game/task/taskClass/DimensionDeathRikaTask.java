@@ -1,20 +1,19 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-public class DimensionDeathRikaTask extends JavaTask {
+public class DimensionDeathRikaTask extends BukkitTask {
 
     private int time = 30;
-    private HPlayer rika;
-    private HPlayer hanyu;
+    private final HPlayer rika;
+    private final HPlayer hanyu;
 
     public DimensionDeathRikaTask(HPlayer rika, HPlayer hanyu) {
-        super("ddrt-"+rika.getName()+"->"+hanyu.getName());
         this.rika = rika;
         this.hanyu = hanyu;
     }
@@ -55,6 +54,8 @@ public class DimensionDeathRikaTask extends JavaTask {
 
             this.stopTask();
         }
+
+        time--;
 
     }
 }

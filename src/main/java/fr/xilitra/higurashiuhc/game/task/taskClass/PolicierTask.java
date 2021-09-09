@@ -10,7 +10,6 @@ public class PolicierTask extends JavaTask {
     private final HPlayer hPlayer;
 
     public PolicierTask(HPlayer hPlayer){
-        super("flic->"+hPlayer.getName());
         this.hPlayer = hPlayer;
     }
 
@@ -22,7 +21,8 @@ public class PolicierTask extends JavaTask {
             Policier policier = (Policier) hPlayer.getRole();
 
             policier.setPvIsUsed(false);
-            this.cancel();
+            this.stopTask();
+
         }
         time--;
     }

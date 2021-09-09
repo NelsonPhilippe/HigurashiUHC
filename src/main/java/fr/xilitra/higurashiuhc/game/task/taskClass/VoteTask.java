@@ -1,22 +1,18 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
 
 import java.util.Map;
 
-public class VoteTask extends JavaTask {
+public class VoteTask extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
     public static boolean isRunning = false;
     public static HPlayer banPlayer;
-
-    public VoteTask(){
-        super("voteTask");
-    }
 
     @Override
     public void run() {
@@ -44,7 +40,7 @@ public class VoteTask extends JavaTask {
                 }
             }
 
-            this.cancel();
+            this.stopTask();
         }
 
         time--;

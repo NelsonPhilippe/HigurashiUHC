@@ -1,17 +1,16 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class DeathTask extends JavaTask {
+public class DeathTask extends BukkitTask {
 
     private int time = 5;
-    private Player p;
+    private final Player p;
 
     public DeathTask(Player p) {
-        super("deathtask-"+p.getName());
         this.p = p;
     }
 

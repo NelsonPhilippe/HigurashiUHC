@@ -60,7 +60,7 @@ public class Hanyu extends Role implements Listener {
 
                 for(Player players : Bukkit.getOnlinePlayers()){
                     players.showPlayer(player);
-                    new HanyuTaskInvisble(players).runTask(1000,1000);
+                    new HanyuTaskInvisble().runTask(1000,1000);
                 }
             }
 

@@ -25,7 +25,7 @@ public class Oyashiro extends Scenario {
     @Override
     public void solution(int solution, Object... o) {
         if(taskID != null)
-            TaskRunner.getTask(taskID).deleteTask();
+            TaskRunner.getTask(taskID).stopTask();
     }
 
     @Override
@@ -64,7 +64,9 @@ public class Oyashiro extends Scenario {
         BossBar rrBB = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
         rr.setBossBar(rrBB);
 
-        new RenaOyashiroTask().runTask(1000,1000);
+        RenaOyashiroTask rot = new RenaOyashiroTask();
+        rot.runTask(1000,1000);
+        taskID = rot.getTaskID();
 
     }
 

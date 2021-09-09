@@ -95,7 +95,7 @@ public class GameManager {
 
     public void startRikaDeathTask(){
         if(!((RikaDeathTask) rikaDeathTask).isRunning()){
-            Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), rikaDeathTask);
+            ((RikaDeathTask) rikaDeathTask).runTask(1000,1000);
         }
     }
 

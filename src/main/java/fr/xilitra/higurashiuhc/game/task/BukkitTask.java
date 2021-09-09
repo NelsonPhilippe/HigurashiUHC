@@ -29,7 +29,7 @@ public abstract class BukkitTask implements Task, Runnable {
         if(isRunning())
             return false;
 
-        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, l1, l2);
+        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1*20)/1000, (l2*20)/1000);
         return true;
     }
 

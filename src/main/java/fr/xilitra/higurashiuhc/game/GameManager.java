@@ -22,7 +22,7 @@ import java.util.*;
 public class GameManager {
 
     private GameStates states;
-    private final Map<UUID, HPlayer > players = new HashMap<>();
+    private final Map<UUID, HPlayer> players = new HashMap<>();
     private ScenarioList scenarioList;
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
@@ -41,10 +41,14 @@ public class GameManager {
         this.setStates(GameStates.START);
 
         ArrayList<RoleList> roles = new ArrayList<>(Arrays.asList(RoleList.values()));
+        roles.remove(RoleList.NULL);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.startsound"));
 
-        for(HPlayer player : this.players.values()){
+        for(HPlayer player : getPlayerWithState(PlayerState.WAITING_ROLE)){
+
+            if(player.getPlayer() == null)
+                continue;
 
             player.getPlayer().getInventory().clear();
 
@@ -59,6 +63,7 @@ public class GameManager {
 
             players.replace(player.getUuid(), player);
             player.getInfo().put(KuraudoOishi.infoList.SEXE, role.getRole().getSexe().name());
+            player.setPlayerState(PlayerState.INGAME);
 
 
             if(role.getRole().isRole(RoleList.AKASAKA.getRole())) {

@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -62,6 +63,16 @@ public class KuraudoOishi extends Role implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
+    }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
     }
 
     public enum infoList {

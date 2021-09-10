@@ -36,6 +36,11 @@ public class Doll extends Scenario {
         return appliedSolution;
     }
 
+    @Override
+    protected void scenarioStateChange(boolean b) {
+
+    }
+
     public Integer getAppliedSolution(){
         return appliedSolution;
     }

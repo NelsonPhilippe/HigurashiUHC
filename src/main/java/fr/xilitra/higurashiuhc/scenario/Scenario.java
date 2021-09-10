@@ -16,4 +16,6 @@ public abstract class Scenario {
 
     public abstract Integer getSolutionNumber();
 
+    protected abstract void scenarioStateChange(boolean b);
+
 }

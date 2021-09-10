@@ -67,6 +67,16 @@ public class RenaRyugu extends Role implements Listener {
 
     }
 
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
+    }
+
     public BossBar getBossBar(){
         return bossBar;
     }

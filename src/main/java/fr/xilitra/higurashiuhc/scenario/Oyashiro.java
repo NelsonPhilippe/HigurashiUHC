@@ -33,6 +33,24 @@ public class Oyashiro extends Scenario {
         return null;
     }
 
+    @Override
+    protected void scenarioStateChange(boolean b) {
+        if(!b)
+            if(taskID != null) {
+                TaskRunner.getTask(taskID).stopTask();
+
+                KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+                RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
+
+                if(km.getPlayer() != null && km.getPlayer().getPlayer() != null)
+                km.getBossBar().removePlayer(km.getPlayer().getPlayer());
+
+                if(rr.getPlayer() != null && rr.getPlayer().getPlayer() != null)
+                rr.getBossBar().removePlayer(rr.getPlayer().getPlayer());
+
+            }
+    }
+
     public void revealOyashiro(){
 
         if(!(HigurashiUHC.getGameManager().getEpisode() >= HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode") && ScenarioList.OYASHIRO.isActive()))

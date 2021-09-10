@@ -6,6 +6,7 @@ import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.kit.KitList;
+import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,19 +20,24 @@ public class HPlayer {
 
     private final String name;
     private final UUID uuid;
-    private Role role = null;
+
+    private Role role = RoleList.NULL.getRole();
+    private Role roleKiller = RoleList.NULL.getRole();
+
     private Entity killer = null;
-    private Role roleKiller = null;
     private final DeathTask deathTask;
-    private final Map<KuraudoOishi.infoList, String> info = new HashMap<>();
+
     private boolean playerDontMove = false;
     private boolean chatOkonogi = false;
+    private boolean kit = false;
     private int maledictionPower = 0;
-    private final List<Reason> mrList = new ArrayList<>();
+
     private PlayerState playerState = PlayerState.WAITING_ROLE;
+    private KitList kitList = null;
+
+    private final Map<KuraudoOishi.infoList, String> info = new HashMap<>();
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
-    private boolean kit;
-    private KitList kitList;
+    private final List<Reason> mrList = new ArrayList<>();
 
     public HPlayer(String name, Player player) {
         this.name = name;
@@ -59,6 +65,8 @@ public class HPlayer {
     public void setRole(Role role){
         if(this.role != null)
             this.role.removePlayer(this);
+        if(role == null)
+            role = RoleList.NULL.getRole();
         this.role = role;
         role.addPlayer(this);
     }
@@ -175,7 +183,8 @@ public class HPlayer {
 
      public void addMaledictionReason(Reason mr){
         if(!hasMaledictionReason(mr)) {
-            getPlayer().sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: "+mr.getName());
+            if(getPlayer() != null)
+                getPlayer().sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: "+mr.getName());
             mrList.add(mr);
         }
     }
@@ -196,11 +205,15 @@ public class HPlayer {
     }
 
     public void setPlayerState(PlayerState playerState){
+        if(playerState == null)
+            playerState = PlayerState.DISCONNECTED;
         this.playerState = playerState;
     }
 
     public void setKiller(Entity killer, Role role){
         this.killer = killer;
+        if(role == null)
+            role = RoleList.NULL.getRole();
         this.roleKiller = role;
     }
 

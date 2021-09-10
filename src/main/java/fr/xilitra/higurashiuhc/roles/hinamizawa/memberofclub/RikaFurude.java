@@ -246,4 +246,14 @@ public class RikaFurude extends Role implements Listener {
 
         }
     }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
+    }
 }

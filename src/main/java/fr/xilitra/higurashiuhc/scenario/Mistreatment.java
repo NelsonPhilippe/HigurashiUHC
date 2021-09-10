@@ -16,4 +16,9 @@ public class Mistreatment extends Scenario {
     public Integer getSolutionNumber() {
         return null;
     }
+
+    @Override
+    protected void scenarioStateChange(boolean b) {
+
+    }
 }

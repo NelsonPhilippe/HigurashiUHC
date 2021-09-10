@@ -9,6 +9,7 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
@@ -20,7 +21,6 @@ import java.util.List;
 public class ShionSonozaki extends Role implements Listener {
     public ShionSonozaki() {
         super("Shion Sonozaki", Gender.FEMME, MemberOfClub.getClans(), 1);
-        this.setDisplayName("Mion Sonozaki");
     }
 
     @EventHandler
@@ -95,17 +95,25 @@ public class ShionSonozaki extends Role implements Listener {
 
         if(killed.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
 
-            if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
+            if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR)
                 removeHearth(killed, playerAlive);
-            }
 
             HPlayer kasai =  RoleList.KASAI.getRole().getPlayer();
 
-            if(kasai != null){
+            if(kasai != null)
                 if(killed.getKiller() != null)
-                kasai.getPlayer().sendMessage(killed.getName() + " à été tué par " + killed.getKiller().getName());
-            }
+                    kasai.getPlayer().sendMessage(killed.getName() + " à été tué par " + killed.getKiller().getName());
         }
 
+    }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
     }
 }

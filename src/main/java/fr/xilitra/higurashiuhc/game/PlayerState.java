@@ -5,6 +5,7 @@ public enum PlayerState {
     SPECTATE("SPECTATE"),
     WAITING_DEATH("WAIT DEATH"),
     INGAME("INGAME"),
+    DISCONNECTED("DISCONNECT"),
     WAITING_ROLE("WAIT_ROLE");
 
     final String name;

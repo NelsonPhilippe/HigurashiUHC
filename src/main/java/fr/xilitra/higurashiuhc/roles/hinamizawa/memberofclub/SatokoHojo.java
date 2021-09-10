@@ -199,4 +199,14 @@ public class SatokoHojo extends Role implements Listener {
         removeTraps(killed);
 
     }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
+    }
 }

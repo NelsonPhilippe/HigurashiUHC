@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import org.bukkit.entity.Player;
 
 public class Mercenaire extends Role {
 
@@ -44,6 +45,16 @@ public class Mercenaire extends Role {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
+    }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
     }
 
 }

@@ -27,22 +27,16 @@ public class ChatListener implements Listener {
 
                 message = message.replace("!", "");
 
-                for(HPlayer hPlayers : okonogi.getPlayerList()){
+                for(HPlayer hPlayers : okonogi.getPlayerList())
+                    if(hPlayers.getPlayer() != null)
+                        if(hPlayers.getClans().equals(MercenaireClan.getClans()))
+                            hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);
+                        else
+                            hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
 
-                    if(hPlayers.getClans().equals(MercenaireClan.getClans())){
-                        hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);
-                    }else {
-                        hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
-
-                    }
-
-                }
-
-                for (HPlayer hplayers : HigurashiUHC.getGameManager().getPlayerList().values()){
-                    if(hplayers.getPlayer().getGameMode() == GameMode.SPECTATOR){
+                for (HPlayer hplayers : HigurashiUHC.getGameManager().getPlayerList().values())
+                    if(hplayers.getPlayer() != null && hplayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
                         hplayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
-                    }
-                }
 
                 event.setCancelled(true);
 

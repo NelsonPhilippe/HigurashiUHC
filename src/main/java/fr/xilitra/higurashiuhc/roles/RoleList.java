@@ -39,7 +39,8 @@ public enum RoleList {
     POLICIER(new Policier()),
     MERCENAIRE(new Mercenaire()),
     OKONOGI(new Okonogi()),
-    JIRO_TOMITAKE(new JiroTomitake());
+    JIRO_TOMITAKE(new JiroTomitake()),
+    NULL(new NullRole());
 
     private final Role role;
 

@@ -4,10 +4,12 @@ import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class Role {
 
@@ -88,5 +90,9 @@ public abstract class Role {
             return true;
          return false;
    }
+
+   public abstract void playerLeave(Player p);
+
+   public abstract boolean acceptReconnect(Player p);
 
 }

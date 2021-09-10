@@ -76,4 +76,14 @@ public class Akasaka extends Role implements Listener {
     public void onDeath(HPlayer killed, DeathReason dr) {
 
     }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
+    }
 }

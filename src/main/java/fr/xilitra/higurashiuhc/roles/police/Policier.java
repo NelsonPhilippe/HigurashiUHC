@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.clans.Police;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Policier extends Role {
@@ -37,5 +38,15 @@ public class Policier extends Role {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
+    }
+
+    @Override
+    public void playerLeave(Player p) {
+
+    }
+
+    @Override
+    public boolean acceptReconnect(Player p) {
+        return false;
     }
 }

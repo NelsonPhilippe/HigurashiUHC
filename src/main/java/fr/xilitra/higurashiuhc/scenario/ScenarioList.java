@@ -32,5 +32,6 @@ public enum ScenarioList {
 
     public void setActive(boolean active) {
         this.active = active;
+        getScenario().scenarioStateChange(active);
     }
 }

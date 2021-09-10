@@ -43,12 +43,7 @@ public class BlockBreakListener implements Listener {
 
                 if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL){
 
-                    Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), new Runnable() {
-                        @Override
-                        public void run() {
-                            block.setType(type);
-                        }
-                    });
+                    Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
 
                 }
 
@@ -58,11 +53,8 @@ public class BlockBreakListener implements Listener {
 
         }
 
-        if(block.getType() == Material.DIAMOND_ORE){
-            int diamond =Integer.parseInt(hPlayer.getInfo().get(KuraudoOishi.infoList.DIAMOND));
-
-            hPlayer.getInfo().put(KuraudoOishi.infoList.DIAMOND, String.valueOf(diamond + 1));
-        }
+        if(block.getType() == Material.DIAMOND_ORE)
+            hPlayer.getInfo().put(KuraudoOishi.infoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishi.infoList.DIAMOND)) + 1));
     }
 
 }

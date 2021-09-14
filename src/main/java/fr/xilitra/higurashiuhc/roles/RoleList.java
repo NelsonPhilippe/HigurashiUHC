@@ -42,10 +42,10 @@ public enum RoleList {
     JIRO_TOMITAKE(new JiroTomitake()),
     NULL(new NullRole());
 
-    public static RoleList getRoleList(String roleName){
-        for (RoleList value : values())
-            if(value.getRole().getName().equals(roleName))
-                return value;
+    public static RoleList getRoleList(String role){
+        for(RoleList roleList : values())
+            if(roleList.getRole().getName().equals(role))
+                return roleList;
         return null;
     }
 

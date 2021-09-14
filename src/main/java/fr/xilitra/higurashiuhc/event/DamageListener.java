@@ -8,14 +8,18 @@ import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.scenario.Oyashiro;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -114,7 +118,7 @@ public class DamageListener implements Listener {
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        double damage = limitDamege(e.getDamage());
+        double damage = limitDamage(e.getDamage());
 
         if(p.getHealth() <= 20) {
 
@@ -151,6 +155,17 @@ public class DamageListener implements Listener {
 
         }
 
+        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+        if(km.getBossBar() != null && km.getPlayer() != null && km.getPlayer().getName().equals(hPlayer.getName())){
+
+            float progress = km.getBossBar().getProgress()+3;
+            if(progress>=100)
+                ScenarioList.OYASHIRO.getScenario().solution(1);
+            else
+                km.getBossBar().setProgress(progress);
+
+        }
+
         if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
@@ -173,16 +188,21 @@ public class DamageListener implements Listener {
         if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
-                for(HPlayer hPlayers : HigurashiUHC.getGameManager().getPlayerList().values()){
 
-                    if(hPlayers.getRole().getName().equalsIgnoreCase(role2)){
-                        double damage = limitDamege(e.getDamage());
-                        hPlayer.getPlayer().damage(damage);
-                        break;
-                    }
+                RoleList roleList = RoleList.getRoleList(role2);
+                if(roleList == null) return;
 
+                if(roleList.getRole().getPlayer() == null || roleList.getRole().getPlayer().getPlayer() == null)
+                    return;
+
+                double damage = limitDamage(e.getDamage());
+                for(HPlayer r2P : roleList.getRole().getPlayerList()) {
+                    if (r2P.getPlayer() == null) continue;
+                    r2P.getPlayer().damage(damage);
                 }
+
             }
+
         }
 
     }
@@ -195,6 +215,8 @@ public class DamageListener implements Listener {
             return;
 
         Player p = hPlayer.getPlayer();
+
+        if(p == null) return;
 
         p.setGameMode(GameMode.SPECTATOR);
         hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
@@ -214,11 +236,10 @@ public class DamageListener implements Listener {
 
             textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-            HPlayer hpr =  RoleList.RIKA_FURUDE.getRole().getPlayer();
+            HPlayer hpr = RoleList.RIKA_FURUDE.getRole().getPlayer();
 
-            if(hpr != null){
+            if(hpr != null && hpr.getPlayer() != null)
                 hpr.getPlayer().spigot().sendMessage(text);
-            }
 
         }
 
@@ -230,29 +251,21 @@ public class DamageListener implements Listener {
 
             HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
 
-            if (miyo != null) {
-
+            if (miyo != null && miyo.getPlayer() != null)
                 miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
-
-            }
 
         }
 
         if (hPlayer.hisMarried()) {
 
-            List<HPlayer> marriedPlayer = new ArrayList<>(hPlayer.getMarriedPlayerList());
-
-            for(HPlayer married : marriedPlayer){
+            for(HPlayer married : hPlayer.getMarriedPlayerList()){
 
                 LinkData linkData = hPlayer.getLinkData(married);
                 Reason mariedReason = linkData.getMariedLinkReason();
                 linkData.setMariedLinked(null, true);
 
-                if (mariedReason.isReason(Reason.DOLL_TRAGEDY)) {
-
+                if (mariedReason.isReason(Reason.DOLL_TRAGEDY))
                     married.incrMalediction(Reason.DOLL_TRAGEDY);
-
-                }
 
             }
 
@@ -270,11 +283,13 @@ public class DamageListener implements Listener {
 
         }
 
+        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
+        Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
         hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
     }
 
-    private double limitDamege(double damage){
+    private double limitDamage(double damage){
 
         if(damage > 4){
             return 4;

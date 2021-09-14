@@ -2,7 +2,8 @@ package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.TaskRunner;
-import fr.xilitra.higurashiuhc.game.task.taskClass.RenaOyashiroTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -16,7 +17,7 @@ import org.inventivetalent.bossbar.BossBarAPI;
 public class Oyashiro extends Scenario {
 
     public boolean reveal = false;
-    public Integer taskID = null;
+    public Integer renaTaskID = null, keiichiTaskID = null;
 
     public Oyashiro() {
         super("Oyashiro");
@@ -24,8 +25,16 @@ public class Oyashiro extends Scenario {
 
     @Override
     public void solution(int solution, Object... o) {
-        if(taskID != null)
-            TaskRunner.getTask(taskID).stopTask();
+        if(renaTaskID != null)
+            TaskRunner.getTask(renaTaskID).stopTask();
+        if(keiichiTaskID != null)
+            TaskRunner.getTask(keiichiTaskID).stopTask();
+        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+        km.getBossBar().getPlayers().forEach((player) -> km.getBossBar().removePlayer(player));
+        km.setBossBar(null);
+        RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
+        rr.getBossBar().getPlayers().forEach((player) -> rr.getBossBar().removePlayer(player));
+        rr.setBossBar(null);
     }
 
     @Override
@@ -35,20 +44,9 @@ public class Oyashiro extends Scenario {
 
     @Override
     protected void scenarioStateChange(boolean b) {
-        if(!b)
-            if(taskID != null) {
-                TaskRunner.getTask(taskID).stopTask();
-
-                KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
-                RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
-
-                if(km.getPlayer() != null && km.getPlayer().getPlayer() != null)
-                km.getBossBar().removePlayer(km.getPlayer().getPlayer());
-
-                if(rr.getPlayer() != null && rr.getPlayer().getPlayer() != null)
-                rr.getBossBar().removePlayer(rr.getPlayer().getPlayer());
-
-            }
+        if(!b) {
+            solution(5);
+        }
     }
 
     public void revealOyashiro(){
@@ -83,8 +81,12 @@ public class Oyashiro extends Scenario {
         rr.setBossBar(rrBB);
 
         RenaOyashiroTask rot = new RenaOyashiroTask();
-        rot.runTask(1000,1000);
-        taskID = rot.getTaskID();
+        rot.runTask(30000,30000);
+        renaTaskID = rot.getTaskID();
+
+        KeiichiOyashiroTask kot = new KeiichiOyashiroTask();
+        kot.runTask(60000,60000);
+        keiichiTaskID = kot.getTaskID();
 
     }
 

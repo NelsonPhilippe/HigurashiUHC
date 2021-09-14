@@ -60,8 +60,11 @@ public final class HigurashiUHC extends JavaPlugin {
         FileConfiguration config = getConfig();
         config.createSection("game");
 
+        if(!config.isSet("game.deathsound") || Sound.valueOf(config.getString("game.deathsound")) == null)
+            config.set("game.deathsound", Sound.WITHER_SPAWN.name());
+
         if(!config.isSet("game.startsound") || Sound.valueOf(config.getString("game.startsound")) == null)
-            config.set("game.startsound", Sound.WITHER_SPAWN.name());
+            config.set("game.startsound", Sound.GHAST_MOAN.name());
 
         if(!config.isSet("game.watanagashi") || !config.isInt("game.watanagashi"))
             config.set("game.watanagashi", 6);

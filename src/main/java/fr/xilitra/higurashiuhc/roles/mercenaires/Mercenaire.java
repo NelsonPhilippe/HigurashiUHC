@@ -30,11 +30,11 @@ public class Mercenaire extends Role {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-        if(getCible() != null){
+        if(getCible() != null && getHPlayer() != null && getHPlayer().getPlayer() != null){
 
             if(killed == getCible()){
 
-                getPlayer().getPlayer().setMaxHealth(getPlayer().getPlayer().getMaxHealth() + 1);
+                getHPlayer().getPlayer().setMaxHealth(getHPlayer().getPlayer().getMaxHealth() + 1);
                 setCible(null);
 
             }

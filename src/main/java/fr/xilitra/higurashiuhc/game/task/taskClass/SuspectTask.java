@@ -13,7 +13,10 @@ public class SuspectTask extends BukkitTask {
     public void run() {
 
         if(time == 0){
-            HPlayer hPlayer =  RoleList.KURAUDO_OISHI.getRole().getPlayer();
+            HPlayer hPlayer =  RoleList.KURAUDO_OISHI.getRole().getHPlayer();
+
+            if(hPlayer == null)
+                return;
 
             KuraudoOishi kuraudoOishi = (KuraudoOishi) hPlayer.getRole();
 

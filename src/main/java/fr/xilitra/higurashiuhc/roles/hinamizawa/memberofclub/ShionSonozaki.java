@@ -27,7 +27,7 @@ public class ShionSonozaki extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
+        if(player.getPlayer() != null && player.getRole().isRole(RoleList.SHION_SONOSAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -36,7 +36,7 @@ public class ShionSonozaki extends Role implements Listener {
     public static void removeHearth(HPlayer deathPlayer, HPlayer playerAlive) {
         if(deathPlayer == null) return;
 
-        if(playerAlive != null && playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
+        if(playerAlive != null && playerAlive.getPlayer() != null && playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR){
 
             playerAlive.getPlayer().setMaxHealth(20);
 
@@ -51,6 +51,9 @@ public class ShionSonozaki extends Role implements Listener {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
+
+        if(killed.getPlayer() == null)
+            return;
 
         if(killed.hasMarriedReason(Reason.DOLL_TRAGEDY))
             killed.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED,9999,1), true);
@@ -73,10 +76,13 @@ public class ShionSonozaki extends Role implements Listener {
             add(RoleList.MION_SONOZAKI.getRole());
         }};
 
-        killer.getPlayer().setMaxHealth(killed.getPlayer().getMaxHealth()+1);
+        if(killer.getPlayer() != null)
+        killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth()+1);
 
         for(Role role : roleList){
-            Role killerRole = role.getPlayer().getKillerRole();
+            if(role.getHPlayer() == null)
+                return;
+            Role killerRole = role.getHPlayer().getKillerRole();
             if(killerRole == null)
                 return;
             if(killerRole != this)
@@ -90,17 +96,17 @@ public class ShionSonozaki extends Role implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        HPlayer playerAlive =  RoleList.MION_SONOZAKI.getRole().getPlayer();
-
+        HPlayer playerAlive =  RoleList.MION_SONOZAKI.getRole().getHPlayer();
+        if(playerAlive == null) return;
 
         if(killed.getRole().equals(RoleList.SHION_SONOSAKI.getRole())){
 
-            if(playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR)
+            if(playerAlive.getPlayer() != null && playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR)
                 removeHearth(killed, playerAlive);
 
-            HPlayer kasai =  RoleList.KASAI.getRole().getPlayer();
+            HPlayer kasai =  RoleList.KASAI.getRole().getHPlayer();
 
-            if(kasai != null)
+            if(kasai != null && kasai.getPlayer() != null)
                 if(killed.getKiller() != null)
                     kasai.getPlayer().sendMessage(killed.getName() + " à été tué par " + killed.getKiller().getName());
         }

@@ -1,18 +1,17 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.player.LinkData;
-import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.LinkData;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
-import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -69,7 +68,7 @@ public class DamageListener implements Listener {
                 }
 
                 for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
-                    if (players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
+                    if (players.getPlayer() != null && players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
                         if (players.getPlayer() != damager) {
 
                             players.getPlayer().damage(5);
@@ -81,9 +80,9 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player =  RoleList.RENA_RYUGU.getRole().getPlayer();
+            HPlayer player =  RoleList.RENA_RYUGU.getRole().getHPlayer();
 
-            if(player != null){
+            if(player != null && player.getPlayer() != null){
 
                 RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
 
@@ -117,6 +116,8 @@ public class DamageListener implements Listener {
 
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        if(hPlayer == null)
+            return;
 
         double damage = limitDamage(e.getDamage());
 
@@ -125,15 +126,18 @@ public class DamageListener implements Listener {
             if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 ){
 
                 if(hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
-                    hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> player.getPlayer().sendMessage("Ton amoureux(se): "+hPlayer.getName()+" à le malheur de passer en-dessous de 5 coeurs"));
+                    hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> {
+                        if(player.getPlayer() != null)
+                            player.getPlayer().sendMessage("Ton amoureux(se): " + hPlayer.getName() + " à le malheur de passer en-dessous de 5 coeurs");
+                    });
                 }
 
             }
 
             if (hPlayer.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
 
-                HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getPlayer();
-                if (shionPlayer == null) return;
+                HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getHPlayer();
+                if (shionPlayer == null || shionPlayer.getPlayer() == null) return;
 
                 if (shionPlayer.getPlayer().getHealth() <= 20) return;
 
@@ -143,9 +147,9 @@ public class DamageListener implements Listener {
 
             if (hPlayer.getRole().isRole(RoleList.SHION_SONOSAKI.getRole())) {
 
-                HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getPlayer();
+                HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getHPlayer();
 
-                if (mionPlayer == null) return;
+                if (mionPlayer == null || mionPlayer.getPlayer() == null) return;
 
                 if (mionPlayer.getPlayer().getHealth() <= 20) return;
 
@@ -156,7 +160,7 @@ public class DamageListener implements Listener {
         }
 
         KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
-        if(km.getBossBar() != null && km.getPlayer() != null && km.getPlayer().getName().equals(hPlayer.getName())){
+        if(km.getBossBar() != null && km.getHPlayer() != null && km.getHPlayer().getName().equals(hPlayer.getName())){
 
             float progress = km.getBossBar().getProgress()+3;
             if(progress>=100)
@@ -174,7 +178,9 @@ public class DamageListener implements Listener {
                 DeathReason dr = DeathReason.ENTITY_ATTACK;
                 if(((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
                     dr = DeathReason.PLAYER_ATTACK;
-                    killerRole = HigurashiUHC.getGameManager().getPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId()).getRole();
+                    HPlayer killer = HigurashiUHC.getGameManager().getPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId());
+                    if(killer != null)
+                    killerRole = killer.getRole();
                 }
                 hPlayer.setKiller(((EntityDamageByEntityEvent) e).getDamager(), killerRole);
                 playDeath(hPlayer, dr);
@@ -184,7 +190,7 @@ public class DamageListener implements Listener {
 
     }
 
-    private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
+    /*private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
         if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
             if(p.getHealth() > 20){
@@ -192,11 +198,11 @@ public class DamageListener implements Listener {
                 RoleList roleList = RoleList.getRoleList(role2);
                 if(roleList == null) return;
 
-                if(roleList.getRole().getPlayer() == null || roleList.getRole().getPlayer().getPlayer() == null)
+                if(roleList.getRole().getHPlayer() == null || roleList.getRole().getHPlayer().getPlayer() == null)
                     return;
 
                 double damage = limitDamage(e.getDamage());
-                for(HPlayer r2P : roleList.getRole().getPlayerList()) {
+                for(HPlayer r2P : roleList.getRole().getHPlayerList()) {
                     if (r2P.getPlayer() == null) continue;
                     r2P.getPlayer().damage(damage);
                 }
@@ -205,7 +211,7 @@ public class DamageListener implements Listener {
 
         }
 
-    }
+    }*/
 
     public static void playDeath(HPlayer hPlayer, DeathReason deathReason){
 
@@ -236,7 +242,7 @@ public class DamageListener implements Listener {
 
             textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-            HPlayer hpr = RoleList.RIKA_FURUDE.getRole().getPlayer();
+            HPlayer hpr = RoleList.RIKA_FURUDE.getRole().getHPlayer();
 
             if(hpr != null && hpr.getPlayer() != null)
                 hpr.getPlayer().spigot().sendMessage(text);
@@ -249,7 +255,7 @@ public class DamageListener implements Listener {
 
             List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getPlayerList().values());
 
-            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
+            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getHPlayer();
 
             if (miyo != null && miyo.getPlayer() != null)
                 miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
@@ -275,6 +281,9 @@ public class DamageListener implements Listener {
 
             Player killer = p.getKiller();
             HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+
+            if(killerHplayer == null)
+                return;
 
             killerHplayer.getRole().onKill(killerHplayer, hPlayer, deathReason);
 

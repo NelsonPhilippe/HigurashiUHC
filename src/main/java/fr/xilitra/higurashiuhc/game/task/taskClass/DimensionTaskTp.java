@@ -28,6 +28,16 @@ public class DimensionTaskTp extends BukkitTask {
     @Override
     public void run() {
 
+        if(hanyu.getPlayer() == null) {
+            this.stopTask();
+            return;
+        }
+
+        if(rika != null && rika.getPlayer() == null){
+            this.stopTask();
+            return;
+        }
+
         if (time == 30){
 
             if(!firstTeleport){
@@ -43,12 +53,10 @@ public class DimensionTaskTp extends BukkitTask {
         if(time == 5 || time == 4 || time == 3 || time == 2 || time == 1){
             hanyu.getPlayer().sendMessage("Teleportation dans " + time);
 
-            if(rika != null){
+            if(rika != null && rika.getPlayer() != null){
                 rika.getPlayer().sendMessage("Teleportation dans " + time);
             }
         }
-
-
 
         if(time == 0){
             if(!firstTeleport){
@@ -56,9 +64,8 @@ public class DimensionTaskTp extends BukkitTask {
                 firstTeleport = true;
                 hanyu.getPlayer().teleport(hLoc);
 
-                if(finalTeleportRika){
-                    Location loc = rLoc;
-                    rika.getPlayer().teleport(loc);
+                if(finalTeleportRika && rika != null){
+                    rika.getPlayer().teleport(rLoc);
                 }
                 return;
             }
@@ -94,9 +101,8 @@ public class DimensionTaskTp extends BukkitTask {
 
             hanyu.getPlayer().teleport(fLocH);
 
-            if(finalTeleportRika){
+            if(finalTeleportRika && rika != null){
                 rika.getPlayer().sendMessage("Vous allez être retéléporté aléatoirement dans la map");
-
                 rika.getPlayer().teleport(fLocR);
             }
 

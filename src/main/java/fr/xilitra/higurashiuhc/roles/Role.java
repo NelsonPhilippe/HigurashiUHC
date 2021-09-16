@@ -47,15 +47,15 @@ public abstract class Role {
    }
 
    @Nullable
-   public HPlayer getPlayer() {
+   public HPlayer getHPlayer() {
       return players.get(0);
    }
 
-   public boolean hasPlayer(HPlayer player){
+   public boolean hasHPlayer(HPlayer player){
       return players.contains(player);
    }
 
-   public List<HPlayer> getPlayerList(){
+   public List<HPlayer> getHPlayerList(){
       return players;
    }
 
@@ -90,8 +90,23 @@ public abstract class Role {
          return false;
    }
 
+   public boolean isRole(RoleList role){
+      return isRole(role.getRole());
+   }
+
+   public boolean isRole(RoleList... roles){
+      for(RoleList role : roles)
+         if(isRole(role))
+            return true;
+      return false;
+   }
+
    public abstract void playerLeave(Player p);
 
    public abstract boolean acceptReconnect(Player p);
+
+   public boolean isAssigned(){
+      return !getHPlayerList().isEmpty();
+   }
 
 }

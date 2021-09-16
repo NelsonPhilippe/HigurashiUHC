@@ -17,17 +17,16 @@ public class HanyuTaskInvisble extends BukkitTask {
 
         if(time == 0){
 
-            HPlayer hPlayer = RoleList.HANYU.getRole().getPlayer();
-            HPlayer rika = RoleList.RIKA_FURUDE.getRole().getPlayer();
+            HPlayer hPlayer = RoleList.HANYU.getRole().getHPlayer();
+            HPlayer rika = RoleList.RIKA_FURUDE.getRole().getHPlayer();
 
-            if(rika == null){
+            if(rika == null || rika.getPlayer() == null){
                 return;
             }
 
-            if(hPlayer != null){
+            if(hPlayer != null && hPlayer.getPlayer() != null){
 
                 Location loc = hPlayer.getPlayer().getLocation();
-
 
                 if(loc.distanceSquared(rika.getPlayer().getLocation()) < 30 * 30) {
 
@@ -40,7 +39,6 @@ public class HanyuTaskInvisble extends BukkitTask {
                 }
 
             }
-
 
             this.stopTask();
         }

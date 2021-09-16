@@ -20,16 +20,25 @@ public class ChatTask extends BukkitTask {
     @Override
     public void run() {
 
-
-        HPlayer okonogi = RoleList.OKONOGI.getRole().getPlayer();
         Okonogi okonogiRole = (Okonogi) RoleList.OKONOGI.getRole();
 
-        if(okonogiRole.hasPlayer(target)){
+        if(okonogiRole.hasHPlayer(target)){
             this.stopTask();
             return;
         }
 
         if(this.target == null){
+            this.stopTask();
+            return;
+        }
+
+        if(target.getPlayer() == null)
+            return;
+
+        HPlayer okonogi = RoleList.OKONOGI.getRole().getHPlayer();
+
+        if(okonogi == null || okonogi.getPlayer() == null){
+            target.getPlayer().sendMessage("La personne cible est déconnecté");
             this.stopTask();
             return;
         }
@@ -42,14 +51,13 @@ public class ChatTask extends BukkitTask {
             this.stopTask();
         }
 
-
         if(time == 0){
 
             okonogiRole.addPlayer(target);
 
             int mercenary = 0;
 
-            for(HPlayer hPlayer : okonogiRole.getPlayerList()){
+            for(HPlayer hPlayer : okonogiRole.getHPlayerList()){
 
                 if(Hinamizawa.getClans().hisInClans(hPlayer)){
 

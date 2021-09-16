@@ -51,28 +51,25 @@ public class Oyashiro extends Scenario {
 
     public void revealOyashiro(){
 
-        if(!(HigurashiUHC.getGameManager().getEpisode() >= HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode") && ScenarioList.OYASHIRO.isActive()))
+        if(!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
             return;
 
-        if(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) {
-
-            RoleList.RENA_RYUGU.getRole().getPlayer().addMaledictionReason(Reason.OYASHIRO_TRAGEDY);
-            RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Rena à était atteint de la malédiction.");
-
-        }
-
-        if(!(HigurashiUHC.getGameManager().isWatanagashi() && !reveal))
-            return;
-
-        reveal = true;
         KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
         RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
 
-        HPlayer keiichi = km.getPlayer();
-        HPlayer rena = rr.getPlayer();
+        HPlayer keiichi = km.getHPlayer();
+        HPlayer rena = rr.getHPlayer();
 
-        keiichi.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Rena est joué par "+rena.getName()+".");
-        rena.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Keiichi est joué par "+keiichi.getName()+".");
+        if ((rena == null || rena.getPlayer() == null) || (keiichi == null || keiichi.getPlayer() == null) || reveal)
+            return;
+
+        reveal = true;
+
+        rena.addMaledictionReason(Reason.OYASHIRO_TRAGEDY);
+        keiichi.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Rena à était atteint de la malédiction.");
+
+        ///keiichi.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Rena est joué par "+rena.getName()+".");
+        ///rena.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Keiichi est joué par "+keiichi.getName()+".");
 
         BossBar kmBB = BossBarAPI.addBar(keiichi.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
         km.setBossBar(kmBB);

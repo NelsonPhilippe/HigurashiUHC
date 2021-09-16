@@ -20,7 +20,12 @@ public class VoteTask extends BukkitTask {
         isRunning = true;
 
         if(time == 0){
-            HPlayer oryo =  RoleList.ORYO_SONOZAKI.getRole().getPlayer();
+            HPlayer oryo =  RoleList.ORYO_SONOZAKI.getRole().getHPlayer();
+            if(oryo == null) {
+                stopTask();
+                return;
+            }
+
             OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRole();
 
             int majorite = 0;
@@ -33,6 +38,7 @@ public class VoteTask extends BukkitTask {
 
             for (Map.Entry<HPlayer, Integer> votesPlayer : oryoSonozaki.getVoteBan().entrySet()){
                 if(votesPlayer.getValue() >= majorite / 2){
+                    if(votesPlayer.getKey().getPlayer() != null)
                     votesPlayer.getKey().getPlayer().setMaxHealth(10);
                     banPlayer = votesPlayer.getKey();
                     new BanTask().runTask(1000,1000);

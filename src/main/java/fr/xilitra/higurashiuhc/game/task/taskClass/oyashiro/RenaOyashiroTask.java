@@ -15,8 +15,14 @@ public class RenaOyashiroTask extends JavaTask {
         RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
         KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
 
+        if(rr.getHPlayer() == null || rr.getHPlayer().getPlayer() == null)
+            return;
+
         float remove = 1;
-        double diff = MathMain.calculDiff(rr.getPlayer().getPlayer().getLocation(), km.getPlayer().getPlayer().getLocation(), true);
+        double diff = 20;
+
+        if(km.getHPlayer() != null && km.getHPlayer().getPlayer() != null)
+            diff = MathMain.calculDiff(rr.getHPlayer().getPlayer().getLocation(), km.getHPlayer().getPlayer().getLocation(), true);
         if(diff <= 15) remove += 1;
 
         float newValue = rr.getBossBar().getProgress()-remove;

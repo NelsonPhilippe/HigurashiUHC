@@ -30,7 +30,7 @@ public class MionSonozaki extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().equals(RoleList.MION_SONOZAKI.getRole())){
+        if(player.getPlayer() != null && player.getRole().isRole(RoleList.MION_SONOZAKI.getRole())){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -62,10 +62,13 @@ public class MionSonozaki extends Role implements Listener {
             add(RoleList.KEIICHI_MAEBARA.getRole());
         }};
 
-        killer.getPlayer().setMaxHealth(killed.getPlayer().getMaxHealth()+1);
+        if(killer.getPlayer() != null)
+            killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth()+1);
 
         for(Role role : roleList){
-            Role killerRole = role.getPlayer().getKillerRole();
+            if(role.getHPlayer() == null)
+                return;
+            Role killerRole = role.getHPlayer().getKillerRole();
             if(killerRole == null)
                 return;
             if(killerRole != this)
@@ -79,10 +82,10 @@ public class MionSonozaki extends Role implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getPlayer();
+        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getHPlayer();
 
 
-        if (killed.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
+        if (playerAlive != null && playerAlive.getPlayer() != null && killed.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
 
             if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
                 removeHearth(killed, playerAlive);

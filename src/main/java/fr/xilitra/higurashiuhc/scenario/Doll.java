@@ -17,17 +17,26 @@ public class Doll extends Scenario {
     public void solution(int solutionN, Object... o) {
         this.appliedSolution = solutionN;
         if(solutionN == 1){
-            RoleList.MION_SONOZAKI.getRole().getPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
-            RoleList.MION_SONOZAKI.getRole().getPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
+            if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
+                return;
+            RoleList.MION_SONOZAKI.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.MION_SONOZAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 2){
-            RoleList.SHION_SONOSAKI.getRole().getPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
-            RoleList.SHION_SONOSAKI.getRole().getPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
+            if(RoleList.SHION_SONOSAKI.getRole().getHPlayer() == null)
+                return;
+            RoleList.SHION_SONOSAKI.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.SHION_SONOSAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 3){
-            RoleList.MION_SONOZAKI.getRole().getPlayer().getLinkData((HPlayer) o[0]).setMariedLinked(Reason.DOLL_TRAGEDY, true);
+            if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
+                return;
+            RoleList.MION_SONOZAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setMariedLinked(Reason.DOLL_TRAGEDY, true);
         }else{
-            Player player = RoleList.KEIICHI_MAEBARA.getRole().getPlayer().getPlayer();
+            HPlayer hPlayer = RoleList.KEIICHI_MAEBARA.getRole().getHPlayer();
+            if(hPlayer == null || hPlayer.getPlayer() == null)
+                return;
+            Player player = hPlayer.getPlayer();
             player.setMaxHealth(player.getMaxHealth()-5);
-            RoleList.KEIICHI_MAEBARA.getRole().getPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.KEIICHI_MAEBARA.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
         }
     }
 

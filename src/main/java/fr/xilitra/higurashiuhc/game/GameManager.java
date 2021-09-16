@@ -17,6 +17,7 @@ import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
+import javax.annotation.Nullable;
 import java.util.*;
 
 public class GameManager {
@@ -156,8 +157,17 @@ public class GameManager {
         this.episode = ep;
     }
 
+    @Nullable
     public HPlayer getPlayer(UUID uuid){
         return players.get(uuid);
+    }
+
+    @Nullable
+    public HPlayer getPlayer(String name){
+        for(HPlayer hPlayer : players.values())
+            if(hPlayer.getName().equals(name))
+                return hPlayer;
+            return null;
     }
 
     public double getWorldBorder() {

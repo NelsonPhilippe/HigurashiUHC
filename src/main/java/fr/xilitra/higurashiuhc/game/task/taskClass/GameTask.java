@@ -4,7 +4,6 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -59,9 +58,9 @@ public class GameTask extends BukkitTask {
         }
 
         if(HigurashiUHC.getGameManager().getEpisode() >= 6){
-            HPlayer player =  RoleList.KURAUDO_OISHI.getRole().getPlayer();
+            HPlayer player =  RoleList.KURAUDO_OISHI.getRole().getHPlayer();
 
-            if(player != null){
+            if(player != null && player.getPlayer() != null){
 
                 KuraudoOishi oishi = (KuraudoOishi) player.getRole();
 

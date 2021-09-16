@@ -21,14 +21,17 @@ public class TeleportRikaCmd implements CommandExecutor {
         Player p = (Player) sender;
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
+        if(hPlayer == null)
+            return true;
+
         if(args.length != 1) return true;
 
         if(args[0].equalsIgnoreCase("rika")){
             if(hPlayer.getRole().getName().equalsIgnoreCase("Hanyu")){
 
-                HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
+                HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getHPlayer();
 
-                if(rika != null){
+                if(rika != null && rika.getPlayer() != null){
 
                     int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.x");
                     int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.y");

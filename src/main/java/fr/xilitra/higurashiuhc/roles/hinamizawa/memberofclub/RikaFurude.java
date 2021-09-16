@@ -41,7 +41,7 @@ public class RikaFurude extends Role implements Listener {
 
         Player bPlayer = player.getPlayer();
 
-        if(player.getRole().getName().equalsIgnoreCase(RoleList.RIKA_FURUDE.getRole().getName())){
+        if(bPlayer != null && player.getRole().isRole(RoleList.RIKA_FURUDE.getRole())){
             bPlayer.setHealth(16);
             bPlayer.setMaxHealth(16);
         }
@@ -55,12 +55,12 @@ public class RikaFurude extends Role implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        if(hPlayer.getRole()== null) return;
+        if(hPlayer == null || hPlayer.getRole()== null) return;
 
         if(hPlayer.getRole().equals(RoleList.RIKA_FURUDE.getRole())){
-            HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
+            HPlayer hanyu =  RoleList.HANYU.getRole().getHPlayer();
 
-            if(hanyu == null) return;
+            if(hanyu == null || hanyu.getPlayer() == null) return;
 
             Hanyu hanyuRole = (Hanyu) hanyu.getRole();
 
@@ -89,10 +89,12 @@ public class RikaFurude extends Role implements Listener {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
 
+        if(rika == null || target == null) return;
+
         if(!resuPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole()))
             return;
 
-        if (!RoleList.HANYU.getRole().getPlayer().getPlayerState().isState(PlayerState.WAITING_DEATH, PlayerState.SPECTATE)) {
+        if (RoleList.HANYU.getRole().getHPlayer() != null && !RoleList.HANYU.getRole().getHPlayer().getPlayerState().isState(PlayerState.WAITING_DEATH, PlayerState.SPECTATE)) {
             if (resuPlayer.getPlayerState().isState(PlayerState.WAITING_DEATH)) {
                 if (rikaFurudePlayer.getRole().equals(RoleList.RIKA_FURUDE.getRole())) {
                     RikaFurude rikaFurude = (RikaFurude) rikaFurudePlayer.getRole();
@@ -135,7 +137,7 @@ public class RikaFurude extends Role implements Listener {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-        HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getPlayer();
+        HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getHPlayer();
 
         if(miyo != null){
 
@@ -147,14 +149,15 @@ public class RikaFurude extends Role implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        Entity killer = null;
+        if(killed.getPlayer() == null)
+            return;
+
+        Entity killer = killed.getKiller();
         HPlayer killerHPlayer = null;
         Player player = killed.getPlayer();
 
-        if(killed.getKiller() != null){
-            killer = killed.getKiller();
+        if(killer != null)
             killerHPlayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
-        }
 
         if(killer instanceof Player) {
 
@@ -170,9 +173,9 @@ public class RikaFurude extends Role implements Listener {
                 }
             }
 
-            HPlayer hanyu = RoleList.HANYU.getRole().getPlayer();
+            HPlayer hanyu = RoleList.HANYU.getRole().getHPlayer();
 
-            if (hanyu != null) {
+            if (hanyu != null && hanyu.getPlayer() != null) {
                 if (hanyu.getPlayer().getGameMode() == GameMode.SPECTATOR) {
                     HigurashiUHC.getGameManager().startRikaDeathTask();
                     return;
@@ -217,6 +220,7 @@ public class RikaFurude extends Role implements Listener {
 
                     for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
 
+                        if(players.getPlayer() != null)
                         players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
 
                     }
@@ -231,7 +235,7 @@ public class RikaFurude extends Role implements Listener {
 
         }
 
-        HPlayer hanyu =  RoleList.HANYU.getRole().getPlayer();
+        HPlayer hanyu =  RoleList.HANYU.getRole().getHPlayer();
 
         if(hanyu == null) return;
 

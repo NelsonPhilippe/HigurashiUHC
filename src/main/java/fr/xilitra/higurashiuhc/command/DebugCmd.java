@@ -30,22 +30,17 @@ public class DebugCmd implements CommandExecutor {
 
                 for(RoleList role : RoleList.values()){
 
-                    if(roleIsAssigned(role)){
+                    if(role.getRole().isAssigned()){
 
-                        HPlayer hPlayer = role.getRole().getPlayer();
-
-                        System.out.println(hPlayer.getRole().getName());
-
-                        p.sendMessage(
+                        HPlayer hPlayer = role.getRole().getHPlayer();
+                        if(hPlayer != null)
+                            p.sendMessage(
                                 ChatColor.GOLD + hPlayer.getRole().getName()
                                         + " : "
                                         + ChatColor.GREEN  + hPlayer.getName());
 
-                    }else {
-
-                        Role roleTemplate = role.getRole();
-                        p.sendMessage(ChatColor.GOLD + roleTemplate.getName());
-                    }
+                    }else
+                        p.sendMessage(ChatColor.GOLD + role.getRole().getName());
 
                 }
                 return true;
@@ -69,6 +64,8 @@ public class DebugCmd implements CommandExecutor {
 
 
                     HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(bTarget.getUniqueId());
+
+                    if(hPlayer == null) return false;
 
                     System.out.println(hPlayer.getName());
 
@@ -114,21 +111,4 @@ public class DebugCmd implements CommandExecutor {
         return false;
     }
 
-    private boolean roleIsAssigned(RoleList role){
-
-        try{
-            HPlayer hPlayer =  role.getRole().getPlayer();
-
-            System.out.println(hPlayer.getName());
-
-            if(hPlayer == null){
-                return false;
-            }
-        }catch(NullPointerException e){
-            return false;
-        }
-
-        return true;
-
-    }
 }

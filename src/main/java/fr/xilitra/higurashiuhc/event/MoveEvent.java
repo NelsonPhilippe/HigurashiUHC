@@ -25,22 +25,18 @@ public class MoveEvent implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
 
-        HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getPlayer();
+        HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getHPlayer();
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
-        if(hPlayer.getRole() == null) return;
+        if(hPlayer == null || hPlayer.getRole() == null) return;
 
-
+        if(rika != null && rika.getPlayer() != null)
         for(MemberOfClub.roleList roleList : MemberOfClub.roleList.values()){
             if(roleList.getRole().getName().equals(hPlayer.getRole().getName())){
-
-                if(rika != null){
-                    if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
-
-                        if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){
-                            p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
-                        }
+                if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
+                    if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
                     }
                 }
             }
@@ -63,12 +59,11 @@ public class MoveEvent implements Listener {
             for(Location loc : ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps){
 
                 if(loc.getBlock().getLocation().equals(blockLoc)){
-                    HPlayer satokoHojo =  RoleList.SATOKO_HOJO.getRole().getPlayer();
+                    HPlayer satokoHojo =  RoleList.SATOKO_HOJO.getRole().getHPlayer();
 
-                    if(satokoHojo.getUuid().equals(p.getUniqueId())){
+                    if(satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUuid().equals(p.getUniqueId())){
                         return;
                     }
-
 
                     satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
                     loc.getBlock().setType(Material.SOIL);

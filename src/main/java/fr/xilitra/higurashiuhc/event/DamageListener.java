@@ -299,12 +299,7 @@ public class DamageListener implements Listener {
     }
 
     private double limitDamage(double damage){
-
-        if(damage > 4){
-            return 4;
-        }
-
-        return damage;
+        return damage>4 ? 4.0d : damage;
     }
 
 }

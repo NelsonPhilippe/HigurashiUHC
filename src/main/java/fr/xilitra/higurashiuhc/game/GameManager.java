@@ -12,10 +12,8 @@ import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
-import org.bukkit.Bukkit;
-import org.bukkit.Sound;
-import org.bukkit.World;
-import org.bukkit.WorldBorder;
+import org.bukkit.*;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -24,7 +22,6 @@ public class GameManager {
 
     private GameStates states;
     private final Map<UUID, HPlayer> players = new HashMap<>();
-    private ScenarioList scenarioList;
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
     private final Runnable rikaDeathTask;
@@ -45,6 +42,14 @@ public class GameManager {
         roles.remove(RoleList.NULL);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.startsound"));
+
+        ScenarioList sl = ScenarioList.activateScenario();
+
+        for(Player player : Bukkit.getOnlinePlayers())
+            if(sl == null)
+                player.sendMessage(ChatColor.RED+"Aucun scenario d'activé");
+            else
+                player.sendMessage(ChatColor.WHITE+"Le scenario: "+ChatColor.GREEN+sl.getScenario().getName()+ChatColor.WHITE+" est activé");
 
         for(HPlayer player : getPlayerWithState(PlayerState.WAITING_ROLE)){
 
@@ -117,14 +122,6 @@ public class GameManager {
         return states;
     }
 
-    public ScenarioList getSelectedScenario(){
-        return scenarioList;
-    }
-
-    public boolean scenarioIsSelected(){
-        return scenarioList != null;
-    }
-
     public void setStates(GameStates states) {
         this.states = states;
     }
@@ -143,10 +140,6 @@ public class GameManager {
 
     public HPlayer removePlayer(UUID player){
         return players.remove(player);
-    }
-
-    public void setScenario(ScenarioList scenarioList){
-        this.scenarioList = scenarioList;
     }
 
     public int getEpisode() {

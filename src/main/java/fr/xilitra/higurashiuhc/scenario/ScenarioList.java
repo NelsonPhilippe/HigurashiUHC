@@ -34,16 +34,15 @@ public enum ScenarioList {
             return sla.get(0);
         }
 
-        for(ScenarioList sl : sla){
-            sl.setActive(false);
-        }
-
         Random rand = new Random();
         int random_integer = rand.nextInt(sla.size()-1);
 
         ScenarioList actScenario = sla.get(random_integer);
 
-        actScenario.setActive(true);
+        sla.remove(actScenario);
+
+        for(ScenarioList sl : sla)
+            sl.setActive(false);
 
         return actScenario;
 

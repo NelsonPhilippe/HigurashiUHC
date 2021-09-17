@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.scenario;
 
 public abstract class Scenario {
 
-    private String name;
+    private final String name;
 
     public Scenario(String name) {
         this.name = name;

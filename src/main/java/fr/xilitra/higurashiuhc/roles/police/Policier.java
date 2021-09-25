@@ -13,7 +13,7 @@ public class Policier extends Role {
     private boolean pvIsUsed;
 
     public Policier() {
-        super("Policier", Gender.NON_GENRE, Police.getClans(), 1);
+        super("Policier", Gender.NON_GENRE, Police.getClans(), 10);
         pvIsUsed = false;
     }
 

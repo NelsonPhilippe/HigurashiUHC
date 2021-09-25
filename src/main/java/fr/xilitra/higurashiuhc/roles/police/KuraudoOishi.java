@@ -75,7 +75,7 @@ public class KuraudoOishi extends Role implements Listener {
         return false;
     }
 
-    public enum infoList {
+    public enum InfoList {
 
         KILL("Nombre de kill"),
         DIAMOND("Nombre de diamand"),
@@ -88,12 +88,13 @@ public class KuraudoOishi extends Role implements Listener {
 
         String type;
 
-        infoList(String type) {
+        InfoList(String type) {
             this.type = type;
         }
 
         public String getType() {
             return type;
         }
+
     }
 }

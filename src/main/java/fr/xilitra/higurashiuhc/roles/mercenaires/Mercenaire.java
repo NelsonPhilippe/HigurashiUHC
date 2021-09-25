@@ -12,7 +12,7 @@ public class Mercenaire extends Role {
     private HPlayer cible;
 
     public Mercenaire() {
-        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1000 );
+        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1000);
     }
 
     public HPlayer getCible() {

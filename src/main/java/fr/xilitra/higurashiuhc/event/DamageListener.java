@@ -123,7 +123,7 @@ public class DamageListener implements Listener {
 
         if(p.getHealth() <= 20) {
 
-            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0 ){
+            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0){
 
                 if(hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
                     hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> {
@@ -287,8 +287,8 @@ public class DamageListener implements Listener {
 
             killerHplayer.getRole().onKill(killerHplayer, hPlayer, deathReason);
 
-            killerHplayer.getInfo().put(KuraudoOishi.infoList.KILL,
-                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.infoList.KILL)) + 1));
+            killerHplayer.getInfo().put(KuraudoOishi.InfoList.KILL,
+                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.InfoList.KILL)) + 1));
 
         }
 

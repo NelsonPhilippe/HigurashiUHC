@@ -4,10 +4,11 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.clans.Clans;
 import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.kit.KitList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
@@ -35,7 +36,7 @@ public class HPlayer {
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
 
-    private final Map<KuraudoOishi.infoList, String> info = new HashMap<>();
+    private final Map<KuraudoOishi.InfoList, String> info = new HashMap<>();
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
 
@@ -75,7 +76,7 @@ public class HPlayer {
         return this.deathTask;
     }
 
-    public Map<KuraudoOishi.infoList, String> getInfo() {
+    public Map<KuraudoOishi.InfoList, String> getInfo() {
         return info;
     }
 
@@ -174,6 +175,11 @@ public class HPlayer {
     public void incrMalediction(Reason reason){
         this.maledictionPower += 1;
         addMaledictionReason(reason);
+        Player player = getPlayer();
+        if(player == null)
+            return;
+        TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: "+reason.getName());
+        player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
     }
 
     public void reduceMalediction(){

@@ -37,7 +37,9 @@ public class Hanyu extends Role implements Listener {
 
         Player player = (Player) e.getEntity();
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
+        if(hPlayer == null)
+            return;
 
         if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
 
@@ -46,7 +48,10 @@ public class Hanyu extends Role implements Listener {
         if(!(entityDamager instanceof Player)) return;
 
         Player damager = (Player) entityDamager;
-        HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getPlayer(damager.getUniqueId());
+        HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
+
+        if(hPlayerDamager == null)
+            return;
 
         if(hPlayerDamager.getRole().equals(RoleList.HANYU.getRole()) || hPlayer.getRole().isRole(RoleList.HANYU.getRole())){
 

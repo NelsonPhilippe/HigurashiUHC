@@ -19,17 +19,27 @@ public class RessuciteCmd implements CommandExecutor {
         if(sender instanceof Player){
             Player p = (Player) sender;
 
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
+            if(hPlayer == null)
+                return false;
 
             if(args.length != 2){
                 p.sendMessage(ChatColor.RED + "Commande invalide.");
                 return true;
             }
 
-            Player target = Bukkit.getPlayer(args[1]);
-            HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
-
             if(hPlayer.getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
+
+                Player target = Bukkit.getPlayer(args[1]);
+                if(target == null){
+                    p.sendMessage(ChatColor.RED + "Player non trouvé");
+                    return true;
+                }
+                HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
+                if(hPlayerTarget == null){
+                    p.sendMessage(ChatColor.RED + "Player non trouvé");
+                    return true;
+                }
 
                 if(((DeathTask) hPlayerTarget.getDeathTask()).isRunning()){
 
@@ -41,6 +51,7 @@ public class RessuciteCmd implements CommandExecutor {
                     ((RikaFurude) hPlayer.getRole()).resurrection(hPlayer, hPlayerTarget);
                     p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
                     return true;
+
                 }
 
             }

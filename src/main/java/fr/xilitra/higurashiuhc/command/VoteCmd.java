@@ -17,14 +17,14 @@ public class VoteCmd implements CommandExecutor {
 
         if(!(sender instanceof Player)) return true;
 
-
-        Player p = (Player) sender;
-
         if(args.length == 1){
             if(VoteTask.isRunning){
                 String target = args[0];
 
-                HPlayer player = HigurashiUHC.getGameManager().getPlayer(UUID.fromString(target));
+                HPlayer player = HigurashiUHC.getGameManager().getHPlayer(UUID.fromString(target));
+
+                if(player == null)
+                    return false;
 
                 OryoSonozaki oryoSonozaki = (OryoSonozaki) player.getRole();
 

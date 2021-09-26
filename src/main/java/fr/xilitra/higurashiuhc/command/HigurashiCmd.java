@@ -44,7 +44,7 @@ public class HigurashiCmd implements CommandExecutor {
         if(!(sender instanceof Player)) return true;
 
         Player p = (Player) sender;
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
         if(hPlayer == null)
             return false;
 
@@ -55,7 +55,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 if(((RenaRyugu) hPlayer.getRole()).gethPlayerPense() != null) return true;
 
-                HPlayer targetPlayer = HigurashiUHC.getGameManager().getPlayer(args[1]);
+                HPlayer targetPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
 
                 if(targetPlayer == null) {
                     p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
@@ -139,7 +139,7 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                for(HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()){
+                for(HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()){
 
                     Player target = Bukkit.getPlayer(args[1]);
 
@@ -148,7 +148,7 @@ public class HigurashiCmd implements CommandExecutor {
                         return true;
                     }
 
-                    HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+                    HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
                     if(targetHPlayer == null || targetHPlayer.getClans().getName().equalsIgnoreCase("Hinamizawa")){
                         p.sendMessage("vous ne pouvez pas voter pour un membre de votre clans");
@@ -258,7 +258,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 if(!hPlayer.getRole().isRole(RoleList.KURAUDO_OISHI.getRole())) return true;
 
-                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(args[1]);
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
 
                 if(targetHPlayer == null){
                     p.sendMessage("Le joueur n'existe pas");
@@ -366,7 +366,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 Kumagai kumagai = (Kumagai) hPlayer.getRole();
 
-                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(args[1]);
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
 
                 if(targetHPlayer == null){
                     p.sendMessage("Cible Introuvable");
@@ -456,7 +456,7 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
                 if(targetHPlayer == null){
                     p.sendMessage("Cible Introuvable");
@@ -504,7 +504,7 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+                HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
                 if(targetHPlayer == null){
                     p.sendMessage("Cible Introuvable");
                     return true;
@@ -531,8 +531,8 @@ public class HigurashiCmd implements CommandExecutor {
         if (args[0].equalsIgnoreCase("assassiner")) {
 
             if(args.length == 3){
-                HPlayer targetHPlayerMercenaire = HigurashiUHC.getGameManager().getPlayer(args[1]);
-                HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getPlayer(args[2]);
+                HPlayer targetHPlayerMercenaire = HigurashiUHC.getGameManager().getHPlayer(args[1]);
+                HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(args[2]);
 
                 if(targetHPlayerVictim == null) return true;
 
@@ -576,7 +576,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                 if(target == null) return true;
 
-                HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getPlayer(target.getUniqueId());
+                HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
                 if(hPlayerTarget == null){
                     p.sendMessage("Cible Introuvable");
                     return true;

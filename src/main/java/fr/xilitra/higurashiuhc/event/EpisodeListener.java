@@ -3,6 +3,8 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
+import fr.xilitra.higurashiuhc.game.task.taskClass.WatanagashiTask;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -22,7 +24,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.*;
+
 public class EpisodeListener implements Listener {
+
+    private final ArrayList<Integer> avEPOyashiro = new ArrayList<Integer>(){{
+        for(int ep = 3; ep<=5; ep++)
+            add(ep);
+    }};
+
+    private final Integer randomEP = avEPOyashiro.get(new Random().nextInt(avEPOyashiro.size()));
 
     @EventHandler
     public void onEpisodeUpdated(EpisodeUpdate e){
@@ -34,6 +45,7 @@ public class EpisodeListener implements Listener {
         if(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")){
 
             HigurashiUHC.getGameManager().setWatanagashi(true);
+            new WatanagashiTask().runTask(1000, 1000); // Toute les secondes
             KeiichiMaebara role = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
             HPlayer player = role.getHPlayer();
             if(player != null){
@@ -50,29 +62,14 @@ public class EpisodeListener implements Listener {
 
         }
 
-        if(ScenarioList.OYASHIRO.isActive())
-            ((Oyashiro)ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
-
-        if(ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
-
-            HPlayer keiichi = RoleList.KEIICHI_MAEBARA.getRole().getHPlayer();
-            if (keiichi == null || keiichi.getPlayer() == null) return;
-            if (keiichi.getPlayer().getMaxHealth() < 20)
-                keiichi.getPlayer().setMaxHealth(keiichi.getPlayer().getMaxHealth() + 1);
-
-        }
-
         if(HigurashiUHC.getGameManager().getEpisode() == 7){
 
             HPlayer tomitake = RoleList.JIRO_TOMITAKE.getRole().getHPlayer();
 
-            if(tomitake == null) return;
-
-            if(tomitake.getPlayerState() == PlayerState.SPECTATE) return;
-
-            for(HPlayer hPlayer : RoleList.MERCENAIRE.getRole().getHPlayerList())
-                if(hPlayer.getPlayer() != null)
-                    hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+            if(tomitake != null && tomitake.getPlayerState() != PlayerState.SPECTATE)
+                for(HPlayer hPlayer : RoleList.MERCENAIRE.getRole().getHPlayerList())
+                    if(hPlayer.getPlayer() != null)
+                        hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 
         }
 
@@ -118,9 +115,34 @@ public class EpisodeListener implements Listener {
 
             for(HPlayer player : RoleList.MERCENAIRE.getRole().getHPlayerList()){
                 if(player.getPlayer() != null)
-                player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+                    player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
             }
 
+
+        }
+
+        if(ScenarioList.getActiveScenario() != null) {
+
+            if (ScenarioList.OYASHIRO.isActive())
+                ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
+
+            if (ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
+
+                HPlayer keiichi = RoleList.KEIICHI_MAEBARA.getRole().getHPlayer();
+                if (keiichi != null && keiichi.getPlayer() != null)
+                    if (keiichi.getPlayer().getMaxHealth() < 20) {
+                        keiichi.getPlayer().sendMessage("DOLL) Un episode est passé, tu viens de gagner un coeur de plus.");
+                        keiichi.getPlayer().setMaxHealth(keiichi.getPlayer().getMaxHealth() + 1);
+                    }
+
+            }
+
+        }else if(randomEP == e.getEpisode()){
+
+            List<HPlayer> roleLists = MemberOfClub.getClans().getOnlinePlayerList();
+
+            if(!roleLists.isEmpty())
+                roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);
 
         }
 

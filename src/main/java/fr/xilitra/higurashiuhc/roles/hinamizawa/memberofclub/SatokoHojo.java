@@ -52,15 +52,16 @@ public class SatokoHojo extends Role implements Listener {
         Player shooter = (Player) snowball.getShooter();
         Player victim = (Player) e.getEntity();
 
-        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getPlayer(shooter.getUniqueId());
-        HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getPlayer(victim.getUniqueId());
+        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getHPlayer(shooter.getUniqueId());
+        if(hPlayerShooter == null)
+            return;
+        HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(victim.getUniqueId());
 
         System.out.println(snowball.getCustomName());
 
-
         if(snowball.getCustomName().equalsIgnoreCase(Traps.slowBall.getLore())){
 
-            if(hPlayerShooter.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
+            if(hPlayerShooter.getRole() != null && hPlayerShooter.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2, true));
             }
@@ -70,8 +71,10 @@ public class SatokoHojo extends Role implements Listener {
     @EventHandler
     public void onInteractEvent(PlayerInteractEvent e){
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
+        if(hPlayer == null)
+            return;
 
         if(hPlayer.getRole() == null){
             return;
@@ -117,7 +120,9 @@ public class SatokoHojo extends Role implements Listener {
         if(!(snowball.getShooter() instanceof Player)) return;
 
         Player shooter = (Player) snowball.getShooter();
-        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getPlayer(shooter.getUniqueId());
+        HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getHPlayer(shooter.getUniqueId());
+        if(hPlayerShooter == null)
+            return;
 
         if(hPlayerShooter.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
@@ -135,6 +140,8 @@ public class SatokoHojo extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
 
         HPlayer player = e.getPlayer();
+        if(player.getPlayer() == null)
+            return;
 
         if(player.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
@@ -153,7 +160,10 @@ public class SatokoHojo extends Role implements Listener {
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e){
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
+
+        if(hPlayer == null)
+            return;
 
         if(hPlayer.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
 
@@ -172,6 +182,8 @@ public class SatokoHojo extends Role implements Listener {
     }
 
     public void removeTraps(HPlayer hPlayer){
+        if(hPlayer.getPlayer() == null)
+            return;
         if(hPlayer.getRole().equals(RoleList.SATOKO_HOJO.getRole())){
             Inventory inventory = hPlayer.getPlayer().getInventory();
 

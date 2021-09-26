@@ -27,6 +27,7 @@ public class LinkData {
         return deathLinkReason;
     }
 
+
     public boolean isMariedLinked(){
         return mariedReason != null;
     }
@@ -40,6 +41,7 @@ public class LinkData {
     public Reason getMariedLinkReason(){
         return mariedReason;
     }
+
 
     public boolean isWinLinked(){
         return winLinkReason != null;

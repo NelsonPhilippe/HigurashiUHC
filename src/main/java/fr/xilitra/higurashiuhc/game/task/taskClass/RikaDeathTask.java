@@ -18,17 +18,16 @@ public class RikaDeathTask extends BukkitTask {
     public void run() {
 
         if(!isRunning()){
-            for(HPlayer player : HigurashiUHC.getGameManager().getPlayerList().values()){
-
-                if(player.getClans() == Hinamizawa.getClans()){
+            for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
+                if(player.getPlayer() != null && player.getClans() == Hinamizawa.getClans()){
                     player.getPlayer().sendMessage("Rika est morte il vous reste " + time + " avant de subir un malus.");
                 }
             }
         }
 
         if(time == 0){
-            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayerList().values()){
-                if(hPlayer.getClans() == Hinamizawa.getClans()){
+            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
+                if(hPlayer.getPlayer() != null && hPlayer.getClans() == Hinamizawa.getClans()){
                     hPlayer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }

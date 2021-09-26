@@ -29,7 +29,10 @@ public class BlockBreakListener implements Listener {
         ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
 
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
+
+        if(hPlayer == null)
+            return;
 
         if(hPlayer.getRole().getName().equalsIgnoreCase("Satoko Hojo")){
 
@@ -54,7 +57,7 @@ public class BlockBreakListener implements Listener {
         }
 
         if(block.getType() == Material.DIAMOND_ORE)
-            hPlayer.getInfo().put(KuraudoOishi.infoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishi.infoList.DIAMOND)) + 1));
+            hPlayer.getInfo().put(KuraudoOishi.InfoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishi.InfoList.DIAMOND)) + 1));
     }
 
 }

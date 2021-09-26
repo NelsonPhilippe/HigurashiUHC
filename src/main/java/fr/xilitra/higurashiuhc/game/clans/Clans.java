@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Clans {
@@ -28,13 +29,33 @@ public abstract class Clans {
         GameManager gm = HigurashiUHC.getGameManager();
         return new ArrayList<HPlayer>(){{
            for(UUID uuid : getPlayerListUUID())
-               add(gm.getPlayer(uuid));
+               add(gm.getHPlayer(uuid));
         }};
 
     }
 
     public List<UUID> getPlayerListUUID() {
         return playerList;
+    }
+
+    public List<HPlayer> getOnlinePlayerList() {
+
+        GameManager gm = HigurashiUHC.getGameManager();
+        return new ArrayList<HPlayer>(){{
+            for(UUID uuid : getOnlinePlayerListUUID())
+                add(gm.getHPlayer(uuid));
+        }};
+
+    }
+
+    public List<UUID> getOnlinePlayerListUUID() {
+        return new ArrayList<UUID>(){{
+            for(UUID uuid : getPlayerListUUID()) {
+                HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(uuid);
+                if (hPlayer != null && hPlayer.getPlayer() != null)
+                    add(uuid);
+            }
+        }};
     }
 
     protected void addPlayer(UUID p){
@@ -51,13 +72,18 @@ public abstract class Clans {
 
     public boolean hisInClans(HPlayer player){
 
-        Clans playerClans = player.getClans();
+        return isClans(player.getClans());
 
-        if(playerClans.isSubClans()){
+    }
 
-            return playerClans.getName().equals(getName()) || playerClans.getMajorClans().getName().equals(getName());
+    public boolean isClans(Clans clans){
 
-        }else return playerClans.getName().equals(getName());
+        if(clans.isSubClans()){
+
+            return clans.getName().equals(getName()) || clans.getMajorClans().getName().equals(getName());
+
+        }else return clans.getName().equals(getName());
+
     }
 
 }

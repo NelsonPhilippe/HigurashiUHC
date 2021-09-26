@@ -27,15 +27,17 @@ public class MiyoTakano extends Role implements Listener {
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().equals(this)){
+        if(player.getRole().equals(this) && player.getPlayer() != null){
 
             RoleList[] mercenenaire = {RoleList.MERCENAIRE, RoleList.OKONOGI};
+            player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
 
-            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getPlayerList().values()){
+            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
+                if(hPlayer.getPlayer() == null)
+                    continue;
                 for(RoleList role : mercenenaire){
                     if(hPlayer.getRole().equals(role.getRole())){
 
-                        player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
                         player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
 
                     }

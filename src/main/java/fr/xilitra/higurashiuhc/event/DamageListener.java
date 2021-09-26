@@ -2,7 +2,10 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.game.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
+import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -22,12 +25,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +73,7 @@ public class DamageListener implements Listener {
                     return;
                 }
 
-                for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                     if (players.getPlayer() != null && players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
                         if (players.getPlayer() != damager) {
 
@@ -115,7 +121,7 @@ public class DamageListener implements Listener {
         if(!(e.getEntity() instanceof Player)) return;
 
         Player p = (Player) e.getEntity();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
         if(hPlayer == null)
             return;
 
@@ -178,7 +184,7 @@ public class DamageListener implements Listener {
                 DeathReason dr = DeathReason.ENTITY_ATTACK;
                 if(((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
                     dr = DeathReason.PLAYER_ATTACK;
-                    HPlayer killer = HigurashiUHC.getGameManager().getPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId());
+                    HPlayer killer = HigurashiUHC.getGameManager().getHPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId());
                     if(killer != null)
                     killerRole = killer.getRole();
                 }
@@ -232,6 +238,32 @@ public class DamageListener implements Listener {
         hPlayer.getRole().onDeath(hPlayer, deathReason);
 
         ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
+        if(hPlayer.getClans() != null)
+            ClansManager.getInstance().removeClans(hPlayer);
+
+        Entity killer = hPlayer.getKiller();
+        if(killer instanceof Player){
+            Clans clans = ClansManager.getInstance().getClans(hPlayer);
+            if(clans != null && clans.isClans(MemberOfClub.getClans())){
+
+                ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth()+1);
+                ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+
+                List<HPlayer> playerInClan = MemberOfClub.getClans().getOnlinePlayerList();
+                boolean allKilledBY = true;
+
+                for(HPlayer hPlayer1 : playerInClan){
+                    if (hPlayer1.getKiller() != killer) {
+                        allKilledBY = false;
+                        break;
+                    }
+                }
+
+                if(allKilledBY)
+                ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
+
+            }
+        }
 
         if(hPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
 
@@ -251,9 +283,9 @@ public class DamageListener implements Listener {
 
         if (MercenaireClan.getClans().hisInClans(hPlayer)) {
 
-            int random = new Random().nextInt(HigurashiUHC.getGameManager().getPlayerList().size()) - 1;
+            int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
 
-            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getPlayerList().values());
+            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
 
             HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getHPlayer();
 
@@ -271,16 +303,15 @@ public class DamageListener implements Listener {
                 linkData.setMariedLinked(null, true);
 
                 if (mariedReason.isReason(Reason.DOLL_TRAGEDY))
-                    married.incrMalediction(Reason.DOLL_TRAGEDY);
+                    married.addMaledictionReason(Reason.DOLL_TRAGEDY);
 
             }
 
         }
 
-        if(p.getKiller() != null) {
+        if(killer instanceof Player) {
 
-            Player killer = p.getKiller();
-            HPlayer killerHplayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+            HPlayer killerHplayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
 
             if(killerHplayer == null)
                 return;

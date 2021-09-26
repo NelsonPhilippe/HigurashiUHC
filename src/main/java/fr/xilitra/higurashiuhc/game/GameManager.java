@@ -51,7 +51,7 @@ public class GameManager {
             else
                 player.sendMessage(ChatColor.WHITE+"Le scenario: "+ChatColor.GREEN+sl.getScenario().getName()+ChatColor.WHITE+" est activé");
 
-        for(HPlayer player : getPlayerWithState(PlayerState.WAITING_ROLE)){
+        for(HPlayer player : getHPlayerWithState(PlayerState.WAITING_ROLE)){
 
             if(player.getPlayer() == null)
                 continue;
@@ -68,7 +68,7 @@ public class GameManager {
             player.setClans(role.getRole().getDefaultClans());
 
             players.replace(player.getUuid(), player);
-            player.getInfo().put(KuraudoOishi.infoList.SEXE, role.getRole().getSexe().name());
+            player.getInfo().put(KuraudoOishi.InfoList.SEXE, role.getRole().getSexe().name());
             player.setPlayerState(PlayerState.INGAME);
 
 
@@ -126,19 +126,19 @@ public class GameManager {
         this.states = states;
     }
 
-    public Map<UUID, HPlayer> getPlayerList() {
+    public Map<UUID, HPlayer> getHPlayerList() {
         return players;
     }
 
-    public void addPlayer(HPlayer player){
+    public void addHPlayer(HPlayer player){
         players.put(player.getUuid(), player);
     }
 
-    public HPlayer removePlayer(HPlayer player){
+    public HPlayer removeHPlayer(HPlayer player){
         return players.remove(player.getUuid());
     }
 
-    public HPlayer removePlayer(UUID player){
+    public HPlayer removeHPlayer(UUID player){
         return players.remove(player);
     }
 
@@ -151,12 +151,12 @@ public class GameManager {
     }
 
     @Nullable
-    public HPlayer getPlayer(UUID uuid){
+    public HPlayer getHPlayer(UUID uuid){
         return players.get(uuid);
     }
 
     @Nullable
-    public HPlayer getPlayer(String name){
+    public HPlayer getHPlayer(String name){
         for(HPlayer hPlayer : players.values())
             if(hPlayer.getName().equals(name))
                 return hPlayer;
@@ -171,7 +171,7 @@ public class GameManager {
         this.worldBorder = worldBorder;
     }
 
-    public List<HPlayer> getPlayerWithState(PlayerState... playerState){
+    public List<HPlayer> getHPlayerWithState(PlayerState... playerState){
 
         List<HPlayer> playerList = new ArrayList<>();
 

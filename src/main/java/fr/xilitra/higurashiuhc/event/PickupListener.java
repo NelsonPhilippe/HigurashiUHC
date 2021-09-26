@@ -18,7 +18,10 @@ public class PickupListener implements Listener {
     @EventHandler
     public void onPickupItem(PlayerPickupItemEvent e){
         Player p = e.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
+
+        if(hPlayer == null)
+            return;
 
         ItemStack item = e.getItem().getItemStack();
 

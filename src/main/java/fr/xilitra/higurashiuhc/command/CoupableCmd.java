@@ -22,7 +22,7 @@ public class CoupableCmd implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
         if(hPlayer == null)
             return false;
 
@@ -31,7 +31,7 @@ public class CoupableCmd implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("c")){
 
-            HPlayer targetHPlayer = HigurashiUHC.getGameManager().getPlayer(args[1]);
+            HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
             if(targetHPlayer == null) return true;
             
             KuraudoOishi oishi = (KuraudoOishi) hPlayer.getRole();

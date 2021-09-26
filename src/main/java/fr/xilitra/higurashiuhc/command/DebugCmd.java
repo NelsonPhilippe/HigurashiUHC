@@ -60,10 +60,10 @@ public class DebugCmd implements CommandExecutor {
                     return true;
                 }
 
-                if(HigurashiUHC.getGameManager().getPlayerList().containsKey(bTarget.getUniqueId())){
+                if(HigurashiUHC.getGameManager().getHPlayerList().containsKey(bTarget.getUniqueId())){
 
 
-                    HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(bTarget.getUniqueId());
+                    HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(bTarget.getUniqueId());
 
                     if(hPlayer == null) return false;
 
@@ -76,7 +76,7 @@ public class DebugCmd implements CommandExecutor {
                         StringBuilder builder = new StringBuilder();
 
                         for(int i = 2; i < args.length; i++){
-                            builder.append(args[i] + " " );
+                            builder.append(args[i]).append(" ");
                         }
 
                         role = builder.toString();
@@ -93,7 +93,7 @@ public class DebugCmd implements CommandExecutor {
                             hPlayer.setRole(roleList.getRole());
                             Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                             p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
-                            HigurashiUHC.getGameManager().getPlayerList().put(hPlayer.getUuid(), hPlayer);
+                            HigurashiUHC.getGameManager().getHPlayerList().put(hPlayer.getUuid(), hPlayer);
                             Bukkit.getServer().getPluginManager().callEvent(new RoleSelected(hPlayer));
                             return true;
                         }

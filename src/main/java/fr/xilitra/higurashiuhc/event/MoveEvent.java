@@ -23,7 +23,7 @@ public class MoveEvent implements Listener {
     public void onMoveEvent(PlayerMoveEvent e){
         Player p = e.getPlayer();
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getHPlayer();
 

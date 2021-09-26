@@ -53,7 +53,7 @@ public class RikaFurude extends Role implements Listener {
     public void onPlayerMove(PlayerMoveEvent e){
         Player p = e.getPlayer();
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         if(hPlayer == null || hPlayer.getRole()== null) return;
 
@@ -157,14 +157,14 @@ public class RikaFurude extends Role implements Listener {
         Player player = killed.getPlayer();
 
         if(killer != null)
-            killerHPlayer = HigurashiUHC.getGameManager().getPlayer(killer.getUniqueId());
+            killerHPlayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
 
         if(killer instanceof Player) {
 
             if (killerHPlayer != null) {
                 if (killerHPlayer.getClans() == MercenaireClan.getClans()) {
                     HigurashiUHC.getGameManager().startRikaDeathTask();
-                    for (HPlayer miyo : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                    for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                         if (miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())) {
                             Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                         }
@@ -197,7 +197,7 @@ public class RikaFurude extends Role implements Listener {
                     killed.getPlayer().setMaxHealth(10);
                     killed.getPlayer().setHealth(10);
 
-                    for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                    for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                         HideNametag.unhide(killed.getPlayer(), players.getPlayer());
                     }
                     return;
@@ -218,7 +218,7 @@ public class RikaFurude extends Role implements Listener {
                         }
                     }
 
-                    for (HPlayer players : HigurashiUHC.getGameManager().getPlayerList().values()) {
+                    for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
 
                         if(players.getPlayer() != null)
                         players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);

@@ -35,7 +35,7 @@ public class StartTask extends JavaTask {
 
 
         if (time == 5 || time == 4 || time == 3 || time == 2 || time == 1) {
-            HigurashiUHC.getGameManager().getPlayerList().values().forEach(
+            HigurashiUHC.getGameManager().getHPlayerList().values().forEach(
                     player -> TitlePacket.send(
                             Bukkit.getPlayer(
                                     player.getUuid()),
@@ -51,7 +51,10 @@ public class StartTask extends JavaTask {
         }
 
         if(time == 0){
-            HigurashiUHC.getGameManager().getPlayerList().values().forEach(player -> player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName()));
+            HigurashiUHC.getGameManager().getHPlayerList().values().forEach(player -> {
+                if(player.getPlayer() != null)
+                player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName());
+            });
 
             HigurashiUHC.getGameManager().game();
 

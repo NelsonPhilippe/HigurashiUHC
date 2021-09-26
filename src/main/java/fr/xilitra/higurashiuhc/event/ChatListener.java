@@ -15,7 +15,7 @@ public class ChatListener implements Listener {
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event){
         Player player = event.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
 
         if(hPlayer == null)
             return;
@@ -37,7 +37,7 @@ public class ChatListener implements Listener {
                         else
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
 
-                for (HPlayer hplayers : HigurashiUHC.getGameManager().getPlayerList().values())
+                for (HPlayer hplayers : HigurashiUHC.getGameManager().getHPlayerList().values())
                     if(hplayers.getPlayer() != null && hplayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
                         hplayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
 

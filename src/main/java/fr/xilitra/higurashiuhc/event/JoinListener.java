@@ -24,11 +24,11 @@ public class JoinListener implements Listener {
         p.setHealth(20);
         Scoreboard scoreboard = new Scoreboard(ChatColor.DARK_PURPLE + "HigurashiUHC", p);
 
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         if(hPlayer == null) {
             hPlayer = new HPlayer(p.getName(), p);
-            HigurashiUHC.getGameManager().addPlayer(hPlayer);
+            HigurashiUHC.getGameManager().addHPlayer(hPlayer);
         }
 
         HigurashiUHC.addScoreboard(p.getUniqueId(), scoreboard);

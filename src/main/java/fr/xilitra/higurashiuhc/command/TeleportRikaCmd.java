@@ -19,7 +19,7 @@ public class TeleportRikaCmd implements CommandExecutor {
         if(!(sender instanceof Player)) return true;
 
         Player p = (Player) sender;
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         if(hPlayer == null)
             return true;

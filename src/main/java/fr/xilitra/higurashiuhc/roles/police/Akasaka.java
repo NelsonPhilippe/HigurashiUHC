@@ -27,7 +27,9 @@ public class Akasaka extends Role implements Listener {
     @EventHandler
     public void onPlayerDamage(PlayerItemDamageEvent event){
         Player player = event.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
+        if(hPlayer == null)
+            return;
 
         ItemStack item = event.getItem();
 
@@ -47,8 +49,11 @@ public class Akasaka extends Role implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event){
         Player player = event.getPlayer();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(player.getUniqueId());
-        
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
+
+        if(hPlayer == null)
+            return;
+
         if(hPlayer.playerDontMove()){
             event.setCancelled(true);
         }

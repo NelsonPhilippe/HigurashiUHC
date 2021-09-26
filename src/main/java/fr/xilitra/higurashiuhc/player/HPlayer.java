@@ -13,6 +13,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -165,32 +167,22 @@ public class HPlayer {
     }
 
     public boolean hasMalediction() {
-        return maledictionPower != 0;
+        return !this.mrList.isEmpty();
     }
 
     public int getMaledictionPower(){
-        return this.maledictionPower;
-    }
-
-    public void incrMalediction(Reason reason){
-        this.maledictionPower += 1;
-        addMaledictionReason(reason);
-        Player player = getPlayer();
-        if(player == null)
-            return;
-        TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: "+reason.getName());
-        player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
-    }
-
-    public void reduceMalediction(){
-        if(this.maledictionPower != 0)
-            this.maledictionPower -= 1;
+        return this.mrList.size();
     }
 
      public void addMaledictionReason(Reason mr){
         if(!hasMaledictionReason(mr)) {
-            if(getPlayer() != null)
-                getPlayer().sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: "+mr.getName());
+            Player player = getPlayer();
+            if(player == null)
+                return;
+            TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: "+mr.getName());
+            player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
+            player.sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: " + mr.getName());
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9999, 1));
             mrList.add(mr);
         }
     }
@@ -223,10 +215,12 @@ public class HPlayer {
         this.roleKiller = role;
     }
 
+    @Nullable
     public Entity getKiller(){
         return killer;
     }
 
+    @Nullable
     public Role getKillerRole(){
         return roleKiller;
     }

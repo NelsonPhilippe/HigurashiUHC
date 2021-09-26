@@ -30,7 +30,7 @@ public class VoteTask extends BukkitTask {
 
             int majorite = 0;
 
-            for(HPlayer player : HigurashiUHC.getGameManager().getPlayerList().values()){
+            for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
                 if(player.getClans().getName().equalsIgnoreCase("Hinamizawa")){
                     majorite++;
                 }

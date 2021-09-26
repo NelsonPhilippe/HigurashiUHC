@@ -37,7 +37,7 @@ public class GameTask extends BukkitTask {
         }
         
         String formatTime = TimeUtils.formatTime(time);
-        int player_remaining = HigurashiUHC.getGameManager().getPlayerWithState(PlayerState.INGAME, PlayerState.WAITING_DEATH).size();
+        int player_remaining = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME, PlayerState.WAITING_DEATH).size();
 
         for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
             scoreboard.getValue().setLines(

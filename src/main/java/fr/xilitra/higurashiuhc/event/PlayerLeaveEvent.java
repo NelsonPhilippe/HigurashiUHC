@@ -17,15 +17,16 @@ public class PlayerLeaveEvent implements Listener {
 
         Player p = e.getPlayer();
 
-        DamageListener.playDeath(HigurashiUHC.getGameManager().removePlayer(p.getUniqueId()), DeathReason.DISCONNECTED);
+        DamageListener.playDeath(HigurashiUHC.getGameManager().removeHPlayer(p.getUniqueId()), DeathReason.DISCONNECTED);
         p.getInventory().clear();
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(p.getUniqueId());
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
+        if(hPlayer == null) return;
         hPlayer.setPlayerState(PlayerState.DISCONNECTED);
         if(hPlayer.getRole() == null)
 
         if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME)
-            HigurashiUHC.getGameManager().removePlayer(p.getUniqueId());
+            HigurashiUHC.getGameManager().removeHPlayer(p.getUniqueId());
 
     }
 

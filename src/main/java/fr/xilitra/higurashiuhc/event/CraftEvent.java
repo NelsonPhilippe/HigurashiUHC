@@ -11,6 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class CraftEvent implements Listener {
 
     @EventHandler
@@ -18,10 +20,12 @@ public class CraftEvent implements Listener {
         ItemStack craftedItem = e.getCurrentItem();
 
         if(craftedItem.isSimilar(CustomCraft.baseballBat.getItemStack())){
-            HPlayer hPlayer = HigurashiUHC.getGameManager().getPlayer(e.getWhoClicked().getUniqueId());
+            HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(e.getWhoClicked().getUniqueId());
+            if(hPlayer == null)
+                return;
             Player player = hPlayer.getPlayer();
 
-            if(hPlayer.getRole() == null || player == null){
+            if(player == null || hPlayer.getRole() == null){
                 e.setCancelled(true);
                 return;
             }
@@ -38,9 +42,9 @@ public class CraftEvent implements Listener {
 
             player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
 
-            HigurashiUHC.getGameManager().getPlayerList().values().forEach(players -> {
+            HigurashiUHC.getGameManager().getHPlayerList().values().forEach(players -> {
                 if(players.getRole() != null && players.getRole().isRole(RoleList.SATOSHI_HOJO.getRole())){
-                    players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
+                    Objects.requireNonNull(players.getPlayer()).playSound(players.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
                     CustomCraft.baseballBat.setCrafted(true);
                 }
             });

@@ -19,12 +19,12 @@ public class Doll extends Scenario {
         if(solutionN == 1){
             if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
                 return;
-            RoleList.MION_SONOZAKI.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.MION_SONOZAKI.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
             RoleList.MION_SONOZAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 2){
             if(RoleList.SHION_SONOSAKI.getRole().getHPlayer() == null)
                 return;
-            RoleList.SHION_SONOSAKI.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.SHION_SONOSAKI.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
             RoleList.SHION_SONOSAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 3){
             if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
@@ -36,7 +36,7 @@ public class Doll extends Scenario {
                 return;
             Player player = hPlayer.getPlayer();
             player.setMaxHealth(player.getMaxHealth()-5);
-            RoleList.KEIICHI_MAEBARA.getRole().getHPlayer().incrMalediction(Reason.DOLL_TRAGEDY);
+            RoleList.KEIICHI_MAEBARA.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
         }
     }
 

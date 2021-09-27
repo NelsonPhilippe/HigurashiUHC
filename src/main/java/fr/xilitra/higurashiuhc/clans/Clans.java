@@ -13,13 +13,10 @@ public abstract class Clans {
     private final String name;
     protected final List<UUID> playerList = new ArrayList<>();
     protected final Clans majorClans;
-    protected static final List<Clans> subClans = new ArrayList<>();
 
     public Clans(String name, Clans majorClans) {
         this.name = name;
         this.majorClans = majorClans;
-        if(majorClans != null)
-            getSubClans().add(majorClans);
     }
 
     public String getName() {
@@ -90,10 +87,6 @@ public abstract class Clans {
 
     public Clans getMajorClans(){
         return majorClans;
-    }
-
-    public static List<Clans> getSubClans(){
-        return subClans;
     }
 
 }

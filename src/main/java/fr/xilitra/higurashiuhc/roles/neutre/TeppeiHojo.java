@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.neutre;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class TeppeiHojo extends Role {
     public TeppeiHojo() {
-        super("Teppei Hojo", Gender.HOMME, ClansList.NEUTRE, 1);
+        super("Teppei Hojo", Gender.HOMME, Clans.NEUTRE, 1);
     }
 
 

@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -22,7 +22,7 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 
 public class MionSonozaki extends Role implements Listener {
     public MionSonozaki() {
-        super("Mion Sonozaki", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
+        super("Mion Sonozaki", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
         this.setDisplayName("Shion Sonozaki");
     }
 

@@ -4,13 +4,12 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public enum ClansList {
+public enum Clans {
 
     HINAMIZAWA(
             0,
@@ -48,16 +47,23 @@ public enum ClansList {
             null
     );
 
-    public static ClansList getClans(int id){
-        for(ClansList clans : values())
+    public static Clans getClans(int id){
+        for(Clans clans : values())
             if(id == clans.getId())
                 return clans;
         return null;
     }
 
-    public static ClansList getClans(HPlayer hPlayer){
-        for(ClansList clans : values())
+    public static Clans getClans(HPlayer hPlayer){
+        for(Clans clans : values())
             if(clans.hisInClans(hPlayer))
+                return clans;
+        return null;
+    }
+
+    public static Clans getClans(String clansName){
+        for(Clans clans : values())
+            if(clans.getName().equals(clansName))
                 return clans;
         return null;
     }
@@ -68,7 +74,7 @@ public enum ClansList {
     private final Integer majorClans;
 
 
-    ClansList(int id, String name, Integer majorClansID){
+    Clans(int id, String name, Integer majorClansID){
         this.id = id;
         this.name = name;
         this.majorClans = majorClansID;
@@ -94,7 +100,7 @@ public enum ClansList {
     }
 
     public void addPlayer(HPlayer p){
-        ClansList prevClans = getClans(p);
+        Clans prevClans = getClans(p);
         if(prevClans != null)
             prevClans.removePlayer(p);
         this.playerList.add(p.getUuid());
@@ -108,16 +114,16 @@ public enum ClansList {
         return isClans(player.getClans());
     }
 
-    public boolean isClans(ClansList clans){
-        return clans.getName().equals(getName());
+    public boolean isClans(Clans clans){
+        return clans.getId() == getId();
     }
 
-    public boolean isClans(ClansList clans, boolean checkMajorClan){
+    public boolean isClans(Clans clans, boolean checkMajorClan){
         if(isClans(clans))
             return true;
-        ClansList majorClans = getMajorClans();
+        Clans majorClans = getMajorClans();
         if(checkMajorClan && majorClans != null)
-            return getMajorClans().isClans(this);
+            return getMajorClans().isClans(clans);
         return false;
     }
 
@@ -125,9 +131,9 @@ public enum ClansList {
         return getMajorClans() != null;
     }
 
-    public ClansList getMajorClans(){
+    public Clans getMajorClans(){
         if(majorClans != null)
-            ClansList.getClans(majorClans);
+            Clans.getClans(majorClans);
         return null;
     }
 

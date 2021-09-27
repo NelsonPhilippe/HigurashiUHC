@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.LinkData;
@@ -241,13 +241,13 @@ public class DamageListener implements Listener {
         Entity killer = hPlayer.getKiller();
         if(killer instanceof Player){
 
-            ClansList clans = ClansList.getClans(hPlayer);
-            if(clans != null && clans.isClans(ClansList.MEMBER_OF_CLUB)){
+            Clans clans = Clans.getClans(hPlayer);
+            if(clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)){
 
                 ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth()+1);
                 ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 
-                List<HPlayer> playerInClan = ClansList.MEMBER_OF_CLUB.getPlayerList();
+                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getPlayerList();
                 boolean allKilledBY = true;
 
                 for(HPlayer hPlayer1 : playerInClan){
@@ -280,7 +280,7 @@ public class DamageListener implements Listener {
 
         }
 
-        if (ClansList.MERCENAIRE.hisInClans(hPlayer)) {
+        if (Clans.MERCENAIRE.hisInClans(hPlayer)) {
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
 

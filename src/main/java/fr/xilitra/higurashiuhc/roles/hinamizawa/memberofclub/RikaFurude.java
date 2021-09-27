@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.game.PlayerState;
@@ -30,7 +30,7 @@ public class RikaFurude extends Role implements Listener {
     private boolean ressucite = false;
 
     public RikaFurude() {
-        super("Rika Furude", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
+        super("Rika Furude", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
         this.lives = 3;
     }
 
@@ -161,7 +161,7 @@ public class RikaFurude extends Role implements Listener {
         if(killer instanceof Player) {
 
             if (killerHPlayer != null) {
-                if (killerHPlayer.getClans().isClans(ClansList.MERCENAIRE)) {
+                if (killerHPlayer.getClans().isClans(Clans.MERCENAIRE)) {
                     HigurashiUHC.getGameManager().startRikaDeathTask();
                     for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                         if (miyo.getRole().equals(RoleList.MIYO_TAKANO.getRole())) {

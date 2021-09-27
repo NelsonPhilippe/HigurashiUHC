@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.WatanagashiTask;
@@ -139,7 +139,7 @@ public class EpisodeListener implements Listener {
 
         }else if(randomEP == e.getEpisode()){
 
-            List<HPlayer> roleLists = ClansList.MEMBER_OF_CLUB.getPlayerList();
+            List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getPlayerList();
 
             if(!roleLists.isEmpty())
                 roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);

@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -17,7 +17,7 @@ public class OryoSonozaki extends Role {
     private boolean asVoted;
 
     public OryoSonozaki() {
-        super("Oryo Sonozaki", Gender.FEMME, ClansList.SONOZAKI, 1);
+        super("Oryo Sonozaki", Gender.FEMME, Clans.SONOZAKI, 1);
 
         asVoted = false;
 

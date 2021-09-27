@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -24,9 +24,9 @@ public class PlayerLeaveEvent implements Listener {
 
         if(hPlayer == null) return;
 
-        ClansList clansList = ClansList.getClans(hPlayer);
-        if(clansList != null)
-            clansList.removePlayer(hPlayer);
+        Clans clans = Clans.getClans(hPlayer);
+        if(clans != null)
+            clans.removePlayer(hPlayer);
 
         hPlayer.setPlayerState(PlayerState.DISCONNECTED);
         if(hPlayer.getRole() == null)

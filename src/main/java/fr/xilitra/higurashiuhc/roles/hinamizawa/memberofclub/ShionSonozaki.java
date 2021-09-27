@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ShionSonozaki extends Role implements Listener {
     public ShionSonozaki() {
-        super("Shion Sonozaki", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
+        super("Shion Sonozaki", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
     }
 
     @EventHandler

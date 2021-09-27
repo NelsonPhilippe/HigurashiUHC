@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -33,7 +33,7 @@ public class MoveEvent implements Listener {
         if(hPlayer == null || hPlayer.getRole() == null) return;
 
         if(rika != null && rika.getPlayer() != null)
-        for(Role role : ClansList.MEMBER_OF_CLUB.getRoleList()){
+        for(Role role : Clans.MEMBER_OF_CLUB.getRoleList()){
             if(role.getName().equals(hPlayer.getRole().getName())){
                 if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
                     if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){

@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class Villageois extends Role {
     public Villageois() {
-        super("Villageois", Gender.NON_GENRE, ClansList.HINAMIZAWA, 1);
+        super("Villageois", Gender.NON_GENRE, Clans.HINAMIZAWA, 1);
     }
 
 

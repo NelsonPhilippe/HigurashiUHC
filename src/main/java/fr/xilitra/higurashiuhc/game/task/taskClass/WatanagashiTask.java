@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -24,7 +24,7 @@ public class WatanagashiTask extends BukkitTask {
 
         Location rikaLocation = rikaPlayer.getLocation();
 
-        for(HPlayer hPlayer : ClansList.MEMBER_OF_CLUB.getPlayerList()){
+        for(HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getPlayerList()){
 
             Player player = hPlayer.getPlayer();
             if(player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))

@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.player;
 
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
@@ -156,8 +156,8 @@ public class HPlayer {
         return playerList;
     }
 
-    public ClansList getClans(){
-        return ClansList.getClans(this);
+    public Clans getClans(){
+        return Clans.getClans(this);
     }
 
     public boolean hasMalediction() {

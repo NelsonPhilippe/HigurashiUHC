@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.ClansList;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -35,7 +35,7 @@ public class SatokoHojo extends Role implements Listener {
     public List<Location> blockTraps = new ArrayList<>();
 
     public SatokoHojo() {
-        super("Satoko Hojo", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
+        super("Satoko Hojo", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
     }
 
     @EventHandler
@@ -96,12 +96,7 @@ public class SatokoHojo extends Role implements Listener {
 
             if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL){
 
-                Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), new Runnable() {
-                    @Override
-                    public void run() {
-                        block.setType(type);
-                    }
-                });
+                Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
 
             }
 

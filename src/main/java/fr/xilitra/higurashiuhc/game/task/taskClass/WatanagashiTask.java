@@ -1,10 +1,10 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
 import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -24,7 +24,7 @@ public class WatanagashiTask extends BukkitTask {
 
         Location rikaLocation = rikaPlayer.getLocation();
 
-        for(HPlayer hPlayer : MemberOfClub.getClans().getOnlinePlayerList()){
+        for(HPlayer hPlayer : ClansList.MEMBER_OF_CLUB.getPlayerList()){
 
             Player player = hPlayer.getPlayer();
             if(player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))

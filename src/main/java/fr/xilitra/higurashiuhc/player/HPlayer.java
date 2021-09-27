@@ -1,8 +1,7 @@
 package fr.xilitra.higurashiuhc.player;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -157,12 +156,8 @@ public class HPlayer {
         return playerList;
     }
 
-    public void setClans(Clans clans){
-        ClansManager.getInstance().setClans(this, clans);
-    }
-
-    public Clans getClans(){
-        return ClansManager.getInstance().getClans(this);
+    public ClansList getClans(){
+        return ClansList.getClans(this);
     }
 
     public boolean hasMalediction() {

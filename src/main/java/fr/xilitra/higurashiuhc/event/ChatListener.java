@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.MercenaireClan;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
 import org.bukkit.GameMode;
@@ -32,7 +32,7 @@ public class ChatListener implements Listener {
 
                 for(HPlayer hPlayers : okonogi.getHPlayerList())
                     if(hPlayers.getPlayer() != null)
-                        if(hPlayers.getClans().equals(MercenaireClan.getClans()))
+                        if(hPlayers.getClans().equals(ClansList.MERCENAIRE))
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);
                         else
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);

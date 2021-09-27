@@ -1,8 +1,8 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.Police;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
@@ -21,7 +21,7 @@ public class Akasaka extends Role implements Listener {
     private int countCompare = 0;
 
     public Akasaka() {
-        super("Akasaka", Gender.HOMME, Police.getClans(), 1);
+        super("Akasaka", Gender.HOMME, ClansList.POLICE, 1);
     }
 
     @EventHandler

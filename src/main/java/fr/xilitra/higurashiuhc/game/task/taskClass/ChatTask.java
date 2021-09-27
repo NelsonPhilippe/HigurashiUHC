@@ -1,7 +1,6 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.clans.MercenaireClan;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -59,7 +58,7 @@ public class ChatTask extends BukkitTask {
 
             for(HPlayer hPlayer : okonogiRole.getHPlayerList()){
 
-                if(Hinamizawa.getClans().hisInClans(hPlayer)){
+                if(ClansList.HINAMIZAWA.hisInClans(hPlayer)){
 
                     mercenary++;
 
@@ -67,7 +66,7 @@ public class ChatTask extends BukkitTask {
 
             }
 
-            if(mercenary == MercenaireClan.getClans().getPlayerListUUID().size()){
+            if(mercenary == ClansList.MERCENAIRE.getPlayerListUUID().size()){
                 okonogi.getPlayer().setMaxHealth(okonogi.getPlayer().getMaxHealth() + 1);
             }
 

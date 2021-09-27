@@ -1,9 +1,9 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -35,7 +35,7 @@ public class SatokoHojo extends Role implements Listener {
     public List<Location> blockTraps = new ArrayList<>();
 
     public SatokoHojo() {
-        super("Satoko Hojo", Gender.FEMME, MemberOfClub.getClans(), 1);
+        super("Satoko Hojo", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
     }
 
     @EventHandler

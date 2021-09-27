@@ -1,11 +1,8 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.clans.ClansManager;
-import fr.xilitra.higurashiuhc.clans.MercenaireClan;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -239,17 +236,18 @@ public class DamageListener implements Listener {
 
         ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
         if(hPlayer.getClans() != null)
-            ClansManager.getInstance().removeClans(hPlayer);
+            hPlayer.getClans().removePlayer(hPlayer);
 
         Entity killer = hPlayer.getKiller();
         if(killer instanceof Player){
-            Clans clans = ClansManager.getInstance().getClans(hPlayer);
-            if(clans != null && clans.isClans(MemberOfClub.getClans())){
+
+            ClansList clans = ClansList.getClans(hPlayer);
+            if(clans != null && clans.isClans(ClansList.MEMBER_OF_CLUB)){
 
                 ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth()+1);
                 ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 
-                List<HPlayer> playerInClan = MemberOfClub.getClans().getOnlinePlayerList();
+                List<HPlayer> playerInClan = ClansList.MEMBER_OF_CLUB.getPlayerList();
                 boolean allKilledBY = true;
 
                 for(HPlayer hPlayer1 : playerInClan){
@@ -263,6 +261,7 @@ public class DamageListener implements Listener {
                 ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
 
             }
+
         }
 
         if(hPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
@@ -281,7 +280,7 @@ public class DamageListener implements Listener {
 
         }
 
-        if (MercenaireClan.getClans().hisInClans(hPlayer)) {
+        if (ClansList.MERCENAIRE.hisInClans(hPlayer)) {
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
 

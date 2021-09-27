@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
@@ -17,10 +17,10 @@ public abstract class Role {
    private String displayName;
    private final List<HPlayer> players = new ArrayList<>();
    private final int maxPlayers;
-   private final Clans defaultClans;
+   private final ClansList defaultClans;
 
 
-   public Role(String name, Gender sexe, Clans clans, int maxPlayers) {
+   public Role(String name, Gender sexe, ClansList clans, int maxPlayers) {
       this.name = name;
       this.sexe = sexe;
       this.displayName = name;
@@ -75,7 +75,7 @@ public abstract class Role {
 
    public abstract void onDeath(HPlayer killed, DeathReason deathReason);
 
-   public Clans getDefaultClans(){
+   public ClansList getDefaultClans(){
       return defaultClans;
    }
 

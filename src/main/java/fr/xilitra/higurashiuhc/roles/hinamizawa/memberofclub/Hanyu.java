@@ -1,8 +1,8 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.taskClass.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -27,7 +27,7 @@ public class Hanyu extends Role implements Listener {
     private final Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public Hanyu() {
-        super("Hanyu", Gender.FEMME, MemberOfClub.getClans(), 1);
+        super("Hanyu", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
         this.dimensionIsUsed = false;
     }
 

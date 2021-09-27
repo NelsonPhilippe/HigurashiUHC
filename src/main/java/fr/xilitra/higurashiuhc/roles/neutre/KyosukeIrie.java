@@ -1,15 +1,15 @@
 package fr.xilitra.higurashiuhc.roles.neutre;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.Neutre;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
 public class KyosukeIrie extends Role {
     public KyosukeIrie() {
-        super("Kyosuke Irie", Gender.HOMME, Neutre.getClans(), 1);
+        super("Kyosuke Irie", Gender.HOMME, ClansList.NEUTRE, 1);
     }
 
     @Override

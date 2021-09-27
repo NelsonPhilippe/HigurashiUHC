@@ -1,9 +1,9 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public class OryoSonozaki extends Role {
     private boolean asVoted;
 
     public OryoSonozaki() {
-        super("Oryo Sonozaki", Gender.FEMME, Sonozaki.getClans(), 1);
+        super("Oryo Sonozaki", Gender.FEMME, ClansList.SONOZAKI, 1);
 
         asVoted = false;
 

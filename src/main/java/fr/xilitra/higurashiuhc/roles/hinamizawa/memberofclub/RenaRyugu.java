@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -19,7 +19,7 @@ public class RenaRyugu extends Role implements Listener {
     private BossBar bossBar;
 
     public RenaRyugu() {
-        super("Rena Ryugu", Gender.FEMME, MemberOfClub.getClans(), 1);
+        super("Rena Ryugu", Gender.FEMME, ClansList.MEMBER_OF_CLUB, 1);
         this.penseIsUsed = false;
     }
 

@@ -1,8 +1,7 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.Sonozaki;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
@@ -42,19 +41,19 @@ public class CoupableCmd implements CommandExecutor {
 
             p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");
 
-            if(targetHPlayer.getClans().getName().equalsIgnoreCase(Sonozaki.getClans().getName())){
+            if(targetHPlayer.getClans().getName().equalsIgnoreCase(ClansList.SONOZAKI.getName())){
                 ItemStack arc = new ItemStack(Material.BOW, 1);
                 arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 
                 p.getInventory().addItem(arc);
             }
 
-            if(targetHPlayer.getClans().getName().equalsIgnoreCase(Hinamizawa.getClans().getName())){
+            if(targetHPlayer.getClans().getName().equalsIgnoreCase(ClansList.HINAMIZAWA.getName())){
                 p.sendMessage("L'enquête a échoué.");
             }
 
             if(targetHPlayer.getRole().isRole(RoleList.RIKA_FURUDE.getRole()))
-                targetHPlayer.setClans(Hinamizawa.getClans());
+                ClansList.HINAMIZAWA.addPlayer(targetHPlayer);
 
             p.sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
             p.sendMessage("Le clan du joueur est : " + targetHPlayer.getClans().getName());

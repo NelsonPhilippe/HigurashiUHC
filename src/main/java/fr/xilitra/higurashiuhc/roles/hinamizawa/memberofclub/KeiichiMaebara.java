@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -14,7 +14,7 @@ public class KeiichiMaebara extends Role implements Listener {
     private BossBar bossBar = null;
 
     public KeiichiMaebara() {
-        super("Keiichi Maebara", Gender.HOMME, MemberOfClub.getClans(), 1);
+        super("Keiichi Maebara", Gender.HOMME, ClansList.MEMBER_OF_CLUB, 1);
     }
 
     @Override

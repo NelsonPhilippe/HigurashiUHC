@@ -1,10 +1,10 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -18,7 +18,7 @@ public class MiyoTakano extends Role implements Listener {
     private int order = 2;
 
     public MiyoTakano() {
-        super("Miyo Takano", Gender.FEMME, MercenaireClan.getClans(), 1);
+        super("Miyo Takano", Gender.FEMME, ClansList.MERCENAIRE, 1);
     }
 
 

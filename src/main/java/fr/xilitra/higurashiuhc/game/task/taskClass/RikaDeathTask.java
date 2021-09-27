@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
@@ -19,7 +19,7 @@ public class RikaDeathTask extends BukkitTask {
 
         if(!isRunning()){
             for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(player.getPlayer() != null && player.getClans() == Hinamizawa.getClans()){
+                if(player.getPlayer() != null && player.getClans().isClans(ClansList.HINAMIZAWA)){
                     player.getPlayer().sendMessage("Rika est morte il vous reste " + time + " avant de subir un malus.");
                 }
             }
@@ -27,7 +27,7 @@ public class RikaDeathTask extends BukkitTask {
 
         if(time == 0){
             for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(hPlayer.getPlayer() != null && hPlayer.getClans() == Hinamizawa.getClans()){
+                if(hPlayer.getPlayer() != null && hPlayer.getClans().isClans(ClansList.HINAMIZAWA)){
                     hPlayer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }

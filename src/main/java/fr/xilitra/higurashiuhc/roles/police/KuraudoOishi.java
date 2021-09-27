@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -20,7 +20,7 @@ public class KuraudoOishi extends Role implements Listener {
 
 
     public KuraudoOishi() {
-        super("Kuraudo Oishi", Gender.HOMME, Police.getClans(), 1);
+        super("Kuraudo Oishi", Gender.HOMME, ClansList.POLICE, 1);
         countSuspect = 0;
         coupableIsDesigned = false;
     }

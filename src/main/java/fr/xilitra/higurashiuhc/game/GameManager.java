@@ -65,7 +65,7 @@ public class GameManager {
             player.setRole(role.getRole());
             TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getRole().getName(), "");
             player.getPlayer().sendMessage(role.getRole().getDecription());
-            player.setClans(role.getRole().getDefaultClans());
+            role.getRole().getDefaultClans().addPlayer(player);
 
             players.replace(player.getUuid(), player);
             player.getInfo().put(KuraudoOishi.InfoList.SEXE, role.getRole().getSexe().name());

@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -15,7 +15,7 @@ public class Kumagai extends Role {
     private List<String> CompareClanUsed = new ArrayList<>();
 
     public Kumagai() {
-        super("Kumagai", Gender.HOMME, Police.getClans(), 1);
+        super("Kumagai", Gender.HOMME, ClansList.POLICE, 1);
     }
 
     public List<String> getCompareClanUsed() {

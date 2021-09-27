@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -12,7 +12,7 @@ public class Mercenaire extends Role {
     private HPlayer cible;
 
     public Mercenaire() {
-        super("Mercenaire", Gender.NON_GENRE, MercenaireClan.getClans(), 1000);
+        super("Mercenaire", Gender.NON_GENRE, ClansList.MERCENAIRE, 1000);
     }
 
     public HPlayer getCible() {

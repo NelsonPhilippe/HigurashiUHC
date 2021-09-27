@@ -1,9 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
+import fr.xilitra.higurashiuhc.clans.ClansList;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
 import org.bukkit.GameMode;
@@ -32,8 +33,8 @@ public class MoveEvent implements Listener {
         if(hPlayer == null || hPlayer.getRole() == null) return;
 
         if(rika != null && rika.getPlayer() != null)
-        for(MemberOfClub.roleList roleList : MemberOfClub.roleList.values()){
-            if(roleList.getRole().getName().equals(hPlayer.getRole().getName())){
+        for(Role role : ClansList.MEMBER_OF_CLUB.getRoleList()){
+            if(role.getName().equals(hPlayer.getRole().getName())){
                 if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
                     if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){
                         p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));

@@ -1,8 +1,8 @@
 package fr.xilitra.higurashiuhc.player;
 
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.clans.Clans;
-import fr.xilitra.higurashiuhc.game.clans.ClansManager;
+import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.clans.ClansManager;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -33,7 +33,6 @@ public class HPlayer {
     private boolean playerDontMove = false;
     private boolean chatOkonogi = false;
     private boolean kit = false;
-    private int maledictionPower = 0;
 
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;

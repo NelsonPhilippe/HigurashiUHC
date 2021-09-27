@@ -1,23 +1,25 @@
-package fr.xilitra.higurashiuhc.game.clans;
+package fr.xilitra.higurashiuhc.clans;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 public abstract class Clans {
 
     private final String name;
-    protected List<UUID> playerList = new ArrayList<>();
+    protected final List<UUID> playerList = new ArrayList<>();
+    protected final Clans majorClans;
+    protected static final List<Clans> subClans = new ArrayList<>();
 
-    public Clans(String name) {
+    public Clans(String name, Clans majorClans) {
         this.name = name;
+        this.majorClans = majorClans;
+        if(majorClans != null)
+            getSubClans().add(majorClans);
     }
 
     public String getName() {
@@ -66,10 +68,6 @@ public abstract class Clans {
         this.playerList.remove(p);
     }
 
-    public abstract boolean isSubClans();
-
-    public abstract Clans getMajorClans();
-
     public boolean hisInClans(HPlayer player){
 
         return isClans(player.getClans());
@@ -84,6 +82,18 @@ public abstract class Clans {
 
         }else return clans.getName().equals(getName());
 
+    }
+
+    public boolean isSubClans(){
+        return getMajorClans() != null;
+    }
+
+    public Clans getMajorClans(){
+        return majorClans;
+    }
+
+    public static List<Clans> getSubClans(){
+        return subClans;
     }
 
 }

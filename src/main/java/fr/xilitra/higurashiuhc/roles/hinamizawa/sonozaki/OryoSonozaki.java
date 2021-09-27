@@ -3,11 +3,10 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.HashMap;
 import java.util.Map;

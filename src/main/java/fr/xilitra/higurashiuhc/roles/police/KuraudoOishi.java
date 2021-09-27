@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Police;
+import fr.xilitra.higurashiuhc.clans.Police;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;

@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;

@@ -2,10 +2,10 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.clans.Clans;
-import fr.xilitra.higurashiuhc.game.clans.ClansManager;
-import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.MemberOfClub;
+import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.clans.ClansManager;
+import fr.xilitra.higurashiuhc.clans.MercenaireClan;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.MemberOfClub;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;

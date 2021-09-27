@@ -1,4 +1,4 @@
-package fr.xilitra.higurashiuhc.game.clans;
+package fr.xilitra.higurashiuhc.clans;
 
 import fr.xilitra.higurashiuhc.roles.mercenaires.MiyoTakano;
 import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
@@ -12,17 +12,7 @@ public class MercenaireClan extends Clans{
     }
 
     public MercenaireClan() {
-        super("Mercenaire");
-    }
-
-    @Override
-    public boolean isSubClans() {
-        return false;
-    }
-
-    @Override
-    public Clans getMajorClans() {
-        return null;
+        super("Mercenaire", null);
     }
 
     public enum roleList{

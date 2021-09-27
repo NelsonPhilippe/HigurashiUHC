@@ -1,6 +1,6 @@
-package fr.xilitra.higurashiuhc.game.clans.hinamizawa;
+package fr.xilitra.higurashiuhc.clans.hinamizawa;
 
-import fr.xilitra.higurashiuhc.game.clans.Clans;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 
 public class MemberOfClub extends Clans {
@@ -12,17 +12,7 @@ public class MemberOfClub extends Clans {
     }
 
     public MemberOfClub() {
-        super("MemberOfClub");
-    }
-
-    @Override
-    public boolean isSubClans() {
-        return true;
-    }
-
-    @Override
-    public Clans getMajorClans() {
-        return Hinamizawa.getClans();
+        super("MemberOfClub", Hinamizawa.getClans());
     }
 
     public enum roleList{

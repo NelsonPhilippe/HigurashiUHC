@@ -1,16 +1,16 @@
-package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
+package fr.xilitra.higurashiuhc.roles.hinamizawa;
 
+import fr.xilitra.higurashiuhc.clans.hinamizawa.Hinamizawa;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Villageois extends Role {
     public Villageois() {
-        super("Villageois", Gender.NON_GENRE, Sonozaki.getClans(), 1);
+        super("Villageois", Gender.NON_GENRE, Hinamizawa.getClans(), 1);
     }
 
 

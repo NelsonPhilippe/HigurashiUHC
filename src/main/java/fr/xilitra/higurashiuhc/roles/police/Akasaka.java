@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.roles.police;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.Police;
+import fr.xilitra.higurashiuhc.clans.Police;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;

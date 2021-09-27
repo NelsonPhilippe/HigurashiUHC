@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
 import fr.xilitra.higurashiuhc.game.Gender;
-import fr.xilitra.higurashiuhc.game.clans.MercenaireClan;
+import fr.xilitra.higurashiuhc.clans.MercenaireClan;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.DeathReason;

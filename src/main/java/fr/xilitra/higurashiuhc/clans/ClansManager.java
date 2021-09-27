@@ -1,7 +1,6 @@
-package fr.xilitra.higurashiuhc.game.clans;
+package fr.xilitra.higurashiuhc.clans;
 
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
 
 import java.util.HashMap;
 import java.util.UUID;

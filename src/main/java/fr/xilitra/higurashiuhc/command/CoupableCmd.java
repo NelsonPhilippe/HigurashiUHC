@@ -1,8 +1,8 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Hinamizawa;
-import fr.xilitra.higurashiuhc.game.clans.hinamizawa.Sonozaki;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.Hinamizawa;
+import fr.xilitra.higurashiuhc.clans.hinamizawa.Sonozaki;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleList;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;

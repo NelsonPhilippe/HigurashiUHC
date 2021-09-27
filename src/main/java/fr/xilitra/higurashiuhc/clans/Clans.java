@@ -66,19 +66,19 @@ public abstract class Clans {
     }
 
     public boolean hisInClans(HPlayer player){
-
         return isClans(player.getClans());
-
     }
 
     public boolean isClans(Clans clans){
+        return clans.getName().equals(getName());
+    }
 
-        if(clans.isSubClans()){
-
-            return clans.getName().equals(getName()) || clans.getMajorClans().getName().equals(getName());
-
-        }else return clans.getName().equals(getName());
-
+    public boolean isClans(Clans clans, boolean checkMajorClan){
+        if(isClans(clans))
+            return true;
+        if(checkMajorClan && getMajorClans() != null)
+            return getMajorClans().isClans(this);
+        return false;
     }
 
     public boolean isSubClans(){

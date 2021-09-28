@@ -247,7 +247,7 @@ public class DamageListener implements Listener {
                 ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth()+1);
                 ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 
-                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getPlayerList();
+                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
                 boolean allKilledBY = true;
 
                 for(HPlayer hPlayer1 : playerInClan){
@@ -280,7 +280,7 @@ public class DamageListener implements Listener {
 
         }
 
-        if (Clans.MERCENAIRE.hisInClans(hPlayer)) {
+        if (Clans.MERCENAIRE.hisInClans(hPlayer, false)) {
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
 

@@ -32,7 +32,7 @@ public class ChatListener implements Listener {
 
                 for(HPlayer hPlayers : okonogi.getHPlayerList())
                     if(hPlayers.getPlayer() != null)
-                        if(hPlayers.getClans().equals(Clans.MERCENAIRE))
+                        if(hPlayers.getClans().isClans(Clans.MERCENAIRE))
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);
                         else
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);

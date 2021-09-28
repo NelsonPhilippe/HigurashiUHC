@@ -54,19 +54,9 @@ public class ChatTask extends BukkitTask {
 
             okonogiRole.addPlayer(target);
 
-            int mercenary = 0;
+            int mercenary = Clans.HINAMIZAWA.getUUIDList().size();
 
-            for(HPlayer hPlayer : okonogiRole.getHPlayerList()){
-
-                if(Clans.HINAMIZAWA.hisInClans(hPlayer)){
-
-                    mercenary++;
-
-                }
-
-            }
-
-            if(mercenary == Clans.MERCENAIRE.getPlayerListUUID().size()){
+            if(mercenary == Clans.MERCENAIRE.getUUIDList().size()){
                 okonogi.getPlayer().setMaxHealth(okonogi.getPlayer().getMaxHealth() + 1);
             }
 

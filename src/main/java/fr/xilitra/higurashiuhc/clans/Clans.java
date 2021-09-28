@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -56,7 +57,7 @@ public enum Clans {
 
     public static Clans getClans(HPlayer hPlayer){
         for(Clans clans : values())
-            if(clans.hisInClans(hPlayer))
+            if(clans.hisInClans(hPlayer, false))
                 return clans;
         return null;
     }
@@ -71,6 +72,7 @@ public enum Clans {
     private final int id;
     private final String name;
     private final List<UUID> playerList = new ArrayList<>();
+    private List<Clans> minorClans = null;
     private final Integer majorClans;
 
 
@@ -85,18 +87,37 @@ public enum Clans {
         return name;
     }
 
-    public List<HPlayer> getPlayerList() {
+    public int getId(){
+        return id;
+    }
+
+    public boolean isClans(Clans clans){
+        return clans.getId() == getId();
+    }
+
+
+
+    public List<HPlayer> getHPlayerList() {
 
         GameManager gm = HigurashiUHC.getGameManager();
         return new ArrayList<HPlayer>(){{
-            for(UUID uuid : getPlayerListUUID())
+            for(UUID uuid : getUUIDList())
                 add(gm.getHPlayer(uuid));
         }};
 
     }
 
-    public List<UUID> getPlayerListUUID() {
+    public List<UUID> getUUIDList() {
         return playerList;
+    }
+
+    public List<Role> getRoleList(){
+
+        return new ArrayList<Role>(){{
+            for (HPlayer hPlayer : getHPlayerList())
+                add(hPlayer.getRole());
+        }};
+
     }
 
     public void addPlayer(HPlayer p){
@@ -110,44 +131,40 @@ public enum Clans {
         this.playerList.remove(p.getUuid());
     }
 
-    public boolean hisInClans(HPlayer player){
-        return isClans(player.getClans());
-    }
-
-    public boolean isClans(Clans clans){
-        return clans.getId() == getId();
-    }
-
-    public boolean isClans(Clans clans, boolean checkMajorClan){
-        if(isClans(clans))
+    public boolean hisInClans(HPlayer player, boolean checkMinor) {
+        if(playerList.contains(player.getUuid()))
             return true;
-        Clans majorClans = getMajorClans();
-        if(checkMajorClan && majorClans != null)
-            return getMajorClans().isClans(clans);
+        if(checkMinor)
+            for(Clans minorClans : getMinorClans())
+                if(minorClans.hisInClans(player, true))
+                    return true;
         return false;
     }
 
-    public boolean isSubClans(){
-        return getMajorClans() != null;
-    }
+
 
     public Clans getMajorClans(){
         if(majorClans != null)
             Clans.getClans(majorClans);
-        return null;
+        return this;
     }
 
-    public int getId(){
-        return id;
+    public List<Clans> getMinorClans(){
+        if(minorClans != null)
+            return minorClans;
+        minorClans = new ArrayList<>();
+        for(Clans clans : Clans.values())
+            if(isClans(clans.getMajorClans()) && !isClans(clans))
+                minorClans.add(clans);
+        return getMinorClans();
     }
 
-    public List<Role> getRoleList(){
+    public boolean hasMinorClans(Clans clans){
+        return getMinorClans().contains(clans);
+    }
 
-        return new ArrayList<Role>(){{
-            for (HPlayer hPlayer : getPlayerList())
-                add(hPlayer.getRole());
-        }};
-
+    public boolean isMinorClans(){
+        return !getMajorClans().isClans(this);
     }
 
 }

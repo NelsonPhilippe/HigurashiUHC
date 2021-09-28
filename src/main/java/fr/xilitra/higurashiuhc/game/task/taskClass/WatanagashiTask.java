@@ -24,7 +24,7 @@ public class WatanagashiTask extends BukkitTask {
 
         Location rikaLocation = rikaPlayer.getLocation();
 
-        for(HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getPlayerList()){
+        for(HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getHPlayerList()){
 
             Player player = hPlayer.getPlayer();
             if(player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))

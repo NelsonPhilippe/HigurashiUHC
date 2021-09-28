@@ -139,7 +139,7 @@ public class EpisodeListener implements Listener {
 
         }else if(randomEP == e.getEpisode()){
 
-            List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getPlayerList();
+            List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getHPlayerList();
 
             if(!roleLists.isEmpty())
                 roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);

@@ -35,7 +35,7 @@ public enum Role {
             }}
             ),
 
-    MION_SONOZAKI("Mion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new MionSonozakiAction()),
+    MION_SONOZAKI("Mion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new MionSonozakiAction(), null),
 
     HANYU("Hanyu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new HanyuAction(),
             new HashMap<Commands, Integer>(){{
@@ -43,11 +43,11 @@ public enum Role {
                 put(Commands.DIMENSION, 1);
             }}),
 
-    SATOKO_HOJO("Satoko Hojo", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new SatokoHojoAction()),
+    SATOKO_HOJO("Satoko Hojo", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new SatokoHojoAction(), null),
 
-    KEIICHI_MAEBARA("Keiichi Maebara", "null", Gender.HOMME, Clans.MEMBER_OF_CLUB, 1, new KeiichiMaebaraAction()),
+    KEIICHI_MAEBARA("Keiichi Maebara", "null", Gender.HOMME, Clans.MEMBER_OF_CLUB, 1, new KeiichiMaebaraAction(), null),
 
-    SHION_SONOSAKI("Shion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new ShionSonozakiAction()),
+    SHION_SONOSAKI("Shion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new ShionSonozakiAction(), null),
 
     RENA_RYUGU("Rena Ryugu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new RenaRyuguAction(),
             new HashMap<Commands, Integer>(){{
@@ -58,7 +58,7 @@ public enum Role {
         put(Commands.ASSASSINER, 2);
     }}),
 
-    SATOSHI_HOJO("Satoshi Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new SatoshiHojoAction()),
+    SATOSHI_HOJO("Satoshi Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new SatoshiHojoAction(), null),
 
     ORYO_SONOZAKI("Oryo Sonozaki", "null", Gender.FEMME, Clans.SONOZAKI, 1, new OryoSonozakiAction(),
             new HashMap<Commands, Integer>(){{
@@ -79,34 +79,44 @@ public enum Role {
                 put(Commands.HEAL, -1);
             }}),
 
-    VILLAGEOIS("Villageois", "null", Gender.NON_GENRE, Clans.HINAMIZAWA, 1, new VillageoisAction()),
+    VILLAGEOIS("Villageois", "null", Gender.NON_GENRE, Clans.HINAMIZAWA, 1, new VillageoisAction(), null),
 
-    TEPPEI_HOJO("Teppei Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new TeppeiHojoAction()),
+    TEPPEI_HOJO("Teppei Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new TeppeiHojoAction(), null),
 
-    NOMURA("Nomura", "null", Gender.FEMME, Clans.NEUTRE, 1, new NomuraAction()),
+    NOMURA("Nomura", "null", Gender.FEMME, Clans.NEUTRE, 1, new NomuraAction(), null),
 
-    KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction()),
+    KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction(), null),
 
     KURAUDO_OISHI("Kuraudo Oishi", "null", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction(),
             new HashMap<Commands, Integer>(){{
               put(Commands.COUPABLE, 1);
+              put(Commands.SUSPECTER, 1);
             }}),
 
-    KUMAGAI("Kumagai", "null", Gender.HOMME, Clans.POLICE, 1, new KumagaiAction()),
+    KUMAGAI("Kumagai", "null", Gender.HOMME, Clans.POLICE, 1, new KumagaiAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.COMPARER, 1);
+            }}),
 
-    AKASAKA("Akasaka", "null", Gender.HOMME, Clans.POLICE, 1, new AkasakaAction()),
+    AKASAKA("Akasaka", "null", Gender.HOMME, Clans.POLICE, 1, new AkasakaAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.RIKA, 3);
+            }}),
 
-    POLICIER("Policier", "null", Gender.NON_GENRE, Clans.POLICE, 10, new PolicierRoleAction()),
+    POLICIER("Policier", "null", Gender.NON_GENRE, Clans.POLICE, 10, new PolicierRoleAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.PVCMD, 1);
+            }}),
 
-    MERCENAIRE("Mercenaire", "null", Gender.NON_GENRE, Clans.MERCENAIRE, 1000, new MercenaireAction()),
+    MERCENAIRE("Mercenaire", "null", Gender.NON_GENRE, Clans.MERCENAIRE, 1000, new MercenaireAction(), null),
 
     OKONOGI("Okonogi", "null", Gender.HOMME, Clans.MERCENAIRE, 1, new OkonogiAction(), new HashMap<Commands, Integer>(){{
         put(Commands.LIST, -1);
     }}),
 
-    JIRO_TOMITAKE("Jiro Tomitake", "null", Gender.HOMME, Clans.NEUTRE, 1, new JiroTomitakeAction()),
+    JIRO_TOMITAKE("Jiro Tomitake", "null", Gender.HOMME, Clans.NEUTRE, 1, new JiroTomitakeAction(), null),
 
-    NULL("Je suis null", "Rôle de merde", Gender.HOMME, null, 9999, new NullRoleAction());
+    NULL("Je suis null", "Rôle de merde", Gender.HOMME, null, 9999, new NullRoleAction(), null);
 
     public static Role getRole(String role){
         for(Role roleList : values())
@@ -135,6 +145,8 @@ public enum Role {
         this.maxPlayers = maxPlayers;
         this.roleAction = roleAction;
         this.roleAction.setLinkedRole(this);
+        if(authoriseCommand == null)
+            authoriseCommand = new HashMap<>();
         this.commandsIntegerHashMap = authoriseCommand;
         this.commandsIntegerHashMap.put(Commands.VOTE, 1);
         if(roleAction instanceof Listener)

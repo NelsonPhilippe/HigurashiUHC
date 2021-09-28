@@ -41,8 +41,8 @@ public class InfoData {
         EFFECT("Effet sur le joueur"),
         COMMANDS("Commande accessible par le joueur"),
         APPLE("Nombre de pomme dorée"),
-        ROLE("Lettre du role"),
-        CLAN("Lettre de clan"),
+        ROLE("Role"),
+        CLAN("Clan"),
         SPECIAL_ITEM("Item special possédé par le joueur"),
         SEXE("Sexe du joueur");
 

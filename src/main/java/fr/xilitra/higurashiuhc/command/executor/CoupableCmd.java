@@ -24,7 +24,7 @@ public class CoupableCmd implements CommandsExecutor {
             
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
-        if(oishi.isCoupableIsDesigned()){
+        if(!oishi.isCoupableIsDesigned()){
             oishi.setCoupableIsDesigned(true);
         }
 

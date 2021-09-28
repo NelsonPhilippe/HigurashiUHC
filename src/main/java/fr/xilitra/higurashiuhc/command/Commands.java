@@ -14,6 +14,10 @@ public enum Commands {
     HEAL("heal", new HealCmd()),
     LIST("list", new ListCmd()),
     ASSASSINER("assassiner", new AssassinCmd()),
+    PVCMD("pv", new PvCmd()),
+    SUSPECTER("suspecter", new SuspecterCmd()),
+    COMPARER("comp", new ComparerCmd()),
+    RIKA("rika", new RikaCmd()),
     COUPABLE("c", new CoupableCmd());
     String initials;
     CommandsExecutor commandsExecutor;

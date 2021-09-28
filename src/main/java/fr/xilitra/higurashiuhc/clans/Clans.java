@@ -5,7 +5,6 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

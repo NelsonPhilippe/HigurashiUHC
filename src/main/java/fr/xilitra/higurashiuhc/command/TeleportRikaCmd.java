@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.command;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DimensionDeathRikaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -29,7 +29,7 @@ public class TeleportRikaCmd implements CommandExecutor {
         if(args[0].equalsIgnoreCase("rika")){
             if(hPlayer.getRole().getName().equalsIgnoreCase("Hanyu")){
 
-                HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getHPlayer();
+                HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 
                 if(rika != null && rika.getPlayer() != null){
 

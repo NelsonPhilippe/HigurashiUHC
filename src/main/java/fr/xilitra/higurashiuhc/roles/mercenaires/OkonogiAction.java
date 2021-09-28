@@ -1,21 +1,11 @@
-package fr.xilitra.higurashiuhc.roles.neutre;
+package fr.xilitra.higurashiuhc.roles.mercenaires;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class Nomura extends Role {
-    public Nomura() {
-        super("Nomura", Gender.FEMME, Clans.NEUTRE, 1);
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
-    }
+public class OkonogiAction extends RoleAction {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
@@ -36,4 +26,5 @@ public class Nomura extends Role {
     public boolean acceptReconnect(Player p) {
         return false;
     }
+
 }

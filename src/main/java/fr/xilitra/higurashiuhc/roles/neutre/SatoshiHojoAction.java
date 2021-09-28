@@ -1,21 +1,11 @@
-package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
+package fr.xilitra.higurashiuhc.roles.neutre;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class KiichiroKimiyoshi extends Role {
-    public KiichiroKimiyoshi() {
-        super("Kiichiro Kimiyoshi", Gender.HOMME, Clans.SONOZAKI, 1);
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
-    }
+public class SatoshiHojoAction extends RoleAction {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
@@ -36,4 +26,5 @@ public class KiichiroKimiyoshi extends Role {
     public boolean acceptReconnect(Player p) {
         return false;
     }
+
 }

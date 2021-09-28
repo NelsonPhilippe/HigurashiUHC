@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.JavaTask;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
@@ -21,7 +21,7 @@ public class StartTask extends JavaTask {
         for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
             scoreboard.getValue().setLines(
                     "",
-                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + RoleList.values().length,
+                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
                     "",
                     ChatColor.RED + "Titre de game",
                     "",
@@ -54,8 +54,8 @@ public class StartTask extends JavaTask {
             HigurashiUHC.getGameManager().getHPlayerList().values().forEach(player -> {
                 if(player.getPlayer() != null) {
                     player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName());
-                    if(player.getRole().isRole(RoleList.HANYU) && RoleList.RIKA_FURUDE.getRole().getHPlayer() != null)
-                        player.getPlayer().sendMessage("Rika est incarnée par: "+RoleList.RIKA_FURUDE.getRole().getHPlayer().getName());
+                    if(player.getRole().isRole(Role.HANYU) && Role.RIKA_FURUDE.getHPlayer() != null)
+                        player.getPlayer().sendMessage("Rika est incarnée par: "+ Role.RIKA_FURUDE.getHPlayer().getName());
                 }
             });
 

@@ -6,9 +6,9 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.inventivetalent.bossbar.BossBar;
@@ -29,10 +29,10 @@ public class Oyashiro extends Scenario {
             TaskRunner.getTask(renaTaskID).stopTask();
         if(keiichiTaskID != null)
             TaskRunner.getTask(keiichiTaskID).stopTask();
-        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
         km.getBossBar().getPlayers().forEach((player) -> km.getBossBar().removePlayer(player));
         km.setBossBar(null);
-        RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
+        RenaRyuguAction rr = (RenaRyuguAction) Role.RENA_RYUGU.getRoleAction();
         rr.getBossBar().getPlayers().forEach((player) -> rr.getBossBar().removePlayer(player));
         rr.setBossBar(null);
     }
@@ -54,8 +54,8 @@ public class Oyashiro extends Scenario {
         if(!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
             return;
 
-        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
-        RenaRyugu rr = (RenaRyugu) RoleList.RENA_RYUGU.getRole();
+        Role km = Role.KEIICHI_MAEBARA;
+        Role rr = Role.RENA_RYUGU;
 
         HPlayer keiichi = km.getHPlayer();
         HPlayer rena = rr.getHPlayer();
@@ -72,10 +72,10 @@ public class Oyashiro extends Scenario {
         ///rena.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Keiichi est joué par "+keiichi.getName()+".");
 
         BossBar kmBB = BossBarAPI.addBar(keiichi.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
-        km.setBossBar(kmBB);
+        ((KeiichiMaebaraAction)km.getRoleAction()).setBossBar(kmBB);
 
         BossBar rrBB = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
-        rr.setBossBar(rrBB);
+        ((RenaRyuguAction)rr.getRoleAction()).setBossBar(rrBB);
 
         RenaOyashiroTask rot = new RenaOyashiroTask();
         rot.runTask(30000,30000);

@@ -2,17 +2,16 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class Kasai extends Role {
+public class KasaiAction extends RoleAction {
 
     private boolean isGiveForce;
 
-    public Kasai() {
-        super("Kasai", Gender.HOMME, Clans.SONOZAKI, 1);
+    public KasaiAction() {
         isGiveForce = false;
     }
 
@@ -22,11 +21,6 @@ public class Kasai extends Role {
 
     public void setGiveForce(boolean giveForce) {
         isGiveForce = giveForce;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

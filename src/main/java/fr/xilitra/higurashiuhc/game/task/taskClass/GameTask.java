@@ -5,8 +5,8 @@ import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.Bukkit;
@@ -58,11 +58,11 @@ public class GameTask extends BukkitTask {
         }
 
         if(HigurashiUHC.getGameManager().getEpisode() >= 6){
-            HPlayer player =  RoleList.KURAUDO_OISHI.getRole().getHPlayer();
+            HPlayer player =  Role.KURAUDO_OISHI.getHPlayer();
 
             if(player != null && player.getPlayer() != null){
 
-                KuraudoOishi oishi = (KuraudoOishi) player.getRole();
+                KuraudoOishiAction oishi = (KuraudoOishiAction) player.getRole().getRoleAction();
 
                 if(!oishi.isCoupableIsDesigned()){
                     player.getPlayer().setMaxHealth(2.5);

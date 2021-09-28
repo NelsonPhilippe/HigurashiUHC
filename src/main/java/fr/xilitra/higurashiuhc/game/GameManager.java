@@ -8,8 +8,8 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.*;
@@ -38,8 +38,8 @@ public class GameManager {
     public void start() {
         this.setStates(GameStates.START);
 
-        ArrayList<RoleList> roles = new ArrayList<>(Arrays.asList(RoleList.values()));
-        roles.remove(RoleList.NULL);
+        ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
+        roles.remove(Role.NULL);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.startsound"));
 
@@ -60,27 +60,27 @@ public class GameManager {
 
             int number = new Random().nextInt(roles.size());
 
-            RoleList role = roles.get(number);
+            Role role = roles.get(number);
 
-            player.setRole(role.getRole());
-            TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getRole().getName(), "");
-            player.getPlayer().sendMessage(role.getRole().getDecription());
-            role.getRole().getDefaultClans().addPlayer(player);
+            player.setRole(role);
+            TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getName(), "");
+            player.getPlayer().sendMessage(role.getDecription());
+            role.getDefaultClans().addPlayer(player);
 
             players.replace(player.getUuid(), player);
-            player.getInfo().put(KuraudoOishi.InfoList.SEXE, role.getRole().getSexe().name());
+            player.getInfo().put(KuraudoOishiAction.InfoList.SEXE, role.getSexe().name());
             player.setPlayerState(PlayerState.INGAME);
 
 
-            if(role.getRole().isRole(RoleList.AKASAKA.getRole())) {
+            if(role.isRole(Role.AKASAKA)) {
                 player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
             }
 
-            if(ScenarioList.DOLL.isActive() && role.getRole().isRole(RoleList.KEIICHI_MAEBARA.getRole())){
+            if(ScenarioList.DOLL.isActive() && role.isRole(Role.KEIICHI_MAEBARA)){
                 player.getPlayer().getInventory().addItem(DollItem.dollItem.getItemStack());
             }
 
-            if(role.getRole().isRole(RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole())){
+            if(role.isRole(Role.MION_SONOZAKI, Role.SHION_SONOSAKI)){
                 player.getPlayer().setHealth(22);
             }
 

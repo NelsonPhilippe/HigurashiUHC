@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -30,7 +30,7 @@ public class CraftEvent implements Listener {
                 return;
             }
 
-            if(!hPlayer.getRole().isRole(RoleList.KEIICHI_MAEBARA.getRole())){
+            if(!hPlayer.getRole().isRole(Role.KEIICHI_MAEBARA)){
                 e.setCancelled(true);
                 return;
             }
@@ -43,7 +43,7 @@ public class CraftEvent implements Listener {
             player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
 
             HigurashiUHC.getGameManager().getHPlayerList().values().forEach(players -> {
-                if(players.getRole() != null && players.getRole().isRole(RoleList.SATOSHI_HOJO.getRole())){
+                if(players.getRole() != null && players.getRole().isRole(Role.SATOSHI_HOJO)){
                     Objects.requireNonNull(players.getPlayer()).playSound(players.getPlayer().getLocation(), Sound.ZOMBIE_WOODBREAK, 1, 1);
                     CustomCraft.baseballBat.setCrafted(true);
                 }

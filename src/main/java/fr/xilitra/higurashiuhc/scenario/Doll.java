@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.entity.Player;
 
 public class Doll extends Scenario {
@@ -17,26 +17,26 @@ public class Doll extends Scenario {
     public void solution(int solutionN, Object... o) {
         this.appliedSolution = solutionN;
         if(solutionN == 1){
-            if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
+            if(Role.MION_SONOZAKI.getHPlayer() == null)
                 return;
-            RoleList.MION_SONOZAKI.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
-            RoleList.MION_SONOZAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
+            Role.MION_SONOZAKI.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
+            Role.MION_SONOZAKI.getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 2){
-            if(RoleList.SHION_SONOSAKI.getRole().getHPlayer() == null)
+            if(Role.SHION_SONOSAKI.getHPlayer() == null)
                 return;
-            RoleList.SHION_SONOSAKI.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
-            RoleList.SHION_SONOSAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
+            Role.SHION_SONOSAKI.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
+            Role.SHION_SONOSAKI.getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
         }else if(solutionN == 3){
-            if(RoleList.MION_SONOZAKI.getRole().getHPlayer() == null)
+            if(Role.MION_SONOZAKI.getHPlayer() == null)
                 return;
-            RoleList.MION_SONOZAKI.getRole().getHPlayer().getLinkData((HPlayer) o[0]).setMariedLinked(Reason.DOLL_TRAGEDY, true);
+            Role.MION_SONOZAKI.getHPlayer().getLinkData((HPlayer) o[0]).setMariedLinked(Reason.DOLL_TRAGEDY, true);
         }else{
-            HPlayer hPlayer = RoleList.KEIICHI_MAEBARA.getRole().getHPlayer();
+            HPlayer hPlayer = Role.KEIICHI_MAEBARA.getHPlayer();
             if(hPlayer == null || hPlayer.getPlayer() == null)
                 return;
             Player player = hPlayer.getPlayer();
             player.setMaxHealth(player.getMaxHealth()-5);
-            RoleList.KEIICHI_MAEBARA.getRole().getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
+            Role.KEIICHI_MAEBARA.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
         }
     }
 

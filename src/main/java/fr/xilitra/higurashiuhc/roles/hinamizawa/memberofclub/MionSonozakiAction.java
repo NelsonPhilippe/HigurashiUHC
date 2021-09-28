@@ -1,12 +1,10 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -18,27 +16,18 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozaki.removeHearth;
+import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozakiAction.removeHearth;
 
-public class MionSonozaki extends Role implements Listener {
-    public MionSonozaki() {
-        super("Mion Sonozaki", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
-        this.setDisplayName("Shion Sonozaki");
-    }
+public class MionSonozakiAction extends RoleAction implements Listener {
 
     @EventHandler
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getPlayer() != null && player.getRole().isRole(RoleList.MION_SONOZAKI.getRole())){
+        if(player.getPlayer() != null && player.getRole().isRole(Role.MION_SONOZAKI)){
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override
@@ -47,7 +36,7 @@ public class MionSonozaki extends Role implements Listener {
         if(!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
             return;
 
-        if(!killed.getRole().isRole(RoleList.RENA_RYUGU.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole()))
+        if(!killed.getRole().isRole(Role.RENA_RYUGU, Role.SHION_SONOSAKI, Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA))
             return;
 
         if(killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)){
@@ -56,10 +45,10 @@ public class MionSonozaki extends Role implements Listener {
         }
 
         List<Role> roleList = new ArrayList<Role>(){{
-            add(RoleList.RENA_RYUGU.getRole());
-            add(RoleList.SHION_SONOSAKI.getRole());
-            add(RoleList.SATOKO_HOJO.getRole());
-            add(RoleList.KEIICHI_MAEBARA.getRole());
+            add(Role.RENA_RYUGU);
+            add(Role.SHION_SONOSAKI);
+            add(Role.SATOKO_HOJO);
+            add(Role.KEIICHI_MAEBARA);
         }};
 
         if(killer.getPlayer() != null)
@@ -71,7 +60,7 @@ public class MionSonozaki extends Role implements Listener {
             Role killerRole = role.getHPlayer().getKillerRole();
             if(killerRole == null)
                 return;
-            if(killerRole != this)
+            if(killerRole != this.getLinkedRole())
                 return;
         }
 
@@ -82,10 +71,9 @@ public class MionSonozaki extends Role implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        HPlayer playerAlive =  RoleList.SHION_SONOSAKI.getRole().getHPlayer();
+        HPlayer playerAlive =  Role.SHION_SONOSAKI.getHPlayer();
 
-
-        if (playerAlive != null && playerAlive.getPlayer() != null && killed.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
+        if (playerAlive != null && playerAlive.getPlayer() != null && killed.getRole().isRole(Role.MION_SONOZAKI)) {
 
             if (playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR) {
                 removeHearth(killed, playerAlive);

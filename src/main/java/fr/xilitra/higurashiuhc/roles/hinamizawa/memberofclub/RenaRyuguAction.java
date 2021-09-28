@@ -4,7 +4,7 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -12,14 +12,13 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.inventivetalent.bossbar.BossBar;
 
-public class RenaRyugu extends Role implements Listener {
+public class RenaRyuguAction extends RoleAction implements Listener {
 
     private HPlayer hPlayerPense;
     private boolean penseIsUsed;
     private BossBar bossBar;
 
-    public RenaRyugu() {
-        super("Rena Ryugu", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1);
+    public RenaRyuguAction() {
         this.penseIsUsed = false;
     }
 
@@ -40,11 +39,6 @@ public class RenaRyugu extends Role implements Listener {
     }
 
     @Override
-    public String getDecription() {
-        return "null";
-    }
-
-    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }
@@ -55,7 +49,7 @@ public class RenaRyugu extends Role implements Listener {
         if(killed.hasMalediction() && killed.getKiller() instanceof Player){
 
             Player killer = (Player) killed.getKiller();
-            HPlayer killerHPlayer =  RoleList.RENA_RYUGU.getRole().getHPlayer();
+            HPlayer killerHPlayer =  Role.RENA_RYUGU.getHPlayer();
 
             if(killerHPlayer != null){
 

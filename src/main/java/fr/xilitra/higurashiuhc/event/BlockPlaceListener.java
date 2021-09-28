@@ -2,7 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,7 +23,7 @@ public class BlockPlaceListener implements Listener {
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         assert hPlayer != null;
-        if(hPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole())){
+        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO)){
             if(item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){
                 p.getWorld().getBlockAt(loc).setType(Material.AIR);
                 TNTPrimed tnt = loc.getWorld().spawn(loc, TNTPrimed.class);

@@ -7,7 +7,7 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,13 +16,11 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class Akasaka extends Role implements Listener {
+import javax.management.relation.RoleList;
+
+public class AkasakaAction extends RoleAction implements Listener {
 
     private int countCompare = 0;
-
-    public Akasaka() {
-        super("Akasaka", Gender.HOMME, Clans.POLICE, 1);
-    }
 
     @EventHandler
     public void onPlayerDamage(PlayerItemDamageEvent event){
@@ -65,11 +63,6 @@ public class Akasaka extends Role implements Listener {
 
     public void setCountCompare(int countCompare) {
         this.countCompare = countCompare;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

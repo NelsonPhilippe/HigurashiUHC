@@ -1,9 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -11,19 +9,12 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KuraudoOishi extends Role implements Listener {
+public class KuraudoOishiAction extends RoleAction implements Listener {
 
 
-    private List<HPlayer> suspect = new ArrayList<>();
-    private int countSuspect;
-    private boolean coupableIsDesigned;
-
-
-    public KuraudoOishi() {
-        super("Kuraudo Oishi", Gender.HOMME, Clans.POLICE, 1);
-        countSuspect = 0;
-        coupableIsDesigned = false;
-    }
+    private final List<HPlayer> suspect = new ArrayList<>();
+    private int countSuspect = 0;
+    private boolean coupableIsDesigned = false;
 
 
     public int getCountSuspect() {
@@ -48,11 +39,6 @@ public class KuraudoOishi extends Role implements Listener {
 
     public void setCoupableIsDesigned(boolean coupableIsDesigned) {
         this.coupableIsDesigned = coupableIsDesigned;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

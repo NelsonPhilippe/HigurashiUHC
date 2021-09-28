@@ -7,11 +7,10 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -83,22 +82,22 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player =  RoleList.RENA_RYUGU.getRole().getHPlayer();
+            HPlayer player =  Role.RENA_RYUGU.getHPlayer();
 
             if(player != null && player.getPlayer() != null){
 
-                RenaRyugu renaRyugu = (RenaRyugu) player.getRole();
+                RenaRyuguAction renaRyuguAction = (RenaRyuguAction) player.getRole().getRoleAction();
 
-                if(renaRyugu.gethPlayerPense() != null){
+                if(renaRyuguAction.gethPlayerPense() != null){
 
-                    System.out.println(renaRyugu.gethPlayerPense().getUuid().toString());
+                    System.out.println(renaRyuguAction.gethPlayerPense().getUuid().toString());
 
-                    if(renaRyugu.gethPlayerPense().getUuid().equals(damager.getUniqueId())){
+                    if(renaRyuguAction.gethPlayerPense().getUuid().equals(damager.getUniqueId())){
 
-                        if(!renaRyugu.isPenseIsUsed()) {
+                        if(!renaRyuguAction.isPenseIsUsed()) {
 
                             player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
-                            renaRyugu.setPenseIsUsed(true);
+                            renaRyuguAction.setPenseIsUsed(true);
 
                         }
 
@@ -137,9 +136,9 @@ public class DamageListener implements Listener {
 
             }
 
-            if (hPlayer.getRole().isRole(RoleList.MION_SONOZAKI.getRole())) {
+            if (hPlayer.getRole().isRole(Role.MION_SONOZAKI)) {
 
-                HPlayer shionPlayer = RoleList.SHION_SONOSAKI.getRole().getHPlayer();
+                HPlayer shionPlayer = Role.SHION_SONOSAKI.getHPlayer();
                 if (shionPlayer == null || shionPlayer.getPlayer() == null) return;
 
                 if (shionPlayer.getPlayer().getHealth() <= 20) return;
@@ -148,9 +147,9 @@ public class DamageListener implements Listener {
 
             }
 
-            if (hPlayer.getRole().isRole(RoleList.SHION_SONOSAKI.getRole())) {
+            if (hPlayer.getRole().isRole(Role.SHION_SONOSAKI)) {
 
-                HPlayer mionPlayer = RoleList.MION_SONOZAKI.getRole().getHPlayer();
+                HPlayer mionPlayer = Role.MION_SONOZAKI.getHPlayer();
 
                 if (mionPlayer == null || mionPlayer.getPlayer() == null) return;
 
@@ -162,8 +161,8 @@ public class DamageListener implements Listener {
 
         }
 
-        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
-        if(km.getBossBar() != null && km.getHPlayer() != null && km.getHPlayer().getName().equals(hPlayer.getName())){
+        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
+        if(km.getBossBar() != null && km.getLinkedRole().getHPlayer() != null && km.getLinkedRole().getHPlayer().getName().equals(hPlayer.getName())){
 
             float progress = km.getBossBar().getProgress()+3;
             if(progress>=100)
@@ -232,9 +231,9 @@ public class DamageListener implements Listener {
 
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        hPlayer.getRole().onDeath(hPlayer, deathReason);
+        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
 
-        ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
+        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
         if(hPlayer.getClans() != null)
             hPlayer.getClans().removePlayer(hPlayer);
 
@@ -264,7 +263,7 @@ public class DamageListener implements Listener {
 
         }
 
-        if(hPlayer.getRole().isRole(RoleList.SATOKO_HOJO.getRole(), RoleList.KEIICHI_MAEBARA.getRole(), RoleList.MION_SONOZAKI.getRole(), RoleList.SHION_SONOSAKI.getRole(), RoleList.RENA_RYUGU.getRole())){
+        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU)){
 
             TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
             TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
@@ -273,7 +272,7 @@ public class DamageListener implements Listener {
 
             textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
 
-            HPlayer hpr = RoleList.RIKA_FURUDE.getRole().getHPlayer();
+            HPlayer hpr = Role.RIKA_FURUDE.getHPlayer();
 
             if(hpr != null && hpr.getPlayer() != null)
                 hpr.getPlayer().spigot().sendMessage(text);
@@ -286,7 +285,7 @@ public class DamageListener implements Listener {
 
             List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
 
-            HPlayer miyo = RoleList.MIYO_TAKANO.getRole().getHPlayer();
+            HPlayer miyo = Role.MIYO_TAKANO.getHPlayer();
 
             if (miyo != null && miyo.getPlayer() != null)
                 miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
@@ -315,10 +314,10 @@ public class DamageListener implements Listener {
             if(killerHplayer == null)
                 return;
 
-            killerHplayer.getRole().onKill(killerHplayer, hPlayer, deathReason);
+            killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
 
-            killerHplayer.getInfo().put(KuraudoOishi.InfoList.KILL,
-                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishi.InfoList.KILL)) + 1));
+            killerHplayer.getInfo().put(KuraudoOishiAction.InfoList.KILL,
+                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishiAction.InfoList.KILL)) + 1));
 
         }
 

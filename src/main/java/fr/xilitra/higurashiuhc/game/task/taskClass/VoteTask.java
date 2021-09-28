@@ -3,8 +3,8 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozaki;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
 import java.util.Map;
 
@@ -20,13 +20,13 @@ public class VoteTask extends BukkitTask {
         isRunning = true;
 
         if(time == 0){
-            HPlayer oryo =  RoleList.ORYO_SONOZAKI.getRole().getHPlayer();
+            HPlayer oryo =  Role.ORYO_SONOZAKI.getHPlayer();
             if(oryo == null) {
                 stopTask();
                 return;
             }
 
-            OryoSonozaki oryoSonozaki = (OryoSonozaki) oryo.getRole();
+            OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) oryo.getRole().getRoleAction();
 
             int majorite = 0;
 
@@ -36,7 +36,7 @@ public class VoteTask extends BukkitTask {
                 }
             }
 
-            for (Map.Entry<HPlayer, Integer> votesPlayer : oryoSonozaki.getVoteBan().entrySet()){
+            for (Map.Entry<HPlayer, Integer> votesPlayer : oryoSonozakiAction.getVoteBan().entrySet()){
                 if(votesPlayer.getValue() >= majorite / 2){
                     if(votesPlayer.getKey().getPlayer() != null)
                     votesPlayer.getKey().getPlayer().setMaxHealth(10);

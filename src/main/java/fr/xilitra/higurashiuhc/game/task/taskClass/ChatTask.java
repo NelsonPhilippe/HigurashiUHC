@@ -3,8 +3,8 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.mercenaires.Okonogi;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.mercenaires.OkonogiAction;
 import org.bukkit.Location;
 
 public class ChatTask extends BukkitTask {
@@ -19,9 +19,9 @@ public class ChatTask extends BukkitTask {
     @Override
     public void run() {
 
-        Okonogi okonogiRole = (Okonogi) RoleList.OKONOGI.getRole();
+        OkonogiAction okonogiActionRole = (OkonogiAction) Role.OKONOGI.getRoleAction();
 
-        if(okonogiRole.hasHPlayer(target)){
+        if(okonogiActionRole.getLinkedRole().hasHPlayer(target)){
             this.stopTask();
             return;
         }
@@ -34,7 +34,7 @@ public class ChatTask extends BukkitTask {
         if(target.getPlayer() == null)
             return;
 
-        HPlayer okonogi = RoleList.OKONOGI.getRole().getHPlayer();
+        HPlayer okonogi = Role.OKONOGI.getHPlayer();
 
         if(okonogi == null || okonogi.getPlayer() == null){
             target.getPlayer().sendMessage("La personne cible est déconnecté");
@@ -52,7 +52,7 @@ public class ChatTask extends BukkitTask {
 
         if(time == 0){
 
-            okonogiRole.addPlayer(target);
+            okonogiActionRole.getLinkedRole().addPlayer(target);
 
             int mercenary = Clans.HINAMIZAWA.getUUIDList().size();
 

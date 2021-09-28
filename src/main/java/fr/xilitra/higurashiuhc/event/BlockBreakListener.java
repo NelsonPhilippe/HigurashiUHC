@@ -2,9 +2,9 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -26,7 +26,7 @@ public class BlockBreakListener implements Listener {
 
         Location loc = block.getLocation();
 
-        ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
+        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.remove(loc);
 
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
@@ -50,14 +50,14 @@ public class BlockBreakListener implements Listener {
 
                 }
 
-                ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.add(loc);
+                ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.add(loc);
 
             }
 
         }
 
         if(block.getType() == Material.DIAMOND_ORE)
-            hPlayer.getInfo().put(KuraudoOishi.InfoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishi.InfoList.DIAMOND)) + 1));
+            hPlayer.getInfo().put(KuraudoOishiAction.InfoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishiAction.InfoList.DIAMOND)) + 1));
     }
 
 }

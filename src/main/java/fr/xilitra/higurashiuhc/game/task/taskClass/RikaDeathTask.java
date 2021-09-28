@@ -4,8 +4,8 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -32,7 +32,7 @@ public class RikaDeathTask extends BukkitTask {
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }
 
-                ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).removeTraps(hPlayer);
+                ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
             }
 
 

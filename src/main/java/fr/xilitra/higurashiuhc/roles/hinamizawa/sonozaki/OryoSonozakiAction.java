@@ -2,23 +2,21 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class OryoSonozaki extends Role {
+public class OryoSonozakiAction extends RoleAction {
 
     private Map<HPlayer, Integer> voteBan = new HashMap<>();
     private boolean asVoted;
 
-    public OryoSonozaki() {
-        super("Oryo Sonozaki", Gender.FEMME, Clans.SONOZAKI, 1);
-
+    public OryoSonozakiAction() {
         asVoted = false;
 
         for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
@@ -41,11 +39,6 @@ public class OryoSonozaki extends Role {
 
     public Map<HPlayer, Integer> getVoteBan() {
         return voteBan;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

@@ -5,8 +5,7 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nullable;
+import javax.sound.sampled.Line;
 import java.util.*;
 
 public class HPlayer {
@@ -23,8 +23,8 @@ public class HPlayer {
     private final String name;
     private final UUID uuid;
 
-    private Role role = RoleList.NULL.getRole();
-    private Role roleKiller = RoleList.NULL.getRole();
+    private Role role = Role.NULL;
+    private Role roleKiller = Role.NULL;
 
     private Entity killer = null;
     private final DeathTask deathTask;
@@ -36,9 +36,10 @@ public class HPlayer {
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
 
-    private final Map<KuraudoOishi.InfoList, String> info = new HashMap<>();
+    private final Map<KuraudoOishiAction.InfoList, String> info = new HashMap<>();
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
+    private InfoData infoData = new InfoData();
 
     public HPlayer(String name, Player player) {
         this.name = name;
@@ -67,7 +68,7 @@ public class HPlayer {
         if(this.role != null)
             this.role.removePlayer(this);
         if(role == null)
-            role = RoleList.NULL.getRole();
+            role = Role.NULL;
         this.role = role;
         role.addPlayer(this);
     }
@@ -76,7 +77,7 @@ public class HPlayer {
         return this.deathTask;
     }
 
-    public Map<KuraudoOishi.InfoList, String> getInfo() {
+    public Map<KuraudoOishiAction.InfoList, String> getInfo() {
         return info;
     }
 
@@ -205,7 +206,7 @@ public class HPlayer {
     public void setKiller(Entity killer, Role role){
         this.killer = killer;
         if(role == null)
-            role = RoleList.NULL.getRole();
+            role = Role.NULL;
         this.roleKiller = role;
     }
 
@@ -234,4 +235,9 @@ public class HPlayer {
     public void setKit(KitList kitList) {
         this.kitList = kitList;
     }
+
+    public InfoData getInfoData(){
+        return infoData;
+    }
+
 }

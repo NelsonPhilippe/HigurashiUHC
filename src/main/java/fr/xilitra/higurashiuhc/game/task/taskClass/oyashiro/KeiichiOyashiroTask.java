@@ -1,18 +1,16 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 
 import fr.xilitra.higurashiuhc.game.task.JavaTask;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebara;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyugu;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
-import fr.xilitra.higurashiuhc.utils.MathMain;
 
 public class KeiichiOyashiroTask extends JavaTask {
 
     @Override
     public void run() {
 
-        KeiichiMaebara km = (KeiichiMaebara) RoleList.KEIICHI_MAEBARA.getRole();
+        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
 
         float newValue = km.getBossBar().getProgress()+1;
         if(newValue>=100){

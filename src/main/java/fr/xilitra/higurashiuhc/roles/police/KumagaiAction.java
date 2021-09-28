@@ -1,21 +1,23 @@
-package fr.xilitra.higurashiuhc.roles.hinamizawa;
+package fr.xilitra.higurashiuhc.roles.police;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class Villageois extends Role {
-    public Villageois() {
-        super("Villageois", Gender.NON_GENRE, Clans.HINAMIZAWA, 1);
+import java.util.ArrayList;
+import java.util.List;
+
+public class KumagaiAction extends RoleAction {
+
+    private final List<String> CompareClanUsed = new ArrayList<>();
+
+    public List<String> getCompareClanUsed() {
+        return CompareClanUsed;
     }
 
-
-    @Override
-    public String getDecription() {
-        return "null";
+    public void addClanToCompareUsed(String clan){
+        CompareClanUsed.add(clan);
     }
 
     @Override

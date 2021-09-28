@@ -2,18 +2,17 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.game.Gender;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class AkaneSonozaki extends Role {
+public class AkaneSonozakiAction extends RoleAction {
 
     private int nextDaySwap;
     private int swapUsed;
 
-    public AkaneSonozaki() {
-        super("Akane Sonozaki", Gender.FEMME, Clans.SONOZAKI, 1);
+    public AkaneSonozakiAction() {
         swapUsed = 0;
         nextDaySwap = 0;
     }
@@ -32,11 +31,6 @@ public class AkaneSonozaki extends Role {
 
     public void setSwapUsed(int swapUsed) {
         this.swapUsed = swapUsed;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

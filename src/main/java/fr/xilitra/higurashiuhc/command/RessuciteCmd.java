@@ -3,8 +3,8 @@ package fr.xilitra.higurashiuhc.command;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurudeAction;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,7 +28,7 @@ public class RessuciteCmd implements CommandExecutor {
                 return true;
             }
 
-            if(hPlayer.getRole().getName().equals(RoleList.RIKA_FURUDE.getRole().getName())){
+            if(hPlayer.getRole().isRole(Role.RIKA_FURUDE)){
 
                 Player target = Bukkit.getPlayer(args[1]);
                 if(target == null){
@@ -43,12 +43,12 @@ public class RessuciteCmd implements CommandExecutor {
 
                 if(((DeathTask) hPlayerTarget.getDeathTask()).isRunning()){
 
-                    if(((RikaFurude) hPlayer.getRole()).getRessucite()){
+                    if(((RikaFurudeAction) hPlayer.getRole().getRoleAction()).getRessucite()){
                         p.sendMessage("Vous ne pouvez plus ressuciter");
                         return true;
                     }
 
-                    ((RikaFurude) hPlayer.getRole()).resurrection(hPlayer, hPlayerTarget);
+                    ((RikaFurudeAction) hPlayer.getRole().getRoleAction()).resurrection(hPlayer, hPlayerTarget);
                     p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
                     return true;
 

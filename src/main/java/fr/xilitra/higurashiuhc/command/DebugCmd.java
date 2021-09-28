@@ -1,10 +1,9 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,11 +27,11 @@ public class DebugCmd implements CommandExecutor {
 
                 p.sendMessage(ChatColor.DARK_PURPLE + "--- Liste des roles ---");
 
-                for(RoleList role : RoleList.values()){
+                for(Role role : Role.values()){
 
-                    if(role.getRole().isAssigned()){
+                    if(role.isAssigned()){
 
-                        HPlayer hPlayer = role.getRole().getHPlayer();
+                        HPlayer hPlayer = role.getHPlayer();
                         if(hPlayer != null)
                             p.sendMessage(
                                 ChatColor.GOLD + hPlayer.getRole().getName()
@@ -40,7 +39,7 @@ public class DebugCmd implements CommandExecutor {
                                         + ChatColor.GREEN  + hPlayer.getName());
 
                     }else
-                        p.sendMessage(ChatColor.GOLD + role.getRole().getName());
+                        p.sendMessage(ChatColor.GOLD + role.getName());
 
                 }
                 return true;
@@ -86,11 +85,11 @@ public class DebugCmd implements CommandExecutor {
 
 
 
-                    for(RoleList roleList : RoleList.values()){
+                    for(Role roleList : Role.values()){
 
 
-                        if(role.equalsIgnoreCase(roleList.getRole().getName() + " ") || role.equalsIgnoreCase(roleList.getRole().getName())){
-                            hPlayer.setRole(roleList.getRole());
+                        if(role.equalsIgnoreCase(roleList.getName() + " ") || role.equalsIgnoreCase(roleList.getName())){
+                            hPlayer.setRole(roleList);
                             Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                             p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
                             HigurashiUHC.getGameManager().getHPlayerList().put(hPlayer.getUuid(), hPlayer);

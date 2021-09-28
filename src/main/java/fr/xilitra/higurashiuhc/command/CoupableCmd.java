@@ -3,8 +3,8 @@ package fr.xilitra.higurashiuhc.command;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishi;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +25,7 @@ public class CoupableCmd implements CommandExecutor {
         if(hPlayer == null)
             return false;
 
-        if(!hPlayer.getRole().isRole(RoleList.KURAUDO_OISHI.getRole()))
+        if(!hPlayer.getRole().isRole(Role.KURAUDO_OISHI))
             return false;
 
         if(args[0].equalsIgnoreCase("c")){
@@ -33,7 +33,7 @@ public class CoupableCmd implements CommandExecutor {
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
             if(targetHPlayer == null) return true;
             
-            KuraudoOishi oishi = (KuraudoOishi) hPlayer.getRole();
+            KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
             if(oishi.isCoupableIsDesigned()){
                 oishi.setCoupableIsDesigned(true);
@@ -52,7 +52,7 @@ public class CoupableCmd implements CommandExecutor {
                 p.sendMessage("L'enquête a échoué.");
             }
 
-            if(targetHPlayer.getRole().isRole(RoleList.RIKA_FURUDE.getRole()))
+            if(targetHPlayer.getRole().isRole(Role.RIKA_FURUDE))
                 Clans.HINAMIZAWA.addPlayer(targetHPlayer);
 
             p.sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());

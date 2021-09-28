@@ -6,7 +6,7 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
 import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
@@ -44,7 +44,7 @@ public class JoinListener implements Listener {
 
                 scoreboard.setLines(
                         "",
-                        ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + RoleList.values().length,
+                        ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
                         "",
                         ChatColor.RED + "Titre de game",
                         "",
@@ -58,7 +58,7 @@ public class JoinListener implements Listener {
 
             scoreboard.setLines(
                     "",
-                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + RoleList.values().length,
+                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
                     "",
                     ChatColor.RED + "Titre de game",
                     "",
@@ -70,7 +70,7 @@ public class JoinListener implements Listener {
 
         }else if(HigurashiUHC.getGameManager().getStates() != GameStates.START){
 
-            if(HigurashiUHC.getGameManager().getStates() == GameStates.GAME && !hPlayer.getRole().isRole(RoleList.NULL.getRole()) && hPlayer.getRole().acceptReconnect(p)) {
+            if(HigurashiUHC.getGameManager().getStates() == GameStates.GAME && !hPlayer.getRole().isRole(Role.NULL) && hPlayer.getRole().getRoleAction().acceptReconnect(p)) {
                 p.setGameMode(GameMode.SURVIVAL);
                 return;
             }

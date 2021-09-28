@@ -3,8 +3,8 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurude;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurudeAction;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -14,7 +14,7 @@ public class WatanagashiTask extends BukkitTask {
     @Override
     public void run() {
 
-        RikaFurude rf = (RikaFurude) RoleList.RIKA_FURUDE.getRole();
+        Role rf = Role.RIKA_FURUDE;
         if(rf.getHPlayer() == null)
             return;
 

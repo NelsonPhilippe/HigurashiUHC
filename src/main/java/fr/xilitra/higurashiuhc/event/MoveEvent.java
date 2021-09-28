@@ -5,8 +5,7 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.RoleList;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojo;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,7 +25,7 @@ public class MoveEvent implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        HPlayer rika =  RoleList.RIKA_FURUDE.getRole().getHPlayer();
+        HPlayer rika =  Role.RIKA_FURUDE.getHPlayer();
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
@@ -55,12 +54,12 @@ public class MoveEvent implements Listener {
         Location blockLoc = e.getTo().getBlock().getRelative(BlockFace.DOWN).getLocation();
 
 
-        if(((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.size() > 0){
+        if(((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.size() > 0){
 
-            for(Location loc : ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps){
+            for(Location loc : ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps){
 
                 if(loc.getBlock().getLocation().equals(blockLoc)){
-                    HPlayer satokoHojo =  RoleList.SATOKO_HOJO.getRole().getHPlayer();
+                    HPlayer satokoHojo =  Role.SATOKO_HOJO.getHPlayer();
 
                     if(satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUuid().equals(p.getUniqueId())){
                         return;
@@ -68,7 +67,7 @@ public class MoveEvent implements Listener {
 
                     satokoHojo.getPlayer().sendMessage(p.getName() + " est " + hPlayer.getRole().getName());
                     loc.getBlock().setType(Material.SOIL);
-                    ((SatokoHojo) RoleList.SATOKO_HOJO.getRole()).blockTraps.remove(loc);
+                    ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.remove(loc);
                     break;
 
                 }

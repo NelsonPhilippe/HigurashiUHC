@@ -2,40 +2,35 @@ package fr.xilitra.higurashiuhc.roles.mercenaires;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.RoleList;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class MiyoTakano extends Role implements Listener {
+public class MiyoTakanoAction extends RoleAction implements Listener {
 
     private int order = 2;
-
-    public MiyoTakano() {
-        super("Miyo Takano", Gender.FEMME, Clans.MERCENAIRE, 1);
-    }
-
 
     @EventHandler
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().equals(this) && player.getPlayer() != null){
+        if(player.getRole().isRole(this.getLinkedRole()) && player.getPlayer() != null){
 
-            RoleList[] mercenenaire = {RoleList.MERCENAIRE, RoleList.OKONOGI};
+            Role[] mercenenaire = {Role.MERCENAIRE, Role.OKONOGI};
             player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
 
             for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
                 if(hPlayer.getPlayer() == null)
                     continue;
-                for(RoleList role : mercenenaire){
-                    if(hPlayer.getRole().equals(role.getRole())){
+                for(Role role : mercenenaire){
+                    if(hPlayer.getRole().equals(role)){
 
                         player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
 
@@ -53,11 +48,6 @@ public class MiyoTakano extends Role implements Listener {
 
     public void setOrder(int order) {
         this.order = order;
-    }
-
-    @Override
-    public String getDecription() {
-        return "null";
     }
 
     @Override

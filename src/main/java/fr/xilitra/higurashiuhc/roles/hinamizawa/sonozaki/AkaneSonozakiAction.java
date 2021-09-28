@@ -1,8 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
@@ -10,10 +8,8 @@ import org.bukkit.entity.Player;
 public class AkaneSonozakiAction extends RoleAction {
 
     private int nextDaySwap;
-    private int swapUsed;
 
     public AkaneSonozakiAction() {
-        swapUsed = 0;
         nextDaySwap = 0;
     }
 
@@ -23,14 +19,6 @@ public class AkaneSonozakiAction extends RoleAction {
 
     public void setNextDaySwap(int nextDaySwap) {
         this.nextDaySwap = nextDaySwap;
-    }
-
-    public int getSwapUsed() {
-        return swapUsed;
-    }
-
-    public void setSwapUsed(int swapUsed) {
-        this.swapUsed = swapUsed;
     }
 
     @Override

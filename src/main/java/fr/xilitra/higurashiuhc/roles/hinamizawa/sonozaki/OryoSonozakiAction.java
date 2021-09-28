@@ -1,43 +1,29 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class OryoSonozakiAction extends RoleAction {
 
-    private Map<HPlayer, Integer> voteBan = new HashMap<>();
-    private boolean asVoted;
+    private int voteBan;
+    private HPlayer votedPlayer = null;
 
-    public OryoSonozakiAction() {
-        asVoted = false;
-
-        for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
-            voteBan.put(player, 0);
-        }
-    }
-
-    public void addVote(HPlayer hPlayer){
-        voteBan.put(hPlayer, voteBan.get(hPlayer) + 1);
+    public void addVote(){
+        voteBan+=1;
     }
 
 
     public boolean isAsVoted() {
-        return asVoted;
+        return votedPlayer != null;
     }
 
-    public void setAsVoted(boolean asVoted) {
-        this.asVoted = asVoted;
+    public void setAsVoted(HPlayer hPlayer) {
+        this.votedPlayer = hPlayer;
     }
 
-    public Map<HPlayer, Integer> getVoteBan() {
+    public int getTotalVote() {
         return voteBan;
     }
 

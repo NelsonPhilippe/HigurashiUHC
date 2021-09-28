@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.roles;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.VillageoisAction;
@@ -23,34 +24,88 @@ import org.bukkit.event.Listener;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public enum Role {
 
-    RIKA_FURUDE("Rika Furude", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new RikaFurudeAction()),
+    RIKA_FURUDE("Rika Furude", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new RikaFurudeAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.RESSUCITE, 1);
+            }}
+            ),
+
     MION_SONOZAKI("Mion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new MionSonozakiAction()),
-    HANYU("Hanyu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new HanyuAction()),
+
+    HANYU("Hanyu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new HanyuAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.RIKATP, 1);
+                put(Commands.DIMENSION, 1);
+            }}),
+
     SATOKO_HOJO("Satoko Hojo", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new SatokoHojoAction()),
+
     KEIICHI_MAEBARA("Keiichi Maebara", "null", Gender.HOMME, Clans.MEMBER_OF_CLUB, 1, new KeiichiMaebaraAction()),
+
     SHION_SONOSAKI("Shion Sonozaki", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new ShionSonozakiAction()),
-    RENA_RYUGU("Rena Ryugu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new RenaRyuguAction()),
-    MIYO_TAKANO("Miyo Takano", "null", Gender.FEMME, Clans.MERCENAIRE, 1, new MiyoTakanoAction()),
+
+    RENA_RYUGU("Rena Ryugu", "null", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new RenaRyuguAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.PENSE, 1);
+            }}),
+
+    MIYO_TAKANO("Miyo Takano", "null", Gender.FEMME, Clans.MERCENAIRE, 1, new MiyoTakanoAction(), new HashMap<Commands, Integer>(){{
+        put(Commands.ASSASSINER, 2);
+    }}),
+
     SATOSHI_HOJO("Satoshi Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new SatoshiHojoAction()),
-    ORYO_SONOZAKI("Oryo Sonozaki", "null", Gender.FEMME, Clans.SONOZAKI, 1, new OryoSonozakiAction()),
-    KASAI("Kasai", "null", Gender.HOMME, Clans.SONOZAKI, 1, new KasaiAction()),
-    AKANE_SONOZAKI("Akane Sonozaki", "null", Gender.FEMME, Clans.SONOZAKI, 1, new AkaneSonozakiAction()),
-    KIICHIRO_KIMIYOSHI("Kiichiro Kimiyoshi", "null", Gender.HOMME, Clans.SONOZAKI, 1, new KiichiroKimiyoshiAction()),
+
+    ORYO_SONOZAKI("Oryo Sonozaki", "null", Gender.FEMME, Clans.SONOZAKI, 1, new OryoSonozakiAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.BAN, 1);
+            }}),
+
+    KASAI("Kasai", "null", Gender.HOMME, Clans.SONOZAKI, 1, new KasaiAction(), new HashMap<Commands, Integer>(){{
+        put(Commands.FORCE, 1);
+    }}),
+
+    AKANE_SONOZAKI("Akane Sonozaki", "null", Gender.FEMME, Clans.SONOZAKI, 1, new AkaneSonozakiAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.INVERSER, 2);
+            }}),
+
+    KIICHIRO_KIMIYOSHI("Kiichiro Kimiyoshi", "null", Gender.HOMME, Clans.SONOZAKI, 1, new KiichiroKimiyoshiAction(),
+            new HashMap<Commands, Integer>(){{
+                put(Commands.HEAL, -1);
+            }}),
+
     VILLAGEOIS("Villageois", "null", Gender.NON_GENRE, Clans.HINAMIZAWA, 1, new VillageoisAction()),
+
     TEPPEI_HOJO("Teppei Hojo", "null", Gender.HOMME, Clans.NEUTRE, 1, new TeppeiHojoAction()),
+
     NOMURA("Nomura", "null", Gender.FEMME, Clans.NEUTRE, 1, new NomuraAction()),
+
     KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction()),
-    KURAUDO_OISHI("Kuraudo Oishi", "null", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction()),
+
+    KURAUDO_OISHI("Kuraudo Oishi", "null", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction(),
+            new HashMap<Commands, Integer>(){{
+              put(Commands.COUPABLE, 1);
+            }}),
+
     KUMAGAI("Kumagai", "null", Gender.HOMME, Clans.POLICE, 1, new KumagaiAction()),
+
     AKASAKA("Akasaka", "null", Gender.HOMME, Clans.POLICE, 1, new AkasakaAction()),
+
     POLICIER("Policier", "null", Gender.NON_GENRE, Clans.POLICE, 10, new PolicierRoleAction()),
+
     MERCENAIRE("Mercenaire", "null", Gender.NON_GENRE, Clans.MERCENAIRE, 1000, new MercenaireAction()),
-    OKONOGI("Okonogi", "null", Gender.HOMME, Clans.MERCENAIRE, 1, new OkonogiAction()),
+
+    OKONOGI("Okonogi", "null", Gender.HOMME, Clans.MERCENAIRE, 1, new OkonogiAction(), new HashMap<Commands, Integer>(){{
+        put(Commands.LIST, -1);
+    }}),
+
     JIRO_TOMITAKE("Jiro Tomitake", "null", Gender.HOMME, Clans.NEUTRE, 1, new JiroTomitakeAction()),
+
     NULL("Je suis null", "Rôle de merde", Gender.HOMME, null, 9999, new NullRoleAction());
 
     public static Role getRole(String role){
@@ -68,9 +123,10 @@ public enum Role {
     private final int maxPlayers;
     private final Clans defaultClans;
     private final RoleAction roleAction;
+    private final HashMap<Commands, Integer> commandsIntegerHashMap;
 
 
-    Role(String name, String description, Gender sexe, Clans clans, int maxPlayers, RoleAction roleAction) {
+    Role(String name, String description, Gender sexe, Clans clans, int maxPlayers, RoleAction roleAction, HashMap<Commands, Integer> authoriseCommand) {
         this.name = name;
         this.description = description;
         this.sexe = sexe;
@@ -79,6 +135,8 @@ public enum Role {
         this.maxPlayers = maxPlayers;
         this.roleAction = roleAction;
         this.roleAction.setLinkedRole(this);
+        this.commandsIntegerHashMap = authoriseCommand;
+        this.commandsIntegerHashMap.put(Commands.VOTE, 1);
         if(roleAction instanceof Listener)
             Bukkit.getPluginManager().registerEvents((Listener) roleAction, HigurashiUHC.getInstance());
     }

@@ -11,13 +11,10 @@ import java.util.Map;
 public class VoteTask extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
-    public static boolean isRunning = false;
     public static HPlayer banPlayer;
 
     @Override
     public void run() {
-
-        isRunning = true;
 
         if(time == 0){
             HPlayer oryo =  Role.ORYO_SONOZAKI.getHPlayer();

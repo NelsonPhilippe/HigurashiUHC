@@ -1,20 +1,19 @@
 package fr.xilitra.higurashiuhc;
 
-import fr.xilitra.higurashiuhc.command.*;
 import fr.xilitra.higurashiuhc.command.DebugCmd;
-import fr.xilitra.higurashiuhc.command.HigurashiCmd;
-import fr.xilitra.higurashiuhc.command.RessuciteCmd;
+import fr.xilitra.higurashiuhc.command.executor.HigurashiCmd;
+import fr.xilitra.higurashiuhc.command.executor.RessuciteCmd;
+import fr.xilitra.higurashiuhc.command.executor.CoupableCmd;
+import fr.xilitra.higurashiuhc.command.executor.VoteCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.*;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import me.lulu.datounms.model.biome.BiomeData;
 import me.lulu.datounms.v1_8_R3.BiomeReplacer;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
-import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

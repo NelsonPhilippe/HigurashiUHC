@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.clans;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
 
 import java.util.ArrayList;
@@ -124,6 +125,7 @@ public enum Clans {
         if(prevClans != null)
             prevClans.removePlayer(p);
         this.playerList.add(p.getUuid());
+        p.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), getName());
     }
 
     public void removePlayer(HPlayer p){

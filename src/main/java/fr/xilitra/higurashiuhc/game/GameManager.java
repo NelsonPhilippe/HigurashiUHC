@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
@@ -8,6 +9,8 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
@@ -16,6 +19,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import javax.annotation.processing.RoundEnvironment;
 import java.util.*;
 
 public class GameManager {
@@ -62,13 +66,16 @@ public class GameManager {
 
             Role role = roles.get(number);
 
-            player.setRole(role);
+            if(role.isRole(Role.JIRO_TOMITAKE)){
+                role = Role.MERCENAIRE;
+                player.getInfoData().setDataInfo("hiddenJiro", true);
+            }
+            player.setRole(role, true);
             TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getName(), "");
             player.getPlayer().sendMessage(role.getDecription());
             role.getDefaultClans().addPlayer(player);
 
             players.replace(player.getUuid(), player);
-            player.getInfo().put(KuraudoOishiAction.InfoList.SEXE, role.getSexe().name());
             player.setPlayerState(PlayerState.INGAME);
 
 
@@ -82,6 +89,11 @@ public class GameManager {
 
             if(role.isRole(Role.MION_SONOZAKI, Role.SHION_SONOSAKI)){
                 player.getPlayer().setHealth(22);
+            }
+
+            if(role.isRole(Role.SATOSHI_HOJO)){
+                player.addMaledictionReason(Reason.SATOSHI_HOJO);
+                player.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), Clans.HINAMIZAWA.getName());
             }
 
             player.getPlayer().playSound(player.getPlayer().getLocation(), sound, 1, 1);
@@ -101,6 +113,28 @@ public class GameManager {
 
     public void game(){
         new GameTask().runTask(1000,1000);
+
+        HPlayer hanyu = Role.HANYU.getHPlayer();
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(hanyu != null && hanyu.getPlayer() != null && rika != null && rika.getPlayer() != null) {
+            hanyu.getPlayer().sendMessage("Rika est incarnée par: " + rika.getName());
+            rika.getPlayer().sendMessage("Hanyu est incarnée par: " + hanyu.getName());
+        }
+
+        HPlayer satoshi = Role.SATOSHI_HOJO.getHPlayer();
+        if(satoshi != null && satoshi.getPlayer() != null){
+
+            List<UUID> memberOfClub = Clans.MEMBER_OF_CLUB.getUUIDList();
+            if(!memberOfClub.isEmpty()){
+
+                UUID luckyOrNot = memberOfClub.get(new Random().nextInt(memberOfClub.size()));
+                satoshi.getPlayer().sendMessage("Le joueur: " + Objects.requireNonNull(HigurashiUHC.getGameManager().getHPlayer(luckyOrNot)).getName() + " est un membre du club");
+
+            }else
+                satoshi.getPlayer().sendMessage("Il n'y a aucun membre dans le clan du "+Clans.MEMBER_OF_CLUB.getName());
+
+        }
+
         this.setStates(GameStates.GAME);
     }
 

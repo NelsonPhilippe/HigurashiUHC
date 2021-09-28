@@ -61,26 +61,4 @@ public class KuraudoOishiAction extends RoleAction implements Listener {
         return false;
     }
 
-    public enum InfoList {
-
-        KILL("Nombre de kill"),
-        DIAMOND("Nombre de diamand"),
-        EFFECT("Effet sur le joueur"),
-        COMMANDS("Commande accessible par le joueur"),
-        APPLE("Nombre de pomme dorée"),
-        ROLE("Lettre du role"),
-        SPECIAL_ITEM("Item special possédé par le joueur"),
-        SEXE("Sexe du joueur");
-
-        String type;
-
-        InfoList(String type) {
-            this.type = type;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-    }
 }

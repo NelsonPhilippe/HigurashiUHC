@@ -143,6 +143,13 @@ public enum Role {
         return false;
     }
 
+    public boolean isRole(List<Role> roles){
+        for(Role role : roles)
+            if(isRole(role))
+                return true;
+        return false;
+    }
+
     public boolean isAssigned(){
         return !getHPlayerList().isEmpty();
     }

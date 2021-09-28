@@ -89,7 +89,7 @@ public class DebugCmd implements CommandExecutor {
 
 
                         if(role.equalsIgnoreCase(roleList.getName() + " ") || role.equalsIgnoreCase(roleList.getName())){
-                            hPlayer.setRole(roleList);
+                            hPlayer.setRole(roleList, true);
                             Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                             p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);
                             HigurashiUHC.getGameManager().getHPlayerList().put(hPlayer.getUuid(), hPlayer);

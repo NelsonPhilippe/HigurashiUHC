@@ -51,14 +51,6 @@ public class StartTask extends JavaTask {
         }
 
         if(time == 0){
-            HigurashiUHC.getGameManager().getHPlayerList().values().forEach(player -> {
-                if(player.getPlayer() != null) {
-                    player.getPlayer().sendMessage("Vous êtes " + player.getRole().getName());
-                    if(player.getRole().isRole(Role.HANYU) && Role.RIKA_FURUDE.getHPlayer() != null)
-                        player.getPlayer().sendMessage("Rika est incarnée par: "+ Role.RIKA_FURUDE.getHPlayer().getName());
-                }
-            });
-
             HigurashiUHC.getGameManager().game();
 
             this.stopTask();

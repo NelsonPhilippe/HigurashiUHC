@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -316,8 +317,8 @@ public class DamageListener implements Listener {
 
             killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
 
-            killerHplayer.getInfo().put(KuraudoOishiAction.InfoList.KILL,
-                    String.valueOf(Integer.parseInt(killerHplayer.getInfo().get(KuraudoOishiAction.InfoList.KILL)) + 1));
+            killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
+                    String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
 
         }
 

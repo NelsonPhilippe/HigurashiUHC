@@ -36,10 +36,9 @@ public class HPlayer {
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
 
-    private final Map<KuraudoOishiAction.InfoList, String> info = new HashMap<>();
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
-    private InfoData infoData = new InfoData();
+    private final InfoData infoData = new InfoData();
 
     public HPlayer(String name, Player player) {
         this.name = name;
@@ -64,21 +63,20 @@ public class HPlayer {
         return role;
     }
 
-    public void setRole(Role role){
+    public void setRole(Role role, boolean clansFollow){
         if(this.role != null)
             this.role.removePlayer(this);
         if(role == null)
             role = Role.NULL;
         this.role = role;
+        if(clansFollow)
+            this.role.getDefaultClans().addPlayer(this);
+        getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
         role.addPlayer(this);
     }
 
     public Runnable getDeathTask(){
         return this.deathTask;
-    }
-
-    public Map<KuraudoOishiAction.InfoList, String> getInfo() {
-        return info;
     }
 
     public boolean playerDontMove() {

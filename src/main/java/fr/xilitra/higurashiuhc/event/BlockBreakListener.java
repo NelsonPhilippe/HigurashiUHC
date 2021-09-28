@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
@@ -57,7 +58,7 @@ public class BlockBreakListener implements Listener {
         }
 
         if(block.getType() == Material.DIAMOND_ORE)
-            hPlayer.getInfo().put(KuraudoOishiAction.InfoList.DIAMOND, String.valueOf(Integer.parseInt(hPlayer.getInfo().get(KuraudoOishiAction.InfoList.DIAMOND)) + 1));
+            hPlayer.getInfoData().setDataInfo(InfoData.InfoList.DIAMOND.name(), String.valueOf(Integer.parseInt((String) hPlayer.getInfoData().getDataInfo(InfoData.InfoList.DIAMOND.name())) + 1));
     }
 
 }

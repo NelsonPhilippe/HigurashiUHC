@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.player;
 
 public enum Reason {
     DOLL_TRAGEDY("DOLLTRAGEDY"),
+    SATOSHI_HOJO("SATOSHI_HOJO"),
     OYASHIRO_TRAGEDY_EPISODE("OYATRAGEDYEP"),
     OYASHIRO_TRAGEDY("OYATRAGEDY");
     final String name;

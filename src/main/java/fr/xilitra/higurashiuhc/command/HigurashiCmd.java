@@ -7,6 +7,7 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.DimensionTaskTp;
 import fr.xilitra.higurashiuhc.game.task.taskClass.PolicierTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.HanyuAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
@@ -286,12 +287,12 @@ public class HigurashiCmd implements CommandExecutor {
                     return true;
                 }
 
-                Map<KuraudoOishiAction.InfoList, String> infos = targetHPlayer.getInfo();
+                Map<String, Object> infos = targetHPlayer.getInfoData().getDataInfos();
                 Random random = new Random();
                 int randomInfo = random.nextInt(infos.size()) - 1;
                 int randomInfoSelect = random.nextInt(4);
 
-                KuraudoOishiAction.InfoList[] infoList = KuraudoOishiAction.InfoList.values();
+                InfoData.InfoList[] infoList = InfoData.InfoList.values();
 
                 p.sendMessage("Le joueur suspecté est " + targetHPlayer.getName() + " :");
 
@@ -301,9 +302,9 @@ public class HigurashiCmd implements CommandExecutor {
                         i--;
                     }
 
-                    KuraudoOishiAction.InfoList info = infoList[randomInfo];
+                    InfoData.InfoList info = infoList[randomInfo];
 
-                    if(info.equals(KuraudoOishiAction.InfoList.EFFECT)){
+                    if(info.equals(InfoData.InfoList.EFFECT)){
 
 
                         if(p.getActivePotionEffects().size() > 0){
@@ -314,7 +315,7 @@ public class HigurashiCmd implements CommandExecutor {
 
                     }else {
 
-                        if(info.equals(KuraudoOishiAction.InfoList.ROLE)){
+                        if(info.equals(InfoData.InfoList.ROLE)){
                             char letter = 0;
 
                             for(int c = 0; c < targetHPlayer.getRole().getName().length(); c++){

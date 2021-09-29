@@ -75,6 +75,31 @@ public class EpisodeListener implements Listener {
 
         }
 
+        if(ScenarioList.getActiveScenario() != null) {
+
+            if (ScenarioList.OYASHIRO.isActive())
+                ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
+
+            if (ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
+
+                HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
+                if (keiichi != null && keiichi.getPlayer() != null)
+                    if (keiichi.getPlayer().getMaxHealth() < 20) {
+                        keiichi.getPlayer().sendMessage("DOLL) Un episode est passé, tu viens de gagner un coeur de plus.");
+                        keiichi.getPlayer().setMaxHealth(keiichi.getPlayer().getMaxHealth() + 1);
+                    }
+
+            }
+
+        }else if(randomEP == e.getEpisode()){
+
+            List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getHPlayerList();
+
+            if(!roleLists.isEmpty())
+                roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);
+
+        }
+
         if(HigurashiUHC.getGameManager().isWatanagashi()){
 
             HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
@@ -120,31 +145,6 @@ public class EpisodeListener implements Listener {
                     player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
             }
 
-
-        }
-
-        if(ScenarioList.getActiveScenario() != null) {
-
-            if (ScenarioList.OYASHIRO.isActive())
-                ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
-
-            if (ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
-
-                HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
-                if (keiichi != null && keiichi.getPlayer() != null)
-                    if (keiichi.getPlayer().getMaxHealth() < 20) {
-                        keiichi.getPlayer().sendMessage("DOLL) Un episode est passé, tu viens de gagner un coeur de plus.");
-                        keiichi.getPlayer().setMaxHealth(keiichi.getPlayer().getMaxHealth() + 1);
-                    }
-
-            }
-
-        }else if(randomEP == e.getEpisode()){
-
-            List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getHPlayerList();
-
-            if(!roleLists.isEmpty())
-                roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);
 
         }
 

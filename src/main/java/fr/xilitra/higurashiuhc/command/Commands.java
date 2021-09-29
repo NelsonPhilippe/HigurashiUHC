@@ -2,26 +2,31 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.command.executor.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Commands {
-    RESSUCITE("r", new RessuciteCmd()),
-    RIKATP("rika", new TeleportRikaCmd()),
-    VOTE("vote", new VoteCmd()),
-    BAN("ban", new BanCmd()),
-    INVERSER("inverser", new InverserCmd()),
-    PENSE("pense", new PenseCmd()),
-    DIMENSION("dimension", new DimensionCmd()),
-    FORCE("force", new ForceCmd()),
-    HEAL("heal", new HealCmd()),
-    LIST("list", new ListCmd()),
-    ASSASSINER("assassiner", new AssassinCmd()),
-    PVCMD("pv", new PvCmd()),
-    SUSPECTER("suspecter", new SuspecterCmd()),
-    COMPARER("comp", new ComparerCmd()),
-    RIKA("rika", new RikaCmd()),
-    COUPABLE("c", new CoupableCmd());
+
+    RESSUCITE("r", new RessuciteCmd(), false),
+    RIKATP("rika", new TeleportRikaCmd(), true),
+    VOTE("vote", new VoteCmd(), false),
+    BAN("ban", new BanCmd(), false),
+    INVERSER("inverser", new InverserCmd(), true),
+    PENSE("pense", new PenseCmd(), true),
+    DIMENSION("dimension", new DimensionCmd(), false),
+    FORCE("force", new ForceCmd(), true),
+    HEAL("heal", new HealCmd(), true),
+    LIST("list", new ListCmd(), false),
+    ASSASSINER("assassiner", new AssassinCmd(), false),
+    PVCMD("pv", new PvCmd(), false),
+    SUSPECTER("suspecter", new SuspecterCmd(), false),
+    COMPARER("comp", new ComparerCmd(), false),
+    RIKA("rika", new RikaCmd(), false),
+    COUPABLE("c", new CoupableCmd(), false);
 
     String initials;
     CommandsExecutor commandsExecutor;
+    boolean canStole;
 
     public static Commands getCommands(String initials){
         for(Commands commands : values())
@@ -30,13 +35,30 @@ public enum Commands {
         return null;
     }
 
-    Commands(String initials, CommandsExecutor ce){
+    public static List<Commands> getStoleCommande(){
+        return new ArrayList<Commands>(){{
+            for(Commands commands : values())
+                if(commands.canStole())
+                    add(commands);
+        }};
+    }
+
+    Commands(String initials, CommandsExecutor ce, boolean canStole){
         this.initials = initials;
         this.commandsExecutor = ce;
+        this.canStole = canStole;
+    }
+
+    public String getInitials(){
+        return initials;
     }
 
     public CommandsExecutor getCommandExecutor(){
         return commandsExecutor;
+    }
+
+    public boolean canStole(){
+        return canStole;
     }
 
 }

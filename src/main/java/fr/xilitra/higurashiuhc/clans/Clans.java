@@ -75,7 +75,6 @@ public enum Clans {
     private List<Clans> minorClans = null;
     private final Integer majorClans;
 
-
     Clans(int id, String name, Integer majorClansID){
         this.id = id;
         this.name = name;

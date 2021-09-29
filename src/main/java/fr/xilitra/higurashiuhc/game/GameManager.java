@@ -2,12 +2,14 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
+import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -132,6 +134,32 @@ public class GameManager {
 
             }else
                 satoshi.getPlayer().sendMessage("Il n'y a aucun membre dans le clan du "+Clans.MEMBER_OF_CLUB.getName());
+
+        }
+
+        HPlayer okonogi = Role.OKONOGI.getHPlayer();
+        HPlayer miyoTakano = Role.MIYO_TAKANO.getHPlayer();
+
+        if(okonogi != null && okonogi.getPlayer() != null && miyoTakano != null)
+            okonogi.getPlayer().sendMessage("Miyo Takano est joué par: "+miyoTakano.getName());
+
+        List<HPlayer> hPlayerList = Role.MERCENAIRE.getHPlayerList();
+        KitList[] listKit = KitList.values();
+
+        for(HPlayer mercenaire : hPlayerList){
+
+            KitList kit = listKit[new Random().nextInt(listKit.length)];
+            mercenaire.setKit(kit);
+
+            String message = "Vous avez recu le kit: "+kit.name();
+            if(kit == KitList.VOLEUR){
+                List<Commands> stolable = Commands.getStoleCommande();
+                Commands stole = stolable.get(new Random().nextInt(stolable.size()));
+                message += ", vous avez recu la commande: "+stole.name();
+            }
+
+            if(mercenaire.getPlayer() != null)
+                mercenaire.getPlayer().sendMessage(message);
 
         }
 

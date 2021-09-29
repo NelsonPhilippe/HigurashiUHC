@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -22,12 +23,18 @@ public class CommandsListener  implements CommandExecutor {
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(((Player) commandSender).getUniqueId());
         if(hPlayer == null)
             return false;
+
         Player player = Bukkit.getPlayer(hPlayer.getUuid());
         if(player == null)
             return false;
 
         if(strings.length < 1){
             player.sendMessage("Merci de faire /h (commande)");
+            return true;
+        }
+
+        if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME){
+            player.sendMessage("Merci d'attendre le début de la partie");
             return true;
         }
 

@@ -24,7 +24,7 @@ public class ListCmd implements CommandsExecutor {
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
             if(hPlayerTarget == null){
                 p.sendMessage("Cible Introuvable");
-                return true;
+                return false;
             }
 
             if(hPlayerTarget.isChatOkonogi()) {

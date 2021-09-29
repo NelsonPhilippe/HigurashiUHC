@@ -5,7 +5,6 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nullable;
-import javax.sound.sampled.Line;
 import java.util.*;
 
 public class HPlayer {
@@ -31,7 +29,6 @@ public class HPlayer {
 
     private boolean playerDontMove = false;
     private boolean chatOkonogi = false;
-    private boolean kit = false;
 
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
@@ -219,11 +216,7 @@ public class HPlayer {
     }
 
     public boolean hasKit() {
-        return kit;
-    }
-
-    public void setKit(boolean kit) {
-        this.kit = kit;
+        return kitList != null;
     }
 
     public KitList getKit() {

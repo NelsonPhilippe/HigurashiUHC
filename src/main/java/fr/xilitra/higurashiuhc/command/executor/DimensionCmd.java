@@ -26,7 +26,7 @@ public class DimensionCmd implements CommandsExecutor {
         ///float pitchH = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.pitch");
         String worldH = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.hanyu.world");
 
-        HPlayer rika =  Role.RIKA_FURUDE.getHPlayer();
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 
         int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.x");
         int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.y");

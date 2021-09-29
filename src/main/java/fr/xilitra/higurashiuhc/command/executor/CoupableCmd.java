@@ -20,7 +20,10 @@ public class CoupableCmd implements CommandsExecutor {
         if(p == null) return false;
 
         HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
-        if(targetHPlayer == null) return false;
+        if(targetHPlayer == null){
+            p.sendMessage("Cible non trouvé");
+            return false;
+        }
             
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
@@ -39,6 +42,7 @@ public class CoupableCmd implements CommandsExecutor {
 
         if(targetHPlayer.getClans().getName().equalsIgnoreCase(Clans.HINAMIZAWA.getName())){
             p.sendMessage("L'enquête a échoué.");
+            return true;
         }
 
         if(targetHPlayer.getRole().isRole(Role.RIKA_FURUDE))

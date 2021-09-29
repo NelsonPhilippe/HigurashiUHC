@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
@@ -22,7 +23,6 @@ public class BanCmd implements CommandsExecutor {
         if(strings.length == 2){
 
             OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) hPlayer.getRole().getRoleAction();
-
 
             Player target = Bukkit.getPlayer(strings[1]);
 
@@ -45,7 +45,7 @@ public class BanCmd implements CommandsExecutor {
             TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]" );
             message.addExtra(clickable);
 
-            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "vote " + targetHPlayer.getUuid().toString()));
+            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h "+ Commands.VOTE.getInitials()));
 
             for(HPlayer players : Clans.HINAMIZAWA.getHPlayerList()){
 

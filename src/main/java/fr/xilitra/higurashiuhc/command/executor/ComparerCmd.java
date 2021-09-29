@@ -49,13 +49,9 @@ public class ComparerCmd implements CommandsExecutor {
                         Random random = new Random();
                         int randomClan = random.nextInt(100);
 
-                        if(randomClan > 50){
+                        if(randomClan > 50)
                             p.sendMessage(strings[2] + " est dans le camp Sonozaki");
-                            return true;
-
-                        }
-
-                        p.sendMessage(strings[2] + " est dans le camp Club");
+                        else p.sendMessage(strings[2] + " est dans le camp Club");
                         return true;
 
                     }

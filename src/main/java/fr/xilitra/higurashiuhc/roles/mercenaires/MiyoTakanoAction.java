@@ -15,8 +15,6 @@ import org.bukkit.event.Listener;
 
 public class MiyoTakanoAction extends RoleAction implements Listener {
 
-    private int order = 2;
-
     @EventHandler
     public void onRoleSelected(RoleSelected e){
         HPlayer player = e.getPlayer();
@@ -40,14 +38,6 @@ public class MiyoTakanoAction extends RoleAction implements Listener {
 
         }
 
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
     @Override

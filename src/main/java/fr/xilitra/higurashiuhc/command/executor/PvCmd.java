@@ -20,7 +20,7 @@ public class PvCmd implements CommandsExecutor{
 
             if(target == null){
                 p.sendMessage("Le joueur n'existe pas");
-                return true;
+                return false;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());

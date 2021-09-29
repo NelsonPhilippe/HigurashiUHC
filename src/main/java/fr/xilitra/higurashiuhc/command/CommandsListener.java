@@ -44,13 +44,13 @@ public class CommandsListener  implements CommandExecutor {
             return true;
         }
 
-        if(!hPlayer.getRole().hasCommandAccess(commands)){
+        if(!hPlayer.hasCommandAccess(commands)){
             player.sendMessage("Vous ne pouvez pas / plus utiliser cette commande");
             return true;
         }
 
         if(commands.getCommandExecutor().onCommand(hPlayer, strings))
-            hPlayer.getRole().useCommand(commands);
+            hPlayer.useCommand(commands);
 
         return true;
     }

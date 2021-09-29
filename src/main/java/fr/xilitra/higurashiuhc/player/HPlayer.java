@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.player;
 
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
@@ -37,6 +38,8 @@ public class HPlayer {
     private final List<Reason> mrList = new ArrayList<>();
     private final InfoData infoData = new InfoData();
 
+    private HashMap<Commands, Integer> commandsIntegerHashMap;
+
     public HPlayer(String name, Player player) {
         this.name = name;
         this.uuid = player.getUniqueId();
@@ -68,6 +71,7 @@ public class HPlayer {
         this.role = role;
         if(clansFollow)
             this.role.getDefaultClans().addPlayer(this);
+        this.commandsIntegerHashMap = this.role.getDefaultCommands();
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
         role.addPlayer(this);
     }
@@ -229,6 +233,40 @@ public class HPlayer {
 
     public InfoData getInfoData(){
         return infoData;
+    }
+
+    public void removeCommandAccess(Commands commands){
+        commandsIntegerHashMap.remove(commands);
+    }
+
+    public void useCommand(Commands commands){
+        int num = getCommandAccess(commands);
+        if(num>0)
+            commandsIntegerHashMap.replace(commands, num-1);
+    }
+
+    public boolean hasCommandAccess(Commands commands){
+        return getCommandAccess(commands) != 0;
+    }
+
+    public int getCommandAccess(Commands commands){
+        Integer value = commandsIntegerHashMap.get(commands);
+        if(value == null)
+            return 0;
+        return value;
+    }
+
+    public void setCommandAccess(Commands commands, Integer number){
+
+        removeCommandAccess(commands);
+        commandsIntegerHashMap.put(commands, number);
+
+    }
+
+    public void addCommandAccess(Commands commands){
+
+        setCommandAccess(commands, getCommandAccess(commands)+1);
+
     }
 
 }

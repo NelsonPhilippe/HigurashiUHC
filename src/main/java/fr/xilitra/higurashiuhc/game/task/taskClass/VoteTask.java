@@ -11,10 +11,9 @@ import java.util.Map;
 public class VoteTask extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
-    public static HPlayer banPlayer;
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(time == 0){
             HPlayer oryo =  Role.ORYO_SONOZAKI.getHPlayer();
@@ -33,14 +32,12 @@ public class VoteTask extends BukkitTask {
                 }
             }
 
-            for (Map.Entry<HPlayer, Integer> votesPlayer : oryoSonozakiAction.getVoteBan().entrySet()){
-                if(votesPlayer.getValue() >= majorite / 2){
-                    if(votesPlayer.getKey().getPlayer() != null)
-                    votesPlayer.getKey().getPlayer().setMaxHealth(10);
-                    banPlayer = votesPlayer.getKey();
-                    new BanTask().runTask(1000,1000);
-                    break;
-                }
+            HPlayer votesPlayer = oryoSonozakiAction.getVotedPlayer();
+
+            if(oryoSonozakiAction.getTotalVote() >= majorite / 2){
+                if(votesPlayer.getPlayer() != null)
+                    votesPlayer.getPlayer().setMaxHealth(votesPlayer.getPlayer().getMaxHealth()-5);
+                new BanTask().runTaskLater(10000);
             }
 
             this.stopTask();

@@ -26,7 +26,7 @@ public class DimensionTaskTp extends BukkitTask {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(hanyu.getPlayer() == null) {
             this.stopTask();

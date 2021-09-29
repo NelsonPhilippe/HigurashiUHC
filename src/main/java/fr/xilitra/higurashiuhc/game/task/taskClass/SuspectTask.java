@@ -10,7 +10,7 @@ public class SuspectTask extends BukkitTask {
     private int time;
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(time == 0){
             HPlayer hPlayer =  Role.KURAUDO_OISHI.getHPlayer();

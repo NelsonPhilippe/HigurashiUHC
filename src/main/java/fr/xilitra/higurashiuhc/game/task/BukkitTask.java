@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 public abstract class BukkitTask implements Task, Runnable {
 
     org.bukkit.scheduler.BukkitTask bukkitTask = null;
+    boolean instant = false;
     private final int taskID;
 
     public BukkitTask() {
@@ -25,11 +26,22 @@ public abstract class BukkitTask implements Task, Runnable {
     }
 
     @Override
-    public boolean runTask(long l1, long l2) {
+    public boolean runTaskTimer(long l1, long l2) {
         if(isRunning())
             return false;
 
+        instant = false;
         bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1*20)/1000, (l2*20)/1000);
+        return true;
+    }
+
+    @Override
+    public boolean runTaskLater(long l1) {
+        if(isRunning())
+            return false;
+
+        instant = true;
+        bukkitTask = Bukkit.getScheduler().runTaskLater(HigurashiUHC.getInstance(), this, (l1*20)/1000);
         return true;
     }
 
@@ -51,5 +63,14 @@ public abstract class BukkitTask implements Task, Runnable {
         return null;
 
     }
+
+    @Override
+    public void run(){
+        this.execute();
+        if(instant)
+            stopTask();
+    }
+
+    public abstract void execute();
 
 }

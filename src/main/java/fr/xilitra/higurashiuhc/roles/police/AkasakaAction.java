@@ -38,8 +38,8 @@ public class AkasakaAction extends RoleAction implements Listener {
             }
 
             hPlayer.setPlayerDontMove(true);
-            new StuntTask(hPlayer).runTask(1000,1000);
-            new CouldownMatraque().runTask(1000,1000);
+            new StuntTask(hPlayer).runTaskTimer(1000,1000);
+            new CouldownMatraque().runTaskLater(HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.matraque") * 1000L);
         }
 
     }

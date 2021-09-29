@@ -27,6 +27,10 @@ public class OryoSonozakiAction extends RoleAction {
         return voteBan;
     }
 
+    public HPlayer getVotedPlayer(){
+        return votedPlayer;
+    }
+
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 

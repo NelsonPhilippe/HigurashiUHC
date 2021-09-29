@@ -78,11 +78,11 @@ public class Oyashiro extends Scenario {
         ((RenaRyuguAction)rr.getRoleAction()).setBossBar(rrBB);
 
         RenaOyashiroTask rot = new RenaOyashiroTask();
-        rot.runTask(30000,30000);
+        rot.runTaskTimer(30000,30000);
         renaTaskID = rot.getTaskID();
 
         KeiichiOyashiroTask kot = new KeiichiOyashiroTask();
-        kot.runTask(60000,60000);
+        kot.runTaskTimer(60000,60000);
         keiichiTaskID = kot.getTaskID();
 
     }

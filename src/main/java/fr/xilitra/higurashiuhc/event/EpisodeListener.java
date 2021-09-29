@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.WatanagashiTask;
@@ -38,13 +39,15 @@ public class EpisodeListener implements Listener {
     public void onEpisodeUpdated(EpisodeUpdate e){
 
         CustomCraft.baseballBat.setUsedOnEpisode(false);
-        MiyoTakanoAction miyoTakanoAction = (MiyoTakanoAction) Role.MIYO_TAKANO.getRoleAction();
-        miyoTakanoAction.setOrder(2);
+        HPlayer miyoTakanoAction = Role.MIYO_TAKANO.getHPlayer();
+
+        if(miyoTakanoAction != null)
+            miyoTakanoAction.setCommandAccess(Commands.ASSASSINER, 2);
 
         if(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")){
 
             HigurashiUHC.getGameManager().setWatanagashi(true);
-            new WatanagashiTask().runTask(1000, 1000); // Toute les secondes
+            new WatanagashiTask().runTaskTimer(1000, 1000); // Toute les secondes
             KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
             HPlayer player = role.getLinkedRole().getHPlayer();
             if(player != null){

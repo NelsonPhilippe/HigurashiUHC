@@ -103,7 +103,7 @@ public class GameManager {
 
         }
 
-        new StartTask().runTask(1000,1000);
+        new StartTask().runTaskTimer(1000,1000);
 
         World world = Bukkit.getWorld("world");
 
@@ -114,7 +114,7 @@ public class GameManager {
     }
 
     public void game(){
-        new GameTask().runTask(1000,1000);
+        new GameTask().runTaskTimer(1000,1000);
 
         HPlayer hanyu = Role.HANYU.getHPlayer();
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
@@ -155,6 +155,7 @@ public class GameManager {
             if(kit == KitList.VOLEUR){
                 List<Commands> stolable = Commands.getStoleCommande();
                 Commands stole = stolable.get(new Random().nextInt(stolable.size()));
+                mercenaire.addCommandAccess(stole);
                 message += ", vous avez recu la commande: "+stole.name();
             }
 
@@ -168,7 +169,7 @@ public class GameManager {
 
     public void startRikaDeathTask(){
         if(!((RikaDeathTask) rikaDeathTask).isRunning()){
-            ((RikaDeathTask) rikaDeathTask).runTask(1000,1000);
+            ((RikaDeathTask) rikaDeathTask).runTaskTimer(1000,1000);
         }
     }
 

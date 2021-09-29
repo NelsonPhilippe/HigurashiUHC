@@ -17,7 +17,7 @@ public class ChatTask extends BukkitTask {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         OkonogiAction okonogiActionRole = (OkonogiAction) Role.OKONOGI.getRoleAction();
 

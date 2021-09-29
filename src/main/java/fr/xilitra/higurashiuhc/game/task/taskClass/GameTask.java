@@ -25,7 +25,7 @@ public class GameTask extends BukkitTask {
     private final int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(time >= worldborderActivation){
             World world = Bukkit.getWorld("world");

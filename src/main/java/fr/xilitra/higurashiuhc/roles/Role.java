@@ -228,38 +228,7 @@ public enum Role {
         return roleAction;
     }
 
-    public void removeCommandAccess(Commands commands){
-        commandsIntegerHashMap.remove(commands);
+    public HashMap<Commands, Integer> getDefaultCommands() {
+        return (HashMap<Commands, Integer>) commandsIntegerHashMap.clone();
     }
-
-    public void useCommand(Commands commands){
-        int num = getCommandAccess(commands);
-        if(num>0)
-            commandsIntegerHashMap.replace(commands, num-1);
-    }
-
-    public boolean hasCommandAccess(Commands commands){
-        return getCommandAccess(commands) != 0;
-    }
-
-    public int getCommandAccess(Commands commands){
-        Integer value = commandsIntegerHashMap.get(commands);
-        if(value == null)
-            return 0;
-        return value;
-    }
-
-    public void setCommandAccess(Commands commands, Integer number){
-
-        removeCommandAccess(commands);
-        commandsIntegerHashMap.put(commands, number);
-
-    }
-
-    public void addCommandAccess(Commands commands){
-
-        setCommandAccess(commands, getCommandAccess(commands)+1);
-
-    }
-
 }

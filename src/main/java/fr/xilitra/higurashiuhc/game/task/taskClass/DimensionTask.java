@@ -18,7 +18,7 @@ public class DimensionTask extends BukkitTask {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
 
         if(time <= 0){

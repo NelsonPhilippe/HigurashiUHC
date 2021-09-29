@@ -16,7 +16,7 @@ public class StartTask extends JavaTask {
     private int time = 10;
 
     @Override
-    public void run() {
+    public void execute() {
 
         for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
             scoreboard.getValue().setLines(

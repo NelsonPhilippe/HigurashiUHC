@@ -15,7 +15,7 @@ public class DeathTask extends BukkitTask {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(time == 0){
             for(ItemStack item : p.getInventory().getContents()){

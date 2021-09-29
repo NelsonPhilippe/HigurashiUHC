@@ -14,7 +14,7 @@ public class PolicierTask extends JavaTask {
     }
 
     @Override
-    public void run() {
+    public void execute() {
 
         if(time == 0){
 

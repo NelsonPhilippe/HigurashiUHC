@@ -5,6 +5,7 @@ import java.util.TimerTask;
 public abstract class JavaTask extends TimerTask implements Task{
 
     private boolean running = false;
+    boolean instant = false;
     private final int taskID;
 
     public JavaTask(){
@@ -21,17 +22,27 @@ public abstract class JavaTask extends TimerTask implements Task{
     @Override
     public boolean stopTask(){
         if(cancel()){
-            running = false;
             return true;
         }
+        running = false;
         return false;
     }
 
     @Override
-    public boolean runTask(long l1, long l2){
+    public boolean runTaskTimer(long l1, long l2){
         if(running) return false;
         TaskRunner.timer.schedule(this, l1, l2);
         running = true;
+        instant = false;
+        return true;
+    }
+
+    @Override
+    public boolean runTaskLater(long l1){
+        if(running) return false;
+        TaskRunner.timer.schedule(this, l1);
+        running = true;
+        instant = true;
         return true;
     }
 
@@ -39,5 +50,14 @@ public abstract class JavaTask extends TimerTask implements Task{
     public boolean isRunning(){
         return running;
     }
+
+    @Override
+    public void run(){
+        this.execute();
+        if(instant)
+            stopTask();
+    }
+
+    public abstract void execute();
 
 }

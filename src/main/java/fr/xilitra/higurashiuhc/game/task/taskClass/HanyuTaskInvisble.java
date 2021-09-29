@@ -12,7 +12,7 @@ public class HanyuTaskInvisble extends BukkitTask {
     private int time = 60;
 
     @Override
-    public void run() {
+    public void execute() {
 
 
         if(time == 0){

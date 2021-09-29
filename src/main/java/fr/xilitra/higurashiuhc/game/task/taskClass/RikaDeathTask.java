@@ -15,13 +15,11 @@ public class RikaDeathTask extends BukkitTask {
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.weakness") * 60;
 
     @Override
-    public void run() {
+    public void execute() {
 
-        if(!isRunning()){
-            for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(player.getPlayer() != null && player.getClans().isClans(Clans.HINAMIZAWA)){
-                    player.getPlayer().sendMessage("Rika est morte il vous reste " + time + " avant de subir un malus.");
-                }
+        for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
+            if(player.getPlayer() != null && player.getClans().isClans(Clans.HINAMIZAWA)){
+                player.getPlayer().sendMessage("Rika est morte il vous reste " + time + " avant de subir un malus.");
             }
         }
 

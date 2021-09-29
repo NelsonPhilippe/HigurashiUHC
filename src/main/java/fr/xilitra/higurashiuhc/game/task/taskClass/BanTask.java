@@ -1,21 +1,24 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
 public class BanTask extends BukkitTask {
 
-    private int time = 60 * 10;
-
     @Override
-    public void run() {
+    public void execute() {
 
-        if(time == 0){
-            if(VoteTask.banPlayer != null){
-                VoteTask.banPlayer.getPlayer().setMaxHealth(20);
-            }
-            stopTask();
+        HPlayer oryo =  Role.ORYO_SONOZAKI.getHPlayer();
+        if(oryo == null) {
+            return;
         }
 
-        time--;
+        OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) oryo.getRole().getRoleAction();
+
+        if(oryoSonozakiAction.getVotedPlayer().getPlayer() != null)
+            oryoSonozakiAction.getVotedPlayer().getPlayer().setMaxHealth(oryoSonozakiAction.getVotedPlayer().getPlayer().getMaxHealth()+5);
+
     }
 }

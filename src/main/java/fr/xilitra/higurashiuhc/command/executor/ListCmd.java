@@ -32,7 +32,7 @@ public class ListCmd implements CommandsExecutor {
                 return true;
             }
 
-            new ChatTask(hPlayerTarget).runTask(1000,1000);
+            new ChatTask(hPlayerTarget).runTaskTimer(1000,1000);
 
             return true;
         }

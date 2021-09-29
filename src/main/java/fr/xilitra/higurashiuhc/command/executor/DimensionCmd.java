@@ -54,7 +54,7 @@ public class DimensionCmd implements CommandsExecutor {
 
         boolean finalTeleportRika = teleportRika;
         ((HanyuAction)Role.HANYU.getRoleAction()).setDimensionIsUsed(true);
-        new DimensionTaskTp(hPlayer, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)).runTask(1000,1000);
+        new DimensionTaskTp(hPlayer, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)).runTaskTimer(1000,1000);
 
         return true;
     }

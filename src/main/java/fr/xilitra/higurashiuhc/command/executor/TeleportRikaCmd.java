@@ -37,7 +37,7 @@ public class TeleportRikaCmd implements CommandsExecutor {
             rika.getPlayer().teleport(new Location(worldR, xR, yR, zR));
             p.teleport(new Location(world, x, y, z));
 
-            new DimensionDeathRikaTask(rika, hPlayer).runTask(1000,1000);
+            new DimensionDeathRikaTask(rika, hPlayer).runTaskTimer(1000,1000);
 
             p.sendMessage("Attention vous allez être retéléporté dans 30 secondes");
             return true;

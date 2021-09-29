@@ -10,7 +10,7 @@ import fr.xilitra.higurashiuhc.utils.MathMain;
 public class RenaOyashiroTask extends JavaTask {
 
     @Override
-    public void run() {
+    public void execute() {
 
         RenaRyuguAction rr = (RenaRyuguAction) Role.RENA_RYUGU.getRoleAction();
         KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();

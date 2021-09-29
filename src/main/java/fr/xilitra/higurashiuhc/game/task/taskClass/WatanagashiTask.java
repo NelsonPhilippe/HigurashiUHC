@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class WatanagashiTask extends BukkitTask {
     @Override
-    public void run() {
+    public void execute() {
 
         Role rf = Role.RIKA_FURUDE;
         if(rf.getHPlayer() == null)

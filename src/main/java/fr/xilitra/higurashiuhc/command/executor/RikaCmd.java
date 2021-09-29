@@ -24,14 +24,14 @@ public class RikaCmd implements CommandsExecutor {
 
             if(target == null){
                 p.sendMessage("Cible non trouvée");
-                return true;
+                return false;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
             if(targetHPlayer == null){
                 p.sendMessage("Cible Introuvable");
-                return true;
+                return false;
             }
 
             AkasakaAction akasakaAction = (AkasakaAction) targetHPlayer.getRole().getRoleAction();

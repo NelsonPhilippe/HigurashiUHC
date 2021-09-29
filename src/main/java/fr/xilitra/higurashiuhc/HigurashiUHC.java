@@ -1,10 +1,7 @@
 package fr.xilitra.higurashiuhc;
 
+import fr.xilitra.higurashiuhc.command.CommandsListener;
 import fr.xilitra.higurashiuhc.command.DebugCmd;
-import fr.xilitra.higurashiuhc.command.executor.HigurashiCmd;
-import fr.xilitra.higurashiuhc.command.executor.RessuciteCmd;
-import fr.xilitra.higurashiuhc.command.executor.CoupableCmd;
-import fr.xilitra.higurashiuhc.command.executor.VoteCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
@@ -129,11 +126,8 @@ public final class HigurashiUHC extends JavaPlugin {
     }
 
     private void registerCommands(){
-        this.getCommand("ressucite").setExecutor(new RessuciteCmd());
-        this.getCommand("h").setExecutor(new HigurashiCmd());
+        new CommandsListener();
         this.getCommand("debug").setExecutor(new DebugCmd());
-        this.getCommand("vote").setExecutor(new VoteCmd());
-        this.getCommand("coupable").setExecutor(new CoupableCmd());
     }
 
     public static HigurashiUHC getInstance(){

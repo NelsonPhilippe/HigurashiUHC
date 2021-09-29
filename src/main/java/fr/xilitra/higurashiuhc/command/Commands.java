@@ -19,10 +19,24 @@ public enum Commands {
     COMPARER("comp", new ComparerCmd()),
     RIKA("rika", new RikaCmd()),
     COUPABLE("c", new CoupableCmd());
+
     String initials;
     CommandsExecutor commandsExecutor;
+
+    public static Commands getCommands(String initials){
+        for(Commands commands : values())
+            if(initials.equals(commands.initials))
+                return commands;
+        return null;
+    }
+
     Commands(String initials, CommandsExecutor ce){
         this.initials = initials;
         this.commandsExecutor = ce;
     }
+
+    public CommandsExecutor getCommandExecutor(){
+        return commandsExecutor;
+    }
+
 }

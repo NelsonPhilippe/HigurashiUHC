@@ -23,12 +23,9 @@ public enum Direction {
 
     public static Direction getDirection(double angle){
 
-        for(Direction dir : calcList()){
-
+        for(Direction dir : calcList())
             if(angle >= dir.getMinAngle() && angle <= dir.getMaxAngle())
                 return dir;
-
-        }
 
         return Direction.NORD;
 

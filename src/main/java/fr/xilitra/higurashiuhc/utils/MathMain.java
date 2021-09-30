@@ -46,29 +46,8 @@ public class MathMain {
     }
 
     public static Direction calculateDirection(Player from, Player to){
-
         return calculateDirection(from, to.getLocation());
-
     }
-
-    /*public static Direction calculateDirection(Player from, Location to){
-
-        /// Vector eye direction
-        Vector eyeDirection = from.getEyeLocation().getDirection();
-
-        ///Vector from player to location
-        Vector vector = to.toVector().subtract(from.getLocation().toVector());
-
-        ///vector angle eye to target
-        double angle = vector.angle(eyeDirection);
-
-        /// Rad to Degree
-        angle = angle * 180 / java.lang.Math.PI;
-
-        return Direction.getDirection(angle);
-
-    }
-    */
 
     public static Direction calculateDirection(Player p, Location to){
         Vector vector = to.toVector().subtract(p.getLocation().toVector());
@@ -80,14 +59,12 @@ public class MathMain {
     }
 
     public static Double calcAngle(Vector v1, Vector v2, boolean highAtZ, boolean keepNegative){
-        double dot, det;
-        if(!highAtZ) {
-            dot = v1.getX() * v2.getX() + v1.getZ() * v2.getZ();
-            det = v1.getX()*v2.getZ() - v1.getZ()*v2.getX();
-        }else{
-            dot = v1.getX() * v2.getX() + v1.getY() * v2.getY();
-            det = v1.getX()*v2.getY() - v1.getY()*v2.getX();
-        }
+        double posV1 = highAtZ ? v1.getY() : v1.getZ();
+        double posV2 = highAtZ ? v2.getY() : v2.getZ();
+
+        double dot = v1.getX() * v2.getX() + posV1 * posV2;
+        double det = v1.getX() * posV2 - posV1 * v2.getX();
+
         double deg = radToDeg(Math.atan2(det, dot));
         if(!keepNegative)
             deg += 360;

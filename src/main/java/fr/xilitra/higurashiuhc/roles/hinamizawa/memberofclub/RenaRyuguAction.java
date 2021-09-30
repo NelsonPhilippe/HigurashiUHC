@@ -1,10 +1,9 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -16,7 +15,6 @@ public class RenaRyuguAction extends RoleAction implements Listener {
 
     private HPlayer hPlayerPense;
     private boolean penseIsUsed;
-    private BossBar bossBar;
 
     public RenaRyuguAction() {
         this.penseIsUsed = false;
@@ -46,6 +44,9 @@ public class RenaRyuguAction extends RoleAction implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
+        if(ScenarioList.OYASHIRO.isActive())
+            ScenarioList.OYASHIRO.getScenario().solution(4);
+
         if(killed.hasMalediction() && killed.getKiller() instanceof Player){
 
             Player killer = (Player) killed.getKiller();
@@ -69,14 +70,6 @@ public class RenaRyuguAction extends RoleAction implements Listener {
     @Override
     public boolean acceptReconnect(Player p) {
         return false;
-    }
-
-    public BossBar getBossBar(){
-        return bossBar;
-    }
-
-    public void setBossBar(BossBar bossBar){
-        this.bossBar = bossBar;
     }
 
 }

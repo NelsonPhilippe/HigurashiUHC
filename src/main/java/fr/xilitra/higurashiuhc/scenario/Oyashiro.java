@@ -1,8 +1,10 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -17,7 +19,12 @@ import org.inventivetalent.bossbar.BossBarAPI;
 public class Oyashiro extends Scenario {
 
     public boolean reveal = false;
-    public Integer renaTaskID = null, keiichiTaskID = null;
+    public RenaOyashiroTask renaTaskID = new RenaOyashiroTask();
+    public KeiichiOyashiroTask keiichiTaskID = new KeiichiOyashiroTask();
+    public ParanoTask paranoTask = new ParanoTask();
+    public BossBar keiichiBossBar = null;
+    public BossBar renaBossBar = null;
+
 
     public Oyashiro() {
         super("Oyashiro");
@@ -25,16 +32,17 @@ public class Oyashiro extends Scenario {
 
     @Override
     public void solution(int solution, Object... o) {
-        if(renaTaskID != null)
-            TaskRunner.getTask(renaTaskID).stopTask();
-        if(keiichiTaskID != null)
-            TaskRunner.getTask(keiichiTaskID).stopTask();
-        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
-        km.getBossBar().getPlayers().forEach((player) -> km.getBossBar().removePlayer(player));
-        km.setBossBar(null);
-        RenaRyuguAction rr = (RenaRyuguAction) Role.RENA_RYUGU.getRoleAction();
-        rr.getBossBar().getPlayers().forEach((player) -> rr.getBossBar().removePlayer(player));
-        rr.setBossBar(null);
+
+        renaTaskID.stopTask();
+        keiichiTaskID.stopTask();
+        paranoTask.stopTask();
+
+        keiichiBossBar.getPlayers().forEach((player) -> keiichiBossBar.removePlayer(player));
+        keiichiBossBar = null;
+
+        renaBossBar.getPlayers().forEach((player) -> renaBossBar.removePlayer(player));
+        renaBossBar = null;
+
     }
 
     @Override
@@ -44,9 +52,13 @@ public class Oyashiro extends Scenario {
 
     @Override
     protected void scenarioStateChange(boolean b) {
-        if(!b) {
+        if(!b && HigurashiUHC.getGameManager().getStates() == GameStates.GAME) {
             solution(5);
         }
+    }
+
+    public boolean isReveal(){
+        return reveal;
     }
 
     public void revealOyashiro(){
@@ -71,20 +83,33 @@ public class Oyashiro extends Scenario {
         ///keiichi.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Rena est joué par "+rena.getName()+".");
         ///rena.getPlayer().sendMessage(ChatColor.WHITE + "(Oyashiro Tragedy)" + ChatColor.GOLD + "Le rôle de Keiichi est joué par "+keiichi.getName()+".");
 
-        BossBar kmBB = BossBarAPI.addBar(keiichi.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
-        ((KeiichiMaebaraAction)km.getRoleAction()).setBossBar(kmBB);
+        keiichiBossBar = BossBarAPI.addBar(keiichi.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
 
-        BossBar rrBB = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
-        ((RenaRyuguAction)rr.getRoleAction()).setBossBar(rrBB);
+        renaBossBar = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
 
-        RenaOyashiroTask rot = new RenaOyashiroTask();
-        rot.runTaskTimer(30000,30000);
-        renaTaskID = rot.getTaskID();
+        renaTaskID.runTaskTimer(30000,30000);
+        keiichiTaskID.runTaskTimer(60000,60000);
 
-        KeiichiOyashiroTask kot = new KeiichiOyashiroTask();
-        kot.runTaskTimer(60000,60000);
-        keiichiTaskID = kot.getTaskID();
+    }
 
+    public BossBar getKeiichiBossBar(){
+        return keiichiBossBar;
+    }
+
+    public BossBar getRenaBossBar(){
+        return renaBossBar;
+    }
+
+    public void addKeiichiProggress(float num){
+        keiichiBossBar.setProgress(keiichiBossBar.getProgress()+num);
+        if(keiichiBossBar.getProgress()>100)
+            solution(1);
+    }
+
+    public void addRenaProggress(float num){
+        renaBossBar.setProgress(renaBossBar.getProgress()+num);
+        if(renaBossBar.getProgress()<=0)
+            solution(3);
     }
 
 }

@@ -3,6 +3,8 @@ package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
+import fr.xilitra.higurashiuhc.scenario.Oyashiro;
+import fr.xilitra.higurashiuhc.scenario.Scenario;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 
 public class KeiichiOyashiroTask extends JavaTask {
@@ -10,15 +12,13 @@ public class KeiichiOyashiroTask extends JavaTask {
     @Override
     public void execute() {
 
-        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
+        float addValue = 1;
 
-        float newValue = km.getBossBar().getProgress()+1;
-        if(newValue>=100){
-            ScenarioList.OYASHIRO.getScenario().solution(1);
-            return;
-        }
+        Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
+        if(oyashiro.paranoTask.isRunning())
+            addValue+=2;
 
-        km.getBossBar().setProgress(newValue);
+        oyashiro.addKeiichiProggress(addValue);
 
     }
 

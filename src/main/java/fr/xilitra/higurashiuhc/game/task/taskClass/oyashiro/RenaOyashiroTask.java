@@ -4,6 +4,8 @@ import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
+import fr.xilitra.higurashiuhc.scenario.Oyashiro;
+import fr.xilitra.higurashiuhc.scenario.Scenario;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.MathMain;
 
@@ -25,12 +27,7 @@ public class RenaOyashiroTask extends JavaTask {
             diff = MathMain.calculDiff(rr.getLinkedRole().getHPlayer().getPlayer().getLocation(), km.getLinkedRole().getHPlayer().getPlayer().getLocation(), true);
         if(diff <= 15) remove += 1;
 
-        float newValue = rr.getBossBar().getProgress()-remove;
-        if(newValue<=0){
-            ScenarioList.OYASHIRO.getScenario().solution(3);
-            return;
-        }
-        rr.getBossBar().setProgress(newValue);
+        ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).addRenaProggress(remove*-1);
 
     }
 

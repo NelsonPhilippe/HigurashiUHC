@@ -12,6 +12,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraActio
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
+import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -162,16 +163,9 @@ public class DamageListener implements Listener {
 
         }
 
-        KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
-        if(km.getBossBar() != null && km.getLinkedRole().getHPlayer() != null && km.getLinkedRole().getHPlayer().getName().equals(hPlayer.getName())){
-
-            float progress = km.getBossBar().getProgress()+3;
-            if(progress>=100)
-                ScenarioList.OYASHIRO.getScenario().solution(1);
-            else
-                km.getBossBar().setProgress(progress);
-
-        }
+        Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
+        if(oyashiro.getKeiichiBossBar() != null)
+            oyashiro.addKeiichiProggress(3);
 
         if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {

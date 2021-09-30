@@ -8,6 +8,7 @@ public abstract class BukkitTask implements Task, Runnable {
     org.bukkit.scheduler.BukkitTask bukkitTask = null;
     boolean instant = false;
     private final int taskID;
+    private int restExecute = -1;
 
     public BukkitTask() {
         this.taskID = TaskRunner.instNum;
@@ -21,6 +22,7 @@ public abstract class BukkitTask implements Task, Runnable {
         return false;
 
         Bukkit.getScheduler().cancelTask(getBukkitTaskID());
+        restExecute = -1;
         bukkitTask = null;
         return true;
     }
@@ -31,6 +33,20 @@ public abstract class BukkitTask implements Task, Runnable {
             return false;
 
         instant = false;
+        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1*20)/1000, (l2*20)/1000);
+        return true;
+    }
+
+    @Override
+    public boolean runTaskTimer(long l1, long l2, int times) {
+        if(isRunning())
+            return false;
+
+        if(times <= 1)
+            return false;
+
+        instant = false;
+        restExecute = times;
         bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1*20)/1000, (l2*20)/1000);
         return true;
     }
@@ -67,7 +83,12 @@ public abstract class BukkitTask implements Task, Runnable {
     @Override
     public void run(){
         this.execute();
-        if(instant)
+
+        if(restExecute < 0)
+            return;
+
+        restExecute -= 1;
+        if(!instant && restExecute <= 0)
             stopTask();
     }
 

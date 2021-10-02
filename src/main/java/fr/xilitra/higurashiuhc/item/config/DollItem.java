@@ -1,7 +1,6 @@
 package fr.xilitra.higurashiuhc.item.config;
 
 import fr.xilitra.higurashiuhc.item.ItemBuilder;
-import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import org.bukkit.Material;
 
 import java.util.UUID;

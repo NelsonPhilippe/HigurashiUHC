@@ -2,15 +2,12 @@ package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameStates;
-import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
-import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.inventivetalent.bossbar.BossBar;

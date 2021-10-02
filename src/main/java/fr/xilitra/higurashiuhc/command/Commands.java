@@ -23,6 +23,7 @@ public enum Commands {
     COMPARER("comp", new ComparerCmd(), false),
     RIKA("rika", new RikaCmd(), false),
     PARANO("paranoia", new ParanoCmd(), false),
+    CLANS("clans", new ClansCmd(), false),
     COUPABLE("c", new CoupableCmd(), false);
 
     String initials;

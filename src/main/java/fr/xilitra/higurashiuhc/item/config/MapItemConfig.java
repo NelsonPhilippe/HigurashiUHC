@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.item.config;
 
 import fr.xilitra.higurashiuhc.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.event.Listener;
 
 import java.util.UUID;
 

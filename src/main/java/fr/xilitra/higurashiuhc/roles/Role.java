@@ -85,7 +85,9 @@ public enum Role {
 
     NOMURA("Nomura", "null", Gender.FEMME, Clans.NEUTRE, 1, new NomuraAction(), null),
 
-    KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction(), null),
+    KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction(), new HashMap<Commands, Integer>(){{
+        put(Commands.CLANS, 1);
+    }}),
 
     KURAUDO_OISHI("Kuraudo Oishi", "null", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction(),
             new HashMap<Commands, Integer>(){{

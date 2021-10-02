@@ -3,8 +3,6 @@ package fr.xilitra.higurashiuhc.gui.config;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.gui.GuiMenu;
 import fr.xilitra.higurashiuhc.item.config.VillageItem;
-import fr.xilitra.higurashiuhc.utils.VillageGenerator;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

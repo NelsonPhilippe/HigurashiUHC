@@ -6,8 +6,6 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
-import java.util.Map;
-
 public class VoteTask extends BukkitTask {
 
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");

@@ -10,10 +10,10 @@ import java.util.Arrays;
 
 public class ItemBuilder {
 
-    private String name;
-    private boolean enchant;
-    private Material material;
-    private int size;
+    private final String name;
+    private final boolean enchant;
+    private final Material material;
+    private final int size;
     private ItemStack stack;
 
     public ItemBuilder(String name, boolean enchant, int size, Material material) {

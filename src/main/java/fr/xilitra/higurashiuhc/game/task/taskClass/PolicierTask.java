@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.game.task.JavaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.police.PolicierRoleAction;
 
 public class PolicierTask extends JavaTask {
 

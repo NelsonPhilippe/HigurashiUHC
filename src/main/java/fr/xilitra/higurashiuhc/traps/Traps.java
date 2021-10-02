@@ -3,7 +3,6 @@ package fr.xilitra.higurashiuhc.traps;
 import fr.xilitra.higurashiuhc.item.FireCracker;
 import fr.xilitra.higurashiuhc.item.HoeTrap;
 import fr.xilitra.higurashiuhc.item.SlowBall;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

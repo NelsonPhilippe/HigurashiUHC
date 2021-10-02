@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.event;
 
-import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.item.ItemConfig;
+import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

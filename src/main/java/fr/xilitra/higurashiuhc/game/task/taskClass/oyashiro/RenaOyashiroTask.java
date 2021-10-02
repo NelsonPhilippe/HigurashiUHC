@@ -5,7 +5,6 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
-import fr.xilitra.higurashiuhc.scenario.Scenario;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.MathMain;
 

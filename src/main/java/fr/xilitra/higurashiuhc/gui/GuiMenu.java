@@ -10,9 +10,9 @@ import java.util.Map;
 
 public class GuiMenu implements InventoryHolder{
 
-    private String name;
-    private int size;
-    private Map<Integer, ItemStack> items = new HashMap<>();
+    private final String name;
+    private final int size;
+    private final Map<Integer, ItemStack> items = new HashMap<>();
     private Inventory inventory;
 
     public GuiMenu(String name, int size) {

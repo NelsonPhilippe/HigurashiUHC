@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.utils;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.item.BaseballBat;
-import fr.xilitra.higurashiuhc.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
 

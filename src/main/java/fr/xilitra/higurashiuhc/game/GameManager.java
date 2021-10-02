@@ -14,14 +14,12 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
-import javax.annotation.processing.RoundEnvironment;
 import java.util.*;
 
 public class GameManager {

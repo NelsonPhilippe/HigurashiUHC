@@ -1,13 +1,9 @@
 package fr.xilitra.higurashiuhc.utils;
 
-import fr.xilitra.higurashiuhc.HigurashiUHC;
 import net.minecraft.server.v1_8_R3.StructureBoundingBox;
 import net.minecraft.server.v1_8_R3.World;
 import net.minecraft.server.v1_8_R3.WorldGenVillage;
-import org.bukkit.ChatColor;
-import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
-import org.bukkit.entity.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -23,20 +19,20 @@ public class VillageGenerator {
             Class<?> cw = CraftWorld.class;
             Class<?> sb = StructureBoundingBox.class;
             Class<Integer> Int = Integer.TYPE;
-            Method cwm = cw.getMethod("getHandle", new Class[0]);
-            Method wgm = wg.getMethod("a", new Class[] { World.class, Random.class, sb });
+            Method cwm = cw.getMethod("getHandle");
+            Method wgm = wg.getMethod("a", World.class, Random.class, sb);
 
-            Constructor<?> sbc = sb.getConstructor(new Class[] { Int, Int, Int, Int });
-            Object sbo = sbc.newInstance(new Object[] { Integer.valueOf(x - radius), Integer.valueOf(x - radius),
-                    Integer.valueOf(x + radius), Integer.valueOf(z + radius) });
+            Constructor<?> sbc = sb.getConstructor(Int, Int, Int, Int);
+            Object sbo = sbc.newInstance(Integer.valueOf(x - radius), Integer.valueOf(x - radius),
+                    Integer.valueOf(x + radius), Integer.valueOf(z + radius));
 
             Constructor<?> wgc = wg
-                    .getConstructor(new Class[] { World.class, Random.class, Int, Int, Int });
+                    .getConstructor(World.class, Random.class, Int, Int, Int);
 
-            Object wgo = wgc.newInstance(new Object[] { cwm.invoke(cw.cast(world), new Object[0]), new Random(),
-                    Integer.valueOf(x >> 4), Integer.valueOf(z >> 4), Integer.valueOf(size) });
+            Object wgo = wgc.newInstance(cwm.invoke(cw.cast(world)), new Random(),
+                    Integer.valueOf(x >> 4), Integer.valueOf(z >> 4), Integer.valueOf(size));
 
-            wgm.invoke(wgo, new Object[] { cwm.invoke(cw.cast(world), new Object[0]), new Random(), sbo });
+            wgm.invoke(wgo, cwm.invoke(cw.cast(world)), new Random(), sbo);
         } catch (Exception e) {
             e.printStackTrace();
         }

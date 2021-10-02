@@ -7,7 +7,7 @@ import org.bukkit.event.HandlerList;
 public class RoleSelected extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
-    private HPlayer player;
+    private final HPlayer player;
 
     public RoleSelected(HPlayer player){
         this.player = player;

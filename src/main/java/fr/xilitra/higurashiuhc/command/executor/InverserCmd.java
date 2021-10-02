@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozakiAction;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

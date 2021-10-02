@@ -24,7 +24,7 @@ public final class HigurashiUHC extends JavaPlugin {
 
     private static HigurashiUHC instance;
     private static GameManager manager;
-    private static Map<UUID, Scoreboard> scoreboardMap = new HashMap<>();
+    private static final Map<UUID, Scoreboard> scoreboardMap = new HashMap<>();
 
     @Override
     public void onEnable() {

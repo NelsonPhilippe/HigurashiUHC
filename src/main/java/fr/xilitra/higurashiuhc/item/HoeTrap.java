@@ -1,7 +1,6 @@
 package fr.xilitra.higurashiuhc.item;
 
 import org.bukkit.Material;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.UUID;
 

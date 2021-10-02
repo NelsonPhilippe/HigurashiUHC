@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameStates;
+import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -35,6 +36,11 @@ public class CommandsListener  implements CommandExecutor {
 
         if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME){
             player.sendMessage("Merci d'attendre le début de la partie");
+            return true;
+        }
+
+        if(!hPlayer.getPlayerState().isState(PlayerState.INGAME)){
+            player.sendMessage("Tu pense que dans le monde des Higurashi, les morts peuvent utiliser leurs pouvoirs?");
             return true;
         }
 

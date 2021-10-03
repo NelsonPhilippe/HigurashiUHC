@@ -29,35 +29,35 @@ import java.util.Random;
 
 public class EpisodeListener implements Listener {
 
-    private final ArrayList<Integer> avEPOyashiro = new ArrayList<Integer>(){{
-        for(int ep = 3; ep<=5; ep++)
+    private final ArrayList<Integer> avEPOyashiro = new ArrayList<Integer>() {{
+        for (int ep = 3; ep <= 5; ep++)
             add(ep);
     }};
 
     private final Integer randomEP = avEPOyashiro.get(new Random().nextInt(avEPOyashiro.size()));
 
     @EventHandler
-    public void onEpisodeUpdated(EpisodeUpdate e){
+    public void onEpisodeUpdated(EpisodeUpdate e) {
 
         CustomCraft.baseballBat.setUsedOnEpisode(false);
         HPlayer miyoTakanoAction = Role.MIYO_TAKANO.getHPlayer();
 
-        if(miyoTakanoAction != null)
+        if (miyoTakanoAction != null)
             miyoTakanoAction.setCommandAccess(Commands.ASSASSINER, 2);
 
-        if(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")){
+        if (HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")) {
 
             HigurashiUHC.getGameManager().setWatanagashi(true);
             new WatanagashiTask().runTaskTimer(1000, 1000); // Toute les secondes
             KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
             HPlayer player = role.getLinkedRole().getHPlayer();
-            if(player != null){
+            if (player != null) {
 
-                if(player.hasMarriedReason(Reason.DOLL_TRAGEDY)){
+                if (player.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
 
                     Role shion = Role.SHION_SONOSAKI;
-                    if(shion.getHPlayer() != null && shion.getHPlayer().getPlayer() != null)
-                    shion.getHPlayer().getPlayer().sendMessage("Je te donne une petite info: "+player.getName()+" est marié à "+player.getMarriedPlayer(Reason.DOLL_TRAGEDY).get(0).getName());
+                    if (shion.getHPlayer() != null && shion.getHPlayer().getPlayer() != null)
+                        shion.getHPlayer().getPlayer().sendMessage("Je te donne une petite info: " + player.getName() + " est marié à " + player.getMarriedPlayer(Reason.DOLL_TRAGEDY).get(0).getName());
 
                 }
 
@@ -65,18 +65,18 @@ public class EpisodeListener implements Listener {
 
         }
 
-        if(HigurashiUHC.getGameManager().getEpisode() == 7){
+        if (HigurashiUHC.getGameManager().getEpisode() == 7) {
 
             HPlayer tomitake = Role.JIRO_TOMITAKE.getHPlayer();
 
-            if(tomitake != null && tomitake.getPlayerState() != PlayerState.SPECTATE)
-                for(HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
-                    if(hPlayer.getPlayer() != null)
+            if (tomitake != null && tomitake.getPlayerState() != PlayerState.SPECTATE)
+                for (HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
+                    if (hPlayer.getPlayer() != null)
                         hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 
         }
 
-        if(ScenarioList.getActiveScenario() != null) {
+        if (ScenarioList.getActiveScenario() != null) {
 
             if (ScenarioList.OYASHIRO.isActive())
                 ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
@@ -92,29 +92,29 @@ public class EpisodeListener implements Listener {
 
             }
 
-        }else if(randomEP == e.getEpisode()){
+        } else if (randomEP == e.getEpisode()) {
 
             List<HPlayer> roleLists = Clans.MEMBER_OF_CLUB.getHPlayerList();
 
-            if(!roleLists.isEmpty())
+            if (!roleLists.isEmpty())
                 roleLists.get(new Random().nextInt(roleLists.size())).addMaledictionReason(Reason.OYASHIRO_TRAGEDY_EPISODE);
 
         }
 
-        if(HigurashiUHC.getGameManager().isWatanagashi()){
+        if (HigurashiUHC.getGameManager().isWatanagashi()) {
 
             HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
 
-            if(keiichi == null) return;
+            if (keiichi == null) return;
 
             Player bKeiichi = keiichi.getPlayer();
-            if(bKeiichi == null) return;
+            if (bKeiichi == null) return;
 
             Inventory inventory = bKeiichi.getInventory();
 
-            for(ItemStack itemStack : inventory.getContents()){
+            for (ItemStack itemStack : inventory.getContents()) {
 
-                if(itemStack.getItemMeta().getLore().get(0).equalsIgnoreCase(DollItem.dollItem.getLore())){
+                if (itemStack.getItemMeta().getLore().get(0).equalsIgnoreCase(DollItem.dollItem.getLore())) {
 
                     ScenarioList.DOLL.getScenario().solution(4);
                     itemStack.setType(Material.AIR);
@@ -125,24 +125,24 @@ public class EpisodeListener implements Listener {
 
             HPlayer tomitake = Role.JIRO_TOMITAKE.getHPlayer();
 
-            if(tomitake == null) return;
+            if (tomitake == null) return;
 
             Player bTomitake = tomitake.getPlayer();
 
-            if(bTomitake == null) return;
+            if (bTomitake == null) return;
 
             HPlayer miyo = Role.MIYO_TAKANO.getHPlayer();
 
-            if(miyo == null) return;
+            if (miyo == null) return;
 
             Player bMiyo = miyo.getPlayer();
 
-            if(bMiyo == null) return;
+            if (bMiyo == null) return;
 
             bMiyo.sendMessage(tomitake.getRole().getName() + " est " + bTomitake.getName());
 
-            for(HPlayer player : Role.MERCENAIRE.getHPlayerList()){
-                if(player.getPlayer() != null)
+            for (HPlayer player : Role.MERCENAIRE.getHPlayerList()) {
+                if (player.getPlayer() != null)
                     player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
             }
 

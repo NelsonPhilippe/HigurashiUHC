@@ -9,7 +9,7 @@ public class TaskRunner {
     protected static Timer timer = new Timer();
     protected static int instNum = 1;
 
-    public static Task getTask(int taskID){
+    public static Task getTask(int taskID) {
 
         return hash.get(taskID);
 

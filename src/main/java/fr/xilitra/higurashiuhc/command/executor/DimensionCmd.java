@@ -15,7 +15,7 @@ public class DimensionCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] args) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
         boolean teleportRika = false;
@@ -34,27 +34,27 @@ public class DimensionCmd implements CommandsExecutor {
         ///float pitch = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.rika.pitch");
         String world = HigurashiUHC.getInstance().getConfig().getString("hanyu.dimension.spawn-location.rika.world");
 
-        if(args.length == 2){
+        if (args.length == 2) {
 
-            if(rika != null && rika.getPlayer() != null) {
+            if (rika != null && rika.getPlayer() != null) {
 
                 teleportRika = true;
                 rika.getPlayer().sendMessage("Vous allez être téléporté dans la dimension de Hanyu dans 1 minute");
                 p.sendMessage("Vous allez être téléporté dans la dimension avec rika dans 1 minute");
 
-            }else {
+            } else {
                 p.sendMessage("Rika n'est pas dans la partie.");
                 return false;
             }
 
-        }else{
+        } else {
             p.sendMessage("Vous allez être téléporté dans la dimension dans 1 minute");
         }
 
 
         boolean finalTeleportRika = teleportRika;
-        ((HanyuAction)Role.HANYU.getRoleAction()).setDimensionIsUsed(true);
-        new DimensionTaskTp(hPlayer, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH),  new Location(Bukkit.getWorld(world), x, y, z)).runTaskTimer(1000,1000);
+        ((HanyuAction) Role.HANYU.getRoleAction()).setDimensionIsUsed(true);
+        new DimensionTaskTp(hPlayer, rika, finalTeleportRika, new Location(Bukkit.getWorld(worldH), xH, yH, zH), new Location(Bukkit.getWorld(world), x, y, z)).runTaskTimer(1000, 1000);
 
         return true;
     }

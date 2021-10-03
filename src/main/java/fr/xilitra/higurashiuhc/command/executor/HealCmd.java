@@ -9,17 +9,17 @@ public class HealCmd implements CommandsExecutor {
     @Override
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
         Player p = hPlayer.getPlayer();
-        if(p==null)
+        if (p == null)
             return false;
-        if(strings.length == 2){
+        if (strings.length == 2) {
             Player target = Bukkit.getPlayer(strings[1]);
 
-            if(target == null){
+            if (target == null) {
                 p.sendMessage("Cible non trouvé");
                 return false;
             }
 
-            if(p.getHealth() <= 1){
+            if (p.getHealth() <= 1) {
                 p.sendMessage("Vous ne possédez pas assez de vie pour en donner.");
                 return false;
             }

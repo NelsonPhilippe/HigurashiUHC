@@ -12,27 +12,27 @@ public class ListCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
-        if (strings.length == 2){
+        if (strings.length == 2) {
 
             Player target = Bukkit.getPlayer(strings[1]);
 
-            if(target == null) return true;
+            if (target == null) return true;
 
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
-            if(hPlayerTarget == null){
+            if (hPlayerTarget == null) {
                 p.sendMessage("Cible Introuvable");
                 return false;
             }
 
-            if(hPlayerTarget.isChatOkonogi()) {
+            if (hPlayerTarget.isChatOkonogi()) {
                 p.sendMessage("Le joueur est déjà dans le chat");
                 return true;
             }
 
-            new ChatTask(hPlayerTarget).runTaskTimer(1000,1000);
+            new ChatTask(hPlayerTarget).runTaskTimer(1000, 1000);
 
             return true;
         }

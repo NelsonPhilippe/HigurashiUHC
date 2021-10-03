@@ -11,14 +11,14 @@ public class ParanoCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
-        if(!oyashiro.isReveal())
+        if (!oyashiro.isReveal())
             return false;
 
-        oyashiro.paranoTask.runTaskTimer(60000,60000, 10);
+        oyashiro.paranoTask.runTaskTimer(60000, 60000, 10);
         p.sendMessage("Keiichi est parano");
 
         return true;

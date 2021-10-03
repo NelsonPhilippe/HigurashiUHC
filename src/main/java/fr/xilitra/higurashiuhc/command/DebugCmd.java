@@ -15,30 +15,30 @@ public class DebugCmd implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if(!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player)) return true;
 
         Player p = (Player) sender;
 
-        if(!p.isOp()) return true;
+        if (!p.isOp()) return true;
 
-        if(args.length == 1){
+        if (args.length == 1) {
 
-            if(args[0].equalsIgnoreCase("listroles")){
+            if (args[0].equalsIgnoreCase("listroles")) {
 
                 p.sendMessage(ChatColor.DARK_PURPLE + "--- Liste des roles ---");
 
-                for(Role role : Role.values()){
+                for (Role role : Role.values()) {
 
-                    if(role.isAssigned()){
+                    if (role.isAssigned()) {
 
                         HPlayer hPlayer = role.getHPlayer();
-                        if(hPlayer != null)
+                        if (hPlayer != null)
                             p.sendMessage(
-                                ChatColor.GOLD + hPlayer.getRole().getName()
-                                        + " : "
-                                        + ChatColor.GREEN  + hPlayer.getName());
+                                    ChatColor.GOLD + hPlayer.getRole().getName()
+                                            + " : "
+                                            + ChatColor.GREEN + hPlayer.getName());
 
-                    }else
+                    } else
                         p.sendMessage(ChatColor.GOLD + role.getName());
 
                 }
@@ -47,34 +47,34 @@ public class DebugCmd implements CommandExecutor {
 
         }
 
-        if(args.length >= 3){
+        if (args.length >= 3) {
 
-            if(args[0].equalsIgnoreCase("giveroles")){
+            if (args[0].equalsIgnoreCase("giveroles")) {
 
                 String target = args[1];
                 Player bTarget = Bukkit.getPlayer(target);
 
-                if(bTarget == null) {
+                if (bTarget == null) {
                     p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
                     return true;
                 }
 
-                if(HigurashiUHC.getGameManager().getHPlayerList().containsKey(bTarget.getUniqueId())){
+                if (HigurashiUHC.getGameManager().getHPlayerList().containsKey(bTarget.getUniqueId())) {
 
 
                     HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(bTarget.getUniqueId());
 
-                    if(hPlayer == null) return false;
+                    if (hPlayer == null) return false;
 
                     System.out.println(hPlayer.getName());
 
                     String role = args[2];
 
 
-                    if(args.length >= 4) {
+                    if (args.length >= 4) {
                         StringBuilder builder = new StringBuilder();
 
-                        for(int i = 2; i < args.length; i++){
+                        for (int i = 2; i < args.length; i++) {
                             builder.append(args[i]).append(" ");
                         }
 
@@ -84,11 +84,10 @@ public class DebugCmd implements CommandExecutor {
                     System.out.println(role);
 
 
+                    for (Role roleList : Role.values()) {
 
-                    for(Role roleList : Role.values()){
 
-
-                        if(role.equalsIgnoreCase(roleList.getName() + " ") || role.equalsIgnoreCase(roleList.getName())){
+                        if (role.equalsIgnoreCase(roleList.getName() + " ") || role.equalsIgnoreCase(roleList.getName())) {
                             hPlayer.setRole(roleList, true);
                             Bukkit.broadcastMessage(hPlayer.getName() + " est devenu " + hPlayer.getRole().getName());
                             p.sendMessage(ChatColor.GREEN + "Vous venez d'assigner le role " + role + "à " + args[1]);

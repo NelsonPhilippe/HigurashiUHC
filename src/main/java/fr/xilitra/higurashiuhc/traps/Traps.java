@@ -13,8 +13,8 @@ public class Traps {
     public static FireCracker fireCracker = new FireCracker();
     public static HoeTrap hoeTrap = new HoeTrap();
 
-    public static void defense(Player target){
-        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,100, 2, false));
+    public static void defense(Player target) {
+        target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 2, false));
     }
 
 }

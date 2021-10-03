@@ -12,42 +12,6 @@ public enum ScenarioList {
     MISTREATMENT(new Mistreatment(), null, false),
     OYASHIRO(new Oyashiro(), null, false);
 
-    private static List<ScenarioList> getActiveScenarioList(){
-        List<ScenarioList> sl = new ArrayList<>();
-        for(ScenarioList s : values())
-            if(s.isActive())
-                sl.add(s);
-            return sl;
-    }
-
-    public static ScenarioList getActiveScenario(){
-        for(ScenarioList s : values())
-            if(s.isActive())
-                return s;
-        return null;
-    }
-
-    public static ScenarioList activateScenario(){
-
-        List<ScenarioList> sla = getActiveScenarioList();
-        if(sla.size() <= 1){
-            return sla.get(0);
-        }
-
-        Random rand = new Random();
-        int random_integer = rand.nextInt(sla.size()-1);
-
-        ScenarioList actScenario = sla.get(random_integer);
-
-        sla.remove(actScenario);
-
-        for(ScenarioList sl : sla)
-            sl.setActive(false);
-
-        return actScenario;
-
-    }
-
     Scenario scenario;
     ItemStack item;
     boolean active;
@@ -56,6 +20,42 @@ public enum ScenarioList {
         this.scenario = scenario;
         this.item = item;
         this.active = active;
+    }
+
+    private static List<ScenarioList> getActiveScenarioList() {
+        List<ScenarioList> sl = new ArrayList<>();
+        for (ScenarioList s : values())
+            if (s.isActive())
+                sl.add(s);
+        return sl;
+    }
+
+    public static ScenarioList getActiveScenario() {
+        for (ScenarioList s : values())
+            if (s.isActive())
+                return s;
+        return null;
+    }
+
+    public static ScenarioList activateScenario() {
+
+        List<ScenarioList> sla = getActiveScenarioList();
+        if (sla.size() <= 1) {
+            return sla.get(0);
+        }
+
+        Random rand = new Random();
+        int random_integer = rand.nextInt(sla.size() - 1);
+
+        ScenarioList actScenario = sla.get(random_integer);
+
+        sla.remove(actScenario);
+
+        for (ScenarioList sl : sla)
+            sl.setActive(false);
+
+        return actScenario;
+
     }
 
     public Scenario getScenario() {

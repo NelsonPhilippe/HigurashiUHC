@@ -18,14 +18,14 @@ public class SuspecterCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
-        if(strings.length == 2){
+        if (strings.length == 2) {
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 
-            if(targetHPlayer == null){
+            if (targetHPlayer == null) {
                 p.sendMessage("Le joueur n'existe pas");
                 return false;
             }
@@ -33,44 +33,44 @@ public class SuspecterCmd implements CommandsExecutor {
             Role kuraudoRole = hPlayer.getRole();
             KuraudoOishiAction kuraudoOishiAction = (KuraudoOishiAction) kuraudoRole.getRoleAction();
 
-            if(kuraudoOishiAction.getCountSuspect() >= 3){
+            if (kuraudoOishiAction.getCountSuspect() >= 3) {
                 p.sendMessage("Vous avez déjà suspecté 3 joeurs différents vous ne pouvez plus suspecté quelqu'un");
                 return false;
             }
 
-            if(kuraudoOishiAction.isCoupableIsDesigned()){
+            if (kuraudoOishiAction.isCoupableIsDesigned()) {
                 p.sendMessage("Vous avez déjà désigné un coupable");
                 return false;
             }
 
-            if(kuraudoOishiAction.getCountSuspect() == 0){
+            if (kuraudoOishiAction.getCountSuspect() == 0) {
                 Bukkit.broadcastMessage(p.getName() + " est " + kuraudoRole.getName());
             }
 
-            if(kuraudoOishiAction.getCountSuspect() > 3) {
+            if (kuraudoOishiAction.getCountSuspect() > 3) {
                 Bukkit.broadcastMessage(p.getName() + "est " + kuraudoRole.getName());
             }
 
             Map<String, Object> infos = targetHPlayer.getInfoData().getDataInfos();
             Random random = new Random();
 
-            List<InfoData.InfoList> infoList =  new ArrayList<>(Arrays.asList(InfoData.InfoList.values()));
+            List<InfoData.InfoList> infoList = new ArrayList<>(Arrays.asList(InfoData.InfoList.values()));
 
             p.sendMessage("Le joueur suspecté est " + targetHPlayer.getName() + " :");
 
-            for(int i = 0; i < random.nextInt(5-2) + 2; i++){
+            for (int i = 0; i < random.nextInt(5 - 2) + 2; i++) {
 
                 InfoData.InfoList info = infoList.get(random.nextInt(infos.size()));
                 infoList.remove(info);
 
-                if(info.equals(InfoData.InfoList.EFFECT)){
+                if (info.equals(InfoData.InfoList.EFFECT)) {
 
-                    if(p.getActivePotionEffects().size() > 0){
+                    if (p.getActivePotionEffects().size() > 0) {
                         int randomEffect = random.nextInt(p.getActivePotionEffects().size());
                         p.sendMessage("- " + info.getType() + " : " + p.getActivePotionEffects().toArray()[randomEffect]);
                     }
 
-                }else
+                } else
                     p.sendMessage("- " + info.getType() + " : " + infos.get(info.name()));
 
             }

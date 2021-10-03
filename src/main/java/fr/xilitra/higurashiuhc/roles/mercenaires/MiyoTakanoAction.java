@@ -14,19 +14,19 @@ import org.bukkit.event.Listener;
 public class MiyoTakanoAction extends RoleAction implements Listener {
 
     @EventHandler
-    public void onRoleSelected(RoleSelected e){
+    public void onRoleSelected(RoleSelected e) {
         HPlayer player = e.getPlayer();
 
-        if(player.getRole().isRole(this.getLinkedRole()) && player.getPlayer() != null){
+        if (player.getRole().isRole(this.getLinkedRole()) && player.getPlayer() != null) {
 
             Role[] mercenenaire = {Role.MERCENAIRE, Role.OKONOGI};
             player.getPlayer().sendMessage(ChatColor.RED + "--Liste des Mercenaires--");
 
-            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(hPlayer.getPlayer() == null)
+            for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                if (hPlayer.getPlayer() == null)
                     continue;
-                for(Role role : mercenenaire){
-                    if(hPlayer.getRole().equals(role)){
+                for (Role role : mercenenaire) {
+                    if (hPlayer.getRole().equals(role)) {
 
                         player.getPlayer().sendMessage(ChatColor.GREEN + hPlayer.getRole().getName() + " : " + ChatColor.GOLD + hPlayer.getName());
 

@@ -16,7 +16,7 @@ public class SatoshiHojoAction extends RoleAction {
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
-        List<Role> interestRole = new ArrayList<Role>(){{
+        List<Role> interestRole = new ArrayList<Role>() {{
             add(Role.KEIICHI_MAEBARA);
             add(Role.RENA_RYUGU);
             add(Role.SHION_SONOSAKI);
@@ -24,25 +24,26 @@ public class SatoshiHojoAction extends RoleAction {
             add(Role.MION_SONOZAKI);
         }};
 
-        if(!killed.getRole().isRole(interestRole)) return;
-        if(killed.hasMalediction()) return;
+        if (!killed.getRole().isRole(interestRole)) return;
+        if (killed.hasMalediction()) return;
 
         Player player = killer.getPlayer();
-        if(player == null) return;
+        if (player == null) return;
 
-        player.setMaxHealth(player.getMaxHealth()+1);
+        player.setMaxHealth(player.getMaxHealth() + 1);
         int kill = 0;
-        for(Role role : interestRole){
+        for (Role role : interestRole) {
 
             HPlayer hPlayer = role.getHPlayer();
-            if(hPlayer == null || hPlayer.getKiller() == null || !(hPlayer.getKiller() instanceof Player) || hPlayer.hasMalediction()) continue;
+            if (hPlayer == null || hPlayer.getKiller() == null || !(hPlayer.getKiller() instanceof Player) || hPlayer.hasMalediction())
+                continue;
 
-            if(hPlayer.getKiller().getUniqueId().toString().equals(killer.getUuid().toString()))
-                kill+=1;
+            if (hPlayer.getKiller().getUniqueId().toString().equals(killer.getUuid().toString()))
+                kill += 1;
 
         }
 
-        if(kill>=4)
+        if (kill >= 4)
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
 
     }

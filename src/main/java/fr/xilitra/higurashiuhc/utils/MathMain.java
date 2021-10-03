@@ -6,16 +6,18 @@ import org.bukkit.util.Vector;
 
 public class MathMain {
 
-    public static double radToDeg(double rad) { return rad*(180/Math.PI); }
+    public static double radToDeg(double rad) {
+        return rad * (180 / Math.PI);
+    }
 
-    public static double calculDiff(Location from, Location to, boolean high){
+    public static double calculDiff(Location from, Location to, boolean high) {
 
-        double x = to.getX()-from.getX(), y = to.getY()-from.getY(), z = to.getZ()-from.getZ();
-        double firstCalc = Math.sqrt(Math.pow(x, 2)+ Math.pow(y, 2));
+        double x = to.getX() - from.getX(), y = to.getY() - from.getY(), z = to.getZ() - from.getZ();
+        double firstCalc = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
-        if(!high) return firstCalc;
+        if (!high) return firstCalc;
 
-        return Math.sqrt(Math.pow(firstCalc, 2)+ Math.pow(z, 2));
+        return Math.sqrt(Math.pow(firstCalc, 2) + Math.pow(z, 2));
 
     }
 
@@ -27,13 +29,13 @@ public class MathMain {
         double y = v.getY();
 
         if (x == 0) // special cases
-            return (y > 0)? 90
-                    : (y == 0)? 0
+            return (y > 0) ? 90
+                    : (y == 0) ? 0
                     : 270;
         else if (y == 0) // special cases
-            return (x >= 0)? 0
+            return (x >= 0) ? 0
                     : 180;
-        double ret = radToDeg(Math.atan((float)y/x));
+        double ret = radToDeg(Math.atan((float) y / x));
         if (x < 0 && y < 0) // quadrant Ⅲ
             ret = 180 + ret;
         else if (x < 0) // quadrant Ⅱ
@@ -45,11 +47,11 @@ public class MathMain {
 
     }
 
-    public static Direction calculateDirection(Player from, Player to){
+    public static Direction calculateDirection(Player from, Player to) {
         return calculateDirection(from, to.getLocation());
     }
 
-    public static Direction calculateDirection(Player p, Location to){
+    public static Direction calculateDirection(Player p, Location to) {
         Vector vector = to.toVector().subtract(p.getLocation().toVector());
         return Direction.getDirection(calcAngle(p.getEyeLocation().getDirection(), vector, false, false));
     }
@@ -58,7 +60,7 @@ public class MathMain {
         return calcAngle(from.toVector(), to.toVector(), highAtZ, keepNegative);
     }
 
-    public static Double calcAngle(Vector v1, Vector v2, boolean highAtZ, boolean keepNegative){
+    public static Double calcAngle(Vector v1, Vector v2, boolean highAtZ, boolean keepNegative) {
         double posV1 = highAtZ ? v1.getY() : v1.getZ();
         double posV2 = highAtZ ? v2.getY() : v2.getZ();
 
@@ -66,7 +68,7 @@ public class MathMain {
         double det = v1.getX() * posV2 - posV1 * v2.getX();
 
         double deg = radToDeg(Math.atan2(det, dot));
-        if(!keepNegative)
+        if (!keepNegative)
             deg += 360;
         return deg;
     }

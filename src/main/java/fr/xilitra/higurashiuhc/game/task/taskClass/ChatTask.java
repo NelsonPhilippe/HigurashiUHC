@@ -9,8 +9,8 @@ import org.bukkit.Location;
 
 public class ChatTask extends BukkitTask {
 
-    private int time = 30;
     private final HPlayer target;
+    private int time = 30;
 
     public ChatTask(HPlayer target) {
         this.target = target;
@@ -21,22 +21,22 @@ public class ChatTask extends BukkitTask {
 
         OkonogiAction okonogiActionRole = (OkonogiAction) Role.OKONOGI.getRoleAction();
 
-        if(okonogiActionRole.getLinkedRole().hasHPlayer(target)){
+        if (okonogiActionRole.getLinkedRole().hasHPlayer(target)) {
             this.stopTask();
             return;
         }
 
-        if(this.target == null){
+        if (this.target == null) {
             this.stopTask();
             return;
         }
 
-        if(target.getPlayer() == null)
+        if (target.getPlayer() == null)
             return;
 
         HPlayer okonogi = Role.OKONOGI.getHPlayer();
 
-        if(okonogi == null || okonogi.getPlayer() == null){
+        if (okonogi == null || okonogi.getPlayer() == null) {
             target.getPlayer().sendMessage("La personne cible est déconnecté");
             this.stopTask();
             return;
@@ -45,18 +45,18 @@ public class ChatTask extends BukkitTask {
         Location okoLoc = okonogi.getPlayer().getLocation();
         Location hPlayerLoc = target.getPlayer().getLocation();
 
-        if(okoLoc.distanceSquared(hPlayerLoc) > 20 * 20){
+        if (okoLoc.distanceSquared(hPlayerLoc) > 20 * 20) {
             okonogi.getPlayer().sendMessage("Vous êtes trop éloigné de la cible.");
             this.stopTask();
         }
 
-        if(time == 0){
+        if (time == 0) {
 
             okonogiActionRole.getLinkedRole().addPlayer(target);
 
             int mercenary = Clans.HINAMIZAWA.getUUIDList().size();
 
-            if(mercenary == Clans.MERCENAIRE.getUUIDList().size()){
+            if (mercenary == Clans.MERCENAIRE.getUUIDList().size()) {
                 okonogi.getPlayer().setMaxHealth(okonogi.getPlayer().getMaxHealth() + 1);
             }
 

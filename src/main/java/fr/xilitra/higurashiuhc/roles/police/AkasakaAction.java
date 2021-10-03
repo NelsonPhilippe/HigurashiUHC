@@ -19,36 +19,36 @@ public class AkasakaAction extends RoleAction implements Listener {
     private int countCompare = 0;
 
     @EventHandler
-    public void onPlayerDamage(PlayerItemDamageEvent event){
+    public void onPlayerDamage(PlayerItemDamageEvent event) {
         Player player = event.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
         ItemStack item = event.getItem();
 
-        if(item.getItemMeta().getLore().get(0).equals(MatraqueItem.matraqueItem.getLore())){
+        if (item.getItemMeta().getLore().get(0).equals(MatraqueItem.matraqueItem.getLore())) {
 
-            if(MatraqueItem.matraqueItem.isUse()){
+            if (MatraqueItem.matraqueItem.isUse()) {
                 return;
             }
 
             hPlayer.setPlayerDontMove(true);
-            new StuntTask(hPlayer).runTaskTimer(1000,1000);
+            new StuntTask(hPlayer).runTaskTimer(1000, 1000);
             new CouldownMatraque().runTaskLater(HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.matraque") * 1000L);
         }
 
     }
-    
+
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event){
+    public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
-        if(hPlayer.playerDontMove()){
+        if (hPlayer.playerDontMove()) {
             event.setCancelled(true);
         }
     }

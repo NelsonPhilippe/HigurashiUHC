@@ -4,7 +4,7 @@ import org.bukkit.Material;
 
 import java.util.UUID;
 
-public class MatraqueItem extends ItemBuilder{
+public class MatraqueItem extends ItemBuilder {
 
     public static MatraqueItem matraqueItem = new MatraqueItem();
 

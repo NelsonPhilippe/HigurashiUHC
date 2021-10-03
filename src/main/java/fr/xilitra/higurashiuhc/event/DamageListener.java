@@ -37,6 +37,118 @@ import java.util.Random;
 
 public class DamageListener implements Listener {
 
+    public static void playDeath(HPlayer hPlayer, DeathReason deathReason) {
+
+        if (hPlayer == null) return;
+
+        if (hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
+            return;
+
+        Player p = hPlayer.getPlayer();
+
+        if (p == null) return;
+
+        p.setGameMode(GameMode.SPECTATOR);
+        hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
+
+        HigurashiUHC.getGameManager().startRikaDeathTask();
+
+        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
+
+        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
+        if (hPlayer.getClans() != null)
+            hPlayer.getClans().removePlayer(hPlayer);
+
+        Entity killer = hPlayer.getKiller();
+        if (killer instanceof Player) {
+
+            Clans clans = Clans.getClans(hPlayer);
+            if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
+
+                ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
+                ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+
+                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
+                boolean allKilledBY = true;
+
+                for (HPlayer hPlayer1 : playerInClan) {
+                    if (hPlayer1.getKiller() != killer) {
+                        allKilledBY = false;
+                        break;
+                    }
+                }
+
+                if (allKilledBY)
+                    ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
+
+            }
+
+        }
+
+        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU)) {
+
+            TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
+            TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
+
+            text.addExtra(textClick);
+
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
+
+            HPlayer hpr = Role.RIKA_FURUDE.getHPlayer();
+
+            if (hpr != null && hpr.getPlayer() != null)
+                hpr.getPlayer().spigot().sendMessage(text);
+
+        }
+
+        if (Clans.MERCENAIRE.hisInClans(hPlayer, false)) {
+
+            int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
+
+            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
+
+            HPlayer miyo = Role.MIYO_TAKANO.getHPlayer();
+
+            if (miyo != null && miyo.getPlayer() != null)
+                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
+
+        }
+
+        if (hPlayer.hisMarried()) {
+
+            for (HPlayer married : hPlayer.getMarriedPlayerList()) {
+
+                LinkData linkData = hPlayer.getLinkData(married);
+                Reason mariedReason = linkData.getMariedLinkReason();
+                linkData.setMariedLinked(null, true);
+
+                if (mariedReason.isReason(Reason.DOLL_TRAGEDY))
+                    married.addMaledictionReason(Reason.DOLL_TRAGEDY);
+
+            }
+
+        }
+
+        if (killer instanceof Player) {
+
+            HPlayer killerHplayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
+
+            if (killerHplayer == null)
+                return;
+
+            killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
+
+            killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
+                    String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
+
+        }
+
+        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
+        Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
+        hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
+
+    }
+
     public void onPlayerDamageByEntity(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
 
@@ -52,18 +164,18 @@ public class DamageListener implements Listener {
 
             if (item.isSimilar(CustomCraft.baseballBat.getItemStack())) {
 
-                if(CustomCraft.baseballBat.isUsedOnEpisode()){
+                if (CustomCraft.baseballBat.isUsedOnEpisode()) {
                     damager.sendMessage("Vous avez déjà utilisé la batte de baseball pour cet episode.");
                     CustomCraft.baseballBat.setUsedOnEpisode(true);
                     return;
                 }
 
-                if(CustomCraft.baseballBat.getUsed() == 0){
+                if (CustomCraft.baseballBat.getUsed() == 0) {
                     damager.sendMessage("Vous avez déja utilisé 3 fois la batte de baseball");
                     return;
                 }
 
-                if(CustomCraft.baseballBat.getUsed() == 1){
+                if (CustomCraft.baseballBat.getUsed() == 1) {
                     damager.getItemInHand().setType(Material.AIR);
                     damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1, 1);
                     return;
@@ -82,19 +194,19 @@ public class DamageListener implements Listener {
                 }
             }
 
-            HPlayer player =  Role.RENA_RYUGU.getHPlayer();
+            HPlayer player = Role.RENA_RYUGU.getHPlayer();
 
-            if(player != null && player.getPlayer() != null){
+            if (player != null && player.getPlayer() != null) {
 
                 RenaRyuguAction renaRyuguAction = (RenaRyuguAction) player.getRole().getRoleAction();
 
-                if(renaRyuguAction.gethPlayerPense() != null){
+                if (renaRyuguAction.gethPlayerPense() != null) {
 
                     System.out.println(renaRyuguAction.gethPlayerPense().getUuid().toString());
 
-                    if(renaRyuguAction.gethPlayerPense().getUuid().equals(damager.getUniqueId())){
+                    if (renaRyuguAction.gethPlayerPense().getUuid().equals(damager.getUniqueId())) {
 
-                        if(!renaRyuguAction.isPenseIsUsed()) {
+                        if (!renaRyuguAction.isPenseIsUsed()) {
 
                             player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
                             renaRyuguAction.setPenseIsUsed(true);
@@ -111,25 +223,48 @@ public class DamageListener implements Listener {
 
     }
 
-    @EventHandler
-    public void onPlayerDamage(EntityDamageEvent e){
+    /*private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
+        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
 
-        if(!(e.getEntity() instanceof Player)) return;
+            if(p.getHealth() > 20){
+
+                RoleList roleList = RoleList.getRoleList(role2);
+                if(roleList == null) return;
+
+                if(roleList.getRole().getHPlayer() == null || roleList.getRole().getHPlayer().getPlayer() == null)
+                    return;
+
+                double damage = limitDamage(e.getDamage());
+                for(HPlayer r2P : roleList.getRole().getHPlayerList()) {
+                    if (r2P.getPlayer() == null) continue;
+                    r2P.getPlayer().damage(damage);
+                }
+
+            }
+
+        }
+
+    }*/
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent e) {
+
+        if (!(e.getEntity() instanceof Player)) return;
 
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
         double damage = limitDamage(e.getDamage());
 
-        if(p.getHealth() <= 20) {
+        if (p.getHealth() <= 20) {
 
-            if(p.getHealth() - e.getFinalDamage() <=5 && p.getHealth() - e.getFinalDamage()>0){
+            if (p.getHealth() - e.getFinalDamage() <= 5 && p.getHealth() - e.getFinalDamage() > 0) {
 
-                if(hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
+                if (hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
                     hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> {
-                        if(player.getPlayer() != null)
+                        if (player.getPlayer() != null)
                             player.getPlayer().sendMessage("Ton amoureux(se): " + hPlayer.getName() + " à le malheur de passer en-dessous de 5 coeurs");
                     });
                 }
@@ -162,166 +297,31 @@ public class DamageListener implements Listener {
         }
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
-        if(oyashiro.getKeiichiBossBar() != null)
+        if (oyashiro.getKeiichiBossBar() != null)
             oyashiro.addKeiichiProggress(3);
 
         if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
-            if(e instanceof EntityDamageByEntityEvent) {
+            if (e instanceof EntityDamageByEntityEvent) {
                 Role killerRole = null;
                 DeathReason dr = DeathReason.ENTITY_ATTACK;
-                if(((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
+                if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
                     dr = DeathReason.PLAYER_ATTACK;
                     HPlayer killer = HigurashiUHC.getGameManager().getHPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId());
-                    if(killer != null)
-                    killerRole = killer.getRole();
+                    if (killer != null)
+                        killerRole = killer.getRole();
                 }
                 hPlayer.setKiller(((EntityDamageByEntityEvent) e).getDamager(), killerRole);
                 playDeath(hPlayer, dr);
-            }else
+            } else
                 playDeath(hPlayer, DeathReason.WORLD_DAMAGE);
         }
 
     }
 
-    /*private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
-        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
-
-            if(p.getHealth() > 20){
-
-                RoleList roleList = RoleList.getRoleList(role2);
-                if(roleList == null) return;
-
-                if(roleList.getRole().getHPlayer() == null || roleList.getRole().getHPlayer().getPlayer() == null)
-                    return;
-
-                double damage = limitDamage(e.getDamage());
-                for(HPlayer r2P : roleList.getRole().getHPlayerList()) {
-                    if (r2P.getPlayer() == null) continue;
-                    r2P.getPlayer().damage(damage);
-                }
-
-            }
-
-        }
-
-    }*/
-
-    public static void playDeath(HPlayer hPlayer, DeathReason deathReason){
-
-        if(hPlayer == null) return;
-
-        if(hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
-            return;
-
-        Player p = hPlayer.getPlayer();
-
-        if(p == null) return;
-
-        p.setGameMode(GameMode.SPECTATOR);
-        hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
-
-        HigurashiUHC.getGameManager().startRikaDeathTask();
-
-        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
-
-        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
-        if(hPlayer.getClans() != null)
-            hPlayer.getClans().removePlayer(hPlayer);
-
-        Entity killer = hPlayer.getKiller();
-        if(killer instanceof Player){
-
-            Clans clans = Clans.getClans(hPlayer);
-            if(clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)){
-
-                ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth()+1);
-                ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
-
-                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
-                boolean allKilledBY = true;
-
-                for(HPlayer hPlayer1 : playerInClan){
-                    if (hPlayer1.getKiller() != killer) {
-                        allKilledBY = false;
-                        break;
-                    }
-                }
-
-                if(allKilledBY)
-                ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
-
-            }
-
-        }
-
-        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU)){
-
-            TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
-            TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
-
-            text.addExtra(textClick);
-
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
-
-            HPlayer hpr = Role.RIKA_FURUDE.getHPlayer();
-
-            if(hpr != null && hpr.getPlayer() != null)
-                hpr.getPlayer().spigot().sendMessage(text);
-
-        }
-
-        if (Clans.MERCENAIRE.hisInClans(hPlayer, false)) {
-
-            int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
-
-            List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
-
-            HPlayer miyo = Role.MIYO_TAKANO.getHPlayer();
-
-            if (miyo != null && miyo.getPlayer() != null)
-                miyo.getPlayer().sendMessage(hPlayerList.get(random).getName() + " est " + hPlayerList.get(random).getRole().getName());
-
-        }
-
-        if (hPlayer.hisMarried()) {
-
-            for(HPlayer married : hPlayer.getMarriedPlayerList()){
-
-                LinkData linkData = hPlayer.getLinkData(married);
-                Reason mariedReason = linkData.getMariedLinkReason();
-                linkData.setMariedLinked(null, true);
-
-                if (mariedReason.isReason(Reason.DOLL_TRAGEDY))
-                    married.addMaledictionReason(Reason.DOLL_TRAGEDY);
-
-            }
-
-        }
-
-        if(killer instanceof Player) {
-
-            HPlayer killerHplayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
-
-            if(killerHplayer == null)
-                return;
-
-            killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
-
-            killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
-                    String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
-
-        }
-
-        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
-        Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
-        hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
-
-    }
-
-    private double limitDamage(double damage){
-        return damage>4 ? 4.0d : damage;
+    private double limitDamage(double damage) {
+        return damage > 4 ? 4.0d : damage;
     }
 
 }

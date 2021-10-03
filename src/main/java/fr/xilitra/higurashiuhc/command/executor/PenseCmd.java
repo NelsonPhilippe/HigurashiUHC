@@ -12,11 +12,11 @@ public class PenseCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p== null) return false;
+        if (p == null) return false;
 
         HPlayer targetPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 
-        if(targetPlayer == null) {
+        if (targetPlayer == null) {
             p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
             return false;
         }

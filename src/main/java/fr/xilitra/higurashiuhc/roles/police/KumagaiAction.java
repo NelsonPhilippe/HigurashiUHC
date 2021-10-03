@@ -16,7 +16,7 @@ public class KumagaiAction extends RoleAction {
         return CompareClanUsed;
     }
 
-    public void addClanToCompareUsed(String clan){
+    public void addClanToCompareUsed(String clan) {
         CompareClanUsed.add(clan);
     }
 

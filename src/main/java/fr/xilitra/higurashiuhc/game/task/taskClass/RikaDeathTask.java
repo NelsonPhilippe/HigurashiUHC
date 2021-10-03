@@ -17,22 +17,21 @@ public class RikaDeathTask extends BukkitTask {
     @Override
     public void execute() {
 
-        for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
-            if(player.getPlayer() != null && player.getClans().isClans(Clans.HINAMIZAWA)){
+        for (HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+            if (player.getPlayer() != null && player.getClans().isClans(Clans.HINAMIZAWA)) {
                 player.getPlayer().sendMessage("Rika est morte il vous reste " + time + " avant de subir un malus.");
             }
         }
 
-        if(time == 0){
-            for(HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(hPlayer.getPlayer() != null && hPlayer.getClans().isClans(Clans.HINAMIZAWA)){
+        if (time == 0) {
+            for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                if (hPlayer.getPlayer() != null && hPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
                     hPlayer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
                     hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                 }
 
                 ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
             }
-
 
 
             this.stopTask();

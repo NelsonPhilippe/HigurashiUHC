@@ -16,35 +16,35 @@ import org.bukkit.inventory.ItemStack;
 public class PickupListener implements Listener {
 
     @EventHandler
-    public void onPickupItem(PlayerPickupItemEvent e){
+    public void onPickupItem(PlayerPickupItemEvent e) {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
         ItemStack item = e.getItem().getItemStack();
 
-        if(!item.getItemMeta().hasLore()) return;
+        if (!item.getItemMeta().hasLore()) return;
 
         String lore = item.getItemMeta().getLore().get(0);
         Role playerRole = hPlayer.getRole();
 
-        if(lore.equalsIgnoreCase(CustomCraft.baseballBat.getLore())){
+        if (lore.equalsIgnoreCase(CustomCraft.baseballBat.getLore())) {
 
-            if(!playerRole.isRole(Role.KEIICHI_MAEBARA, Role.SATOSHI_HOJO)){
+            if (!playerRole.isRole(Role.KEIICHI_MAEBARA, Role.SATOSHI_HOJO)) {
                 e.setCancelled(true);
             }
 
-        }else if(ScenarioList.DOLL.isActive() && lore.equalsIgnoreCase(DollItem.dollItem.getLore())){
+        } else if (ScenarioList.DOLL.isActive() && lore.equalsIgnoreCase(DollItem.dollItem.getLore())) {
 
-            if(playerRole.isRole(Role.SHION_SONOSAKI)){
+            if (playerRole.isRole(Role.SHION_SONOSAKI)) {
                 ScenarioList.DOLL.getScenario().solution(1, hPlayer);
-            }else if(playerRole.isRole(Role.RENA_RYUGU)){
+            } else if (playerRole.isRole(Role.RENA_RYUGU)) {
                 ScenarioList.DOLL.getScenario().solution(2);
-            }else if(playerRole.isRole(Role.MION_SONOZAKI)){
+            } else if (playerRole.isRole(Role.MION_SONOZAKI)) {
                 ScenarioList.DOLL.getScenario().solution(3);
-            }else{
+            } else {
                 ScenarioList.DOLL.getScenario().solution(4);
             }
 

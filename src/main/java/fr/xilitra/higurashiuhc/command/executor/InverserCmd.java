@@ -13,10 +13,10 @@ public class InverserCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
-        if(strings.length == 3){
+        if (strings.length == 3) {
             Player firstTarget = Bukkit.getPlayer(strings[1]);
             Player secondsTarget = Bukkit.getPlayer(strings[2]);
 
@@ -26,7 +26,7 @@ public class InverserCmd implements CommandsExecutor {
 
             int days = time / 20 / 60 / 60 / 24;
 
-            if(akaneSonozakiAction.getNextDaySwap() < days) {
+            if (akaneSonozakiAction.getNextDaySwap() < days) {
                 p.sendMessage("Il est encore trop tot pour echanger les joueurs");
                 return false;
             }

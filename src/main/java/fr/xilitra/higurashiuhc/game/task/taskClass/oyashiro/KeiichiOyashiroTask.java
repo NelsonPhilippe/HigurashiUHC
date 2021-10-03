@@ -12,8 +12,8 @@ public class KeiichiOyashiroTask extends JavaTask {
         float addValue = 1;
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
-        if(oyashiro.paranoTask.isRunning())
-            addValue+=2;
+        if (oyashiro.paranoTask.isRunning())
+            addValue += 2;
 
         oyashiro.addKeiichiProggress(addValue);
 

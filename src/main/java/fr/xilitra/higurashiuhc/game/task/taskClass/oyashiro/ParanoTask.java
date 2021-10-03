@@ -24,36 +24,36 @@ public class ParanoTask extends BukkitTask {
         Effect toApply = effectList[new Random().nextInt(effectList.length)];
 
         HPlayer keiichiHPlayer = Role.KEIICHI_MAEBARA.getHPlayer();
-        if(keiichiHPlayer == null)
+        if (keiichiHPlayer == null)
             return;
 
         Player keiichiPlayer = keiichiHPlayer.getPlayer();
-        if(keiichiPlayer == null)
+        if (keiichiPlayer == null)
             return;
 
-        switch (toApply){
+        switch (toApply) {
 
-            case DAMAGE:{
+            case DAMAGE: {
                 keiichiPlayer.damage(0.5);
             }
 
-            case HUNGER:{
+            case HUNGER: {
                 keiichiPlayer.addPotionEffect(new PotionEffect(PotionEffectType.HUNGER, 200, 1));
             }
 
-            case SHUFFLE:{
+            case SHUFFLE: {
                 Random random = new Random();
                 List<ItemStack> itemStackList = new ArrayList<>(Arrays.asList(keiichiPlayer.getInventory().getContents()));
-                ArrayList<Integer> invPositionList = new ArrayList<Integer>(){{
-                   for(int pos = 0; pos<itemStackList.size(); pos++)
-                       add(pos);
+                ArrayList<Integer> invPositionList = new ArrayList<Integer>() {{
+                    for (int pos = 0; pos < itemStackList.size(); pos++)
+                        add(pos);
                 }};
 
                 Inventory keiichiInv = keiichiPlayer.getInventory();
 
                 keiichiInv.clear();
 
-                while (itemStackList.size() != 0){
+                while (itemStackList.size() != 0) {
 
                     int itemPosInList = random.nextInt(itemStackList.size());
                     int itemPosInInv = invPositionList.get(random.nextInt(invPositionList.size()));
@@ -69,11 +69,11 @@ public class ParanoTask extends BukkitTask {
 
             }
 
-            case BLINDNESS:{
+            case BLINDNESS: {
                 keiichiPlayer.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 200, 1));
             }
 
-            case SOUND:{
+            case SOUND: {
                 List<Sound> soundList = Arrays.asList(Sound.HORSE_SKELETON_DEATH, Sound.HORSE_ZOMBIE_DEATH, Sound.PORTAL_TRAVEL);
                 keiichiPlayer.playSound(keiichiPlayer.getLocation(), soundList.get(new Random().nextInt(soundList.size())), 1, 1);
             }
@@ -82,7 +82,7 @@ public class ParanoTask extends BukkitTask {
 
     }
 
-    private enum Effect{
+    private enum Effect {
 
         BLINDNESS(),
         DAMAGE(),

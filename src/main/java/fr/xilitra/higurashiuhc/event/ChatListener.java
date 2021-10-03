@@ -13,32 +13,32 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 public class ChatListener implements Listener {
 
     @EventHandler
-    public void onAsyncPlayerChat(AsyncPlayerChatEvent event){
+    public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
         OkonogiAction okonogiAction = (OkonogiAction) hPlayer.getRole().getRoleAction();
 
-        if(hPlayer.isChatOkonogi() ){
+        if (hPlayer.isChatOkonogi()) {
 
             String message = event.getMessage();
 
-            if(message.charAt(0) == '!'){
+            if (message.charAt(0) == '!') {
 
                 message = message.replace("!", "");
 
-                for(HPlayer hPlayers : okonogiAction.getLinkedRole().getHPlayerList())
-                    if(hPlayers.getPlayer() != null)
-                        if(hPlayers.getClans().isClans(Clans.MERCENAIRE))
+                for (HPlayer hPlayers : okonogiAction.getLinkedRole().getHPlayerList())
+                    if (hPlayers.getPlayer() != null)
+                        if (hPlayers.getClans().isClans(Clans.MERCENAIRE))
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);
                         else
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
 
                 for (HPlayer hplayers : HigurashiUHC.getGameManager().getHPlayerList().values())
-                    if(hplayers.getPlayer() != null && hplayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
+                    if (hplayers.getPlayer() != null && hplayers.getPlayer().getGameMode() == GameMode.SPECTATOR)
                         hplayers.getPlayer().sendMessage("[Chat Mercenaire] " + message);
 
                 event.setCancelled(true);

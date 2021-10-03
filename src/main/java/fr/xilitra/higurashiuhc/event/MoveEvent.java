@@ -20,48 +20,48 @@ import org.bukkit.potion.PotionEffectType;
 public class MoveEvent implements Listener {
 
     @EventHandler
-    public void onMoveEvent(PlayerMoveEvent e){
+    public void onMoveEvent(PlayerMoveEvent e) {
         Player p = e.getPlayer();
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        HPlayer rika =  Role.RIKA_FURUDE.getHPlayer();
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
-        if(hPlayer == null || hPlayer.getRole() == null) return;
+        if (hPlayer == null || hPlayer.getRole() == null) return;
 
-        if(rika != null && rika.getPlayer() != null)
-        for(Role role : Clans.MEMBER_OF_CLUB.getRoleList()){
-            if(role.getName().equals(hPlayer.getRole().getName())){
-                if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
-                    if(rika.getPlayer().getGameMode() != GameMode.SPECTATOR){
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
+        if (rika != null && rika.getPlayer() != null)
+            for (Role role : Clans.MEMBER_OF_CLUB.getRoleList()) {
+                if (role.getName().equals(hPlayer.getRole().getName())) {
+                    if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
+                        if (rika.getPlayer().getGameMode() != GameMode.SPECTATOR) {
+                            p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
+                        }
                     }
                 }
             }
-        }
 
-        if(hPlayer.getDeathTask() instanceof DeathTask){
-           if(((DeathTask) hPlayer.getDeathTask()).isRunning()){
-               System.out.println("dont move!");
-               e.setCancelled(true);
-           }else {
-               e.setCancelled(false);
-           }
+        if (hPlayer.getDeathTask() instanceof DeathTask) {
+            if (((DeathTask) hPlayer.getDeathTask()).isRunning()) {
+                System.out.println("dont move!");
+                e.setCancelled(true);
+            } else {
+                e.setCancelled(false);
+            }
         }
 
         Location blockLoc = e.getTo().getBlock().getRelative(BlockFace.DOWN).getLocation();
 
 
-        if(((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.size() > 0){
+        if (((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps.size() > 0) {
 
-            for(Location loc : ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps){
+            for (Location loc : ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).blockTraps) {
 
-                if(loc.getBlock().getLocation().equals(blockLoc)){
-                    HPlayer satokoHojo =  Role.SATOKO_HOJO.getHPlayer();
+                if (loc.getBlock().getLocation().equals(blockLoc)) {
+                    HPlayer satokoHojo = Role.SATOKO_HOJO.getHPlayer();
 
-                    if(satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUuid().equals(p.getUniqueId())){
+                    if (satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUuid().equals(p.getUniqueId())) {
                         return;
                     }
 
@@ -73,7 +73,6 @@ public class MoveEvent implements Listener {
                 }
             }
         }
-
 
 
     }

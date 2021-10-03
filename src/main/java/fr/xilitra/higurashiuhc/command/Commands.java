@@ -30,36 +30,36 @@ public enum Commands {
     CommandsExecutor commandsExecutor;
     boolean canStole;
 
-    public static Commands getCommands(String initials){
-        for(Commands commands : values())
-            if(initials.equals(commands.initials))
-                return commands;
-        return null;
-    }
-
-    public static List<Commands> getStoleCommande(){
-        return new ArrayList<Commands>(){{
-            for(Commands commands : values())
-                if(commands.canStole())
-                    add(commands);
-        }};
-    }
-
-    Commands(String initials, CommandsExecutor ce, boolean canStole){
+    Commands(String initials, CommandsExecutor ce, boolean canStole) {
         this.initials = initials;
         this.commandsExecutor = ce;
         this.canStole = canStole;
     }
 
-    public String getInitials(){
+    public static Commands getCommands(String initials) {
+        for (Commands commands : values())
+            if (initials.equals(commands.initials))
+                return commands;
+        return null;
+    }
+
+    public static List<Commands> getStoleCommande() {
+        return new ArrayList<Commands>() {{
+            for (Commands commands : values())
+                if (commands.canStole())
+                    add(commands);
+        }};
+    }
+
+    public String getInitials() {
         return initials;
     }
 
-    public CommandsExecutor getCommandExecutor(){
+    public CommandsExecutor getCommandExecutor() {
         return commandsExecutor;
     }
 
-    public boolean canStole(){
+    public boolean canStole() {
         return canStole;
     }
 

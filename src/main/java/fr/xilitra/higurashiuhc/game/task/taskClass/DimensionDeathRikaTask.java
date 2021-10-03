@@ -9,9 +9,9 @@ import org.bukkit.Material;
 
 public class DimensionDeathRikaTask extends BukkitTask {
 
-    private int time = 30;
     private final HPlayer rika;
     private final HPlayer hanyu;
+    private int time = 30;
 
     public DimensionDeathRikaTask(HPlayer rika, HPlayer hanyu) {
         this.rika = rika;
@@ -21,15 +21,14 @@ public class DimensionDeathRikaTask extends BukkitTask {
     @Override
     public void execute() {
 
-        if(time == 0){
+        if (time == 0) {
 
             double borderSize = HigurashiUHC.getGameManager().getWorldBorder();
-            double negativeBorder = -(borderSize / 2) +1;
+            double negativeBorder = -(borderSize / 2) + 1;
             double positiveBorder = (borderSize / 2) - 1;
 
             int randomX = (int) (Math.random() * (positiveBorder - negativeBorder + 1) + negativeBorder);
             int randomZ = (int) (Math.random() * (positiveBorder - negativeBorder + 1) + negativeBorder);
-
 
 
             int yMin = 63;
@@ -41,16 +40,19 @@ public class DimensionDeathRikaTask extends BukkitTask {
             Location fLocH = new Location(Bukkit.getWorld("world"), randomXH, yMin, randomZH);
 
 
-            while (fLocR.getBlock().getType() != Material.AIR){
+            while (fLocR.getBlock().getType() != Material.AIR) {
                 fLocR.setY(fLocR.getBlockY() + 2);
             }
 
-            while (fLocH.getBlock().getType() != Material.AIR){
+            while (fLocH.getBlock().getType() != Material.AIR) {
                 fLocH.setY(fLocH.getBlockY() + 2);
             }
 
-            rika.getPlayer().teleport(fLocR);
-            hanyu.getPlayer().teleport(fLocH);
+            if(rika.getPlayer() != null)
+                rika.getPlayer().teleport(fLocR);
+
+            if(hanyu.getPlayer() != null)
+                hanyu.getPlayer().teleport(fLocH);
 
             this.stopTask();
         }

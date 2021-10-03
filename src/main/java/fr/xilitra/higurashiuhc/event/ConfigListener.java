@@ -11,14 +11,14 @@ import org.bukkit.inventory.ItemStack;
 public class ConfigListener implements Listener {
 
     @EventHandler
-    public void onInventoryClickEvent(InventoryClickEvent event){
+    public void onInventoryClickEvent(InventoryClickEvent event) {
 
         Inventory inventory = event.getInventory();
         ItemStack item = event.getCurrentItem();
 
-        if(inventory.getHolder().equals(ItemConfig.TRAGEDIES.getMenu())){
-            if(item.isSimilar(ScenarioList.DOLL.getItem())){
-                if(ScenarioList.DOLL.isActive()){
+        if (inventory.getHolder().equals(ItemConfig.TRAGEDIES.getMenu())) {
+            if (item.isSimilar(ScenarioList.DOLL.getItem())) {
+                if (ScenarioList.DOLL.isActive()) {
                     ScenarioList.DOLL.setActive(false);
                     return;
                 }

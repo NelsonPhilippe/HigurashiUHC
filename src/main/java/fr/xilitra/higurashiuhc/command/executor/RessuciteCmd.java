@@ -15,33 +15,33 @@ public class RessuciteCmd implements CommandsExecutor {
 
         Player p = hPlayer.getPlayer();
 
-        if(p == null)
+        if (p == null)
             return false;
 
-        if(args.length != 2){
+        if (args.length != 2) {
             p.sendMessage(ChatColor.RED + "Commande invalide, merci de faire /h r (Joueur)");
             return false;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
-        if(target == null){
+        if (target == null) {
             p.sendMessage(ChatColor.RED + "Player non trouvé");
             return false;
         }
 
         HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
-        if(hPlayerTarget == null){
+        if (hPlayerTarget == null) {
             p.sendMessage(ChatColor.RED + "Player non trouvé");
             return false;
         }
 
-        if(((DeathTask) hPlayerTarget.getDeathTask()).isRunning()){
+        if (((DeathTask) hPlayerTarget.getDeathTask()).isRunning()) {
 
             ((RikaFurudeAction) hPlayer.getRole().getRoleAction()).resurrection(hPlayer, hPlayerTarget);
             p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
             return true;
 
-        }else
+        } else
             p.sendMessage("Impossible de le réssuciter");
 
         return false;

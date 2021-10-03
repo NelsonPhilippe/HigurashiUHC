@@ -15,46 +15,46 @@ public enum Direction {
     SUD_OUEST(202.5, 247.5, "⬋"),
     SUD_EST(112.5, 157.5, "⬊");
 
-    private static List<Direction> calcList(){
+    double min, max;
+    String symbol;
+
+    Direction(double min, double max, String symbol) {
+        this.min = min;
+        this.max = max;
+        this.symbol = symbol;
+    }
+
+    private static List<Direction> calcList() {
         List<Direction> dirList = new ArrayList<>(Arrays.asList(Direction.values()));
         dirList.remove(Direction.NORD);
         return dirList;
     }
 
-    public static Direction getDirection(double angle){
+    public static Direction getDirection(double angle) {
 
-        for(Direction dir : calcList())
-            if(angle >= dir.getMinAngle() && angle <= dir.getMaxAngle())
+        for (Direction dir : calcList())
+            if (angle >= dir.getMinAngle() && angle <= dir.getMaxAngle())
                 return dir;
 
         return Direction.NORD;
 
     }
 
-    public static Direction getDirection(float angle){
+    public static Direction getDirection(float angle) {
 
         return getDirection(Float.valueOf(angle).doubleValue());
 
     }
 
-    double min, max;
-    String symbol;
-
-    Direction(double min, double max, String symbol){
-        this.min = min;
-        this.max = max;
-        this.symbol = symbol;
-    }
-
-    public double getMinAngle(){
+    public double getMinAngle() {
         return min;
     }
 
-    public double getMaxAngle(){
+    public double getMaxAngle() {
         return max;
     }
 
-    public String getSymbol(){
+    public String getSymbol() {
         return symbol;
     }
 

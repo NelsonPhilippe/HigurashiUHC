@@ -17,7 +17,7 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        if(ScenarioList.OYASHIRO.isActive())
+        if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(2);
 
     }

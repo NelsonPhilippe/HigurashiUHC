@@ -2,34 +2,34 @@ package fr.xilitra.higurashiuhc.game.task;
 
 import java.util.TimerTask;
 
-public abstract class JavaTask extends TimerTask implements Task{
+public abstract class JavaTask extends TimerTask implements Task {
 
+    private final int taskID;
     private boolean running = false;
     private boolean instant = false;
     private int restExecute = -1;
-    private final int taskID;
 
-    public JavaTask(){
+    public JavaTask() {
         this.taskID = TaskRunner.instNum;
-        TaskRunner.instNum+=1;
+        TaskRunner.instNum += 1;
         TaskRunner.hash.put(this.taskID, this);
     }
 
     @Override
-    public int getTaskID(){
+    public int getTaskID() {
         return taskID;
     }
 
     @Override
-    public boolean stopTask(){
+    public boolean stopTask() {
         running = false;
         restExecute = -1;
         return cancel();
     }
 
     @Override
-    public boolean runTaskTimer(long l1, long l2){
-        if(running) return false;
+    public boolean runTaskTimer(long l1, long l2) {
+        if (running) return false;
         TaskRunner.timer.schedule(this, l1, l2);
         running = true;
         instant = false;
@@ -37,9 +37,9 @@ public abstract class JavaTask extends TimerTask implements Task{
     }
 
     @Override
-    public boolean runTaskTimer(long l1, long l2, int times){
-        if(running) return false;
-        if(times <= 1)
+    public boolean runTaskTimer(long l1, long l2, int times) {
+        if (running) return false;
+        if (times <= 1)
             return false;
         TaskRunner.timer.schedule(this, l1, l2);
         running = true;
@@ -49,8 +49,8 @@ public abstract class JavaTask extends TimerTask implements Task{
     }
 
     @Override
-    public boolean runTaskLater(long l1){
-        if(running) return false;
+    public boolean runTaskLater(long l1) {
+        if (running) return false;
         TaskRunner.timer.schedule(this, l1);
         running = true;
         instant = true;
@@ -58,19 +58,19 @@ public abstract class JavaTask extends TimerTask implements Task{
     }
 
     @Override
-    public boolean isRunning(){
+    public boolean isRunning() {
         return running;
     }
 
     @Override
-    public void run(){
+    public void run() {
         this.execute();
 
-        if(restExecute < 0)
+        if (restExecute < 0)
             return;
 
         restExecute -= 1;
-        if(!instant && restExecute <= 0)
+        if (!instant && restExecute <= 0)
             stopTask();
     }
 

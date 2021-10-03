@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class JoinListener implements Listener {
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
+    public void onPlayerJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         p.setMaxHealth(20);
         p.setHealth(20);
@@ -26,7 +26,7 @@ public class JoinListener implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        if(hPlayer == null) {
+        if (hPlayer == null) {
             hPlayer = new HPlayer(p.getName(), p);
             HigurashiUHC.getGameManager().addHPlayer(hPlayer);
         }
@@ -35,9 +35,9 @@ public class JoinListener implements Listener {
 
         e.setJoinMessage("Bienvenue " + e.getPlayer().getName() + "!");
 
-        if(HigurashiUHC.getGameManager().getStates() == GameStates.CONFIG){
+        if (HigurashiUHC.getGameManager().getStates() == GameStates.CONFIG) {
 
-            if(p.hasPermission("huhc.hote.config")){
+            if (p.hasPermission("huhc.hote.config")) {
 
                 p.getInventory().setItem(8, StartGameItem.startGameItem.getItemStack());
                 p.getInventory().setItem(0, MapItemConfig.mapItemConfig.getItemStack());
@@ -68,9 +68,9 @@ public class JoinListener implements Listener {
             );
 
 
-        }else if(HigurashiUHC.getGameManager().getStates() != GameStates.START){
+        } else if (HigurashiUHC.getGameManager().getStates() != GameStates.START) {
 
-            if(HigurashiUHC.getGameManager().getStates() == GameStates.GAME && !hPlayer.getRole().isRole(Role.NULL) && hPlayer.getRole().getRoleAction().acceptReconnect(p)) {
+            if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME && !hPlayer.getRole().isRole(Role.NULL) && hPlayer.getRole().getRoleAction().acceptReconnect(p)) {
                 p.setGameMode(GameMode.SURVIVAL);
                 return;
             }

@@ -8,60 +8,60 @@ public class LinkData {
     public Reason mariedReason = null;
     public Reason winLinkReason = null;
 
-    public LinkData(HPlayer original, HPlayer linkedPlayer){
+    public LinkData(HPlayer original, HPlayer linkedPlayer) {
         this.ogPlayer = original;
         this.linkedPlayer = linkedPlayer;
     }
 
-    public boolean isDeathLinked(){
+    public boolean isDeathLinked() {
         return deathLinkReason != null;
     }
 
-    public void setDeathLinked(Reason reason, boolean both){
+    public void setDeathLinked(Reason reason, boolean both) {
         deathLinkReason = reason;
-        if(both)
+        if (both)
             linkedPlayer.getLinkData(ogPlayer).setDeathLinked(reason, false);
     }
 
-    public Reason getDeathLinkReason(){
+    public Reason getDeathLinkReason() {
         return deathLinkReason;
     }
 
 
-    public boolean isMariedLinked(){
+    public boolean isMariedLinked() {
         return mariedReason != null;
     }
 
-    public void setMariedLinked(Reason reason, boolean both){
+    public void setMariedLinked(Reason reason, boolean both) {
         mariedReason = reason;
-        if(both)
+        if (both)
             linkedPlayer.getLinkData(ogPlayer).setMariedLinked(reason, false);
     }
 
-    public Reason getMariedLinkReason(){
+    public Reason getMariedLinkReason() {
         return mariedReason;
     }
 
 
-    public boolean isWinLinked(){
+    public boolean isWinLinked() {
         return winLinkReason != null;
     }
 
-    public void setWinLinked(Reason reason, boolean both){
+    public void setWinLinked(Reason reason, boolean both) {
         winLinkReason = reason;
-        if(both)
+        if (both)
             linkedPlayer.getLinkData(ogPlayer).setWinLinked(reason, false);
     }
 
-    public Reason getWinLinkReason(){
+    public Reason getWinLinkReason() {
         return winLinkReason;
     }
 
-    public HPlayer getOgPlayer(){
+    public HPlayer getOgPlayer() {
         return ogPlayer;
     }
 
-    public HPlayer getLinkedPlayer(){
+    public HPlayer getLinkedPlayer() {
         return linkedPlayer;
     }
 

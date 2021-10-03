@@ -21,23 +21,17 @@ public class HPlayer {
 
     private final String name;
     private final UUID uuid;
-
-    private Role role = Role.NULL;
-    private Role roleKiller = Role.NULL;
-
-    private Entity killer = null;
     private final DeathTask deathTask;
-
-    private boolean playerDontMove = false;
-    private boolean chatOkonogi = false;
-
-    private PlayerState playerState = PlayerState.WAITING_ROLE;
-    private KitList kitList = null;
-
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
     private final InfoData infoData = new InfoData();
-
+    private Role role = Role.NULL;
+    private Role roleKiller = Role.NULL;
+    private Entity killer = null;
+    private boolean playerDontMove = false;
+    private boolean chatOkonogi = false;
+    private PlayerState playerState = PlayerState.WAITING_ROLE;
+    private KitList kitList = null;
     private HashMap<Commands, Integer> commandsIntegerHashMap;
 
     public HPlayer(String name, Player player) {
@@ -59,24 +53,24 @@ public class HPlayer {
         return Bukkit.getPlayer(getUuid());
     }
 
-    public Role getRole(){
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role, boolean clansFollow){
-        if(this.role != null)
+    public void setRole(Role role, boolean clansFollow) {
+        if (this.role != null)
             this.role.removePlayer(this);
-        if(role == null)
+        if (role == null)
             role = Role.NULL;
         this.role = role;
-        if(clansFollow)
+        if (clansFollow)
             this.role.getDefaultClans().addPlayer(this);
         this.commandsIntegerHashMap = this.role.getDefaultCommands();
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
         role.addPlayer(this);
     }
 
-    public Runnable getDeathTask(){
+    public Runnable getDeathTask() {
         return this.deathTask;
     }
 
@@ -96,9 +90,9 @@ public class HPlayer {
         this.chatOkonogi = chatOkonogi;
     }
 
-    public LinkData getLinkData(HPlayer hPlayer){
+    public LinkData getLinkData(HPlayer hPlayer) {
 
-        if(linkData.containsKey(hPlayer))
+        if (linkData.containsKey(hPlayer))
             return linkData.get(hPlayer);
 
         linkData.put(hPlayer, new LinkData(this, hPlayer));
@@ -106,57 +100,57 @@ public class HPlayer {
 
     }
 
-    public boolean hasMarriedReason(Reason reason){
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
-                return true;
-            return false;
-    }
-
-    public List<HPlayer> getMarriedPlayer(Reason reason){
-        List<HPlayer> playerList = new ArrayList<>();
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
-                playerList.add(linkData.getLinkedPlayer());
-        return playerList;
-    }
-
-    public List<HPlayer> getMarriedPlayerList(){
-        List<HPlayer> playerList = new ArrayList<>();
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getMariedLinkReason() != null)
-                playerList.add(linkData.getLinkedPlayer());
-        return playerList;
-    }
-
-    public boolean hisMarried(){
-        return !getMarriedPlayerList().isEmpty();
-    }
-
-    public boolean hasDeathLinkReason(Reason reason){
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+    public boolean hasMarriedReason(Reason reason) {
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
                 return true;
         return false;
     }
 
-    public List<HPlayer> getDeathLinkPlayer(){
+    public List<HPlayer> getMarriedPlayer(Reason reason) {
         List<HPlayer> playerList = new ArrayList<>();
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getDeathLinkReason() != null)
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getMariedLinkReason() != null && linkData.getMariedLinkReason().isReason(reason))
                 playerList.add(linkData.getLinkedPlayer());
         return playerList;
     }
 
-    public List<HPlayer> getDeathLinkPlayer(Reason reason){
+    public List<HPlayer> getMarriedPlayerList() {
         List<HPlayer> playerList = new ArrayList<>();
-        for(LinkData linkData : this.linkData.values())
-            if(linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getMariedLinkReason() != null)
                 playerList.add(linkData.getLinkedPlayer());
         return playerList;
     }
 
-    public Clans getClans(){
+    public boolean hisMarried() {
+        return !getMarriedPlayerList().isEmpty();
+    }
+
+    public boolean hasDeathLinkReason(Reason reason) {
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+                return true;
+        return false;
+    }
+
+    public List<HPlayer> getDeathLinkPlayer() {
+        List<HPlayer> playerList = new ArrayList<>();
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getDeathLinkReason() != null)
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
+    }
+
+    public List<HPlayer> getDeathLinkPlayer(Reason reason) {
+        List<HPlayer> playerList = new ArrayList<>();
+        for (LinkData linkData : this.linkData.values())
+            if (linkData.getDeathLinkReason() != null && linkData.getDeathLinkReason().isReason(reason))
+                playerList.add(linkData.getLinkedPlayer());
+        return playerList;
+    }
+
+    public Clans getClans() {
         return Clans.getClans(this);
     }
 
@@ -164,16 +158,16 @@ public class HPlayer {
         return !this.mrList.isEmpty();
     }
 
-    public int getMaledictionPower(){
+    public int getMaledictionPower() {
         return this.mrList.size();
     }
 
-     public void addMaledictionReason(Reason mr){
-        if(!hasMaledictionReason(mr)) {
+    public void addMaledictionReason(Reason mr) {
+        if (!hasMaledictionReason(mr)) {
             Player player = getPlayer();
-            if(player == null)
+            if (player == null)
                 return;
-            TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: "+mr.getName());
+            TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: " + mr.getName());
             player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
             player.sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: " + mr.getName());
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9999, 1));
@@ -181,41 +175,41 @@ public class HPlayer {
         }
     }
 
-    public void removeMaledictionReason(Reason mr){
+    public void removeMaledictionReason(Reason mr) {
         mrList.remove(mr);
     }
 
-    public boolean hasMaledictionReason(Reason... mrList){
-        for(Reason mr : mrList)
-            if(this.mrList.contains(mr))
+    public boolean hasMaledictionReason(Reason... mrList) {
+        for (Reason mr : mrList)
+            if (this.mrList.contains(mr))
                 return true;
         return false;
     }
 
-    public PlayerState getPlayerState(){
+    public PlayerState getPlayerState() {
         return playerState;
     }
 
-    public void setPlayerState(PlayerState playerState){
-        if(playerState == null)
+    public void setPlayerState(PlayerState playerState) {
+        if (playerState == null)
             playerState = PlayerState.DISCONNECTED;
         this.playerState = playerState;
     }
 
-    public void setKiller(Entity killer, Role role){
+    public void setKiller(Entity killer, Role role) {
         this.killer = killer;
-        if(role == null)
+        if (role == null)
             role = Role.NULL;
         this.roleKiller = role;
     }
 
     @Nullable
-    public Entity getKiller(){
+    public Entity getKiller() {
         return killer;
     }
 
     @Nullable
-    public Role getKillerRole(){
+    public Role getKillerRole() {
         return roleKiller;
     }
 
@@ -231,41 +225,41 @@ public class HPlayer {
         this.kitList = kitList;
     }
 
-    public InfoData getInfoData(){
+    public InfoData getInfoData() {
         return infoData;
     }
 
-    public void removeCommandAccess(Commands commands){
+    public void removeCommandAccess(Commands commands) {
         commandsIntegerHashMap.remove(commands);
     }
 
-    public void useCommand(Commands commands){
+    public void useCommand(Commands commands) {
         int num = getCommandAccess(commands);
-        if(num>0)
-            commandsIntegerHashMap.replace(commands, num-1);
+        if (num > 0)
+            commandsIntegerHashMap.replace(commands, num - 1);
     }
 
-    public boolean hasCommandAccess(Commands commands){
+    public boolean hasCommandAccess(Commands commands) {
         return getCommandAccess(commands) != 0;
     }
 
-    public int getCommandAccess(Commands commands){
+    public int getCommandAccess(Commands commands) {
         Integer value = commandsIntegerHashMap.get(commands);
-        if(value == null)
+        if (value == null)
             return 0;
         return value;
     }
 
-    public void setCommandAccess(Commands commands, Integer number){
+    public void setCommandAccess(Commands commands, Integer number) {
 
         removeCommandAccess(commands);
         commandsIntegerHashMap.put(commands, number);
 
     }
 
-    public void addCommandAccess(Commands commands){
+    public void addCommandAccess(Commands commands) {
 
-        setCommandAccess(commands, getCommandAccess(commands)+1);
+        setCommandAccess(commands, getCommandAccess(commands) + 1);
 
     }
 

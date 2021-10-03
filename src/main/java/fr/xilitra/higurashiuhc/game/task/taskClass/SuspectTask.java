@@ -12,16 +12,15 @@ public class SuspectTask extends BukkitTask {
     @Override
     public void execute() {
 
-        if(time == 0){
-            HPlayer hPlayer =  Role.KURAUDO_OISHI.getHPlayer();
+        if (time == 0) {
+            HPlayer hPlayer = Role.KURAUDO_OISHI.getHPlayer();
 
-            if(hPlayer == null)
+            if (hPlayer == null)
                 return;
 
             KuraudoOishiAction kuraudoOishiAction = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
             HPlayer suspect = kuraudoOishiAction.getSuspect().get(kuraudoOishiAction.getSuspect().size() - 1);
-
 
 
             this.stopTask();

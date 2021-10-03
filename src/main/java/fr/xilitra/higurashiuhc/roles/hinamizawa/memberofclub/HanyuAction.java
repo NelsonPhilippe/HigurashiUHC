@@ -20,49 +20,49 @@ import java.util.Map;
 
 public class HanyuAction extends RoleAction implements Listener {
 
+    private final Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
     private boolean isInvisible;
     private boolean dimensionIsUsed;
-    private final Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
 
     public HanyuAction() {
         this.dimensionIsUsed = false;
     }
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent e){
-        if(!(e.getEntity() instanceof Player)) return;
+    public void onPlayerDamage(EntityDamageByEntityEvent e) {
+        if (!(e.getEntity() instanceof Player)) return;
 
         Player player = (Player) e.getEntity();
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
-        if(e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
+        if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
 
         Entity entityDamager = e.getDamager();
 
-        if(!(entityDamager instanceof Player)) return;
+        if (!(entityDamager instanceof Player)) return;
 
         Player damager = (Player) entityDamager;
         HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
 
-        if(hPlayerDamager == null)
+        if (hPlayerDamager == null)
             return;
 
-        if(hPlayerDamager.getRole().equals(Role.HANYU) || hPlayer.getRole().isRole(Role.HANYU)){
+        if (hPlayerDamager.getRole().equals(Role.HANYU) || hPlayer.getRole().isRole(Role.HANYU)) {
 
             HanyuAction hanyuAction;
-            if(hPlayerDamager.getRole().equals(Role.HANYU))
+            if (hPlayerDamager.getRole().equals(Role.HANYU))
                 hanyuAction = (HanyuAction) hPlayerDamager.getRole().getRoleAction();
             else hanyuAction = (HanyuAction) hPlayer.getRole().getRoleAction();
 
-            if(hanyuAction.isInvisible){
+            if (hanyuAction.isInvisible) {
                 hanyuAction.setInvisible(false);
 
-                for(Player players : Bukkit.getOnlinePlayers()){
+                for (Player players : Bukkit.getOnlinePlayers()) {
                     players.showPlayer(player);
-                    new HanyuTaskInvisble().runTaskTimer(1000,1000);
+                    new HanyuTaskInvisble().runTaskTimer(1000, 1000);
                 }
             }
 
@@ -71,14 +71,12 @@ public class HanyuAction extends RoleAction implements Listener {
 
     }
 
-
+    public boolean isInvisible() {
+        return isInvisible;
+    }
 
     public void setInvisible(boolean invisible) {
         isInvisible = invisible;
-    }
-
-    public boolean isInvisible() {
-        return isInvisible;
     }
 
     public boolean isDimensionIsUsed() {

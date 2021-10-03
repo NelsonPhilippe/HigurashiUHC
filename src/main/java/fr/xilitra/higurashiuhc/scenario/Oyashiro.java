@@ -49,18 +49,18 @@ public class Oyashiro extends Scenario {
 
     @Override
     protected void scenarioStateChange(boolean b) {
-        if(!b && HigurashiUHC.getGameManager().getStates() == GameStates.GAME) {
+        if (!b && HigurashiUHC.getGameManager().getStates() == GameStates.GAME) {
             solution(5);
         }
     }
 
-    public boolean isReveal(){
+    public boolean isReveal() {
         return reveal;
     }
 
-    public void revealOyashiro(){
+    public void revealOyashiro() {
 
-        if(!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
+        if (!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
             return;
 
         Role km = Role.KEIICHI_MAEBARA;
@@ -84,28 +84,28 @@ public class Oyashiro extends Scenario {
 
         renaBossBar = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
 
-        renaTaskID.runTaskTimer(30000,30000);
-        keiichiTaskID.runTaskTimer(60000,60000);
+        renaTaskID.runTaskTimer(30000, 30000);
+        keiichiTaskID.runTaskTimer(60000, 60000);
 
     }
 
-    public BossBar getKeiichiBossBar(){
+    public BossBar getKeiichiBossBar() {
         return keiichiBossBar;
     }
 
-    public BossBar getRenaBossBar(){
+    public BossBar getRenaBossBar() {
         return renaBossBar;
     }
 
-    public void addKeiichiProggress(float num){
-        keiichiBossBar.setProgress(keiichiBossBar.getProgress()+num);
-        if(keiichiBossBar.getProgress()>100)
+    public void addKeiichiProggress(float num) {
+        keiichiBossBar.setProgress(keiichiBossBar.getProgress() + num);
+        if (keiichiBossBar.getProgress() > 100)
             solution(1);
     }
 
-    public void addRenaProggress(float num){
-        renaBossBar.setProgress(renaBossBar.getProgress()+num);
-        if(renaBossBar.getProgress()<=0)
+    public void addRenaProggress(float num) {
+        renaBossBar.setProgress(renaBossBar.getProgress() + num);
+        if (renaBossBar.getProgress() <= 0)
             solution(3);
     }
 

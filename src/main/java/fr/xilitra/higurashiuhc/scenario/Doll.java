@@ -16,26 +16,26 @@ public class Doll extends Scenario {
     @Override
     public void solution(int solutionN, Object... o) {
         this.appliedSolution = solutionN;
-        if(solutionN == 1){
-            if(Role.MION_SONOZAKI.getHPlayer() == null)
+        if (solutionN == 1) {
+            if (Role.MION_SONOZAKI.getHPlayer() == null)
                 return;
             Role.MION_SONOZAKI.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
             Role.MION_SONOZAKI.getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
-        }else if(solutionN == 2){
-            if(Role.SHION_SONOSAKI.getHPlayer() == null)
+        } else if (solutionN == 2) {
+            if (Role.SHION_SONOSAKI.getHPlayer() == null)
                 return;
             Role.SHION_SONOSAKI.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
             Role.SHION_SONOSAKI.getHPlayer().getLinkData((HPlayer) o[0]).setDeathLinked(Reason.DOLL_TRAGEDY, false);
-        }else if(solutionN == 3){
-            if(Role.MION_SONOZAKI.getHPlayer() == null)
+        } else if (solutionN == 3) {
+            if (Role.MION_SONOZAKI.getHPlayer() == null)
                 return;
             Role.MION_SONOZAKI.getHPlayer().getLinkData((HPlayer) o[0]).setMariedLinked(Reason.DOLL_TRAGEDY, true);
-        }else{
+        } else {
             HPlayer hPlayer = Role.KEIICHI_MAEBARA.getHPlayer();
-            if(hPlayer == null || hPlayer.getPlayer() == null)
+            if (hPlayer == null || hPlayer.getPlayer() == null)
                 return;
             Player player = hPlayer.getPlayer();
-            player.setMaxHealth(player.getMaxHealth()-5);
+            player.setMaxHealth(player.getMaxHealth() - 5);
             Role.KEIICHI_MAEBARA.getHPlayer().addMaledictionReason(Reason.DOLL_TRAGEDY);
         }
     }
@@ -50,7 +50,7 @@ public class Doll extends Scenario {
 
     }
 
-    public Integer getAppliedSolution(){
+    public Integer getAppliedSolution() {
         return appliedSolution;
     }
 

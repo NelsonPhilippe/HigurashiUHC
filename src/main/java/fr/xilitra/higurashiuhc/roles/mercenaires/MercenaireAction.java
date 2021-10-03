@@ -19,9 +19,9 @@ public class MercenaireAction extends RoleAction {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-        if(getCible() != null && getLinkedRole().getHPlayer() != null && getLinkedRole().getHPlayer().getPlayer() != null){
+        if (getCible() != null && getLinkedRole().getHPlayer() != null && getLinkedRole().getHPlayer().getPlayer() != null) {
 
-            if(killed == getCible()){
+            if (killed == getCible()) {
 
                 getLinkedRole().getHPlayer().getPlayer().setMaxHealth(getLinkedRole().getHPlayer().getPlayer().getMaxHealth() + 1);
                 setCible(null);

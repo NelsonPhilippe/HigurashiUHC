@@ -16,14 +16,14 @@ public class VoteCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] args) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null) return false;
+        if (p == null) return false;
 
-        if(!Clans.HINAMIZAWA.hisInClans(hPlayer, false)) {
+        if (!Clans.HINAMIZAWA.hisInClans(hPlayer, false)) {
             p.sendMessage("Tu ne peux pas voter");
             return true;
         }
 
-        if(voteTask.isRunning()){
+        if (voteTask.isRunning()) {
 
             OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) Role.ORYO_SONOZAKI.getRoleAction();
 

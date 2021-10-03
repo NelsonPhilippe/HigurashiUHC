@@ -19,10 +19,10 @@ import org.bukkit.inventory.ItemStack;
 public class BlockBreakListener implements Listener {
 
     @EventHandler
-    public void onBlockBreak(BlockBreakEvent e){
+    public void onBlockBreak(BlockBreakEvent e) {
         Block block = e.getBlock();
 
-        if(block.getType() != Material.DIRT || block.getType() != Material.GRASS) return;
+        if (block.getType() != Material.DIRT || block.getType() != Material.GRASS) return;
 
         Location loc = block.getLocation();
 
@@ -31,20 +31,20 @@ public class BlockBreakListener implements Listener {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
-        if(hPlayer.getRole().getName().equalsIgnoreCase("Satoko Hojo")){
+        if (hPlayer.getRole().getName().equalsIgnoreCase("Satoko Hojo")) {
 
             ItemStack item = e.getPlayer().getItemInHand();
 
-            if(item == null || !item.getItemMeta().hasLore() || item.getType() == Material.AIR) return;
+            if (item == null || !item.getItemMeta().hasLore() || item.getType() == Material.AIR) return;
 
-            if(item.getItemMeta().getLore().get(0).equalsIgnoreCase(Traps.hoeTrap.getLore())){
+            if (item.getItemMeta().getLore().get(0).equalsIgnoreCase(Traps.hoeTrap.getLore())) {
 
                 Material type = block.getType();
 
-                if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL){
+                if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL) {
 
                     Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
 
@@ -56,7 +56,7 @@ public class BlockBreakListener implements Listener {
 
         }
 
-        if(block.getType() == Material.DIAMOND_ORE)
+        if (block.getType() == Material.DIAMOND_ORE)
             hPlayer.getInfoData().setDataInfo(InfoData.InfoList.DIAMOND.name(), String.valueOf(Integer.parseInt((String) hPlayer.getInfoData().getDataInfo(InfoData.InfoList.DIAMOND.name())) + 1));
     }
 

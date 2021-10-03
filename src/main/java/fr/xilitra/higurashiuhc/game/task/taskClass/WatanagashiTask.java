@@ -14,33 +14,33 @@ public class WatanagashiTask extends BukkitTask {
     public void execute() {
 
         Role rf = Role.RIKA_FURUDE;
-        if(rf.getHPlayer() == null)
+        if (rf.getHPlayer() == null)
             return;
 
         Player rikaPlayer = rf.getHPlayer().getPlayer();
-        if(rikaPlayer == null)
+        if (rikaPlayer == null)
             return;
 
         Location rikaLocation = rikaPlayer.getLocation();
 
-        for(HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getHPlayerList()){
+        for (HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getHPlayerList()) {
 
             Player player = hPlayer.getPlayer();
-            if(player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
+            if (player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
                 return;
 
             Location playerLocation = player.getLocation();
 
-            if(playerLocation.getWorld().getName().equals(rikaLocation.getWorld().getName()))
+            if (playerLocation.getWorld().getName().equals(rikaLocation.getWorld().getName()))
                 continue;
 
-            double diffX = rikaLocation.getX()-playerLocation.getX();
-            double diffY = rikaLocation.getY()-playerLocation.getY();
-            double diffZ = rikaLocation.getY()-playerLocation.getZ();
+            double diffX = rikaLocation.getX() - playerLocation.getX();
+            double diffY = rikaLocation.getY() - playerLocation.getY();
+            double diffZ = rikaLocation.getY() - playerLocation.getZ();
 
-            double rayon = Math.sqrt( diffX * diffX + diffY * diffY + diffZ * diffZ );
+            double rayon = Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
 
-            if(rayon <= 20)
+            if (rayon <= 20)
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1));
 
         }

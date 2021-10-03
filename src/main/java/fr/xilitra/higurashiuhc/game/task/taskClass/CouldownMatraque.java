@@ -8,7 +8,7 @@ public class CouldownMatraque extends JavaTask {
     @Override
     public void execute() {
 
-            MatraqueItem.matraqueItem.setUse(false);
+        MatraqueItem.matraqueItem.setUse(false);
 
     }
 }

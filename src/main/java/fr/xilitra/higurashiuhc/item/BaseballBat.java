@@ -4,7 +4,7 @@ import org.bukkit.Material;
 
 import java.util.UUID;
 
-public class BaseballBat extends ItemBuilder{
+public class BaseballBat extends ItemBuilder {
 
     private boolean isCrafted;
     private int used = 3;

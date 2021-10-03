@@ -19,15 +19,15 @@ import java.util.UUID;
 
 public class GameTask extends BukkitTask {
 
+    private final int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
     private int time = 0;
     private int decount = 3;
     private int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
-    private final int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
 
     @Override
     public void execute() {
 
-        if(time >= worldborderActivation){
+        if (time >= worldborderActivation) {
             World world = Bukkit.getWorld("world");
 
             WorldBorder border = world.getWorldBorder();
@@ -35,11 +35,11 @@ public class GameTask extends BukkitTask {
             border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder") - blockReduce);
             HigurashiUHC.getGameManager().setWorldBorder(border.getSize());
         }
-        
+
         String formatTime = TimeUtils.formatTime(time);
         int player_remaining = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME, PlayerState.WAITING_DEATH).size();
 
-        for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
+        for (Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()) {
             scoreboard.getValue().setLines(
                     "",
                     ChatColor.GRAY + "Joueur restant : " + ChatColor.GOLD + player_remaining,
@@ -57,14 +57,14 @@ public class GameTask extends BukkitTask {
             decount--;
         }
 
-        if(HigurashiUHC.getGameManager().getEpisode() >= 6){
-            HPlayer player =  Role.KURAUDO_OISHI.getHPlayer();
+        if (HigurashiUHC.getGameManager().getEpisode() >= 6) {
+            HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
 
-            if(player != null && player.getPlayer() != null){
+            if (player != null && player.getPlayer() != null) {
 
                 KuraudoOishiAction oishi = (KuraudoOishiAction) player.getRole().getRoleAction();
 
-                if(!oishi.isCoupableIsDesigned()){
+                if (!oishi.isCoupableIsDesigned()) {
                     player.getPlayer().setMaxHealth(2.5);
                 }
 
@@ -72,7 +72,7 @@ public class GameTask extends BukkitTask {
 
         }
 
-        if(time == timePhase){
+        if (time == timePhase) {
             timePhase = timePhase + timePhase;
             HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
             Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));

@@ -13,20 +13,20 @@ public class EpisodeUpdate extends Event {
         this.episode = episode;
     }
 
-    public void setEpisode(int episode) {
-        this.episode = episode;
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
     }
 
     public int getEpisode() {
         return episode;
     }
 
-    @Override
-    public HandlerList getHandlers() {
-        return HANDLERS;
+    public void setEpisode(int episode) {
+        this.episode = episode;
     }
 
-    public static HandlerList getHandlerList(){
+    @Override
+    public HandlerList getHandlers() {
         return HANDLERS;
     }
 }

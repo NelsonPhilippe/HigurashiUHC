@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GuiMenu implements InventoryHolder{
+public class GuiMenu implements InventoryHolder {
 
     private final String name;
     private final int size;
@@ -20,11 +20,11 @@ public class GuiMenu implements InventoryHolder{
         this.size = size;
     }
 
-    public void create(){
+    public void create() {
 
         this.inventory = Bukkit.createInventory(this, this.size, this.name);
 
-        for(Map.Entry<Integer, ItemStack> item : items.entrySet()){
+        for (Map.Entry<Integer, ItemStack> item : items.entrySet()) {
             inventory.setItem(item.getKey(), item.getValue());
         }
     }
@@ -41,7 +41,7 @@ public class GuiMenu implements InventoryHolder{
         return items;
     }
 
-    public void addItem(int slot, ItemStack stack){
+    public void addItem(int slot, ItemStack stack) {
         this.items.put(slot, stack);
     }
 

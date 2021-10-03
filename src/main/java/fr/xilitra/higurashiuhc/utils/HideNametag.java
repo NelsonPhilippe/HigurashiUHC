@@ -15,16 +15,16 @@ import java.util.UUID;
 
 public class HideNametag {
 
-    public static Map<ArrayList<UUID>,ArmorStand> hiddenmap = new HashMap<>();
+    public static Map<ArrayList<UUID>, ArmorStand> hiddenmap = new HashMap<>();
 
     public static void hide(Player player, Player hideFrom) {
-        if(player == hideFrom)
+        if (player == hideFrom)
             return;
         //Add Players to the List
         ArrayList<UUID> list = new ArrayList<>();
         list.add(player.getUniqueId());
         list.add(hideFrom.getUniqueId());
-        if(hiddenmap.containsKey(list)) {
+        if (hiddenmap.containsKey(list)) {
             return;
         }
         //spawning the Armorstand & setting it up
@@ -47,12 +47,12 @@ public class HideNametag {
     }
 
     public static void unhide(Player player, Player hiddenFrom) {
-        if(player == hiddenFrom)
+        if (player == hiddenFrom)
             return;
         ArrayList<UUID> list = new ArrayList<>();
         list.add(player.getUniqueId());
         list.add(hiddenFrom.getUniqueId());
-        if(!(hiddenmap.containsKey(list))) {
+        if (!(hiddenmap.containsKey(list))) {
             return;
         }
         ArmorStand stand = hiddenmap.get(list);

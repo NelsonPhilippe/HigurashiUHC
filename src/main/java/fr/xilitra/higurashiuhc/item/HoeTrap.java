@@ -4,7 +4,7 @@ import org.bukkit.Material;
 
 import java.util.UUID;
 
-public class HoeTrap extends ItemBuilder{
+public class HoeTrap extends ItemBuilder {
 
 
     public HoeTrap() {

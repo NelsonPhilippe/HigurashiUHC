@@ -15,20 +15,20 @@ public class HanyuTaskInvisble extends BukkitTask {
     public void execute() {
 
 
-        if(time == 0){
+        if (time == 0) {
 
             HPlayer hPlayer = Role.HANYU.getHPlayer();
             HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 
-            if(rika == null || rika.getPlayer() == null){
+            if (rika == null || rika.getPlayer() == null) {
                 return;
             }
 
-            if(hPlayer != null && hPlayer.getPlayer() != null){
+            if (hPlayer != null && hPlayer.getPlayer() != null) {
 
                 Location loc = hPlayer.getPlayer().getLocation();
 
-                if(loc.distanceSquared(rika.getPlayer().getLocation()) < 30 * 30) {
+                if (loc.distanceSquared(rika.getPlayer().getLocation()) < 30 * 30) {
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
 

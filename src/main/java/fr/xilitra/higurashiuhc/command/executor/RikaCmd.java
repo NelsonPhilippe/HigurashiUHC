@@ -15,21 +15,21 @@ public class RikaCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
-        if(strings.length == 2){
+        if (strings.length == 2) {
 
             Player target = Bukkit.getPlayer(strings[1]);
 
-            if(target == null){
+            if (target == null) {
                 p.sendMessage("Cible non trouvée");
                 return false;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
-            if(targetHPlayer == null){
+            if (targetHPlayer == null) {
                 p.sendMessage("Cible Introuvable");
                 return false;
             }
@@ -38,17 +38,17 @@ public class RikaCmd implements CommandsExecutor {
 
             akasakaAction.setCountCompare(akasakaAction.getCountCompare() + 1);
 
-            if(targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getName())){
+            if (targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getName())) {
 
-                if(akasakaAction.getCountCompare() == 1){
+                if (akasakaAction.getCountCompare() == 1) {
                     p.setMaxHealth(1.5);
                 }
 
-                if(akasakaAction.getCountCompare() == 2){
+                if (akasakaAction.getCountCompare() == 2) {
                     p.setMaxHealth(1);
                 }
 
-                if(akasakaAction.getCountCompare() == 3){
+                if (akasakaAction.getCountCompare() == 3) {
                     p.setMaxHealth(0.5);
                 }
 

@@ -16,12 +16,12 @@ public class TeleportRikaCmd implements CommandsExecutor {
 
         Player p = hPlayer.getPlayer();
 
-        if(p == null)
+        if (p == null)
             return false;
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 
-        if(rika != null && rika.getPlayer() != null){
+        if (rika != null && rika.getPlayer() != null) {
 
             int x = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.x");
             int y = HigurashiUHC.getInstance().getConfig().getInt("hanyu.dimension.spawn-location.hanyu.y");
@@ -37,12 +37,12 @@ public class TeleportRikaCmd implements CommandsExecutor {
             rika.getPlayer().teleport(new Location(worldR, xR, yR, zR));
             p.teleport(new Location(world, x, y, z));
 
-            new DimensionDeathRikaTask(rika, hPlayer).runTaskTimer(1000,1000);
+            new DimensionDeathRikaTask(rika, hPlayer).runTaskTimer(1000, 1000);
 
             p.sendMessage("Attention vous allez être retéléporté dans 30 secondes");
             return true;
 
-        }else{
+        } else {
             p.sendMessage("Rika Introuvable");
         }
 

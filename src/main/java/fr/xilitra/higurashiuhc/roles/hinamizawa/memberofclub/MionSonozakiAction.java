@@ -21,10 +21,10 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 public class MionSonozakiAction extends RoleAction implements Listener {
 
     @EventHandler
-    public void onRoleSelected(RoleSelected e){
+    public void onRoleSelected(RoleSelected e) {
         HPlayer player = e.getPlayer();
 
-        if(player.getPlayer() != null && player.getRole().isRole(Role.MION_SONOZAKI)){
+        if (player.getPlayer() != null && player.getRole().isRole(Role.MION_SONOZAKI)) {
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
         }
@@ -33,34 +33,34 @@ public class MionSonozakiAction extends RoleAction implements Listener {
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
-        if(!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
+        if (!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
             return;
 
-        if(!killed.getRole().isRole(Role.RENA_RYUGU, Role.SHION_SONOSAKI, Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA))
+        if (!killed.getRole().isRole(Role.RENA_RYUGU, Role.SHION_SONOSAKI, Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA))
             return;
 
-        if(killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)){
+        if (killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)) {
             List<HPlayer> ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
             ltd.forEach((pl) -> killer.getLinkData(pl).setDeathLinked(null, false));
         }
 
-        List<Role> roleList = new ArrayList<Role>(){{
+        List<Role> roleList = new ArrayList<Role>() {{
             add(Role.RENA_RYUGU);
             add(Role.SHION_SONOSAKI);
             add(Role.SATOKO_HOJO);
             add(Role.KEIICHI_MAEBARA);
         }};
 
-        if(killer.getPlayer() != null)
-            killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth()+1);
+        if (killer.getPlayer() != null)
+            killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth() + 1);
 
-        for(Role role : roleList){
-            if(role.getHPlayer() == null)
+        for (Role role : roleList) {
+            if (role.getHPlayer() == null)
                 return;
             Role killerRole = role.getHPlayer().getKillerRole();
-            if(killerRole == null)
+            if (killerRole == null)
                 return;
-            if(killerRole != this.getLinkedRole())
+            if (killerRole != this.getLinkedRole())
                 return;
         }
 
@@ -71,7 +71,7 @@ public class MionSonozakiAction extends RoleAction implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        HPlayer playerAlive =  Role.SHION_SONOSAKI.getHPlayer();
+        HPlayer playerAlive = Role.SHION_SONOSAKI.getHPlayer();
 
         if (playerAlive != null && playerAlive.getPlayer() != null && killed.getRole().isRole(Role.MION_SONOZAKI)) {
 

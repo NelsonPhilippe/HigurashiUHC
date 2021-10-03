@@ -29,7 +29,7 @@ public class KuraudoOishiAction extends RoleAction implements Listener {
         return suspect;
     }
 
-    public void addSuspect(HPlayer hPlayer){
+    public void addSuspect(HPlayer hPlayer) {
         this.suspect.add(hPlayer);
     }
 

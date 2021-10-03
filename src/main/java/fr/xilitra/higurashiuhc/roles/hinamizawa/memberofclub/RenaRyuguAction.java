@@ -19,7 +19,7 @@ public class RenaRyuguAction extends RoleAction implements Listener {
         this.penseIsUsed = false;
     }
 
-    public void setHPlayerPense(HPlayer player){
+    public void setHPlayerPense(HPlayer player) {
         this.hPlayerPense = player;
     }
 
@@ -43,15 +43,15 @@ public class RenaRyuguAction extends RoleAction implements Listener {
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
 
-        if(ScenarioList.OYASHIRO.isActive())
+        if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(4);
 
-        if(killed.hasMalediction() && killed.getKiller() instanceof Player){
+        if (killed.hasMalediction() && killed.getKiller() instanceof Player) {
 
             Player killer = (Player) killed.getKiller();
-            HPlayer killerHPlayer =  Role.RENA_RYUGU.getHPlayer();
+            HPlayer killerHPlayer = Role.RENA_RYUGU.getHPlayer();
 
-            if(killerHPlayer != null){
+            if (killerHPlayer != null) {
 
                 killer.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false));
 

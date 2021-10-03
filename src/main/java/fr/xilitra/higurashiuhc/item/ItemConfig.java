@@ -19,7 +19,7 @@ public enum ItemConfig {
     ItemStack item;
     GuiMenu menu;
 
-    ItemConfig(String name, ItemStack item, GuiMenu menu){
+    ItemConfig(String name, ItemStack item, GuiMenu menu) {
         this.name = name;
         this.item = item;
         this.menu = menu;

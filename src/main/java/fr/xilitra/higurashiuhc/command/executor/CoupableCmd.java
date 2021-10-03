@@ -17,23 +17,23 @@ public class CoupableCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] args) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null) return false;
+        if (p == null) return false;
 
         HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
-        if(targetHPlayer == null){
+        if (targetHPlayer == null) {
             p.sendMessage("Cible non trouvé");
             return false;
         }
-            
+
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
-        if(!oishi.isCoupableIsDesigned()){
+        if (!oishi.isCoupableIsDesigned()) {
             oishi.setCoupableIsDesigned(true);
         }
 
         p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");
 
-        if(targetHPlayer.getClans().isClans(Clans.SONOZAKI)){
+        if (targetHPlayer.getClans().isClans(Clans.SONOZAKI)) {
             Clans.HINAMIZAWA.removeAlly(Clans.POLICE, true);
             ItemStack arc = new ItemStack(Material.BOW, 1);
             arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
@@ -41,15 +41,15 @@ public class CoupableCmd implements CommandsExecutor {
             p.getInventory().addItem(arc);
         }
 
-        if(targetHPlayer.getClans().getName().equalsIgnoreCase(Clans.HINAMIZAWA.getName())){
+        if (targetHPlayer.getClans().getName().equalsIgnoreCase(Clans.HINAMIZAWA.getName())) {
             p.sendMessage("L'enquête a échoué.");
             return true;
         }
 
-        if(targetHPlayer.getRole().isRole(Role.RIKA_FURUDE))
+        if (targetHPlayer.getRole().isRole(Role.RIKA_FURUDE))
             Clans.HINAMIZAWA.addPlayer(targetHPlayer);
 
-        p.sendMessage("Le role du joueur est : " +  targetHPlayer.getRole().getDisplayName());
+        p.sendMessage("Le role du joueur est : " + targetHPlayer.getRole().getDisplayName());
         p.sendMessage("Le clan du joueur est : " + targetHPlayer.getClans().getName());
 
         return true;

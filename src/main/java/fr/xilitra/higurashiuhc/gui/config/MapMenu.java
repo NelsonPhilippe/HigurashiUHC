@@ -24,16 +24,16 @@ public class MapMenu extends GuiMenu implements Listener {
 
 
     @EventHandler
-    public void onClickInventory(InventoryClickEvent e){
+    public void onClickInventory(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
 
-        if(!p.isOp()) return;
+        if (!p.isOp()) return;
 
         ItemStack itemStack = e.getCurrentItem();
 
-        if(itemStack.getType() == Material.AIR || !itemStack.getItemMeta().hasLore()) return;
+        if (itemStack.getType() == Material.AIR || !itemStack.getItemMeta().hasLore()) return;
 
-        if(itemStack.getItemMeta().getLore().get(0).equalsIgnoreCase(VillageItem.villageItem.getLore())){
+        if (itemStack.getItemMeta().getLore().get(0).equalsIgnoreCase(VillageItem.villageItem.getLore())) {
             p.closeInventory();
             p.sendMessage("Vous venez d'ajouté un village sur la map");
 
@@ -41,8 +41,8 @@ public class MapMenu extends GuiMenu implements Listener {
             int xy_min = HigurashiUHC.getInstance().getConfig().getInt("worldborder-min");
             int range = xy_max - xy_min + 1;
 
-            int x = (int)(Math.random() * range) + xy_min;
-            int z = (int)(Math.random() * range) + xy_min;
+            int x = (int) (Math.random() * range) + xy_min;
+            int z = (int) (Math.random() * range) + xy_min;
             int size = (int) (Math.random() * (150 - 50) + 1) + 50;
             int randomBiome = new Random().nextInt(3);
 

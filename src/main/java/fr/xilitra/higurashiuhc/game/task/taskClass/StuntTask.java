@@ -6,10 +6,10 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 
 public class StuntTask extends JavaTask {
 
-    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.stunt");
     private final HPlayer player;
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.stunt");
 
-    public StuntTask(HPlayer player){
+    public StuntTask(HPlayer player) {
         this.player = player;
     }
 
@@ -17,7 +17,7 @@ public class StuntTask extends JavaTask {
     public void execute() {
 
 
-        if(time == 0){
+        if (time == 0) {
             this.player.setPlayerDontMove(false);
             this.stopTask();
         }

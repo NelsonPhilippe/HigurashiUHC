@@ -6,12 +6,12 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 
 public class DimensionTask extends BukkitTask {
 
-    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.hanyu");
     private final HPlayer rika;
     private final HPlayer hanyu;
     private final boolean teleportRika;
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.rika.hanyu");
 
-    public DimensionTask(HPlayer rika, HPlayer hanyu, boolean teleportRika){
+    public DimensionTask(HPlayer rika, HPlayer hanyu, boolean teleportRika) {
         this.rika = rika;
         this.hanyu = hanyu;
         this.teleportRika = teleportRika;
@@ -21,8 +21,7 @@ public class DimensionTask extends BukkitTask {
     public void execute() {
 
 
-        if(time <= 0){
-
+        if (time <= 0) {
 
 
             this.stopTask();

@@ -8,15 +8,15 @@ import fr.xilitra.higurashiuhc.roles.Role;
 public class ClansCmd implements CommandsExecutor {
     @Override
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
-        if(Clans.getClans(hPlayer) != null)
+        if (Clans.getClans(hPlayer) != null)
             return false;
-        if(strings.length != 2)
+        if (strings.length != 2)
             return false;
         Clans clans = Clans.getClans(strings[1]);
-        if(clans == null)
+        if (clans == null)
             return false;
 
-        if(!(clans.isClans(Clans.HINAMIZAWA) || clans.isClans(Clans.MERCENAIRE)) && hPlayer.getRole().isRole(Role.KYOSUKE_IRIE))
+        if (!(clans.isClans(Clans.HINAMIZAWA) || clans.isClans(Clans.MERCENAIRE)) && hPlayer.getRole().isRole(Role.KYOSUKE_IRIE))
             return false;
 
         clans.addPlayer(hPlayer);

@@ -10,7 +10,7 @@ public class CustomCraft {
     public static BaseballBat baseballBat = new BaseballBat();
 
 
-    public static void addRecipeBaseball(){
+    public static void addRecipeBaseball() {
 
         ShapedRecipe batte = new ShapedRecipe(baseballBat.getItemStack());
 

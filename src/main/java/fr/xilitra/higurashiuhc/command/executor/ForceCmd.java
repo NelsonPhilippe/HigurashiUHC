@@ -10,7 +10,7 @@ public class ForceCmd implements CommandsExecutor {
     @Override
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
         p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000, 1));
         p.sendMessage("Votre force a été boosté!");

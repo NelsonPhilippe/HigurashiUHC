@@ -17,41 +17,41 @@ public class BanCmd implements CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, String[] strings) {
 
         Player p = hPlayer.getPlayer();
-        if(p == null)
+        if (p == null)
             return false;
 
-        if(strings.length == 2){
+        if (strings.length == 2) {
 
             OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) hPlayer.getRole().getRoleAction();
 
             Player target = Bukkit.getPlayer(strings[1]);
 
-            if(target == null) {
+            if (target == null) {
                 p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
                 return true;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
-            if(targetHPlayer == null || Clans.HINAMIZAWA.hisInClans(targetHPlayer, false)){
+            if (targetHPlayer == null || Clans.HINAMIZAWA.hisInClans(targetHPlayer, false)) {
                 p.sendMessage("vous ne pouvez pas voter pour un membre de votre clans");
                 return false;
             }
 
             oryoSonozakiAction.setAsVoted(targetHPlayer);
-            VoteCmd.voteTask.runTaskTimer(1000,1000);
+            VoteCmd.voteTask.runTaskTimer(1000, 1000);
 
             TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
-            TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]" );
+            TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]");
             clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h vote"));
             message.addExtra(clickable);
 
-            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h "+ Commands.VOTE.getInitials()));
+            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h " + Commands.VOTE.getInitials()));
 
-            for(HPlayer players : Clans.HINAMIZAWA.getHPlayerList()){
+            for (HPlayer players : Clans.HINAMIZAWA.getHPlayerList()) {
 
                 Player allPlayer = players.getPlayer();
-                if(allPlayer != null)
+                if (allPlayer != null)
                     allPlayer.spigot().sendMessage(message);
 
             }

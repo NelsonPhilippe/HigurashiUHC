@@ -18,7 +18,7 @@ public class StartTask extends JavaTask {
     @Override
     public void execute() {
 
-        for(Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()){
+        for (Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()) {
             scoreboard.getValue().setLines(
                     "",
                     ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
@@ -50,7 +50,7 @@ public class StartTask extends JavaTask {
 
         }
 
-        if(time == 0){
+        if (time == 0) {
             HigurashiUHC.getGameManager().game();
 
             this.stopTask();

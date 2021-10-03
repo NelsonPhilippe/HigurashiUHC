@@ -33,29 +33,29 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     public List<Location> blockTraps = new ArrayList<>();
 
     @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent e){
+    public void onPlayerDamage(EntityDamageByEntityEvent e) {
 
-        if(!(e.getDamager() instanceof Snowball)) return;
+        if (!(e.getDamager() instanceof Snowball)) return;
 
         Snowball snowball = (Snowball) e.getDamager();
 
-        if(!(snowball.getShooter() instanceof Player)) return;
+        if (!(snowball.getShooter() instanceof Player)) return;
 
-        if(!(e.getEntity() instanceof Player)) return;
+        if (!(e.getEntity() instanceof Player)) return;
 
         Player shooter = (Player) snowball.getShooter();
         Player victim = (Player) e.getEntity();
 
         HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getHPlayer(shooter.getUniqueId());
-        if(hPlayerShooter == null)
+        if (hPlayerShooter == null)
             return;
         HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(victim.getUniqueId());
 
         System.out.println(snowball.getCustomName());
 
-        if(snowball.getCustomName().equalsIgnoreCase(Traps.slowBall.getLore())){
+        if (snowball.getCustomName().equalsIgnoreCase(Traps.slowBall.getLore())) {
 
-            if(hPlayerShooter.getRole() != null && hPlayerShooter.getRole().isRole(Role.SATOKO_HOJO)){
+            if (hPlayerShooter.getRole() != null && hPlayerShooter.getRole().isRole(Role.SATOKO_HOJO)) {
 
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2, true));
             }
@@ -63,32 +63,33 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void onInteractEvent(PlayerInteractEvent e){
+    public void onInteractEvent(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
-        if(hPlayer.getRole() == null){
+        if (hPlayer.getRole() == null) {
             return;
         }
 
-        if(!(hPlayer.getRole().isRole(Role.SATOKO_HOJO))) return;
+        if (!(hPlayer.getRole().isRole(Role.SATOKO_HOJO))) return;
 
 
-        if(p.getItemInHand() == null || !p.getItemInHand().getItemMeta().hasLore() || p.getItemInHand().getType() == Material.AIR) return;
+        if (p.getItemInHand() == null || !p.getItemInHand().getItemMeta().hasLore() || p.getItemInHand().getType() == Material.AIR)
+            return;
 
         ItemStack item = e.getItem();
 
 
-        if(item.getItemMeta().getLore().get(0).equals(Traps.hoeTrap.getLore())){
+        if (item.getItemMeta().getLore().get(0).equals(Traps.hoeTrap.getLore())) {
 
             Block block = e.getClickedBlock();
             Material type = block.getType();
             Location loc = block.getLocation();
 
-            if(block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL){
+            if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL) {
 
                 Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
 
@@ -100,25 +101,24 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void onProjectileLaunchEvent(ProjectileLaunchEvent e){
+    public void onProjectileLaunchEvent(ProjectileLaunchEvent e) {
 
-        if(!(e.getEntity() instanceof Snowball)) return;
+        if (!(e.getEntity() instanceof Snowball)) return;
 
         Snowball snowball = (Snowball) e.getEntity();
 
-        if(!(snowball.getShooter() instanceof Player)) return;
+        if (!(snowball.getShooter() instanceof Player)) return;
 
         Player shooter = (Player) snowball.getShooter();
         HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getHPlayer(shooter.getUniqueId());
-        if(hPlayerShooter == null)
+        if (hPlayerShooter == null)
             return;
 
-        if(hPlayerShooter.getRole().isRole(Role.SATOKO_HOJO)){
+        if (hPlayerShooter.getRole().isRole(Role.SATOKO_HOJO)) {
 
 
             snowball.setCustomName(Traps.slowBall.getLore());
             snowball.setCustomNameVisible(false);
-
 
 
         }
@@ -126,13 +126,13 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void onRoleSelected(RoleSelected e){
+    public void onRoleSelected(RoleSelected e) {
 
         HPlayer player = e.getPlayer();
-        if(player.getPlayer() == null)
+        if (player.getPlayer() == null)
             return;
 
-        if(player.getRole().isRole(Role.SATOKO_HOJO)){
+        if (player.getRole().isRole(Role.SATOKO_HOJO)) {
 
             Random random = new Random();
 
@@ -147,20 +147,20 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e){
+    public void onBlockPlace(BlockPlaceEvent e) {
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        if(hPlayer == null)
+        if (hPlayer == null)
             return;
 
-        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO)){
+        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO)) {
 
             ItemStack itemStack = e.getItemInHand();
 
-            if(!itemStack.getItemMeta().hasLore()) return;
+            if (!itemStack.getItemMeta().hasLore()) return;
 
-            if(itemStack.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){
+            if (itemStack.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())) {
 
                 System.out.println(itemStack.getItemMeta().getDisplayName());
                 itemStack.setAmount(itemStack.getAmount() - 1);
@@ -170,14 +170,14 @@ public class SatokoHojoAction extends RoleAction implements Listener {
 
     }
 
-    public void removeTraps(HPlayer hPlayer){
-        if(hPlayer.getPlayer() == null)
+    public void removeTraps(HPlayer hPlayer) {
+        if (hPlayer.getPlayer() == null)
             return;
-        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO)){
+        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO)) {
             Inventory inventory = hPlayer.getPlayer().getInventory();
 
-            for(ItemStack item : inventory.getContents()){
-                if(item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){
+            for (ItemStack item : inventory.getContents()) {
+                if (item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())) {
                     inventory.remove(item);
                 }
             }

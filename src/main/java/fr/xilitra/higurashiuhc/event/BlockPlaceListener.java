@@ -16,15 +16,15 @@ import org.bukkit.inventory.ItemStack;
 public class BlockPlaceListener implements Listener {
 
     @EventHandler
-    public void onBlockPlaceEvent(BlockPlaceEvent e){
+    public void onBlockPlaceEvent(BlockPlaceEvent e) {
         ItemStack item = e.getItemInHand();
         Location loc = e.getBlock().getLocation();
         Player p = e.getPlayer();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
         assert hPlayer != null;
-        if(hPlayer.getRole().isRole(Role.SATOKO_HOJO)){
-            if(item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())){
+        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO)) {
+            if (item.getItemMeta().getLore().get(0).equals(Traps.fireCracker.getLore())) {
                 p.getWorld().getBlockAt(loc).setType(Material.AIR);
                 TNTPrimed tnt = loc.getWorld().spawn(loc, TNTPrimed.class);
                 tnt.setIsIncendiary(true);

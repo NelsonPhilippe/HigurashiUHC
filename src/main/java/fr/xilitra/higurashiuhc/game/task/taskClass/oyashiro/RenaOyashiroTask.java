@@ -16,17 +16,17 @@ public class RenaOyashiroTask extends JavaTask {
         RenaRyuguAction rr = (RenaRyuguAction) Role.RENA_RYUGU.getRoleAction();
         KeiichiMaebaraAction km = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
 
-        if(rr.getLinkedRole().getHPlayer() == null || rr.getLinkedRole().getHPlayer().getPlayer() == null)
+        if (rr.getLinkedRole().getHPlayer() == null || rr.getLinkedRole().getHPlayer().getPlayer() == null)
             return;
 
         float remove = 1;
         double diff = 20;
 
-        if(km.getLinkedRole().getHPlayer() != null && km.getLinkedRole().getHPlayer().getPlayer() != null)
+        if (km.getLinkedRole().getHPlayer() != null && km.getLinkedRole().getHPlayer().getPlayer() != null)
             diff = MathMain.calculDiff(rr.getLinkedRole().getHPlayer().getPlayer().getLocation(), km.getLinkedRole().getHPlayer().getPlayer().getLocation(), true);
-        if(diff <= 15) remove += 1;
+        if (diff <= 15) remove += 1;
 
-        ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).addRenaProggress(remove*-1);
+        ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).addRenaProggress(remove * -1);
 
     }
 

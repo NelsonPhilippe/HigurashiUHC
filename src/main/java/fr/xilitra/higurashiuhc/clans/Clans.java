@@ -17,7 +17,7 @@ public enum Clans {
             "Hinamizawa",
             null,
             null,
-            new ArrayList<Integer>(){{
+            new ArrayList<Integer>() {{
                 add(5);
             }}
     ),
@@ -59,70 +59,67 @@ public enum Clans {
             "Police",
             null,
             null,
-            new ArrayList<Integer>(){{
+            new ArrayList<Integer>() {{
                 add(0);
             }}
     );
 
-    public static Clans getClans(int id){
-        for(Clans clans : values())
-            if(id == clans.getId())
-                return clans;
-        return null;
-    }
-
-    public static Clans getClans(HPlayer hPlayer){
-        for(Clans clans : values())
-            if(clans.hisInClans(hPlayer, false))
-                return clans;
-        return null;
-    }
-
-    public static Clans getClans(String clansName){
-        for(Clans clans : values())
-            if(clans.getName().equals(clansName))
-                return clans;
-        return null;
-    }
-
     private final int id;
     private final String name;
     private final List<UUID> playerList = new ArrayList<>();
-    private List<Clans> minorClans = null;
     private final Integer majorClans;
     private final List<Integer> enemyList = new ArrayList<>();
     private final List<Integer> allyList = new ArrayList<>();
-
-    Clans(int id, String name, Integer majorClansID, List<Integer> enemyList, List<Integer> allyList){
+    private List<Clans> minorClans = null;
+    Clans(int id, String name, Integer majorClansID, List<Integer> enemyList, List<Integer> allyList) {
         this.id = id;
         this.name = name;
         this.majorClans = majorClansID;
-        if(enemyList != null)
+        if (enemyList != null)
             this.enemyList.addAll(enemyList);
-        if(allyList != null)
+        if (allyList != null)
             this.allyList.addAll(allyList);
     }
 
+    public static Clans getClans(int id) {
+        for (Clans clans : values())
+            if (id == clans.getId())
+                return clans;
+        return null;
+    }
+
+    public static Clans getClans(HPlayer hPlayer) {
+        for (Clans clans : values())
+            if (clans.hisInClans(hPlayer, false))
+                return clans;
+        return null;
+    }
+
+    public static Clans getClans(String clansName) {
+        for (Clans clans : values())
+            if (clans.getName().equals(clansName))
+                return clans;
+        return null;
+    }
 
     public String getName() {
         return name;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public boolean isClans(Clans clans){
+    public boolean isClans(Clans clans) {
         return clans.getId() == getId();
     }
-
 
 
     public List<HPlayer> getHPlayerList() {
 
         GameManager gm = HigurashiUHC.getGameManager();
-        return new ArrayList<HPlayer>(){{
-            for(UUID uuid : getUUIDList())
+        return new ArrayList<HPlayer>() {{
+            for (UUID uuid : getUUIDList())
                 add(gm.getHPlayer(uuid));
         }};
 
@@ -132,92 +129,91 @@ public enum Clans {
         return playerList;
     }
 
-    public List<Role> getRoleList(){
+    public List<Role> getRoleList() {
 
-        return new ArrayList<Role>(){{
+        return new ArrayList<Role>() {{
             for (HPlayer hPlayer : getHPlayerList())
                 add(hPlayer.getRole());
         }};
 
     }
 
-    public void addPlayer(HPlayer p){
+    public void addPlayer(HPlayer p) {
         Clans prevClans = getClans(p);
-        if(prevClans != null)
+        if (prevClans != null)
             prevClans.removePlayer(p);
         this.playerList.add(p.getUuid());
         p.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), getName());
     }
 
-    public void removePlayer(HPlayer p){
+    public void removePlayer(HPlayer p) {
         this.playerList.remove(p.getUuid());
     }
 
     public boolean hisInClans(HPlayer player, boolean checkMinor) {
-        if(playerList.contains(player.getUuid()))
+        if (playerList.contains(player.getUuid()))
             return true;
-        if(checkMinor)
-            for(Clans minorClans : getMinorClans())
-                if(minorClans.hisInClans(player, true))
+        if (checkMinor)
+            for (Clans minorClans : getMinorClans())
+                if (minorClans.hisInClans(player, true))
                     return true;
         return false;
     }
 
 
-
-    public Clans getMajorClans(){
-        if(majorClans != null)
+    public Clans getMajorClans() {
+        if (majorClans != null)
             Clans.getClans(majorClans);
         return this;
     }
 
-    public List<Clans> getMinorClans(){
-        if(minorClans != null)
+    public List<Clans> getMinorClans() {
+        if (minorClans != null)
             return minorClans;
         minorClans = new ArrayList<>();
-        for(Clans clans : Clans.values())
-            if(isClans(clans.getMajorClans()) && !isClans(clans))
+        for (Clans clans : Clans.values())
+            if (isClans(clans.getMajorClans()) && !isClans(clans))
                 minorClans.add(clans);
         return getMinorClans();
     }
 
-    public boolean hasMinorClans(Clans clans){
+    public boolean hasMinorClans(Clans clans) {
         return getMinorClans().contains(clans);
     }
 
-    public boolean isMinorClans(){
+    public boolean isMinorClans() {
         return !getMajorClans().isClans(this);
     }
 
-    public void setEnemy(Clans clans, boolean both){
+    public void setEnemy(Clans clans, boolean both) {
         this.enemyList.add(clans.getId());
-        if(both)
+        if (both)
             clans.setEnemy(this, false);
     }
 
-    public void setAlly(Clans clans, boolean both){
+    public void setAlly(Clans clans, boolean both) {
         this.allyList.add(clans.getId());
-        if(both)
+        if (both)
             clans.setAlly(this, false);
     }
 
-    public void removeEnemy(Clans clans, boolean both){
+    public void removeEnemy(Clans clans, boolean both) {
         this.enemyList.remove(clans.getId());
-        if(both)
+        if (both)
             clans.removeEnemy(this, false);
     }
 
-    public void removeAlly(Clans clans, boolean both){
+    public void removeAlly(Clans clans, boolean both) {
         this.allyList.remove(clans.getId());
-        if(both)
+        if (both)
             clans.removeAlly(this, false);
     }
 
-    public boolean hisEnemy(Clans clans){
+    public boolean hisEnemy(Clans clans) {
         return enemyList.contains(clans.getId());
     }
 
-    public boolean hisAlly(Clans clans){
+    public boolean hisAlly(Clans clans) {
         return allyList.contains(clans.getId());
     }
 

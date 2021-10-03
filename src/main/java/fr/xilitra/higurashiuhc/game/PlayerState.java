@@ -10,21 +10,21 @@ public enum PlayerState {
 
     final String name;
 
-    PlayerState(String name){
+    PlayerState(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public boolean isState(PlayerState... playerState){
+    public boolean isState(PlayerState... playerState) {
 
-        for(PlayerState newPlayer : playerState)
-            if(newPlayer.getName().equals(getName()))
+        for (PlayerState newPlayer : playerState)
+            if (newPlayer.getName().equals(getName()))
                 return true;
 
-            return false;
+        return false;
 
     }
 

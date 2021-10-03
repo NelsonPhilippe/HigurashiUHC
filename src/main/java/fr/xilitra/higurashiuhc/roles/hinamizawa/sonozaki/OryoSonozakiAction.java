@@ -10,8 +10,8 @@ public class OryoSonozakiAction extends RoleAction {
     private int voteBan;
     private HPlayer votedPlayer = null;
 
-    public void addVote(){
-        voteBan+=1;
+    public void addVote() {
+        voteBan += 1;
     }
 
 
@@ -27,7 +27,7 @@ public class OryoSonozakiAction extends RoleAction {
         return voteBan;
     }
 
-    public HPlayer getVotedPlayer(){
+    public HPlayer getVotedPlayer() {
         return votedPlayer;
     }
 

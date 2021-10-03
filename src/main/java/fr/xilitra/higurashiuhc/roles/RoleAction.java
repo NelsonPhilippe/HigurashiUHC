@@ -8,12 +8,12 @@ public abstract class RoleAction {
 
     Role role;
 
-    protected void setLinkedRole(Role role){
-        this.role = role;
+    public Role getLinkedRole() {
+        return role;
     }
 
-    public Role getLinkedRole(){
-        return role;
+    protected void setLinkedRole(Role role) {
+        this.role = role;
     }
 
     public abstract void playerLeave(Player p);

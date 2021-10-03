@@ -13,9 +13,9 @@ public class VoteTask extends BukkitTask {
     @Override
     public void execute() {
 
-        if(time == 0){
-            HPlayer oryo =  Role.ORYO_SONOZAKI.getHPlayer();
-            if(oryo == null) {
+        if (time == 0) {
+            HPlayer oryo = Role.ORYO_SONOZAKI.getHPlayer();
+            if (oryo == null) {
                 stopTask();
                 return;
             }
@@ -24,17 +24,17 @@ public class VoteTask extends BukkitTask {
 
             int majorite = 0;
 
-            for(HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()){
-                if(player.getClans().getName().equalsIgnoreCase("Hinamizawa")){
+            for (HPlayer player : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                if (player.getClans().getName().equalsIgnoreCase("Hinamizawa")) {
                     majorite++;
                 }
             }
 
             HPlayer votesPlayer = oryoSonozakiAction.getVotedPlayer();
 
-            if(oryoSonozakiAction.getTotalVote() >= majorite / 2){
-                if(votesPlayer.getPlayer() != null)
-                    votesPlayer.getPlayer().setMaxHealth(votesPlayer.getPlayer().getMaxHealth()-5);
+            if (oryoSonozakiAction.getTotalVote() >= majorite / 2) {
+                if (votesPlayer.getPlayer() != null)
+                    votesPlayer.getPlayer().setMaxHealth(votesPlayer.getPlayer().getMaxHealth() - 5);
                 new BanTask().runTaskLater(10000);
             }
 

@@ -43,6 +43,7 @@ public class BanCmd implements CommandsExecutor {
 
             TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
             TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]" );
+            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h vote"));
             message.addExtra(clickable);
 
             clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h "+ Commands.VOTE.getInitials()));

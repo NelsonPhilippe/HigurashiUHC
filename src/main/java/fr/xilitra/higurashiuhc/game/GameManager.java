@@ -141,6 +141,12 @@ public class GameManager {
         if(okonogi != null && okonogi.getPlayer() != null && miyoTakano != null)
             okonogi.getPlayer().sendMessage("Miyo Takano est joué par: "+miyoTakano.getName());
 
+        HPlayer kasai = Role.KASAI.getHPlayer();
+        HPlayer shion = Role.SHION_SONOSAKI.getHPlayer();
+
+        if(kasai != null && kasai.getPlayer() != null && shion != null)
+            kasai.getPlayer().sendMessage("Shion est joué par: "+shion.getName());
+
         List<HPlayer> hPlayerList = Role.MERCENAIRE.getHPlayerList();
         KitList[] listKit = KitList.values();
 

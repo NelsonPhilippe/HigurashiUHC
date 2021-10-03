@@ -33,7 +33,8 @@ public class CoupableCmd implements CommandsExecutor {
 
         p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");
 
-        if(targetHPlayer.getClans().getName().equalsIgnoreCase(Clans.SONOZAKI.getName())){
+        if(targetHPlayer.getClans().isClans(Clans.SONOZAKI)){
+            Clans.HINAMIZAWA.removeAlly(Clans.POLICE, true);
             ItemStack arc = new ItemStack(Material.BOW, 1);
             arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 

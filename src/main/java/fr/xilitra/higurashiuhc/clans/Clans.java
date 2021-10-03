@@ -15,37 +15,53 @@ public enum Clans {
     HINAMIZAWA(
             0,
             "Hinamizawa",
-            null
+            null,
+            null,
+            new ArrayList<Integer>(){{
+                add(5);
+            }}
     ),
 
     MEMBER_OF_CLUB(
             1,
             "MemberOfClub",
-            0
+            0,
+            null,
+            null
     ),
 
     SONOZAKI(
             2,
             "Sonozaki",
-            0
+            0,
+            null,
+            null
     ),
 
     MERCENAIRE(
             3,
             "Mercenaire",
+            null,
+            null,
             null
     ),
 
     NEUTRE(
             4,
             "Neutre",
+            null,
+            null,
             null
     ),
 
     POLICE(
             5,
             "Police",
-            null
+            null,
+            null,
+            new ArrayList<Integer>(){{
+                add(0);
+            }}
     );
 
     public static Clans getClans(int id){
@@ -74,11 +90,17 @@ public enum Clans {
     private final List<UUID> playerList = new ArrayList<>();
     private List<Clans> minorClans = null;
     private final Integer majorClans;
+    private final List<Integer> enemyList = new ArrayList<>();
+    private final List<Integer> allyList = new ArrayList<>();
 
-    Clans(int id, String name, Integer majorClansID){
+    Clans(int id, String name, Integer majorClansID, List<Integer> enemyList, List<Integer> allyList){
         this.id = id;
         this.name = name;
         this.majorClans = majorClansID;
+        if(enemyList != null)
+            this.enemyList.addAll(enemyList);
+        if(allyList != null)
+            this.allyList.addAll(allyList);
     }
 
 
@@ -165,6 +187,38 @@ public enum Clans {
 
     public boolean isMinorClans(){
         return !getMajorClans().isClans(this);
+    }
+
+    public void setEnemy(Clans clans, boolean both){
+        this.enemyList.add(clans.getId());
+        if(both)
+            clans.setEnemy(this, false);
+    }
+
+    public void setAlly(Clans clans, boolean both){
+        this.allyList.add(clans.getId());
+        if(both)
+            clans.setAlly(this, false);
+    }
+
+    public void removeEnemy(Clans clans, boolean both){
+        this.enemyList.remove(clans.getId());
+        if(both)
+            clans.removeEnemy(this, false);
+    }
+
+    public void removeAlly(Clans clans, boolean both){
+        this.allyList.remove(clans.getId());
+        if(both)
+            clans.removeAlly(this, false);
+    }
+
+    public boolean hisEnemy(Clans clans){
+        return enemyList.contains(clans.getId());
+    }
+
+    public boolean hisAlly(Clans clans){
+        return allyList.contains(clans.getId());
     }
 
 }

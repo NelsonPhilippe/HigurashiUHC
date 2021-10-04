@@ -24,6 +24,8 @@ public enum Commands {
     RIKA("rika", new RikaCmd(), false),
     PARANO("paranoia", new ParanoCmd(), false),
     CLANS("clans", new ClansCmd(), false),
+    EFFECT_LISTENER("effect", new EffectCMD(), false),
+    EFFECT_CLEAR("effectclear", new EffectClearCMD(), false),
     COUPABLE("c", new CoupableCmd(), false);
 
     String initials;

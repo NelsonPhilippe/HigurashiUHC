@@ -48,10 +48,10 @@ public class DimensionDeathRikaTask extends BukkitTask {
                 fLocH.setY(fLocH.getBlockY() + 2);
             }
 
-            if(rika.getPlayer() != null)
+            if (rika.getPlayer() != null)
                 rika.getPlayer().teleport(fLocR);
 
-            if(hanyu.getPlayer() != null)
+            if (hanyu.getPlayer() != null)
                 hanyu.getPlayer().teleport(fLocH);
 
             this.stopTask();

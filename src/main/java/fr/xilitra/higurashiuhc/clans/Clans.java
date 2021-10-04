@@ -71,6 +71,7 @@ public enum Clans {
     private final List<Integer> enemyList = new ArrayList<>();
     private final List<Integer> allyList = new ArrayList<>();
     private List<Clans> minorClans = null;
+
     Clans(int id, String name, Integer majorClansID, List<Integer> enemyList, List<Integer> allyList) {
         this.id = id;
         this.name = name;

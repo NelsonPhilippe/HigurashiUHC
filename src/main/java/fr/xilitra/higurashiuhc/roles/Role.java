@@ -87,6 +87,8 @@ public enum Role {
 
     KYOSUKE_IRIE("Kyosuke Irie", "null", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction(), new HashMap<Commands, Integer>() {{
         put(Commands.CLANS, 1);
+        put(Commands.EFFECT_LISTENER, 2);
+        put(Commands.EFFECT_CLEAR, 1);
     }}),
 
     KURAUDO_OISHI("Kuraudo Oishi", "null", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction(),
@@ -129,6 +131,7 @@ public enum Role {
     private final RoleAction roleAction;
     private final HashMap<Commands, Integer> commandsIntegerHashMap;
     private String displayName;
+
     Role(String name, String description, Gender sexe, Clans clans, int maxPlayers, RoleAction roleAction, HashMap<Commands, Integer> authoriseCommand) {
         this.name = name;
         this.description = description;

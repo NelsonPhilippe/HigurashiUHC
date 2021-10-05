@@ -14,6 +14,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraActio
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,6 +36,7 @@ public class EpisodeListener implements Listener {
     }};
 
     private final Integer randomEP = avEPOyashiro.get(new Random().nextInt(avEPOyashiro.size()));
+    private final WatanagashiTask wataTask = new WatanagashiTask();
 
     @EventHandler
     public void onEpisodeUpdated(EpisodeUpdate e) {
@@ -47,22 +49,20 @@ public class EpisodeListener implements Listener {
 
         if (HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")) {
 
-            HigurashiUHC.getGameManager().setWatanagashi(true);
-            new WatanagashiTask().runTaskTimer(1000, 1000); // Toute les secondes
+            HigurashiUHC.getGameManager().setWataState(WataEnum.DURING);
+            wataTask.runTaskTimer(1000, 1000); // Toute les secondes
             KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
             HPlayer player = role.getLinkedRole().getHPlayer();
-            if (player != null) {
-
+            if (player != null)
                 if (player.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
-
                     Role shion = Role.SHION_SONOSAKI;
                     if (shion.getHPlayer() != null && shion.getHPlayer().getPlayer() != null)
                         shion.getHPlayer().getPlayer().sendMessage("Je te donne une petite info: " + player.getName() + " est marié à " + player.getMarriedPlayer(Reason.DOLL_TRAGEDY).get(0).getName());
-
                 }
 
-            }
-
+        } else if (HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi") + 1) {
+            HigurashiUHC.getGameManager().setWataState(WataEnum.AFTER);
+            wataTask.stopTask();
         }
 
         if (HigurashiUHC.getGameManager().getEpisode() == 7) {
@@ -101,7 +101,7 @@ public class EpisodeListener implements Listener {
 
         }
 
-        if (HigurashiUHC.getGameManager().isWatanagashi()) {
+        if (HigurashiUHC.getGameManager().isWataState(WataEnum.DURING)) {
 
             HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
 

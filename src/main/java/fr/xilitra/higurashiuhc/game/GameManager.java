@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
+import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
@@ -15,6 +16,7 @@ import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -29,7 +31,7 @@ public class GameManager {
     private GameStates states;
     private int episode = 0;
     private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
-    private boolean watanagashi;
+    private WataEnum wataEnum = WataEnum.BEFORE;
 
     public GameManager() {
         rikaDeathTask = new RikaDeathTask();
@@ -177,12 +179,19 @@ public class GameManager {
         }
     }
 
-    public boolean isWatanagashi() {
-        return watanagashi;
+    public WataEnum getWataState() {
+        return wataEnum;
     }
 
-    public void setWatanagashi(boolean watanagashi) {
-        this.watanagashi = watanagashi;
+    public void setWataState(WataEnum wataEnum) {
+        if (this.wataEnum != wataEnum)
+            return;
+        this.wataEnum = wataEnum;
+        Bukkit.getPluginManager().callEvent(new WatanagashiChangeEvent(this.wataEnum));
+    }
+
+    public boolean isWataState(WataEnum wataEnum) {
+        return this.wataEnum == wataEnum;
     }
 
     public GameStates getStates() {

@@ -1,11 +1,13 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,8 +47,11 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
         if (killed.getPlayer() == null)
             return;
 
-        if (killed.hasMarriedReason(Reason.DOLL_TRAGEDY))
-            killed.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 9999, 1), true);
+        if (killer.getPlayer() == null)
+            return;
+
+        if (killed.hasMarriedReason(Reason.DOLL_TRAGEDY) && HigurashiUHC.getGameManager().isWataState(WataEnum.AFTER))
+            killer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 9999, 1), true);
 
         if (!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
             return;

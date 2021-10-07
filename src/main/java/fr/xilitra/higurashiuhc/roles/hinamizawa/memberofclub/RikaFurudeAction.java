@@ -3,12 +3,15 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
+import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.game.task.taskClass.CloseRikaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -25,6 +28,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class RikaFurudeAction extends RoleAction implements Listener {
 
+    private final CloseRikaTask watanagashiTask = new CloseRikaTask();
     private int lives;
     private boolean ressucite = false;
 
@@ -44,6 +48,14 @@ public class RikaFurudeAction extends RoleAction implements Listener {
         }
 
 
+    }
+
+    @EventHandler
+    public void onWataChange(WatanagashiChangeEvent event) {
+        if (event.getWataEnum() == WataEnum.AFTER)
+            this.watanagashiTask.runTaskTimer(1000, 1000);
+        else
+            this.watanagashiTask.stopTask();
     }
 
     @EventHandler
@@ -73,6 +85,7 @@ public class RikaFurudeAction extends RoleAction implements Listener {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.hidePlayer(p);
                 }
+
             } else {
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.showPlayer(p);
@@ -153,7 +166,7 @@ public class RikaFurudeAction extends RoleAction implements Listener {
 
         if (killer instanceof Player) {
 
-            if (killerHPlayer != null) {
+            if (killerHPlayer != null && HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
                 if (killerHPlayer.getClans().isClans(Clans.MERCENAIRE)) {
                     HigurashiUHC.getGameManager().startRikaDeathTask();
                     for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {

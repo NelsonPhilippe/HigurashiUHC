@@ -4,8 +4,8 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
+import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.task.taskClass.WatanagashiTask;
 import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -36,7 +36,6 @@ public class EpisodeListener implements Listener {
     }};
 
     private final Integer randomEP = avEPOyashiro.get(new Random().nextInt(avEPOyashiro.size()));
-    private final WatanagashiTask wataTask = new WatanagashiTask();
 
     @EventHandler
     public void onEpisodeUpdated(EpisodeUpdate e) {
@@ -47,10 +46,10 @@ public class EpisodeListener implements Listener {
         if (miyoTakanoAction != null)
             miyoTakanoAction.setCommandAccess(Commands.ASSASSINER, 2);
 
-        if (HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi")) {
-
+        if (HigurashiUHC.getGameManager().getEpisode() == GameManager.getWataEpisode()) {
             HigurashiUHC.getGameManager().setWataState(WataEnum.DURING);
-            wataTask.runTaskTimer(1000, 1000); // Toute les secondes
+        } else if (HigurashiUHC.getGameManager().getEpisode() == GameManager.getWataEpisode() + 1) {
+            HigurashiUHC.getGameManager().setWataState(WataEnum.AFTER);
             KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
             HPlayer player = role.getLinkedRole().getHPlayer();
             if (player != null)
@@ -60,13 +59,6 @@ public class EpisodeListener implements Listener {
                         shion.getHPlayer().getPlayer().sendMessage("Je te donne une petite info: " + player.getName() + " est marié à " + player.getMarriedPlayer(Reason.DOLL_TRAGEDY).get(0).getName());
                 }
 
-        } else if (HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi") + 1) {
-            HigurashiUHC.getGameManager().setWataState(WataEnum.AFTER);
-            wataTask.stopTask();
-        }
-
-        if (HigurashiUHC.getGameManager().getEpisode() == 7) {
-
             HPlayer tomitake = Role.JIRO_TOMITAKE.getHPlayer();
 
             if (tomitake != null && tomitake.getPlayerState() != PlayerState.SPECTATE)
@@ -74,12 +66,12 @@ public class EpisodeListener implements Listener {
                     if (hPlayer.getPlayer() != null)
                         hPlayer.getPlayer().removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 
+            if (ScenarioList.OYASHIRO.isActive())
+                ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
+
         }
 
         if (ScenarioList.getActiveScenario() != null) {
-
-            if (ScenarioList.OYASHIRO.isActive())
-                ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).revealOyashiro();
 
             if (ScenarioList.DOLL.isActive() && ScenarioList.DOLL.getScenario().getSolutionNumber() == 4) {
 
@@ -118,9 +110,15 @@ public class EpisodeListener implements Listener {
 
                     ScenarioList.DOLL.getScenario().solution(4);
                     itemStack.setType(Material.AIR);
+                    break;
 
                 }
 
+            }
+
+            for (HPlayer player : Role.MERCENAIRE.getHPlayerList()) {
+                if (player.getPlayer() != null)
+                    player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
             }
 
             HPlayer tomitake = Role.JIRO_TOMITAKE.getHPlayer();
@@ -140,12 +138,6 @@ public class EpisodeListener implements Listener {
             if (bMiyo == null) return;
 
             bMiyo.sendMessage(tomitake.getRole().getName() + " est " + bTomitake.getName());
-
-            for (HPlayer player : Role.MERCENAIRE.getHPlayerList()) {
-                if (player.getPlayer() != null)
-                    player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
-            }
-
 
         }
 

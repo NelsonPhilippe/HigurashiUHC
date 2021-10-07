@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class WatanagashiTask extends BukkitTask {
+public class CloseRikaTask extends BukkitTask {
     @Override
     public void execute() {
 

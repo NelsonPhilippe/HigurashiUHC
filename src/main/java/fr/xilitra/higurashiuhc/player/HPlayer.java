@@ -170,7 +170,7 @@ public class HPlayer {
             TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: " + mr.getName());
             player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
             player.sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: " + mr.getName());
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9999, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
             mrList.add(mr);
         }
     }

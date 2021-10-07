@@ -8,6 +8,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.utils.TimeUtils;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -57,7 +58,7 @@ public class GameTask extends BukkitTask {
             decount--;
         }
 
-        if (HigurashiUHC.getGameManager().getEpisode() >= 6) {
+        if (!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
             HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
 
             if (player != null && player.getPlayer() != null) {

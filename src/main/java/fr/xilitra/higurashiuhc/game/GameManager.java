@@ -37,6 +37,10 @@ public class GameManager {
         rikaDeathTask = new RikaDeathTask();
     }
 
+    public static int getWataEpisode() {
+        return HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi");
+    }
+
     public void config() {
         setStates(GameStates.CONFIG);
     }

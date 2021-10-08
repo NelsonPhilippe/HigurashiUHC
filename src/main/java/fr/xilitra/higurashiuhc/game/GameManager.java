@@ -56,7 +56,7 @@ public class GameManager {
 
         for (HPlayer hPlayer : getHPlayerWithState(PlayerState.WAITING_ROLE)) {
 
-            Player player = hPlayer.getPlayer();;
+            Player player = hPlayer.getPlayer();
 
             if (player == null)
                 continue;

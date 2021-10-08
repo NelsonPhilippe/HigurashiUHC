@@ -10,6 +10,7 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 
@@ -53,30 +54,33 @@ public class GameManager {
             else
                 player.sendMessage(ChatColor.WHITE + "Le scenario: " + ChatColor.GREEN + sl.getScenario().getName() + ChatColor.WHITE + " est activé");
 
-        for (HPlayer player : getHPlayerWithState(PlayerState.WAITING_ROLE)) {
+        for (HPlayer hPlayer : getHPlayerWithState(PlayerState.WAITING_ROLE)) {
 
-            if (player.getPlayer() == null)
+            Player player = hPlayer.getPlayer();;
+
+            if (player == null)
                 continue;
 
-            player.getPlayer().getInventory().clear();
+            player.getInventory().clear();
 
             int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
+            roles.remove(role);
 
             if (role.isRole(Role.JIRO_TOMITAKE)) {
                 role = Role.MERCENAIRE;
-                player.getInfoData().setDataInfo("hiddenJiro", true);
+                hPlayer.getInfoData().setDataInfo("hiddenJiro", true);
             }
 
-            player.setRole(role, true);
-            TitlePacket.send(player.getPlayer(), 2, 5, 2, role.getName(), "");
-            player.getPlayer().sendMessage(role.getDecription());
+            hPlayer.setRole(role, true);
+            TitlePacket.send(player, 2, 5, 2, role.getName(), "");
+            player.sendMessage(role.getDecription());
 
-            players.replace(player.getUuid(), player);
-            player.setPlayerState(PlayerState.INGAME);
+            players.replace(hPlayer.getUuid(), hPlayer);
+            hPlayer.setPlayerState(PlayerState.INGAME);
 
-            player.getPlayer().playSound(player.getPlayer().getLocation(), sound, 1, 1);
+            player.playSound(player.getLocation(), sound, 1, 1);
 
         }
 

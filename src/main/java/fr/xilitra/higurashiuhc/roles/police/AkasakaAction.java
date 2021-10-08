@@ -72,6 +72,30 @@ public class AkasakaAction extends RoleAction implements Listener {
     }
 
     @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+        if (getLinkedRole().getHPlayer() == null)
+            return;
+        if (getLinkedRole().getHPlayer().getPlayer() == null)
+            return;
+        getLinkedRole().getHPlayer().getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
+    }
+
+    @Override
+    public void onGameStop() {
+
+    }
+
+    @Override
     public void playerLeave(Player p) {
 
     }

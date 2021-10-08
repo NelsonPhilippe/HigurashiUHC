@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
+import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.Gender;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.VillageoisAction;
@@ -192,13 +193,19 @@ public enum Role {
     public boolean addPlayer(HPlayer player) {
         if (players.size() < maxPlayers) {
             players.add(player);
+            roleAction.onJoinRole(player);
+            Bukkit.getPluginManager().callEvent(new RoleSelected(player));
             return true;
         }
         return false;
     }
 
     public boolean removePlayer(HPlayer player) {
-        return players.remove(player);
+        if (players.remove(player)) {
+            roleAction.onLeaveRole(player);
+            return true;
+        }
+        return false;
     }
 
     public Clans getDefaultClans() {

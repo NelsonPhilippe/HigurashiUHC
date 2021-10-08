@@ -257,6 +257,32 @@ public class RikaFurudeAction extends RoleAction implements Listener {
     }
 
     @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+
+        HPlayer hanyu = Role.HANYU.getHPlayer();
+        HPlayer rika = getLinkedRole().getHPlayer();
+        if (hanyu != null && rika != null && rika.getPlayer() != null) {
+            rika.getPlayer().sendMessage("Hanyu est incarnée par: " + hanyu.getName());
+        }
+
+    }
+
+    @Override
+    public void onGameStop() {
+
+    }
+
+    @Override
     public void playerLeave(Player p) {
 
     }

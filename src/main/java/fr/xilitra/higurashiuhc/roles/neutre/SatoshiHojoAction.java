@@ -1,6 +1,10 @@
 package fr.xilitra.higurashiuhc.roles.neutre;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.InfoData;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
@@ -8,8 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SatoshiHojoAction extends RoleAction {
 
@@ -50,6 +53,42 @@ public class SatoshiHojoAction extends RoleAction {
 
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
+
+    }
+
+    @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+        HPlayer satoshi = getLinkedRole().getHPlayer();
+        if (satoshi != null) {
+            satoshi.addMaledictionReason(Reason.SATOSHI_HOJO);
+            satoshi.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), Clans.HINAMIZAWA.getName());
+            if (satoshi.getPlayer() != null) {
+
+                List<UUID> memberOfClub = Clans.MEMBER_OF_CLUB.getUUIDList();
+                if (!memberOfClub.isEmpty()) {
+
+                    UUID luckyOrNot = memberOfClub.get(new Random().nextInt(memberOfClub.size()));
+                    satoshi.getPlayer().sendMessage("Le joueur: " + Objects.requireNonNull(HigurashiUHC.getGameManager().getHPlayer(luckyOrNot)).getName() + " est un membre du club");
+
+                } else
+                    satoshi.getPlayer().sendMessage("Il n'y a aucun membre dans le clan du " + Clans.MEMBER_OF_CLUB.getName());
+
+            }
+        }
+    }
+
+    @Override
+    public void onGameStop() {
 
     }
 

@@ -102,6 +102,32 @@ public class HanyuAction extends RoleAction implements Listener {
     }
 
     @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+
+        HPlayer hanyu = getLinkedRole().getHPlayer();
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if (hanyu != null && rika != null && hanyu.getPlayer() != null) {
+            hanyu.getPlayer().sendMessage("Rika est incarnée par: " + rika.getName());
+        }
+
+    }
+
+    @Override
+    public void onGameStop() {
+
+    }
+
+    @Override
     public void playerLeave(Player p) {
 
     }

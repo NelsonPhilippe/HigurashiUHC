@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.item.config.DollItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
@@ -19,6 +20,34 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
 
         if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(2);
+
+    }
+
+    @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+        if (ScenarioList.DOLL.isActive()) {
+            HPlayer hPlayer = getLinkedRole().getHPlayer();
+            if (hPlayer == null)
+                return;
+            Player player = hPlayer.getPlayer();
+            if (player == null)
+                return;
+            player.getInventory().addItem(DollItem.dollItem.getItemStack());
+        }
+    }
+
+    @Override
+    public void onGameStop() {
 
     }
 

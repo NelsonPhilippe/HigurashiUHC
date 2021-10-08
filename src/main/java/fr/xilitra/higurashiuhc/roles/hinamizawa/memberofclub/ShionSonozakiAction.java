@@ -109,6 +109,32 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
     }
 
     @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+        HPlayer hPlayer = getLinkedRole().getHPlayer();
+        if (hPlayer == null)
+            return;
+        Player player = hPlayer.getPlayer();
+        if (player == null)
+            return;
+        player.setMaxHealth(22);
+    }
+
+    @Override
+    public void onGameStop() {
+
+    }
+
+    @Override
     public void playerLeave(Player p) {
 
     }

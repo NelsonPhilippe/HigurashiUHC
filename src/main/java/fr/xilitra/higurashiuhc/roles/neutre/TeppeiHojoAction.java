@@ -18,6 +18,26 @@ public class TeppeiHojoAction extends RoleAction {
     }
 
     @Override
+    public void onLeaveRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onJoinRole(HPlayer hPlayer) {
+
+    }
+
+    @Override
+    public void onGameStart() {
+
+    }
+
+    @Override
+    public void onGameStop() {
+
+    }
+
+    @Override
     public void playerLeave(Player p) {
 
     }

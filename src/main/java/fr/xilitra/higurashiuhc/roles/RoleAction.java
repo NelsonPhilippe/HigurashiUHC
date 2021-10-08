@@ -24,4 +24,12 @@ public abstract class RoleAction {
 
     public abstract void onDeath(HPlayer killed, DeathReason deathReason);
 
+    public abstract void onLeaveRole(HPlayer hPlayer);
+
+    public abstract void onJoinRole(HPlayer hPlayer);
+
+    public abstract void onGameStart();
+
+    public abstract void onGameStop();
+
 }

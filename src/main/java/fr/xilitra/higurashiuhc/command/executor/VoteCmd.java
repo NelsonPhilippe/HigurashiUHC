@@ -8,15 +8,16 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 import org.bukkit.entity.Player;
 
-public class VoteCmd implements CommandsExecutor {
+public class VoteCmd extends CommandsExecutor {
 
     public static VoteTask voteTask = new VoteTask();
 
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] args) {
+    public VoteCmd() {
+        super("[Vote]");
+    }
 
-        Player p = hPlayer.getPlayer();
-        if (p == null) return false;
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         if (!Clans.HINAMIZAWA.hisInClans(hPlayer, false)) {
             p.sendMessage("Tu ne peux pas voter");

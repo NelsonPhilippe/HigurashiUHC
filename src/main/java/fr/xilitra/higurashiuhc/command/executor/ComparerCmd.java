@@ -12,13 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ComparerCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class ComparerCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public ComparerCmd() {
+        super("[Compare]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         if (strings.length == 3) {
 

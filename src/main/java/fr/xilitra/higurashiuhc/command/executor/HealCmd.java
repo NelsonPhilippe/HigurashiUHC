@@ -5,12 +5,14 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class HealCmd implements CommandsExecutor {
+public class HealCmd extends CommandsExecutor {
+
+    public HealCmd() {
+        super("[Heal]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
         if (strings.length == 2) {
             Player target = Bukkit.getPlayer(strings[1]);
 

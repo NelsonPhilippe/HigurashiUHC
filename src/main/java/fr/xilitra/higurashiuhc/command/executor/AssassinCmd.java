@@ -7,12 +7,15 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.mercenaires.MercenaireAction;
 import org.bukkit.entity.Player;
 
-public class AssassinCmd implements CommandsExecutor {
+public class AssassinCmd extends CommandsExecutor {
+
+    public AssassinCmd() {
+        super("[Assassin]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
+
         if (strings.length == 3) {
             HPlayer targetHPlayerMercenaire = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
             HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(strings[2]);

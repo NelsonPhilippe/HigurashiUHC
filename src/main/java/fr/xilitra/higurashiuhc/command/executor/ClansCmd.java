@@ -4,10 +4,16 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import org.bukkit.entity.Player;
 
-public class ClansCmd implements CommandsExecutor {
+public class ClansCmd extends CommandsExecutor {
+
+    public ClansCmd() {
+        super("[Clans]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
         if (Clans.getClans(hPlayer) != null)
             return false;
         if (strings.length != 2)

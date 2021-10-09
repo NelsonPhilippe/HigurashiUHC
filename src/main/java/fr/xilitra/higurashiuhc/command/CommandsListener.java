@@ -55,7 +55,7 @@ public class CommandsListener implements CommandExecutor {
             return true;
         }
 
-        if (commands.getCommandExecutor().onCommand(hPlayer, strings))
+        if (commands.getCommandExecutor().onCommand(hPlayer, player, strings))
             hPlayer.useCommand(commands);
 
         return true;

@@ -10,14 +10,14 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-public class TeleportRikaCmd implements CommandsExecutor {
+public class TeleportRikaCmd extends CommandsExecutor {
+
+    public TeleportRikaCmd() {
+        super("[Teleport]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] args) {
-
-        Player p = hPlayer.getPlayer();
-
-        if (p == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
 

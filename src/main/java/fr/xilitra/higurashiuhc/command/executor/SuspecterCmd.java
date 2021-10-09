@@ -13,13 +13,14 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class SuspecterCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class SuspecterCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public SuspecterCmd() {
+        super("[Suspecter]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         if (strings.length == 2) {
 

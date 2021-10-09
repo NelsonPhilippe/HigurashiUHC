@@ -12,12 +12,14 @@ import org.bukkit.potion.PotionEffect;
 
 import java.util.Collection;
 
-public class EffectCMD implements CommandsExecutor {
+public class EffectCMD extends CommandsExecutor {
+
+    public EffectCMD() {
+        super("[Effect]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
-        Player player = hPlayer.getPlayer();
-        if (player == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player player, String[] strings) {
 
         if (strings.length != 2) {
             player.sendMessage("Syntax: /h " + Commands.EFFECT_LISTENER.getInitials() + " (joueur)");

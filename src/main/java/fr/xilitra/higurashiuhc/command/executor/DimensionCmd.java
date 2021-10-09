@@ -10,13 +10,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class DimensionCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] args) {
+public class DimensionCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public DimensionCmd() {
+        super("[Dimension]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         boolean teleportRika = false;
 

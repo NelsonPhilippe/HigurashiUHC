@@ -7,13 +7,14 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class PvCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class PvCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public PvCmd() {
+        super("[PV]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         if (strings.length == 2) {
             Player target = Bukkit.getPlayer(strings[1]);

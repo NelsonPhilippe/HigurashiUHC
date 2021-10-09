@@ -10,7 +10,6 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 

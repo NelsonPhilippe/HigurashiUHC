@@ -11,13 +11,14 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class CoupableCmd implements CommandsExecutor {
+public class CoupableCmd extends CommandsExecutor {
+
+    public CoupableCmd() {
+        super("[Coupable]");
+    }
 
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] args) {
-
-        Player p = hPlayer.getPlayer();
-        if (p == null) return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
         if (targetHPlayer == null) {

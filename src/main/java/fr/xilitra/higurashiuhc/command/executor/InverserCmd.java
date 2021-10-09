@@ -8,13 +8,14 @@ import org.bukkit.Location;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
-public class InverserCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class InverserCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public InverserCmd() {
+        super("[Inverser]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         if (strings.length == 3) {
             Player firstTarget = Bukkit.getPlayer(strings[1]);

@@ -8,15 +8,14 @@ import fr.xilitra.higurashiuhc.roles.police.AkasakaAction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-public class RikaCmd implements CommandsExecutor {
+public class RikaCmd extends CommandsExecutor {
 
+    public RikaCmd() {
+        super("[Rika]");
+    }
 
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
-
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         if (strings.length == 2) {
 

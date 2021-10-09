@@ -7,12 +7,14 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class PenseCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class PenseCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null) return false;
+    public PenseCmd() {
+        super("[Pense]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         HPlayer targetPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 

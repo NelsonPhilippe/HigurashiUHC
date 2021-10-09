@@ -6,13 +6,14 @@ import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import org.bukkit.entity.Player;
 
-public class ParanoCmd implements CommandsExecutor {
-    @Override
-    public boolean onCommand(HPlayer hPlayer, String[] strings) {
+public class ParanoCmd extends CommandsExecutor {
 
-        Player p = hPlayer.getPlayer();
-        if (p == null)
-            return false;
+    public ParanoCmd() {
+        super("[Parano]");
+    }
+
+    @Override
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
         if (!oyashiro.isReveal())

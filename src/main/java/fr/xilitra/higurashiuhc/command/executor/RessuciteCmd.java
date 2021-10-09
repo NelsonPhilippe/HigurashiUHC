@@ -9,14 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class RessuciteCmd implements CommandsExecutor {
+public class RessuciteCmd extends CommandsExecutor {
+
+    public RessuciteCmd() {
+        super("[Ressucite]");
+    }
+
     @Override
-    public boolean onCommand(HPlayer hPlayer, String[] args) {
-
-        Player p = hPlayer.getPlayer();
-
-        if (p == null)
-            return false;
+    public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         if (args.length != 2) {
             p.sendMessage(ChatColor.RED + "Commande invalide, merci de faire /h r (Joueur)");

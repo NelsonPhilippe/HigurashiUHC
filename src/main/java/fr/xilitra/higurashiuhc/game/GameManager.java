@@ -118,8 +118,8 @@ public class GameManager {
     public void setWataState(WataEnum wataEnum) {
         if (getWataState() == wataEnum)
             return;
-        this.wataEnum = wataEnum;
         Bukkit.getPluginManager().callEvent(new WatanagashiChangeEvent(getWataState()));
+        this.wataEnum = wataEnum;
     }
 
     public boolean isWataState(WataEnum wataEnum) {

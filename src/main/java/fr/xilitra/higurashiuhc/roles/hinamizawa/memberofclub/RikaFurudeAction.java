@@ -251,7 +251,7 @@ public class RikaFurudeAction extends RoleAction implements Listener {
             TextComponent message = new TextComponent("Voulez vous teleporter Rika dans la dimension : ");
             message.addExtra(textClick);
 
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "t rika"));
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h dimension rika"));
 
         }
     }

@@ -2,19 +2,27 @@ package fr.xilitra.higurashiuhc.roles.neutre;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
+import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-public class SatoshiHojoAction extends RoleAction {
+public class SatoshiHojoAction extends RoleAction implements Listener {
+
+    public Scoreboard scoreBoard = new Scoreboard();
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
@@ -89,7 +97,15 @@ public class SatoshiHojoAction extends RoleAction {
 
     @Override
     public void onGameStop() {
+        if(getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+            return;
 
+        if(scoreBoard.getObjective("health") == null)
+            return;
+
+        PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(0, scoreBoard.getObjective("health"));//Create display packet set to under name mode
+
+        sendPacket(getLinkedRole().getHPlayer().getPlayer(), display);
     }
 
     @Override
@@ -100,6 +116,28 @@ public class SatoshiHojoAction extends RoleAction {
     @Override
     public boolean acceptReconnect(Player p) {
         return false;
+    }
+
+    @EventHandler
+    public void onWataStateChange(WatanagashiChangeEvent wce){
+        if(wce.getWataEnum() == WataEnum.AFTER){
+
+            if(getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+                return;
+
+            scoreBoard.registerObjective("health", IScoreboardCriteria.g);
+
+            PacketPlayOutScoreboardObjective packet = new PacketPlayOutScoreboardObjective(scoreBoard.getObjective("health"), 0);//Create Scoreboard create packet
+            PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(2, scoreBoard.getObjective("health"));//Create display packet set to under name mode
+
+            sendPacket(getLinkedRole().getHPlayer().getPlayer(), packet);//Send Scoreboard create packet
+            sendPacket(getLinkedRole().getHPlayer().getPlayer(), display);
+
+        }
+    }
+
+    public void sendPacket(Player p, Packet<?> packet){
+        ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
     }
 
 }

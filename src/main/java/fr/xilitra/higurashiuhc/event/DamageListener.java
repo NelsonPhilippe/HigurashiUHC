@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
@@ -92,11 +93,11 @@ public class DamageListener implements Listener {
 
             text.addExtra(textClick);
 
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/ressucite " + hPlayer.getName()));
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r " + hPlayer.getName()));
 
             HPlayer hpr = Role.RIKA_FURUDE.getHPlayer();
 
-            if (hpr != null && hpr.getPlayer() != null)
+            if (hpr != null && hpr.hasCommandAccess(Commands.RESSUCITE) && hpr.getPlayerState() == PlayerState.INGAME && hpr.getPlayer() != null)
                 hpr.getPlayer().spigot().sendMessage(text);
 
         }

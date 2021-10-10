@@ -37,7 +37,7 @@ public class RikaCmd extends CommandsExecutor {
 
             akasakaAction.setCountCompare(akasakaAction.getCountCompare() + 1);
 
-            if (targetHPlayer.getRole().getClass().getName().equals(Role.RIKA_FURUDE.getName())) {
+            if (targetHPlayer.getRole().isRole(Role.RIKA_FURUDE)) {
 
                 if (akasakaAction.getCountCompare() == 1) {
                     p.setMaxHealth(1.5);

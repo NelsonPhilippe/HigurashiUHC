@@ -61,7 +61,7 @@ public class MoveEvent implements Listener {
                 if (loc.getBlock().getLocation().equals(blockLoc)) {
                     HPlayer satokoHojo = Role.SATOKO_HOJO.getHPlayer();
 
-                    if (satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUuid().equals(p.getUniqueId())) {
+                    if (satokoHojo == null || satokoHojo.getPlayer() == null || satokoHojo.getUUID().equals(p.getUniqueId())) {
                         return;
                     }
 

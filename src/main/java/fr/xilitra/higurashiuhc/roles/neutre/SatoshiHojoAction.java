@@ -41,7 +41,7 @@ public class SatoshiHojoAction extends RoleAction {
             if (hPlayer == null || hPlayer.getKiller() == null || !(hPlayer.getKiller() instanceof Player) || hPlayer.hasMalediction())
                 continue;
 
-            if (hPlayer.getKiller().getUniqueId().toString().equals(killer.getUuid().toString()))
+            if (hPlayer.getKiller().getUniqueId().toString().equals(killer.getUUID().toString()))
                 kill += 1;
 
         }

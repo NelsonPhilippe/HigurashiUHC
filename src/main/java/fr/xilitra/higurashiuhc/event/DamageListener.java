@@ -202,9 +202,9 @@ public class DamageListener implements Listener {
 
                 if (renaRyuguAction.gethPlayerPense() != null) {
 
-                    System.out.println(renaRyuguAction.gethPlayerPense().getUuid().toString());
+                    System.out.println(renaRyuguAction.gethPlayerPense().getUUID().toString());
 
-                    if (renaRyuguAction.gethPlayerPense().getUuid().equals(damager.getUniqueId())) {
+                    if (renaRyuguAction.gethPlayerPense().getUUID().equals(damager.getUniqueId())) {
 
                         if (!renaRyuguAction.isPenseIsUsed()) {
 

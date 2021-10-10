@@ -33,10 +33,12 @@ public class HPlayer {
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
     private HashMap<Commands, Integer> commandsIntegerHashMap;
+    private Player player = null;
 
     public HPlayer(String name, Player player) {
         this.name = name;
         this.uuid = player.getUniqueId();
+        this.player = player;
         this.deathTask = new DeathTask(player);
     }
 
@@ -44,13 +46,20 @@ public class HPlayer {
         return name;
     }
 
-    public UUID getUuid() {
+    public UUID getUUID() {
         return uuid;
     }
 
     @Nullable
     public Player getPlayer() {
-        return Bukkit.getPlayer(getUuid());
+        if (player == null) {
+            player = Bukkit.getPlayer(this.getUUID());
+        }
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Role getRole() {

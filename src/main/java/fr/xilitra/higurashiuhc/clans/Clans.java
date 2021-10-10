@@ -143,16 +143,16 @@ public enum Clans {
         Clans prevClans = getClans(p);
         if (prevClans != null)
             prevClans.removePlayer(p);
-        this.playerList.add(p.getUuid());
+        this.playerList.add(p.getUUID());
         p.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), getName());
     }
 
     public void removePlayer(HPlayer p) {
-        this.playerList.remove(p.getUuid());
+        this.playerList.remove(p.getUUID());
     }
 
     public boolean hisInClans(HPlayer player, boolean checkMinor) {
-        if (playerList.contains(player.getUuid()))
+        if (playerList.contains(player.getUUID()))
             return true;
         if (checkMinor)
             for (Clans minorClans : getMinorClans())

@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
@@ -76,7 +77,7 @@ public class GameManager {
             TitlePacket.send(player, 2, 5, 2, role.getName(), "");
             player.sendMessage(role.getDecription());
 
-            players.replace(hPlayer.getUuid(), hPlayer);
+            players.replace(hPlayer.getUUID(), hPlayer);
             hPlayer.setPlayerState(PlayerState.INGAME);
 
             player.playSound(player.getLocation(), sound, 1, 1);
@@ -130,6 +131,7 @@ public class GameManager {
     }
 
     public void setStates(GameStates states) {
+        Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(states));
         this.states = states;
     }
 
@@ -138,11 +140,11 @@ public class GameManager {
     }
 
     public void addHPlayer(HPlayer player) {
-        players.put(player.getUuid(), player);
+        players.put(player.getUUID(), player);
     }
 
     public HPlayer removeHPlayer(HPlayer player) {
-        return players.remove(player.getUuid());
+        return players.remove(player.getUUID());
     }
 
     public HPlayer removeHPlayer(UUID player) {

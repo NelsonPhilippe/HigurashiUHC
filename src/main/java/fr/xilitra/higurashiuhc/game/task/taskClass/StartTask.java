@@ -36,9 +36,8 @@ public class StartTask extends JavaTask {
 
         if (time == 5 || time == 4 || time == 3 || time == 2 || time == 1) {
             HigurashiUHC.getGameManager().getHPlayerList().values().forEach(
-                    player -> TitlePacket.send(
-                            Bukkit.getPlayer(
-                                    player.getUuid()),
+                    hPlayer -> TitlePacket.send(
+                            hPlayer.getPlayer(),
                             1,
                             1,
                             1,

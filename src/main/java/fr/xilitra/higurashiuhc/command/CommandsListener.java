@@ -4,7 +4,6 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,7 +24,7 @@ public class CommandsListener implements CommandExecutor {
         if (hPlayer == null)
             return false;
 
-        Player player = Bukkit.getPlayer(hPlayer.getUuid());
+        Player player = hPlayer.getPlayer();
         if (player == null)
             return false;
 

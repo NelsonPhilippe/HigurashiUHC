@@ -24,6 +24,8 @@ public class PlayerLeaveEvent implements Listener {
 
         if (hPlayer == null) return;
 
+        hPlayer.setPlayer(null);
+
         Clans clans = Clans.getClans(hPlayer);
         if (clans != null)
             clans.removePlayer(hPlayer);

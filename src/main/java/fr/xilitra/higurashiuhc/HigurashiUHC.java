@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc;
 import fr.xilitra.higurashiuhc.command.CommandsListener;
 import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.event.*;
+import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
@@ -138,6 +139,7 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
         this.getServer().getPluginManager().registerEvents(new MapMenu(), this);
+        this.getServer().getPluginManager().registerEvents(new GameStateChangeListener(), this);
 
     }
 

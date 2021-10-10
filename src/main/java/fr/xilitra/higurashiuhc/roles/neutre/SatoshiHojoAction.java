@@ -97,10 +97,10 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStop() {
-        if(getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+        if (getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
             return;
 
-        if(scoreBoard.getObjective("health") == null)
+        if (scoreBoard.getObjective("health") == null)
             return;
 
         PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(0, scoreBoard.getObjective("health"));//Create display packet set to under name mode
@@ -119,10 +119,10 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void onWataStateChange(WatanagashiChangeEvent wce){
-        if(wce.getWataEnum() == WataEnum.AFTER){
+    public void onWataStateChange(WatanagashiChangeEvent wce) {
+        if (wce.getWataEnum() == WataEnum.AFTER) {
 
-            if(getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+            if (getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
                 return;
 
             scoreBoard.registerObjective("health", IScoreboardCriteria.g);
@@ -136,7 +136,7 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
         }
     }
 
-    public void sendPacket(Player p, Packet<?> packet){
+    public void sendPacket(Player p, Packet<?> packet) {
         ((CraftPlayer) p).getHandle().playerConnection.sendPacket(packet);
     }
 

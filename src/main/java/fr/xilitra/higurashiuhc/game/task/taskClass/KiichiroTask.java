@@ -4,14 +4,13 @@ import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.ActionBar;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 public class KiichiroTask extends BukkitTask {
 
     final HPlayer hPlayer;
 
-    public KiichiroTask(HPlayer hPlayer){
+    public KiichiroTask(HPlayer hPlayer) {
         this.hPlayer = hPlayer;
     }
 
@@ -30,7 +29,7 @@ public class KiichiroTask extends BukkitTask {
             return;
         }
 
-        if(hPlayer.getPlayer() == null){
+        if (hPlayer.getPlayer() == null) {
             stopTask();
             return;
         }

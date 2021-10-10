@@ -37,7 +37,7 @@ public class KiichiroKimiyoshiAction extends RoleAction {
 
     @Override
     public void onGameStart() {
-        if(getLinkedRole().getHPlayer() == null)
+        if (getLinkedRole().getHPlayer() == null)
             return;
 
         List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());

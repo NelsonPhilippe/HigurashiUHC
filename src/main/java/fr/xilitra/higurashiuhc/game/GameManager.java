@@ -135,8 +135,8 @@ public class GameManager {
     }
 
     public void setStates(GameStates states) {
-        Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(states));
         this.states = states;
+        Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(states));
     }
 
     public Map<UUID, HPlayer> getHPlayerList() {

@@ -38,15 +38,14 @@ public class RikaFurudeAction extends RoleAction implements Listener {
 
     @EventHandler
     public void onRoleSelected(RoleSelected event) {
-        HPlayer player = event.getPlayer();
 
+        HPlayer player = event.getPlayer();
         Player bPlayer = player.getPlayer();
 
         if (bPlayer != null && player.getRole().isRole(Role.RIKA_FURUDE)) {
             bPlayer.setHealth(16);
             bPlayer.setMaxHealth(16);
         }
-
 
     }
 

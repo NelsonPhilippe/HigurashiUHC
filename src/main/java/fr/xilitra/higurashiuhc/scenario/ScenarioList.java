@@ -1,6 +1,9 @@
 package fr.xilitra.higurashiuhc.scenario;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.item.ItemConfig;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -53,6 +56,9 @@ public enum ScenarioList {
 
         for (ScenarioList sl : sla)
             sl.setActive(false);
+
+        if (actScenario.getScenario() instanceof Listener)
+            Bukkit.getPluginManager().registerEvents((Listener) actScenario.getScenario(), HigurashiUHC.getInstance());
 
         return actScenario;
 

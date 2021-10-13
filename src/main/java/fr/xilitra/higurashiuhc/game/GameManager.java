@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
+import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
@@ -98,6 +99,9 @@ public class GameManager {
 
         this.setStates(GameStates.GAME);
 
+        for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values())
+            hPlayer.getRole().addPlayer(hPlayer);
+
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
 
@@ -156,7 +160,11 @@ public class GameManager {
     }
 
     public void setEpisode(int ep) {
+        if (this.episode == ep)
+            return;
         this.episode = ep;
+        Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));
+        setWataState(ep == GameManager.getWataEpisode() ? WataEnum.DURING : (ep > GameManager.getWataEpisode() ? WataEnum.AFTER : WataEnum.BEFORE));
     }
 
     @Nullable

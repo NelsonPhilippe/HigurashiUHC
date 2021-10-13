@@ -1,7 +1,9 @@
 package fr.xilitra.higurashiuhc.player;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.kit.KitList;
@@ -33,7 +35,7 @@ public class HPlayer {
     private PlayerState playerState = PlayerState.WAITING_ROLE;
     private KitList kitList = null;
     private HashMap<Commands, Integer> commandsIntegerHashMap;
-    private Player player = null;
+    private Player player;
 
     public HPlayer(String name, Player player) {
         this.name = name;
@@ -76,7 +78,8 @@ public class HPlayer {
             this.role.getDefaultClans().addPlayer(this);
         this.commandsIntegerHashMap = this.role.getDefaultCommands();
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
-        role.addPlayer(this);
+        if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME)
+            role.addPlayer(this);
     }
 
     public Runnable getDeathTask() {

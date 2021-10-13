@@ -1,16 +1,23 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
 import fr.xilitra.higurashiuhc.command.Commands;
+import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.Random;
 
-public class MercenaireAction extends RoleAction {
+public class MercenaireAction extends RoleAction implements Listener {
 
     private HPlayer cible;
 
@@ -88,6 +95,19 @@ public class MercenaireAction extends RoleAction {
     @Override
     public boolean acceptReconnect(Player p) {
         return false;
+    }
+
+    @EventHandler
+    public void wataChange(WatanagashiChangeEvent watanagashiChangeEvent) {
+
+        if (watanagashiChangeEvent.getWataEnum() != WataEnum.DURING)
+            return;
+
+        for (HPlayer player : Role.MERCENAIRE.getHPlayerList()) {
+            if (player.getPlayer() != null)
+                player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+        }
+
     }
 
 }

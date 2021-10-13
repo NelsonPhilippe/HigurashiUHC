@@ -1,11 +1,14 @@
 package fr.xilitra.higurashiuhc.scenario;
 
+import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-public class Doll extends Scenario {
+public class Doll extends Scenario implements Listener {
 
     private Integer appliedSolution = null;
 
@@ -50,8 +53,15 @@ public class Doll extends Scenario {
 
     }
 
-    public Integer getAppliedSolution() {
-        return appliedSolution;
+    @EventHandler
+    public void episodeListener(EpisodeUpdate episodeUpdate) {
+        HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
+        if (keiichi != null && keiichi.getPlayer() != null)
+            if (keiichi.getPlayer().getMaxHealth() < 20) {
+                keiichi.getPlayer().sendMessage("DOLL) Un episode est passé, tu viens de gagner un coeur de plus.");
+                keiichi.getPlayer().setMaxHealth(keiichi.getPlayer().getMaxHealth() + 1);
+            }
+
     }
 
 }

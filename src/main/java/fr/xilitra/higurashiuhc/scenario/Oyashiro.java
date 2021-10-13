@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTask;
@@ -10,10 +11,12 @@ import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.inventivetalent.bossbar.BossBar;
 import org.inventivetalent.bossbar.BossBarAPI;
 
-public class Oyashiro extends Scenario {
+public class Oyashiro extends Scenario implements Listener {
 
     public boolean reveal = false;
     public RenaOyashiroTask renaTaskID = new RenaOyashiroTask();
@@ -58,7 +61,8 @@ public class Oyashiro extends Scenario {
         return reveal;
     }
 
-    public void revealOyashiro() {
+    @EventHandler
+    public void revealOyashiro(EpisodeUpdate episodeUpdate) {
 
         if (!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
             return;

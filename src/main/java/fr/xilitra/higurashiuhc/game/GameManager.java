@@ -24,7 +24,6 @@ public class GameManager {
     private final Runnable rikaDeathTask;
     private GameStates states;
     private int episode = 0;
-    private double worldBorder = HigurashiUHC.getInstance().getConfig().getDouble("worldborder");
     private WataEnum wataEnum = WataEnum.BEFORE;
 
     public GameManager() {
@@ -174,14 +173,6 @@ public class GameManager {
             if (hPlayer.getName().equals(name))
                 return hPlayer;
         return null;
-    }
-
-    public double getWorldBorder() {
-        return worldBorder;
-    }
-
-    public void setWorldBorder(double worldBorder) {
-        this.worldBorder = worldBorder;
     }
 
     public List<HPlayer> getHPlayerWithState(PlayerState... playerState) {

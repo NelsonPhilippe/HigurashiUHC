@@ -39,7 +39,7 @@ public class SuspecterCmd extends CommandsExecutor {
                 return false;
             }
 
-            if (kuraudoOishiAction.isCoupableIsDesigned()) {
+            if (kuraudoOishiAction.isCoupableDesigned()) {
                 p.sendMessage("Vous avez déjà désigné un coupable");
                 return false;
             }

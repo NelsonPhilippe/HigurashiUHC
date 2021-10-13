@@ -1,9 +1,13 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
+import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
@@ -33,11 +37,11 @@ public class KuraudoOishiAction extends RoleAction implements Listener {
         this.suspect.add(hPlayer);
     }
 
-    public boolean isCoupableIsDesigned() {
+    public boolean isCoupableDesigned() {
         return coupableIsDesigned;
     }
 
-    public void setCoupableIsDesigned(boolean coupableIsDesigned) {
+    public void setCoupableDesigned(boolean coupableIsDesigned) {
         this.coupableIsDesigned = coupableIsDesigned;
     }
 
@@ -79,6 +83,16 @@ public class KuraudoOishiAction extends RoleAction implements Listener {
     @Override
     public boolean acceptReconnect(Player p) {
         return false;
+    }
+
+    @EventHandler
+    public void wataChange(WatanagashiChangeEvent watanagashiChangeEvent){
+        if(watanagashiChangeEvent.getWataEnum() != WataEnum.DURING)
+            return;
+        HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
+
+        if (player != null && player.getPlayer() != null && !isCoupableDesigned())
+            player.getPlayer().setMaxHealth(2.5);
     }
 
 }

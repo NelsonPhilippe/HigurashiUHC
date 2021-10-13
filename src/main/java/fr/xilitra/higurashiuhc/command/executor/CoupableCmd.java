@@ -28,8 +28,8 @@ public class CoupableCmd extends CommandsExecutor {
 
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
-        if (!oishi.isCoupableIsDesigned()) {
-            oishi.setCoupableIsDesigned(true);
+        if (!oishi.isCoupableDesigned()) {
+            oishi.setCoupableDesigned(true);
         }
 
         p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");

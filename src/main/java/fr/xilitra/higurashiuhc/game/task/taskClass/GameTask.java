@@ -19,21 +19,26 @@ import java.util.UUID;
 
 public class GameTask extends BukkitTask {
 
-    private final int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
-    private int time = 0;
-    private int decount = 3;
-    private int timePhase = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
+    private int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
+    private int time = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
+    private final int timeEpisode = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
 
     @Override
     public void execute() {
 
-        if (time >= worldborderActivation) {
+        if (worldborderActivation == 0) {
+            worldborderActivation--;
             World world = Bukkit.getWorld("world");
 
             WorldBorder border = world.getWorldBorder();
             double blockReduce = HigurashiUHC.getInstance().getConfig().getInt("wordborder-time-reduce");
             border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder") - blockReduce);
-            HigurashiUHC.getGameManager().setWorldBorder(border.getSize());
+        }else if(worldborderActivation>0)
+            worldborderActivation --;
+
+        if (time == 0) {
+            time = timeEpisode;
+            HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
         }
 
         String formatTime = TimeUtils.formatTime(time);
@@ -46,7 +51,7 @@ public class GameTask extends BukkitTask {
                     "",
                     ChatColor.RED + "Titre de game",
                     "",
-                    ChatColor.GRAY + "Temps de la partie : " + ChatColor.GOLD + formatTime,
+                    ChatColor.GRAY + "Fin de l'Episode : " + ChatColor.GOLD + formatTime,
                     "",
                     ChatColor.GRAY + "Episode : " + ChatColor.GOLD + HigurashiUHC.getGameManager().getEpisode(),
                     "",
@@ -54,28 +59,8 @@ public class GameTask extends BukkitTask {
             );
 
             HigurashiUHC.addScoreboard(scoreboard.getKey(), scoreboard.getValue());
-            decount--;
         }
 
-        if (!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
-            HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
-
-            if (player != null && player.getPlayer() != null) {
-
-                KuraudoOishiAction oishi = (KuraudoOishiAction) player.getRole().getRoleAction();
-
-                if (!oishi.isCoupableIsDesigned()) {
-                    player.getPlayer().setMaxHealth(2.5);
-                }
-
-            }
-
-        }
-
-        if (time == timePhase) {
-            timePhase = timePhase + timePhase;
-            HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
-        }
-        time++;
+        time--;
     }
 }

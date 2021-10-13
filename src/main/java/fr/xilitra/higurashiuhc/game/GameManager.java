@@ -147,11 +147,7 @@ public class GameManager {
         players.put(player.getUUID(), player);
     }
 
-    public HPlayer removeHPlayer(HPlayer player) {
-        return players.remove(player.getUUID());
-    }
-
-    public HPlayer removeHPlayer(UUID player) {
+    public HPlayer removePlayer(UUID player) {
         return players.remove(player);
     }
 

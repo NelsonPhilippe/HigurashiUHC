@@ -21,32 +21,6 @@ public class MathMain {
 
     }
 
-    public static double vectorAngle(Vector v) {
-
-        /// Found on https://stackoverflow.com/questions/6247153/angle-from-2d-unit-vector
-
-        double x = v.getX();
-        double y = v.getY();
-
-        if (x == 0) // special cases
-            return (y > 0) ? 90
-                    : (y == 0) ? 0
-                    : 270;
-        else if (y == 0) // special cases
-            return (x >= 0) ? 0
-                    : 180;
-        double ret = radToDeg(Math.atan((float) y / x));
-        if (x < 0 && y < 0) // quadrant Ⅲ
-            ret = 180 + ret;
-        else if (x < 0) // quadrant Ⅱ
-            ret = 180 + ret; // it actually substracts
-        else if (y < 0) // quadrant Ⅳ
-            ret = 270 + (90 + ret); // it actually substracts
-
-        return ret;
-
-    }
-
     public static Direction calculateDirection(Player from, Player to) {
         return calculateDirection(from, to.getLocation());
     }

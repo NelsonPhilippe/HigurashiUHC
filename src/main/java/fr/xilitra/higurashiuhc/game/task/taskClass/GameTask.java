@@ -6,7 +6,6 @@ import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
@@ -15,15 +14,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
-import javax.management.relation.RoleList;
 import java.util.Map;
 import java.util.UUID;
 
 public class GameTask extends BukkitTask {
 
+    private final int timeEpisode = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
     private int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
     private int time = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
-    private final int timeEpisode = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
 
     @Override
     public void execute() {
@@ -35,21 +33,21 @@ public class GameTask extends BukkitTask {
             WorldBorder border = world.getWorldBorder();
             double blockReduce = HigurashiUHC.getInstance().getConfig().getInt("wordborder-time-reduce");
             border.setSize(HigurashiUHC.getInstance().getConfig().getInt("worldborder") - blockReduce);
-        }else if(worldborderActivation>0)
-            worldborderActivation --;
+        } else if (worldborderActivation > 0)
+            worldborderActivation--;
 
         if (time == 0) {
             time = timeEpisode;
             HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
-        }else if(time == 60 && HigurashiUHC.getGameManager().getWataState() == WataEnum.BEFORE && HigurashiUHC.getGameManager().getEpisode()+1 == GameManager.getWataEpisode()){
+        } else if (time == 60 && HigurashiUHC.getGameManager().getWataState() == WataEnum.BEFORE && HigurashiUHC.getGameManager().getEpisode() + 1 == GameManager.getWataEpisode()) {
             HPlayer jiro = null;
-            for(HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
-                if(hPlayer.getInfoData().getBoolean("hiddenJiro")){
+            for (HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
+                if (hPlayer.getInfoData().getBoolean("hiddenJiro")) {
                     jiro = hPlayer;
                     break;
                 }
 
-            if(jiro != null)
+            if (jiro != null)
                 jiro.setRole(Role.JIRO_TOMITAKE, true);
 
         }

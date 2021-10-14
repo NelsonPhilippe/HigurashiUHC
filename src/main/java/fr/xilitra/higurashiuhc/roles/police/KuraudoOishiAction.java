@@ -86,8 +86,8 @@ public class KuraudoOishiAction extends RoleAction implements Listener {
     }
 
     @EventHandler
-    public void wataChange(WatanagashiChangeEvent watanagashiChangeEvent){
-        if(watanagashiChangeEvent.getWataEnum() != WataEnum.DURING)
+    public void wataChange(WatanagashiChangeEvent watanagashiChangeEvent) {
+        if (watanagashiChangeEvent.getWataEnum() != WataEnum.DURING)
             return;
         HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
 

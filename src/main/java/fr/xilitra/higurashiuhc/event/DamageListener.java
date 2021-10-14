@@ -15,6 +15,7 @@ import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import fr.xilitra.higurashiuhc.utils.MathMain;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -167,7 +168,6 @@ public class DamageListener implements Listener {
 
                 if (CustomCraft.baseballBat.isUsedOnEpisode()) {
                     damager.sendMessage("Vous avez déjà utilisé la batte de baseball pour cet episode.");
-                    CustomCraft.baseballBat.setUsedOnEpisode(true);
                     return;
                 }
 
@@ -179,20 +179,19 @@ public class DamageListener implements Listener {
                 if (CustomCraft.baseballBat.getUsed() == 1) {
                     damager.getItemInHand().setType(Material.AIR);
                     damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1, 1);
-                    return;
-                }
+                }else
+                    CustomCraft.baseballBat.setUsed(CustomCraft.baseballBat.getUsed() - 1);
 
-                for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                    if (players.getPlayer() != null && players.getPlayer().getLocation().distanceSquared(damager.getLocation()) < 5 * 5) {
-                        if (players.getPlayer() != damager) {
+                CustomCraft.baseballBat.setUsedOnEpisode(true);
+                e.setDamage(5);
 
-                            players.getPlayer().damage(5);
-                            e.setDamage(5);
-                            CustomCraft.baseballBat.setUsed(CustomCraft.baseballBat.getUsed() - 1);
-
-                        }
-                    }
-                }
+                HigurashiUHC.getGameManager().getHPlayerList().values().forEach(hPlayer -> {
+                    if (hPlayer.getPlayer() != null
+                            && hPlayer.getPlayerState() == PlayerState.INGAME
+                            && MathMain.calculLength(hPlayer.getPlayer().getLocation(), damager.getLocation(), true) < 5 * 5
+                            && hPlayer.getPlayer().getUniqueId() != damager.getUniqueId()
+                    ) hPlayer.getPlayer().damage(5);
+                });
             }
 
             HPlayer player = Role.RENA_RYUGU.getHPlayer();
@@ -223,29 +222,6 @@ public class DamageListener implements Listener {
         }
 
     }
-
-    /*private void setLiveMionShion(EntityDamageByEntityEvent e, Player p, HPlayer hPlayer, String role1, String role2) {
-        if(hPlayer.getRole().getName().equalsIgnoreCase(role1)){
-
-            if(p.getHealth() > 20){
-
-                RoleList roleList = RoleList.getRoleList(role2);
-                if(roleList == null) return;
-
-                if(roleList.getRole().getHPlayer() == null || roleList.getRole().getHPlayer().getPlayer() == null)
-                    return;
-
-                double damage = limitDamage(e.getDamage());
-                for(HPlayer r2P : roleList.getRole().getHPlayerList()) {
-                    if (r2P.getPlayer() == null) continue;
-                    r2P.getPlayer().damage(damage);
-                }
-
-            }
-
-        }
-
-    }*/
 
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {

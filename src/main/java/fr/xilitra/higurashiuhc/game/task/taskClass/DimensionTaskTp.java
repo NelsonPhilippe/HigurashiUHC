@@ -72,7 +72,7 @@ public class DimensionTaskTp extends BukkitTask {
 
             hanyu.getPlayer().sendMessage("Vous allez être retéléporté aléatoirement dans la map");
 
-            double borderSize = HigurashiUHC.getGameManager().getWorldBorder();
+            double borderSize = HigurashiUHC.getGameManager().getWorldBorder().getSize();
             double negativeBorder = -(borderSize / 2) + 1;
             double positiveBorder = (borderSize / 2) - 1;
 

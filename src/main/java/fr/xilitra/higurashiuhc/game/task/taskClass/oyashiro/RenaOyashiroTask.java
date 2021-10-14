@@ -23,7 +23,7 @@ public class RenaOyashiroTask extends JavaTask {
         double diff = 20;
 
         if (km.getLinkedRole().getHPlayer() != null && km.getLinkedRole().getHPlayer().getPlayer() != null)
-            diff = MathMain.calculDiff(rr.getLinkedRole().getHPlayer().getPlayer().getLocation(), km.getLinkedRole().getHPlayer().getPlayer().getLocation(), true);
+            diff = MathMain.calculLength(rr.getLinkedRole().getHPlayer().getPlayer().getLocation(), km.getLinkedRole().getHPlayer().getPlayer().getLocation(), true);
         if (diff <= 15) remove += 1;
 
         ((Oyashiro) ScenarioList.OYASHIRO.getScenario()).addRenaProggress(remove * -1);

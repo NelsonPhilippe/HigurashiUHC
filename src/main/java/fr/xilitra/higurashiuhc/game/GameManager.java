@@ -187,4 +187,8 @@ public class GameManager {
 
     }
 
+    public WorldBorder getWorldBorder(){
+        return Bukkit.getWorld("world").getWorldBorder();
+    }
+
 }

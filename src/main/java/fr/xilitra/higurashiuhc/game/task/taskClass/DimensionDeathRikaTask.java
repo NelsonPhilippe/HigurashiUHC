@@ -23,7 +23,7 @@ public class DimensionDeathRikaTask extends BukkitTask {
 
         if (time == 0) {
 
-            double borderSize = HigurashiUHC.getGameManager().getWorldBorder();
+            double borderSize = HigurashiUHC.getGameManager().getWorldBorder().getSize();
             double negativeBorder = -(borderSize / 2) + 1;
             double positiveBorder = (borderSize / 2) - 1;
 

@@ -10,7 +10,7 @@ public class MathMain {
         return rad * (180 / Math.PI);
     }
 
-    public static double calculDiff(Location from, Location to, boolean high) {
+    public static double calculLength(Location from, Location to, boolean high) {
 
         double x = to.getX() - from.getX(), y = to.getY() - from.getY(), z = to.getZ() - from.getZ();
         double firstCalc = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -31,7 +31,7 @@ public class MathMain {
     }
 
     public static Double calcAngle(Location from, Location to, boolean highAtZ, boolean keepNegative) {
-        return calcAngle(from.toVector(), to.toVector(), highAtZ, keepNegative);
+        return calcAngle(from.getDirection(), to.toVector(), highAtZ, keepNegative);
     }
 
     public static Double calcAngle(Vector v1, Vector v2, boolean highAtZ, boolean keepNegative) {

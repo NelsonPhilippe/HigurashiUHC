@@ -48,8 +48,10 @@ public class CloseRikaTask extends BukkitTask {
                     continue;
                 playerWithEffect.add(hPlayer.getName());
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1));
-            }else
+            }else if(playerWithEffect.contains(hPlayer.getName())) {
                 playerWithEffect.remove(hPlayer.getName());
+                System.out.println("Test");
+            }
 
         }
 

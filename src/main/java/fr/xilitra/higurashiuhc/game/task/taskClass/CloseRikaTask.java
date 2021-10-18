@@ -4,12 +4,19 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.utils.MathMain;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CloseRikaTask extends BukkitTask {
+
+    List<String> playerWithEffect = new ArrayList<>();
+
     @Override
     public void execute() {
 
@@ -31,17 +38,18 @@ public class CloseRikaTask extends BukkitTask {
 
             Location playerLocation = player.getLocation();
 
-            if (playerLocation.getWorld().getName().equals(rikaLocation.getWorld().getName()))
+            if (playerLocation.getWorld().getName().equals(rikaLocation.getWorld().getName())) {
+                playerWithEffect.remove(hPlayer.getName());
                 continue;
+            }
 
-            double diffX = rikaLocation.getX() - playerLocation.getX();
-            double diffY = rikaLocation.getY() - playerLocation.getY();
-            double diffZ = rikaLocation.getY() - playerLocation.getZ();
-
-            double rayon = Math.sqrt(diffX * diffX + diffY * diffY + diffZ * diffZ);
-
-            if (rayon <= 20)
+            if (MathMain.calculLength(rikaLocation, playerLocation, true) <= 20) {
+                if(playerWithEffect.contains(hPlayer.getName()))
+                    continue;
+                playerWithEffect.add(hPlayer.getName());
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 1));
+            }else
+                playerWithEffect.remove(hPlayer.getName());
 
         }
 

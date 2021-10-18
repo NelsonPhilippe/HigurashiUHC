@@ -155,15 +155,28 @@ public class DamageListener implements Listener {
         if (!(e.getEntity() instanceof Player)) return;
 
         Player p = (Player) e.getEntity();
+        HPlayer attacked = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
+        if(attacked == null)
+            return;
 
         if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
 
             if (!(e.getDamager() instanceof Player)) return;
 
             Player damager = (Player) e.getDamager();
+            HPlayer attacker = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
+
+            if(attacker == null || attacker.getPlayerState() != PlayerState.INGAME){
+                e.setCancelled(true);
+                return;
+            }
+
+            if(attacker.getLinkData(attacked).isDamageCancelled() && HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME).size()>2){
+                e.setCancelled(true);
+                return;
+            }
 
             ItemStack item = damager.getItemInHand();
-
             if (item.isSimilar(CustomCraft.baseballBat.getItemStack())) {
 
                 if (CustomCraft.baseballBat.isUsedOnEpisode()) {
@@ -233,6 +246,11 @@ public class DamageListener implements Listener {
         if (hPlayer == null)
             return;
 
+        if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
+
+        if(e.isCancelled())
+            return;
+
         double damage = limitDamage(e.getDamage());
 
         if (p.getHealth() <= 20) {
@@ -277,7 +295,6 @@ public class DamageListener implements Listener {
         if (oyashiro.getKeiichiBossBar() != null)
             oyashiro.addKeiichiProggress(3);
 
-        if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
             if (e instanceof EntityDamageByEntityEvent) {

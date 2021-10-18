@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
@@ -11,8 +12,11 @@ import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.inventivetalent.bossbar.BossBar;
 import org.inventivetalent.bossbar.BossBarAPI;
 
@@ -24,6 +28,7 @@ public class Oyashiro extends Scenario implements Listener {
     public ParanoTask paranoTask = new ParanoTask();
     public BossBar keiichiBossBar = null;
     public BossBar renaBossBar = null;
+    public Integer solNumber = null;
 
 
     public Oyashiro() {
@@ -43,11 +48,29 @@ public class Oyashiro extends Scenario implements Listener {
         renaBossBar.getPlayers().forEach((player) -> renaBossBar.removePlayer(player));
         renaBossBar = null;
 
+        solNumber = solution;
+
+        if(solution == 1 && Role.RENA_RYUGU.getHPlayer() != null && Role.KEIICHI_MAEBARA.getHPlayer() != null){
+            Role.RENA_RYUGU.getHPlayer().getLinkData(Role.KEIICHI_MAEBARA.getHPlayer()).setDamagelessLinked(Reason.OYASHIRO_SOL1, true);
+        }else if(solution == 3 && Role.RENA_RYUGU.getHPlayer() != null)
+            Clans.HINAMIZAWA.addPlayer(Role.RENA_RYUGU.getHPlayer());
+        else{
+
+            HPlayer hPlayer = solution == 2 ? Role.RENA_RYUGU.getHPlayer() : Role.KEIICHI_MAEBARA.getHPlayer();
+            if(hPlayer == null || hPlayer.getPlayer() == null)
+                return;
+
+            Player player = hPlayer.getPlayer();
+            player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 1));
+
+        }
+
     }
 
     @Override
     public Integer getSolutionNumber() {
-        return null;
+        return solNumber;
     }
 
     @Override

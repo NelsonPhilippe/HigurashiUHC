@@ -35,14 +35,12 @@ public class CoupableCmd extends CommandsExecutor {
         p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");
 
         if (targetHPlayer.getClans().isClans(Clans.SONOZAKI)) {
-            Clans.HINAMIZAWA.removeAlly(Clans.POLICE, true);
+            Clans.POLICE.setMajorClans(null);
             ItemStack arc = new ItemStack(Material.BOW, 1);
             arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 
             p.getInventory().addItem(arc);
-        }
-
-        if (targetHPlayer.getClans().getName().equalsIgnoreCase(Clans.HINAMIZAWA.getName())) {
+        }else if (targetHPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
             p.sendMessage("L'enquête a échoué.");
             return true;
         }

@@ -15,4 +15,8 @@ public class TaskRunner {
 
     }
 
+    public static void stopAllTask(){
+        hash.values().forEach(Task::stopTask);
+    }
+
 }

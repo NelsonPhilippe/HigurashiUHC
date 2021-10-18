@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
+import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
@@ -106,6 +107,10 @@ public class GameManager {
 
         new GameTask().runTaskTimer(1000, 1000);
 
+    }
+
+    public void end(){
+        TaskRunner.stopAllTask();
     }
 
     public void startRikaDeathTask() {

@@ -176,6 +176,8 @@ public class HPlayer {
 
     public void addMaledictionReason(Reason mr) {
         if (!hasMaledictionReason(mr)) {
+            mrList.add(mr);
+            getClans().removePlayer(this);
             Player player = getPlayer();
             if (player == null)
                 return;
@@ -183,7 +185,6 @@ public class HPlayer {
             player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
             player.sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: " + mr.getName());
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
-            mrList.add(mr);
         }
     }
 

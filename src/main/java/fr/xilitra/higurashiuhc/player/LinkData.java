@@ -7,6 +7,7 @@ public class LinkData {
     public Reason deathLinkReason = null;
     public Reason mariedReason = null;
     public Reason winLinkReason = null;
+    public Reason damageCancelled = null;
 
     public LinkData(HPlayer original, HPlayer linkedPlayer) {
         this.ogPlayer = original;
@@ -54,6 +55,20 @@ public class LinkData {
     }
 
     public Reason getWinLinkReason() {
+        return winLinkReason;
+    }
+
+    public boolean isDamageCancelled() {
+        return damageCancelled != null;
+    }
+
+    public void setDamagelessLinked(Reason reason, boolean both) {
+        damageCancelled = reason;
+        if (both)
+            linkedPlayer.getLinkData(ogPlayer).setDamagelessLinked(reason, false);
+    }
+
+    public Reason getDamagelessReason() {
         return winLinkReason;
     }
 

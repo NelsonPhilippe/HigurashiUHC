@@ -145,7 +145,8 @@ public enum Role {
         if (authoriseCommand == null)
             authoriseCommand = new HashMap<>();
         this.commandsIntegerHashMap = authoriseCommand;
-        this.commandsIntegerHashMap.put(Commands.VOTE, 1);
+        if(clans.getMajorClans().isClans(Clans.HINAMIZAWA))
+            this.commandsIntegerHashMap.put(Commands.VOTE, 1);
         if (roleAction instanceof Listener)
             Bukkit.getPluginManager().registerEvents((Listener) roleAction, HigurashiUHC.getInstance());
     }

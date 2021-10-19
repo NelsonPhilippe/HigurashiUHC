@@ -21,7 +21,9 @@ public class PlayerLeaveEvent implements Listener {
 
         if (hPlayer == null) return;
 
-        DamageListener.playDeath(HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId()), DeathReason.DISCONNECTED);
+        if(HigurashiUHC.getGameManager().getStates() == GameStates.GAME && hPlayer.getPlayerState() == PlayerState.INGAME)
+            DamageListener.playDeath(HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId()), DeathReason.DISCONNECTED);
+
         p.getInventory().clear();
 
         hPlayer.setPlayer(null);
@@ -32,7 +34,6 @@ public class PlayerLeaveEvent implements Listener {
 
         hPlayer.setPlayerState(PlayerState.DISCONNECTED);
         if (hPlayer.getRole() == null)
-
             if (HigurashiUHC.getGameManager().getStates() != GameStates.GAME)
                 HigurashiUHC.getGameManager().removePlayer(p.getUniqueId());
 

@@ -52,7 +52,6 @@ public enum Clans {
     private final String name;
     private final List<UUID> playerList = new ArrayList<>();
     private Integer majorClans;
-    private List<Clans> minorClans = null;
 
     Clans(int id, String name, Integer majorClansID) {
         this.id = id;
@@ -95,17 +94,31 @@ public enum Clans {
 
 
     public List<HPlayer> getHPlayerList() {
+        return getHPlayerList(false);
+    }
+
+    public List<HPlayer> getHPlayerList(boolean subClans) {
 
         GameManager gm = HigurashiUHC.getGameManager();
         return new ArrayList<HPlayer>() {{
-            for (UUID uuid : getUUIDList())
+            for (UUID uuid : getUUIDList(subClans))
                 add(gm.getHPlayer(uuid));
         }};
 
     }
 
     public List<UUID> getUUIDList() {
+        return getUUIDList(false);
+    }
+
+    public List<UUID> getUUIDList(boolean minorClans) {
+        if(!minorClans)
         return playerList;
+        else return new ArrayList<UUID>(){{
+           addAll(getUUIDList(false));
+           for(Clans clans : getMinorClans())
+               addAll(clans.getUUIDList(true));
+        }};
     }
 
     public List<Role> getRoleList() {
@@ -147,13 +160,11 @@ public enum Clans {
     }
 
     public List<Clans> getMinorClans() {
-        if (minorClans != null)
-            return minorClans;
-        minorClans = new ArrayList<>();
+        List<Clans> minorClans = new ArrayList<>();
         for (Clans clans : Clans.values())
             if (isClans(clans.getMajorClans()) && !isClans(clans))
                 minorClans.add(clans);
-        return getMinorClans();
+        return minorClans;
     }
 
     public boolean hasMinorClans(Clans clans) {

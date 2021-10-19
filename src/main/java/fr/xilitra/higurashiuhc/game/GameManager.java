@@ -109,6 +109,10 @@ public class GameManager {
 
     }
 
+    public void checkWin(){
+
+    }
+
     public void end(){
         TaskRunner.stopAllTask();
     }

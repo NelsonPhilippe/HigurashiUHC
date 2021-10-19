@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
+import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
@@ -148,6 +149,9 @@ public class DamageListener implements Listener {
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
         hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
+
+        if(deathReason != DeathReason.DEATH_LINKED)
+            HigurashiUHC.getGameManager().checkWin();
 
     }
 

@@ -1,6 +1,5 @@
 package fr.xilitra.higurashiuhc.command.executor;
 
-import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.game.task.taskClass.VoteTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -18,11 +17,6 @@ public class VoteCmd extends CommandsExecutor {
 
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
-
-        if (!Clans.HINAMIZAWA.hisInClans(hPlayer, false)) {
-            p.sendMessage("Tu ne peux pas voter");
-            return true;
-        }
 
         if (voteTask.isRunning()) {
 

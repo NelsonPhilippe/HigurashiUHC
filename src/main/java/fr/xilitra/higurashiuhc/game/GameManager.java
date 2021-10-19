@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
@@ -17,7 +18,9 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class GameManager {
 
@@ -111,9 +114,42 @@ public class GameManager {
 
     public void checkWin(){
 
+        List<Clans> availableClans = new ArrayList<>();
+        boolean withoutClans = false;
+        List<HPlayer> remainPlayer = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME);
+
+        for(HPlayer hPlayer : remainPlayer){
+            Clans clans = hPlayer.getClans();
+            if(clans != null)
+                availableClans.add(clans.getMajorClans());
+            else withoutClans = true;
+        }
+
+        if(remainPlayer.size() <= 2){
+
+            if(remainPlayer.size() == 2 && remainPlayer.get(0).getLinkData(remainPlayer.get(1)).isWinLinked()) {
+                win(remainPlayer.get(0), remainPlayer.get(1));
+                return;
+            }else if(remainPlayer.size() == 1){
+                if(remainPlayer.get(0).getClans() != null)
+                    win(remainPlayer.get(0).getClans());
+                else
+                    win(remainPlayer.get(0));
+                return;
+            }else if(remainPlayer.size() == 0){
+                win();
+                return;
+            }
+
+        }
+
+        if(availableClans.size() == 1 && withoutClans) {
+            win(availableClans.get(0));
+        }
+
     }
 
-    public void end(){
+    public void win(Object... object){
         TaskRunner.stopAllTask();
     }
 

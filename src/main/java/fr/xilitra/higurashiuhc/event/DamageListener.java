@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
-import fr.xilitra.higurashiuhc.game.GameManager;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
@@ -123,10 +123,11 @@ public class DamageListener implements Listener {
 
                 LinkData linkData = hPlayer.getLinkData(married);
                 Reason mariedReason = linkData.getMariedLinkReason();
-                linkData.setMariedLinked(null, true);
 
-                if (mariedReason.isReason(Reason.DOLL_TRAGEDY))
+                if (mariedReason.isReason(Reason.DOLL_TRAGEDY)) {
                     married.addMaledictionReason(Reason.DOLL_TRAGEDY);
+                    linkData.setMariedLinked(null, true);
+                }
 
             }
 
@@ -245,6 +246,11 @@ public class DamageListener implements Listener {
 
         if (!(e.getEntity() instanceof Player)) return;
 
+        if (HigurashiUHC.getGameManager().getStates() != GameStates.GAME) {
+            e.setCancelled(true);
+            return;
+        }
+
         Player p = (Player) e.getEntity();
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
         if (hPlayer == null)
@@ -252,7 +258,7 @@ public class DamageListener implements Listener {
 
         if (e instanceof EntityDamageByEntityEvent) onPlayerDamageByEntity((EntityDamageByEntityEvent) e);
 
-        if(e.isCancelled())
+        if (e.isCancelled())
             return;
 
         double damage = limitDamage(e.getDamage());

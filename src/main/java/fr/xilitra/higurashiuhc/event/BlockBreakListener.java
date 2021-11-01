@@ -34,7 +34,7 @@ public class BlockBreakListener implements Listener {
         if (hPlayer == null)
             return;
 
-        if (hPlayer.getRole().getName().equalsIgnoreCase("Satoko Hojo")) {
+        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO)) {
 
             ItemStack item = e.getPlayer().getItemInHand();
 

@@ -39,17 +39,19 @@ public class GameTask extends BukkitTask {
         if (time == 0) {
             time = timeEpisode;
             HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
-        } else if (time == 60 && HigurashiUHC.getGameManager().getWataState() == WataEnum.BEFORE && HigurashiUHC.getGameManager().getEpisode() + 1 == GameManager.getWataEpisode()) {
-            HPlayer jiro = null;
-            for (HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
-                if (hPlayer.getInfoData().getBoolean("hiddenJiro")) {
-                    jiro = hPlayer;
-                    break;
-                }
+            if (HigurashiUHC.getGameManager().getWataState() == WataEnum.BEFORE
+                    && HigurashiUHC.getGameManager().getEpisode() + HigurashiUHC.getInstance().getConfig().getInt("role.tomitake.knownrole") == GameManager.getWataEpisode()
+            ) {
+                HPlayer jiro = null;
+                for (HPlayer hPlayer : Role.MERCENAIRE.getHPlayerList())
+                    if (hPlayer.getInfoData().getBoolean("hiddenJiro")) {
+                        jiro = hPlayer;
+                        break;
+                    }
 
-            if (jiro != null)
-                jiro.setRole(Role.JIRO_TOMITAKE, true);
-
+                if (jiro != null)
+                    jiro.setRole(Role.JIRO_TOMITAKE, true);
+            }
         }
 
         String formatTime = TimeUtils.formatTime(time);

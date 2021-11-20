@@ -63,6 +63,15 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
             if (player == null)
                 return;
             player.getInventory().addItem(DollItem.dollItem.getItemStack());
+
+            player.sendMessage("§7[§6Vous venez de recevoir la poupée§7] \n" +
+                    "\n" +
+                    "§7La §d§opoupée §7ne vous convient pas, vous décidez de l’offrir à quelqu’un d’autre. \n" +
+                    "§7Pour cela il suffit de frapper un joueur avec la §d§opoupée §7dans les mains. \n" +
+                    "§4FAITES ATTENTION ! \n" +
+                    "§7§lChoisissez la bonne personne à qui donner la §d§opoupée§7, cela pourrait se retourner contre vous ou peut-être même vous arranger. \n" +
+                    "§7Si vous ne donnez pas la §d§opoupée §7ou que vous la donnez à une mauvaise personne avant la Watanagashi, vous serez atteint de la malédiction et perdrez 5 cœurs permanents que vous régénérez tous les épisodes. ");
+
         }
     }
 

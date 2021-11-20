@@ -6,6 +6,16 @@ import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
 public class VillageoisAction extends RoleAction {
+
+    @Override
+    public String getDescription() {
+        return "\n" +
+                "§6Vous êtes §9Villageois (non-genré) : \n" +
+                "\n" +
+                "§6Vous devez gagner avec §9Hinamizawa. \n" +
+                "§6vous ne possédez aucun pouvoir ni aucun effet particulier. ";
+    }
+
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 

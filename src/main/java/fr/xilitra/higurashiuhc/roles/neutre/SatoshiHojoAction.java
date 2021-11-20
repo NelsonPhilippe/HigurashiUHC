@@ -25,6 +25,23 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
     public Scoreboard scoreBoard = new Scoreboard();
 
     @Override
+    public String getDescription() {
+        return "§6Vous êtes §2Satoshi Hojo (garçon) : \n" +
+                "\n" +
+                "§2Satoshi §6doit gagner §2seul. \n" +
+                "§2Satoshi §6est automatiquement atteint de la malédiction d’Oyashiro. \n" +
+                "§2Satoshi §6est considéré par les rôles à infos comme étant membres d’§9Hinamizawa. \n" +
+                "§6Il connaît l’identité d’un des membres du §bclub. \n" +
+                "§6S'il arrive à tuer tous les membres du §bclub §6non atteint par la malédiction, il gagne l’effet résistance et gagne 1 cœur permanent pour chacun des membres tués. \n" +
+                "§6Après Watanagashi, §2Satoshi §6verra la vie de tous les joueurs en temps réel. \n" +
+                "§2Satoshi §6peut réaliser un craft qui lui donnera la batte de baseball. \n" +
+                "§6Si §2Satoshi §6l’utilise sur quelqu’un, cela fait des dégâts de groupe à tous les joueurs autour de celui qui est touché dans un rayon de 5 blocs et fait 2 cœurs et demi de dégâts à celui qui est touché. \n" +
+                "§6Il ne peut l'utiliser que 3 fois dans la partie et une fois par épisode. \n" +
+                "§6Cependant, §9Keiichi §6peut également faire la batte. \n" +
+                "§6Le premier des deux rôles à réaliser le craft de la batte l'obtiendra mais l’autre ne pourra plus la faire.";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
         List<Role> interestRole = new ArrayList<Role>() {{

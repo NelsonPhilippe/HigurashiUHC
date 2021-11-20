@@ -30,6 +30,17 @@ public class MercenaireAction extends RoleAction implements Listener {
     }
 
     @Override
+    public String getDescription() {
+        return "§6Vous êtes §4Mercenaire (non-genré) : \n" +
+                "\n" +
+                "§6Les §4mercenaires §6doivent gagner avec leur camp. \n" +
+                "§6Durant la nuit de la Watanagashi, les §4mercenaires §6gagnent l’effet force. \n" +
+                "§6Si §2Tomitake §6meurt le jour de Watanagashi, les §4mercenaires §6gagneront l’effet force permanent. \n" +
+                "§6Si les §4mercenaires §6remplissent leur mission d’assassinat de §4Miyo Takano §6alors ils recevront un cœur permanent supplémentaire. \n" +
+                "§6Les §4mercenaires §6détiennent aléatoirement un “kit” à l’annonce des rôles.";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
         if (getCible() != null && getLinkedRole().getHPlayer() != null && getLinkedRole().getHPlayer().getPlayer() != null) {
 

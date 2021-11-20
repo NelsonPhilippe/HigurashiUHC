@@ -10,7 +10,6 @@ import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -183,9 +182,22 @@ public class HPlayer {
                 return;
             TitlePacket.send(player, 2, 5, 2, "Malédiction", "Raison: " + mr.getName());
             player.playSound(player.getLocation(), "mob.guardian.curse", 2.0f, 2.0f);
-            player.sendMessage(ChatColor.GOLD + "Tu as reçu la malediction en raison de: " + mr.getName());
+            player.sendMessage("§cVous êtes atteint de la §8§omalédiction d’Oyashiro §c! \n" +
+                    "\n" +
+                    "§7La paranoïa vous gagne et vous rend plus fort. \n" +
+                    "§7Votre objectif est maintenant de gagner seul et d’être le dernier en vie. \n" +
+                    "§7Pour vous aider, votre force a été augmentée.\n" +
+                    "§7Si vous arrivez à tuer tous les membres du §bclub, vous deviendrez plus résistant. \n" +
+                    "§7À chaque membre du §bclub qui n’est pas atteint de la malédiction tué par vous, vous aurez un cœur supplémentaire. \n" +
+                    "§7Votre destin est maintenant scellé. ");
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
+    }
+
+    public void sendMessage(String message) {
+        if (getPlayer() == null)
+            return;
+        getPlayer().sendMessage(message);
     }
 
     public void removeMaledictionReason(Reason mr) {

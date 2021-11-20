@@ -13,6 +13,15 @@ public class AkaneSonozakiAction extends RoleAction {
         nextDaySwap = 0;
     }
 
+    @Override
+    public String getDescription() {
+        return "§6Vous êtes §3Akane Sonozaki (fille) : \n" +
+                "\n" +
+                "§6Akane §6doit gagner avec §9Hinamizawa §6tout en faisant partie du clan §3Sonozaki. \n" +
+                "§6Avec la commande §5“/h inverser <joueur1> <joueur2>”, §3Akane §6pourra inverser la position de deux joueurs, deux fois dans la partie. \n" +
+                "(pouvoir utilisable une fois par épisode)";
+    }
+
     public int getNextDaySwap() {
         return nextDaySwap;
     }

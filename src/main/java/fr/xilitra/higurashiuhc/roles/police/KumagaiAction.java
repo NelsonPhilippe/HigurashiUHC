@@ -21,6 +21,15 @@ public class KumagaiAction extends RoleAction {
     }
 
     @Override
+    public String getDescription() {
+        return "§6Vous êtes §eKumagai (garçon) : \n" +
+                "\n" +
+                "§eKumagai §6doit gagner avec §9Hinamizawa §6et fait partie du camp de la §epolice§6. \n" +
+                "§eKumagai §6peut comparer un joueur avec un camp avec la commande §5“/h comparer <joueur> <nom camp>” §6(§9Hinamizawa, §bClub, §3Sonozaki, §ePolice, §4Mercenaire, §2neutre§6) Il aura la confirmation s’il fait partie ou non du camp mentionné. \n" +
+                "§6Ce pouvoir est utilisable une fois par camp.";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

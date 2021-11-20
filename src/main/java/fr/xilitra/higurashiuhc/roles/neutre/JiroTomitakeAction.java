@@ -15,6 +15,17 @@ import org.bukkit.potion.PotionEffectType;
 public class JiroTomitakeAction extends RoleAction implements Listener {
 
     @Override
+    public String getDescription() {
+        return "§f------------------------------------------------------\n" +
+                "§fVous venez d’apprendre que les §4mercenaires §fveulent votre mort !\n" +
+                "\n" +
+                "§6Vous êtes §2Jiro Tomitake (garçon) : \n" +
+                "\n" +
+                "§6Vous possédez toujours votre kit mais vous faites maintenant partie du camp §9Hinamizawa §6!\n" +
+                "§f------------------------------------------------------";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

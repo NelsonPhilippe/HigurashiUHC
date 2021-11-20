@@ -20,6 +20,16 @@ import java.util.List;
 
 public class ShionSonozakiAction extends RoleAction implements Listener {
 
+    @Override
+    public String getDescription() {
+        return "§6Vous êtes §9Shion Sonozaki (fille) : \n" +
+                "\n" +
+                "§9Shion§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du §bClub§6 et du clan §3Sonozaki§6." +
+                "§6Elle possède 2 cœurs supplémentaires qu’elle a en commun avec §9Mion Sonozaki§6." +
+                "§6Si §9Mion§6 meurt, elle perd son bonus de 2 cœurs." +
+                "§6Si §eKumagai§6 vous espionne, §9Shion§6 aura 50% de chances de se faire voir comme faisant partie du clan §3Sonozaki§6 ou du §bClub§6.";
+    }
+
     public static void removeHearth(HPlayer deathPlayer, HPlayer playerAlive) {
         if (deathPlayer == null) return;
 

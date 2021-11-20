@@ -36,6 +36,22 @@ public class RikaFurudeAction extends RoleAction implements Listener {
         this.lives = 3;
     }
 
+    @Override
+    public String getDescription() {
+        return
+                "§6Vous êtes §9Rika Furude (fille) :\n\n" +
+                        "§9Rika §6doit gagner avec §9Hinamizawa §6tout en faisant partie du §bClub§9.\n" +
+                        "§6Elle possède 8 cœurs ainsi que 3 vies et connaît l’identité de Hanyu.\n" +
+                        "§6Une fois à sa deuxième vie, Rika verra les pseudos des joueurs brouillés jusqu’à la fin de la partie.\n" +
+                        "§6Lors de sa dernière vie, elle n’aura plus que 5 cœurs permanents.\n" +
+                        "§6Une fois dans la partie, §9Rika§6 peut sacrifier une de ses vies pour ressusciter l’un de ses amis morts (Keiichi/Satoko/Mion/Shion/Rena).\n" +
+                        "§6Si §9Hanyu§6 vient à mourir, §9Rika§6 n’aura plus la possibilité de ressusciter et mourra définitivement si elle vient à se faire tuer.\n" +
+                        "§6Si §9Rika§6 meurt définitivement, alors §9Hinamizawa§6 n’aura que 2 jours pour gagner la partie sinon les membres du camp seront touchés par l'effet weakness permanent.\n" +
+                        "§6Si elle se fait tuer avant Watanagashi de la main des mercenaires, §4Miyo Takano§6 sera dévoilé aux yeux de tous.\n" +
+                        "§6Après Watanagashi, si l’un des membres du club se trouve à côté de Rika dans un rayon de 20 blocs, il gagne l’effet résistance.\n\n" +
+                        "§9Hanyu §6est §7”joueur”";
+    }
+
     @EventHandler
     public void onRoleSelected(RoleSelected event) {
 

@@ -20,6 +20,16 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 
 public class MionSonozakiAction extends RoleAction implements Listener {
 
+    @Override
+    public String getDescription() {
+        return "§6Vous êtes §9Mion Sonozaki (fille) : \n" +
+                "\n" +
+                "§9Mion§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du §bClub§6 et du clan §3Sonozaki§6." +
+                "§6Elle possède 2 cœurs supplémentaires qu’elle a en commun avec §9Shion Sonozaki§6." +
+                "§6Si §9Shion§6 meurt, elle perd son bonus de 2 cœurs." +
+                "§6Si §eKumagai§6 vous espionne, §9Mion§6 aura 50% de chances de se faire voir comme faisant partie du clan §3Sonozaki§6 ou du §bClub§6.";
+    }
+
     @EventHandler
     public void onRoleSelected(RoleSelected e) {
         HPlayer player = e.getPlayer();

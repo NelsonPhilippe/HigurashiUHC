@@ -19,6 +19,18 @@ import org.bukkit.inventory.ItemStack;
 public class KeiichiMaebaraAction extends RoleAction implements Listener {
 
     @Override
+    public String getDescription() {
+        return "§6Vous êtes §9Keiichi Maebara (garçon) :\n" +
+                "\n" +
+                "§9Keiichi§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du §bClub§6." +
+                "§9Keiichi§6 peut crafter la batte de baseball." +
+                "§6Lorsqu’il frappe un joueur avec la batte, il inflige des dégâts de zone enlevant 2 cœurs dans un rayon de 5 blocs du joueur touché." +
+                "§6Il ne peut l’utiliser que 3 fois dans la partie et une fois par épisode maximum." +
+                "§6Attention, la batte de Baseball peut également être obtenue par §2Satoshi§6." +
+                "§6Le premier à réaliser le craft obtiendra la batte de baseball. ";
+    }
+
+    @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
     }

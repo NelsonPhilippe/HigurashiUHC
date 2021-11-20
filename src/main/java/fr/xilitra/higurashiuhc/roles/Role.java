@@ -124,7 +124,6 @@ public enum Role {
     NULL("Je suis null", "Rôle de merde", Gender.HOMME, null, 9999, new NullRoleAction(), null);
 
     private final String name;
-    private final String description;
     private final Gender sexe;
     private final List<HPlayer> players = new ArrayList<>();
     private final int maxPlayers;
@@ -135,7 +134,6 @@ public enum Role {
 
     Role(String name, String description, Gender sexe, Clans clans, int maxPlayers, RoleAction roleAction, HashMap<Commands, Integer> authoriseCommand) {
         this.name = name;
-        this.description = description;
         this.sexe = sexe;
         this.displayName = name;
         this.defaultClans = clans;
@@ -160,10 +158,6 @@ public enum Role {
 
     public String getName() {
         return name;
-    }
-
-    public String getDecription() {
-        return description;
     }
 
     public Gender getSexe() {

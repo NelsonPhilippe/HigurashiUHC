@@ -32,4 +32,6 @@ public abstract class RoleAction {
 
     public abstract void onGameStop();
 
+    public abstract String getDescription();
+
 }

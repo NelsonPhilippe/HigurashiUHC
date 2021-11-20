@@ -49,7 +49,6 @@ public class SatokoHojoAction extends RoleAction implements Listener {
         HPlayer hPlayerShooter = HigurashiUHC.getGameManager().getHPlayer(shooter.getUniqueId());
         if (hPlayerShooter == null)
             return;
-        HPlayer hPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(victim.getUniqueId());
 
         System.out.println(snowball.getCustomName());
 
@@ -58,8 +57,11 @@ public class SatokoHojoAction extends RoleAction implements Listener {
             if (hPlayerShooter.getRole() != null && hPlayerShooter.getRole().isRole(Role.SATOKO_HOJO)) {
 
                 victim.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2, true));
+
             }
+
         }
+
     }
 
     @EventHandler

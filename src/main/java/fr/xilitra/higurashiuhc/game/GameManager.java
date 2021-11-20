@@ -18,9 +18,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class GameManager {
 
@@ -79,7 +77,7 @@ public class GameManager {
 
             hPlayer.setRole(role, true);
             TitlePacket.send(player, 2, 5, 2, role.getName(), "");
-            player.sendMessage(role.getDecription());
+            player.sendMessage(role.getRoleAction().getDescription());
 
             players.replace(hPlayer.getUUID(), hPlayer);
             hPlayer.setPlayerState(PlayerState.INGAME);

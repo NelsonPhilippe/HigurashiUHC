@@ -190,6 +190,9 @@ public class HPlayer {
                     "§7Si vous arrivez à tuer tous les membres du §bclub, vous deviendrez plus résistant. \n" +
                     "§7À chaque membre du §bclub qui n’est pas atteint de la malédiction tué par vous, vous aurez un cœur supplémentaire. \n" +
                     "§7Votre destin est maintenant scellé. ");
+            if (getRole().isRole(Role.RENA_RYUGU))
+                player.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5“/h paranoia” §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
+                        "§4§lATTENTION, §7vous aussi possédez une jauge et si celle-ci tombe à 0, vous ne serez plus atteint de la malédiction.");
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
         }
     }

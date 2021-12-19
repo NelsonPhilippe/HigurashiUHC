@@ -38,6 +38,9 @@ public class Oyashiro extends Scenario implements Listener {
     @Override
     public void solution(int solution, Object... o) {
 
+        if (solNumber != null)
+            return;
+
         renaTaskID.stopTask();
         keiichiTaskID.stopTask();
         paranoTask.stopTask();
@@ -50,14 +53,28 @@ public class Oyashiro extends Scenario implements Listener {
 
         solNumber = solution;
 
-        if(solution == 1 && Role.RENA_RYUGU.getHPlayer() != null && Role.KEIICHI_MAEBARA.getHPlayer() != null){
+        if(solution == 1 && Role.RENA_RYUGU.getHPlayer() != null && Role.KEIICHI_MAEBARA.getHPlayer() != null) {
+            Role.KEIICHI_MAEBARA.getHPlayer().addMaledictionReason(Reason.OYASHIRO_SOL1);
+            Player keiichiPlayer = Role.KEIICHI_MAEBARA.getHPlayer().getPlayer();
+            if (keiichiPlayer != null)
+                keiichiPlayer.sendMessage("§aVotre jauge §7a atteint sont paroxysme, vous ne pouvez pas attaquer §9Rena §7tant que tous les joueurs sont en vie. \n" +
+                        "§7Une fois que vous ne serez plus que deux, le duel au sommet vous attend.");
             Role.RENA_RYUGU.getHPlayer().getLinkData(Role.KEIICHI_MAEBARA.getHPlayer()).setDamagelessLinked(Reason.OYASHIRO_SOL1, true);
-        }else if(solution == 3 && Role.RENA_RYUGU.getHPlayer() != null)
+            Player renaPlayer = Role.RENA_RYUGU.getHPlayer().getPlayer();
+            if (renaPlayer != null)
+                renaPlayer.sendMessage("§7Vous avez réussi à faire monter la §ajauge de Keiichi §7au maximum avant que votre §ajauge §7tombe à 0. \n" +
+                        "\n" +
+                        "§9Keiichi §7est maintenant atteint de la §5§nmalédiction §7ce qui vous fait un allié de taille. \n" +
+                        "§7Vous ne pouvez pas vous attaquer tant que tous les joueurs sont en vie. \n" +
+                        "Une fois que vous serez que deux,\n" +
+                        "\n" +
+                        "§4§o§l⚠ le duel au sommet vous attend ⚠");
+        }else if (solution == 3 && Role.RENA_RYUGU.getHPlayer() != null)
             Clans.HINAMIZAWA.addPlayer(Role.RENA_RYUGU.getHPlayer());
-        else{
+        else if (solution == 4) {
 
             HPlayer hPlayer = solution == 2 ? Role.RENA_RYUGU.getHPlayer() : Role.KEIICHI_MAEBARA.getHPlayer();
-            if(hPlayer == null || hPlayer.getPlayer() == null)
+            if (hPlayer == null || hPlayer.getPlayer() == null)
                 return;
 
             Player player = hPlayer.getPlayer();
@@ -126,7 +143,7 @@ public class Oyashiro extends Scenario implements Listener {
 
     public void addKeiichiProggress(float num) {
         keiichiBossBar.setProgress(keiichiBossBar.getProgress() + num);
-        if (keiichiBossBar.getProgress() > 100)
+        if (keiichiBossBar.getProgress() >= 100)
             solution(1);
     }
 

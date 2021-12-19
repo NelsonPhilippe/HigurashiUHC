@@ -47,7 +47,9 @@ public class RenaRyuguAction extends RoleAction implements Listener {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
+        if (killed.getRole().isRole(Role.KEIICHI_MAEBARA)) {
+            ScenarioList.OYASHIRO.getScenario().solution(4, Role.RENA_RYUGU);
+        }
     }
 
     @Override

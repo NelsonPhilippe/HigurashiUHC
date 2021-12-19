@@ -56,8 +56,6 @@ public class DamageListener implements Listener {
 
         HigurashiUHC.getGameManager().startRikaDeathTask();
 
-        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
-
         ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
         if (hPlayer.getClans() != null)
             hPlayer.getClans().removePlayer(hPlayer);
@@ -147,11 +145,13 @@ public class DamageListener implements Listener {
 
         }
 
+        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
+
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
         hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
-        if(deathReason != DeathReason.DEATH_LINKED)
+        if (deathReason != DeathReason.DEATH_LINKED)
             HigurashiUHC.getGameManager().checkWin();
 
     }
@@ -270,7 +270,7 @@ public class DamageListener implements Listener {
                 if (hPlayer.hasMarriedReason(Reason.DOLL_TRAGEDY)) {
                     hPlayer.getMarriedPlayer(Reason.DOLL_TRAGEDY).forEach((player) -> {
                         if (player.getPlayer() != null)
-                            player.getPlayer().sendMessage("Ton amoureux(se): " + hPlayer.getName() + " à le malheur de passer en-dessous de 5 coeurs");
+                            player.getPlayer().sendMessage("§dVotre partenaire est descendu en dessous de 5 cœurs. celui-ci est en §4danger.");
                     });
                 }
 

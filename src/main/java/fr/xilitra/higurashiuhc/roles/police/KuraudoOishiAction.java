@@ -13,7 +13,7 @@ import org.bukkit.event.Listener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KuraudoOishiAction extends RoleAction implements Listener {
+public class KuraudoOishiAction implements RoleAction, Listener {
 
 
     private final List<HPlayer> suspect = new ArrayList<>();

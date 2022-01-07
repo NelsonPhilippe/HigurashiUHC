@@ -7,7 +7,6 @@ import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
-import fr.xilitra.higurashiuhc.game.task.taskClass.RikaDeathTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -23,14 +22,9 @@ import java.util.*;
 public class GameManager {
 
     private final Map<UUID, HPlayer> players = new HashMap<>();
-    private final Runnable rikaDeathTask;
     private GameStates states;
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
-
-    public GameManager() {
-        rikaDeathTask = new RikaDeathTask();
-    }
 
     public static int getWataEpisode() {
         return HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi");
@@ -149,12 +143,6 @@ public class GameManager {
 
     public void win(Object... object){
         TaskRunner.stopAllTask();
-    }
-
-    public void startRikaDeathTask() {
-        if (!((RikaDeathTask) rikaDeathTask).isRunning()) {
-            ((RikaDeathTask) rikaDeathTask).runTaskTimer(1000, 1000);
-        }
     }
 
     public WataEnum getWataState() {

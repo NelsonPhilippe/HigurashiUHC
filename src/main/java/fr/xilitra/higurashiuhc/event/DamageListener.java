@@ -54,8 +54,6 @@ public class DamageListener implements Listener {
         p.setGameMode(GameMode.SPECTATOR);
         hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
 
-        HigurashiUHC.getGameManager().startRikaDeathTask();
-
         ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
         if (hPlayer.getClans() != null)
             hPlayer.getClans().removePlayer(hPlayer);
@@ -135,17 +133,25 @@ public class DamageListener implements Listener {
 
             HPlayer killerHplayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
 
-            if (killerHplayer == null)
-                return;
+            if (killerHplayer != null) {
+                killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
 
-            killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
-
-            killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
-                    String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
+                killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
+                        String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
+            }
 
         }
 
         hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
+
+        Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
+                "§fLe joueur §7§o”" + hPlayer.getName() + "” §fvient d’être §8§m§l:tué§f, il était §6§o“" + hPlayer.getRole().getName() + "”.\n" +
+                "§5---------------------------------------------------------");
+
+        if(hPlayer.getRole().isRole(Role.RIKA_FURUDE))
+            Bukkit.broadcastMessage("§1✖ §5Rika est morte §1✖\n" +
+                    "\n" +
+                    "§5Il reste plus que 2 jours à compter de maintenant pour que le village d'§9Hinamizawa §5remporte la partie. ");
 
         Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));

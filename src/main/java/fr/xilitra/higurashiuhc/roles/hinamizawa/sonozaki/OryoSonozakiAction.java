@@ -5,7 +5,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class OryoSonozakiAction extends RoleAction {
+public class OryoSonozakiAction implements RoleAction {
 
     private int voteBan;
     private HPlayer votedPlayer = null;

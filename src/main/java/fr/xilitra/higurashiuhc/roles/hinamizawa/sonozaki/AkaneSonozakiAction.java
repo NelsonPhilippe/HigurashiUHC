@@ -5,7 +5,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class AkaneSonozakiAction extends RoleAction {
+public class AkaneSonozakiAction implements RoleAction {
 
     private int nextDaySwap;
 

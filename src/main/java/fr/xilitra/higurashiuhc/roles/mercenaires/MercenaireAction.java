@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.List;
 import java.util.Random;
 
-public class MercenaireAction extends RoleAction implements Listener {
+public class MercenaireAction implements RoleAction, Listener {
 
     private HPlayer cible;
 
@@ -42,11 +42,12 @@ public class MercenaireAction extends RoleAction implements Listener {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-        if (getCible() != null && getLinkedRole().getHPlayer() != null && getLinkedRole().getHPlayer().getPlayer() != null) {
+
+        if (getCible() != null && killer.getPlayer() != null) {
 
             if (killed == getCible()) {
 
-                getLinkedRole().getHPlayer().getPlayer().setMaxHealth(getLinkedRole().getHPlayer().getPlayer().getMaxHealth() + 1);
+                killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth() + 1);
                 setCible(null);
 
             }
@@ -71,7 +72,7 @@ public class MercenaireAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStart() {
-        List<HPlayer> hPlayerList = getLinkedRole().getHPlayerList();
+        List<HPlayer> hPlayerList = Role.getLinkedRole(this).getHPlayerList();
         KitList[] listKit = KitList.values();
 
         for (HPlayer mercenaire : hPlayerList) {

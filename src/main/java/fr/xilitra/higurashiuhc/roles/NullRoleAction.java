@@ -4,7 +4,7 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class NullRoleAction extends RoleAction {
+public class NullRoleAction implements RoleAction {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason deathReason) {
@@ -34,6 +34,11 @@ public class NullRoleAction extends RoleAction {
     @Override
     public void onGameStop() {
 
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
     }
 
     @Override

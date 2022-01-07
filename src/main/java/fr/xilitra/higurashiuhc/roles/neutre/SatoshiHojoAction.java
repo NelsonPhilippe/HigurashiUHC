@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-public class SatoshiHojoAction extends RoleAction implements Listener {
+public class SatoshiHojoAction implements RoleAction, Listener {
 
     public Scoreboard scoreBoard = new Scoreboard();
 
@@ -44,7 +44,7 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
-        List<Role> interestRole = new ArrayList<Role>() {{
+        List<Role> interestRole = new ArrayList<>() {{
             add(Role.KEIICHI_MAEBARA);
             add(Role.RENA_RYUGU);
             add(Role.SHION_SONOSAKI);
@@ -93,7 +93,7 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer satoshi = getLinkedRole().getHPlayer();
+        HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
         if (satoshi != null) {
             satoshi.addMaledictionReason(Reason.SATOSHI_HOJO);
             satoshi.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), Clans.HINAMIZAWA.getName());
@@ -114,7 +114,8 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStop() {
-        if (getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+        HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
+        if (satoshi == null || satoshi.getPlayer() == null)
             return;
 
         if (scoreBoard.getObjective("health") == null)
@@ -122,7 +123,7 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
 
         PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(0, scoreBoard.getObjective("health"));//Create display packet set to under name mode
 
-        sendPacket(getLinkedRole().getHPlayer().getPlayer(), display);
+        sendPacket(satoshi.getPlayer(), display);
     }
 
     @Override
@@ -139,7 +140,9 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
     public void onWataStateChange(WatanagashiChangeEvent wce) {
         if (wce.getWataEnum() == WataEnum.AFTER) {
 
-            if (getLinkedRole().getHPlayer() == null || getLinkedRole().getHPlayer().getPlayer() == null)
+            HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
+
+            if (satoshi == null || satoshi.getPlayer() == null)
                 return;
 
             scoreBoard.registerObjective("health", IScoreboardCriteria.g);
@@ -147,8 +150,8 @@ public class SatoshiHojoAction extends RoleAction implements Listener {
             PacketPlayOutScoreboardObjective packet = new PacketPlayOutScoreboardObjective(scoreBoard.getObjective("health"), 0);//Create Scoreboard create packet
             PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(2, scoreBoard.getObjective("health"));//Create display packet set to under name mode
 
-            sendPacket(getLinkedRole().getHPlayer().getPlayer(), packet);//Send Scoreboard create packet
-            sendPacket(getLinkedRole().getHPlayer().getPlayer(), display);
+            sendPacket(satoshi.getPlayer(), packet);//Send Scoreboard create packet
+            sendPacket(satoshi.getPlayer(), display);
 
         }
     }

@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class MiyoTakanoAction extends RoleAction implements Listener {
+public class MiyoTakanoAction implements RoleAction, Listener {
 
     public MiyoTask miyoTask = new MiyoTask();
 
@@ -74,7 +74,7 @@ public class MiyoTakanoAction extends RoleAction implements Listener {
     public void onWataChange(WatanagashiChangeEvent watanagashiChangeEvent) {
         if (watanagashiChangeEvent.getWataEnum() == WataEnum.DURING) {
 
-            HPlayer miyo = getLinkedRole().getHPlayer();
+            HPlayer miyo = Role.getLinkedRole(this).getHPlayer();
             if (miyo == null)
                 return;
 

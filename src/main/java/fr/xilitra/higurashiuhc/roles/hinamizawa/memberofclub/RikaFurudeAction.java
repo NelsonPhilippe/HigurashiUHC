@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.PlayerState;
@@ -25,12 +26,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
-public class RikaFurudeAction extends RoleAction implements Listener {
+public class RikaFurudeAction implements RoleAction, Listener {
 
     private final CloseRikaTask watanagashiTask = new CloseRikaTask();
     private int lives;
     private boolean ressucite = false;
+
+    private int deathMalusTime = 2;
 
     public RikaFurudeAction() {
         this.lives = 3;
@@ -110,6 +115,33 @@ public class RikaFurudeAction extends RoleAction implements Listener {
 
     }
 
+    @EventHandler
+    public void onEpisodeUpdate(EpisodeUpdate episodeUpdate){
+
+        HPlayer rika = Role.getLinkedRole(this).getHPlayer();
+        if(rika == null)
+            return;
+        if(rika.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.DISCONNECTED) && deathMalusTime>=1){
+            deathMalusTime-=1;
+            if(deathMalusTime == 0){
+                Bukkit.broadcastMessage("§5Cela fait maintenant 2 jours que §9Rika §5est décédée.  \n" +
+                        "\n" +
+                        "§5Tous les membres du village d’§9Hinamizawa §5possèdent maintenant l’effet weakness permanent. ");
+                for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                    if (hPlayer.getPlayer() != null && hPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
+                        hPlayer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
+                        hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
+                    }
+
+                    ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
+                }
+            }else{
+                Bukkit.broadcastMessage("§5Il ne reste plus que " + deathMalusTime + " jour(s) au village pour remporter la partie.");
+            }
+        }
+
+    }
+
     public void resurrection(HPlayer rikaFurudePlayer, HPlayer resuPlayer) {
         Player rika = rikaFurudePlayer.getPlayer();
         Player target = resuPlayer.getPlayer();
@@ -183,22 +215,11 @@ public class RikaFurudeAction extends RoleAction implements Listener {
 
             if (killerHPlayer != null && HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
                 if (killerHPlayer.getClans().isClans(Clans.MERCENAIRE)) {
-                    HigurashiUHC.getGameManager().startRikaDeathTask();
                     for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                         if (miyo.getRole().isRole(Role.MIYO_TAKANO)) {
                             Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                         }
                     }
-                    return;
-                }
-            }
-
-            HPlayer hanyu = Role.HANYU.getHPlayer();
-
-            if (hanyu != null && hanyu.getPlayer() != null) {
-                if (hanyu.getPlayer().getGameMode() == GameMode.SPECTATOR) {
-                    HigurashiUHC.getGameManager().startRikaDeathTask();
-                    return;
                 }
             }
 
@@ -220,10 +241,12 @@ public class RikaFurudeAction extends RoleAction implements Listener {
                     for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                         HideNametag.unhide(killed.getPlayer(), players.getPlayer());
                     }
-                    return;
                 }
 
                 if (rikaFurudeAction.getLives() == 0) {
+
+                    player.sendMessage("§7Vous venez de perdre une de vos vies. §5Vous n’avez plus de vie.");
+
                     if (player.getPlayer().getInventory().getContents().length > 0) {
                         for (ItemStack itemStack : player.getInventory().getContents()) {
                             player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
@@ -245,11 +268,8 @@ public class RikaFurudeAction extends RoleAction implements Listener {
 
                     }
 
-                    HigurashiUHC.getGameManager().startRikaDeathTask();
-                    return;
-
-                }
-                //player.teleport(new Location());
+                }else
+                    player.sendMessage("§7Vous venez de perdre une de vos vies. §5Il vous reste " + rikaFurudeAction.getLives() + " vies.");
 
             }
 
@@ -269,6 +289,7 @@ public class RikaFurudeAction extends RoleAction implements Listener {
             textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h dimension rika"));
 
         }
+
     }
 
     @Override
@@ -285,7 +306,7 @@ public class RikaFurudeAction extends RoleAction implements Listener {
     public void onGameStart() {
 
         HPlayer hanyu = Role.HANYU.getHPlayer();
-        HPlayer rika = getLinkedRole().getHPlayer();
+        HPlayer rika = Role.getLinkedRole(this).getHPlayer();
         if (hanyu != null && rika != null && rika.getPlayer() != null) {
             rika.getPlayer().sendMessage("Hanyu est incarnée par: " + hanyu.getName());
         }

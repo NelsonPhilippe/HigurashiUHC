@@ -9,6 +9,8 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class KeiichiMaebaraAction extends RoleAction implements Listener {
+public class KeiichiMaebaraAction implements RoleAction, Listener {
 
     @Override
     public String getDescription() {
@@ -43,6 +45,20 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
         if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(2);
 
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(rika == null)
+            return;
+
+        Player rikaPlayer = rika.getPlayer();
+        if(rikaPlayer == null)
+            return;
+
+        TextComponent textComponent = new TextComponent("§4Keiichi §7est mort, si ");
+        TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r "+killed.getName()));
+        textComponent.addExtra(click);
+        textComponent.addExtra(new TextComponent(", §4Keiichi §7ressuscitera mais vous perdrez une de vos vies. "));
+
     }
 
     @Override
@@ -58,7 +74,7 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
     @Override
     public void onGameStart() {
         if (ScenarioList.DOLL.isActive()) {
-            HPlayer hPlayer = getLinkedRole().getHPlayer();
+            HPlayer hPlayer = Role.getLinkedRole(this).getHPlayer();
             if (hPlayer == null)
                 return;
             Player player = hPlayer.getPlayer();
@@ -99,7 +115,7 @@ public class KeiichiMaebaraAction extends RoleAction implements Listener {
             return;
 
         KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
-        HPlayer hPlayer = role.getLinkedRole().getHPlayer();
+        HPlayer hPlayer = Role.getLinkedRole(role).getHPlayer();
         if (hPlayer == null)
             return;
 

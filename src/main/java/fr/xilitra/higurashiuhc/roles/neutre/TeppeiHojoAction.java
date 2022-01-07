@@ -5,7 +5,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class TeppeiHojoAction extends RoleAction {
+public class TeppeiHojoAction implements RoleAction {
 
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
@@ -35,6 +35,11 @@ public class TeppeiHojoAction extends RoleAction {
     @Override
     public void onGameStop() {
 
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
     }
 
     @Override

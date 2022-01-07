@@ -6,7 +6,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class OkonogiAction extends RoleAction {
+public class OkonogiAction implements RoleAction {
 
     @Override
     public String getDescription() {
@@ -45,7 +45,7 @@ public class OkonogiAction extends RoleAction {
 
     @Override
     public void onGameStart() {
-        HPlayer okonogi = getLinkedRole().getHPlayer();
+        HPlayer okonogi = Role.getLinkedRole(this).getHPlayer();
         HPlayer miyoTakano = Role.MIYO_TAKANO.getHPlayer();
 
         if (okonogi != null && okonogi.getPlayer() != null && miyoTakano != null)

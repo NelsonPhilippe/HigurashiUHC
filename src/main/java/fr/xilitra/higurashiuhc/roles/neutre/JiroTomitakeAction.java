@@ -12,7 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffectType;
 
-public class JiroTomitakeAction extends RoleAction implements Listener {
+public class JiroTomitakeAction implements RoleAction, Listener {
 
     @Override
     public String getDescription() {

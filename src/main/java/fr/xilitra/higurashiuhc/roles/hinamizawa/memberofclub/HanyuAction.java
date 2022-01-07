@@ -18,7 +18,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HanyuAction extends RoleAction implements Listener {
+public class HanyuAction implements RoleAction, Listener {
 
     private final Map<HPlayer, Location> dimensionLastLoc = new HashMap<>();
     private boolean isInvisible;
@@ -111,7 +111,13 @@ public class HanyuAction extends RoleAction implements Listener {
 
     @Override
     public void onDeath(HPlayer killed, DeathReason dr) {
-
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(rika == null)
+            return;
+        Player rikaPlayer = rika.getPlayer();
+        if(rikaPlayer == null)
+            return;
+        rikaPlayer.sendMessage("§5Hanyu §7est morte. Désormais, il vous est impossible de ressusciter.");
     }
 
     @Override
@@ -127,7 +133,7 @@ public class HanyuAction extends RoleAction implements Listener {
     @Override
     public void onGameStart() {
 
-        HPlayer hanyu = getLinkedRole().getHPlayer();
+        HPlayer hanyu = Role.getLinkedRole(this).getHPlayer();
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if (hanyu != null && rika != null && hanyu.getPlayer() != null) {
             hanyu.getPlayer().sendMessage("Rika est incarnée par: " + rika.getName());

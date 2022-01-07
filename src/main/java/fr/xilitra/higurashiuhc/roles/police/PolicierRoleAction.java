@@ -5,7 +5,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class PolicierRoleAction extends RoleAction {
+public class PolicierRoleAction implements RoleAction {
 
     @Override
     public String getDescription() {

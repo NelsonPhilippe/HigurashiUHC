@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KumagaiAction extends RoleAction {
+public class KumagaiAction implements RoleAction {
 
     private final List<String> CompareClanUsed = new ArrayList<>();
 

@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.game.task.taskClass.KiichiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class KiichiroKimiyoshiAction extends RoleAction {
+public class KiichiroKimiyoshiAction implements RoleAction {
 
     KiichiroTask kt = null;
 
@@ -49,7 +50,7 @@ public class KiichiroKimiyoshiAction extends RoleAction {
 
     @Override
     public void onGameStart() {
-        if (getLinkedRole().getHPlayer() == null)
+        if (Role.getLinkedRole(this).getHPlayer() == null)
             return;
 
         List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());

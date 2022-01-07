@@ -6,7 +6,7 @@ import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
-public class KasaiAction extends RoleAction {
+public class KasaiAction implements RoleAction {
 
     private boolean isGiveForce;
 

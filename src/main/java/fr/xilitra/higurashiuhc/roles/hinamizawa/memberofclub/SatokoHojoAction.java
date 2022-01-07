@@ -7,6 +7,8 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.traps.Traps;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SatokoHojoAction extends RoleAction implements Listener {
+public class SatokoHojoAction implements RoleAction, Listener {
 
     public List<Location> blockTraps = new ArrayList<>();
 
@@ -196,6 +198,20 @@ public class SatokoHojoAction extends RoleAction implements Listener {
 
         removeTraps(killed);
 
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(rika == null)
+            return;
+
+        Player rikaPlayer = rika.getPlayer();
+        if(rikaPlayer == null)
+            return;
+
+        TextComponent textComponent = new TextComponent("§eSatoko §7est mort, si ");
+        TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r "+killed.getName()));
+        textComponent.addExtra(click);
+        textComponent.addExtra(new TextComponent(", §eSatoko §7ressuscitera mais vous perdrez une de vos vies. "));
+
     }
 
     @Override
@@ -216,6 +232,20 @@ public class SatokoHojoAction extends RoleAction implements Listener {
     @Override
     public void onGameStop() {
 
+    }
+
+    @Override
+    public String getDescription() {
+        return "§6 Vous êtes §9 Satoko Hojo (fille) : \n" +
+                "\n" +
+                "§9 Satoko §6 doit gagner avec §9 Hinamizawa §6 tout en faisant partie du §b Club. \n" +
+                "§6Elle possède aléatoirement un type de piège parmi les trois disponibles.\n" +
+                "\n" +
+                "§6Vous possédez le piège de §7 défense: §6 Il est constitué de 3 boules de neiges infligeant l’effet slowness 2 pendant 5 secondes\n" +
+                "\n" +
+                "§6Vous possédez le piège §8d’attaque: §6il est constitué de 3 TNT prêtes à l'explosion lorsque celles-ci sont placées.\n" +
+                "\n" +
+                "§6Vous possédez le piège §0d’information: §6 Il est constitué d’une houe en bois permettant de piéger 3 fois dans la partie un bloc d’herbe où lorsqu'un joueur marche dessus, son camp est dévoilé à Satoko.";
     }
 
     @Override

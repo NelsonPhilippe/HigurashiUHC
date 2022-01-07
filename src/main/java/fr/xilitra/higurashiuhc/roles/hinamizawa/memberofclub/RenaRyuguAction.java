@@ -1,16 +1,19 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class RenaRyuguAction extends RoleAction implements Listener {
+public class RenaRyuguAction implements RoleAction, Listener {
 
     private HPlayer hPlayerPense;
     private boolean penseIsUsed;
@@ -71,6 +74,20 @@ public class RenaRyuguAction extends RoleAction implements Listener {
 
         }
 
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(rika == null)
+            return;
+
+        Player rikaPlayer = rika.getPlayer();
+        if(rikaPlayer == null)
+            return;
+
+        TextComponent textComponent = new TextComponent("§cRena §7est mort, si ");
+        TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r "+killed.getName()));
+        textComponent.addExtra(click);
+        textComponent.addExtra(new TextComponent(", §cRena §7ressuscitera mais vous perdrez une de vos vies. "));
+
     }
 
     @Override
@@ -101,6 +118,18 @@ public class RenaRyuguAction extends RoleAction implements Listener {
     @Override
     public boolean acceptReconnect(Player p) {
         return false;
+    }
+
+    @Override
+    public void onMaledictionReceived(HPlayer hPlayer, Reason mr){
+
+        Player rena = hPlayer.getPlayer();
+        if(rena == null)
+            return;
+
+        rena.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5“/h paranoia” §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
+                "§4§lATTENTION, §7vous aussi possédez une jauge et si celle-ci tombe à 0, vous ne serez plus atteint de la malédiction. ");
+
     }
 
 }

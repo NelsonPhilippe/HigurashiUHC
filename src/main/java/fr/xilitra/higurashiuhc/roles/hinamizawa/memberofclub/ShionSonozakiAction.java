@@ -8,6 +8,8 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShionSonozakiAction extends RoleAction implements Listener {
+public class ShionSonozakiAction implements RoleAction, Listener {
 
     @Override
     public String getDescription() {
@@ -74,7 +76,7 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
             ltd.forEach((lp) -> killer.getLinkData(lp).setDeathLinked(null, true));
         }
 
-        List<Role> roleList = new ArrayList<Role>() {{
+        List<Role> roleList = new ArrayList<>() {{
             add(Role.ORYO_SONOZAKI);
             add(Role.KIICHIRO_KIMIYOSHI);
             add(Role.SATOKO_HOJO);
@@ -90,7 +92,7 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
             Role killerRole = role.getHPlayer().getKillerRole();
             if (killerRole == null)
                 return;
-            if (killerRole != this.getLinkedRole())
+            if (killerRole != Role.getLinkedRole(this))
                 return;
         }
 
@@ -102,9 +104,7 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
     public void onDeath(HPlayer killed, DeathReason dr) {
 
         HPlayer playerAlive = Role.MION_SONOZAKI.getHPlayer();
-        if (playerAlive == null) return;
-
-        if (killed.getRole().equals(Role.SHION_SONOSAKI)) {
+        if (playerAlive != null) {
 
             if (playerAlive.getPlayer() != null && playerAlive.getPlayer().getGameMode() != GameMode.SPECTATOR)
                 removeHearth(killed, playerAlive);
@@ -115,6 +115,30 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
                 if (killed.getKiller() != null)
                     kasai.getPlayer().sendMessage(killed.getName() + " à été tué par " + killed.getKiller().getName());
         }
+
+        HPlayer kasai = Role.KASAI.getHPlayer();
+        if(kasai != null) {
+
+            Player kasaiPlayer = kasai.getPlayer();
+            if (kasaiPlayer != null) {
+                kasaiPlayer.sendMessage("§3§oShion §7§ovient d’être tuée, voici le rôle du joueur qui à tué §3§oShion: §6§o“rôle”");
+            }
+
+        }
+
+        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
+        if(rika == null)
+            return;
+
+        Player rikaPlayer = rika.getPlayer();
+        if(rikaPlayer == null)
+            return;
+
+        TextComponent textComponent = new TextComponent("§aShion §7est mort, si ");
+        TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r "+killed.getName()));
+        textComponent.addExtra(click);
+        textComponent.addExtra(new TextComponent(", §aShion §7ressuscitera mais vous perdrez une de vos vies. "));
 
     }
 
@@ -130,7 +154,7 @@ public class ShionSonozakiAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer hPlayer = getLinkedRole().getHPlayer();
+        HPlayer hPlayer = Role.getLinkedRole(this).getHPlayer();
         if (hPlayer == null)
             return;
         Player player = hPlayer.getPlayer();

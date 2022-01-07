@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AkasakaAction extends RoleAction implements Listener {
+public class AkasakaAction implements RoleAction, Listener {
 
     private int countCompare = 0;
 
@@ -95,11 +96,12 @@ public class AkasakaAction extends RoleAction implements Listener {
 
     @Override
     public void onGameStart() {
-        if (getLinkedRole().getHPlayer() == null)
+        HPlayer akasaka = Role.getLinkedRole(this).getHPlayer();
+        if (akasaka == null)
             return;
-        if (getLinkedRole().getHPlayer().getPlayer() == null)
+        if (akasaka.getPlayer() == null)
             return;
-        getLinkedRole().getHPlayer().getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
+        akasaka.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
     }
 
     @Override

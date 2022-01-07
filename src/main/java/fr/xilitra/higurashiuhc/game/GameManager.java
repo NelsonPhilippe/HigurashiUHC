@@ -152,6 +152,10 @@ public class GameManager {
     public void setWataState(WataEnum wataEnum) {
         if (getWataState() == wataEnum)
             return;
+        if(wataEnum == WataEnum.AFTER)
+            Bukkit.broadcastMessage("§c<La nuit du festival de la §5§nWatanagashi vient de se finir, on espère que vous avez passé une excellente nuit.");
+        else if(wataEnum == WataEnum.DURING)
+            Bukkit.broadcastMessage("§c<La nuit du festival de la §5§nWatanagashi vient de commencer, on vous souhaite à tous une agréable nuit.");
         Bukkit.getPluginManager().callEvent(new WatanagashiChangeEvent(getWataState()));
         this.wataEnum = wataEnum;
     }

@@ -109,8 +109,14 @@ public class KuraudoOishiAction implements RoleAction, Listener {
             return;
         HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
 
-        if (player != null && player.getPlayer() != null && !isCoupableDesigned())
-            player.getPlayer().setMaxHealth(2.5);
+        if (player != null && player.getPlayer() != null && !isCoupableDesigned()) {
+            player.getPlayer().setMaxHealth(10);
+            player.getPlayer().sendMessage("§e§oVous n’avez accusé personne avant la §5§l§nWatanagashi… \n" +
+                    "\n" +
+                    "§e§oIl est maintenant trop tard, vous ne pouvez plus utiliser vos suspicions et vous perdez 5 cœurs permanent. \n" +
+                    "§e§oLa police fait toujours partie d’§9§oHinamizawa. \n" +
+                    "§e§oVous n’avez pas été suffisamment efficace.");
+        }
     }
 
 }

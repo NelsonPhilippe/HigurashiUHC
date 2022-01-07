@@ -14,18 +14,30 @@ public class ClansCmd extends CommandsExecutor {
 
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
-        if (Clans.getClans(hPlayer) != null)
+        if (Clans.getClans(hPlayer) != null) {
+            p.sendMessage("Tu as déjà un clans");
             return false;
-        if (strings.length != 2)
+        }
+        if (strings.length != 2) {
+            p.sendMessage("Merci d'indiquer le clans");
             return false;
+        }
         Clans clans = Clans.getClans(strings[1]);
-        if (clans == null)
+        if (clans == null) {
+            p.sendMessage("Clans non reconnue");
             return false;
+        }
 
-        if (!(clans.isClans(Clans.HINAMIZAWA) || clans.isClans(Clans.MERCENAIRE)) && hPlayer.getRole().isRole(Role.KYOSUKE_IRIE))
+        if (!(clans.isClans(Clans.HINAMIZAWA) || clans.isClans(Clans.MERCENAIRE))) {
+            p.sendMessage("Erreur, tu ne peux choisir que entre: "+Clans.HINAMIZAWA.getName()+" ou "+Clans.MERCENAIRE.getName());
             return false;
+        }
 
         clans.addPlayer(hPlayer);
+        if(clans.isClans(Clans.HINAMIZAWA))
+            p.sendMessage("§a§oVous avez choisi le camp d’§9§oHinamizawa.");
+        else
+            p.sendMessage("§a§oVous avez choisi le camp des §4§omercenaires.");
         return true;
     }
 }

@@ -2,10 +2,12 @@ package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
+import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -21,6 +23,11 @@ public class SuspecterCmd extends CommandsExecutor {
 
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
+
+        if(!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)){
+            p.sendMessage("Erreur, Watanagashi en cours ou passé.");
+            return true;
+        }
 
         if (strings.length == 2) {
 

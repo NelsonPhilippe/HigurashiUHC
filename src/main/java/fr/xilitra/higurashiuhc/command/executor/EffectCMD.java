@@ -33,7 +33,8 @@ public class EffectCMD extends CommandsExecutor {
         }
 
         Collection<PotionEffect> playerEffect = playerTarget.getActivePotionEffects();
-        player.sendMessage("Le joueur a " + playerEffect.size() + " effect");
+        if(playerEffect.size() == 0)
+            player.sendMessage("§a§oLe joueur ne possède aucun effet.");
 
         playerEffect.forEach(potionEffect -> player.sendMessage("Effect: " + potionEffect.getType().getName() + ", puissance: " + potionEffect.getAmplifier()));
 

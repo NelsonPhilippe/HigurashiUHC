@@ -6,6 +6,7 @@ import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -24,6 +25,11 @@ public class CoupableCmd extends CommandsExecutor {
         if (targetHPlayer == null) {
             p.sendMessage("Cible non trouvé");
             return false;
+        }
+
+        if(!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)){
+            p.sendMessage("Erreur, Watanagashi en cours ou passé.");
+            return true;
         }
 
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();

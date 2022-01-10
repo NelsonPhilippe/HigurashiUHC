@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
@@ -104,7 +105,7 @@ public class Oyashiro extends Scenario implements Listener {
     @EventHandler
     public void revealOyashiro(EpisodeUpdate episodeUpdate) {
 
-        if (!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getInstance().getConfig().getInt("tragedy.oyashiro.episode")) || !ScenarioList.OYASHIRO.isActive())
+        if (!(HigurashiUHC.getGameManager().getEpisode() == HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.EPISODE_TRAGEDY_OYASHIRO)) || !ScenarioList.OYASHIRO.isActive())
             return;
 
         Role km = Role.KEIICHI_MAEBARA;

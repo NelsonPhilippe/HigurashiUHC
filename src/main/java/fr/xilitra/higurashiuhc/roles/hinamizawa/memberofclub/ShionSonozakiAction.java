@@ -76,7 +76,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
             ltd.forEach((lp) -> killer.getLinkData(lp).setDeathLinked(null, true));
         }
 
-        List<Role> roleList = new ArrayList<>() {{
+        List<Role> roleList = new ArrayList<Role>() {{
             add(Role.ORYO_SONOZAKI);
             add(Role.KIICHIRO_KIMIYOSHI);
             add(Role.SATOKO_HOJO);

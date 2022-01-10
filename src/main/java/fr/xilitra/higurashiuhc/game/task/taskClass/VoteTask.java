@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -9,7 +10,7 @@ import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
 public class VoteTask extends BukkitTask {
 
-    private int time = HigurashiUHC.getInstance().getConfig().getInt("role.oryo.votetime");
+    private int time = HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.ROLE_ORYO_VOTE_SECONDS);
 
     @Override
     public void execute() {

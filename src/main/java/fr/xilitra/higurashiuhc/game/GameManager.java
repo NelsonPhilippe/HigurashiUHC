@@ -2,6 +2,8 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.config.ConfigGestion;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
@@ -17,6 +19,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.util.*;
 
 public class GameManager {
@@ -25,9 +28,21 @@ public class GameManager {
     private GameStates states;
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
+    private final ConfigGestion configGestion;
+
+    public GameManager(){
+        File file = new File(HigurashiUHC.getInstance().getDataFolder().getAbsoluteFile()+File.separator+"config");
+        if(!file.exists())
+            file.mkdir();
+        this.configGestion = new ConfigGestion(file);
+    }
 
     public static int getWataEpisode() {
-        return HigurashiUHC.getInstance().getConfig().getInt("game.watanagashi");
+        return HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.EPISODE_WATANAGASHI);
+    }
+
+    public ConfigGestion getConfigGestion(){
+        return configGestion;
     }
 
     public void config() {
@@ -39,8 +54,9 @@ public class GameManager {
 
         ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
         roles.remove(Role.NULL);
+        roles.remove(Role.TEPPEI_HOJO);
 
-        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.startsound"));
+        Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONSTART));
 
         ScenarioList sl = ScenarioList.activateScenario();
 

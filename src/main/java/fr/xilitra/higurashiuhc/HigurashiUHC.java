@@ -60,68 +60,9 @@ public final class HigurashiUHC extends JavaPlugin {
 
         manager.config();
 
-        initConfig();
-
         BiomeReplacer biomeReplacer = new BiomeReplacer();
         biomeReplacer.swap(BiomeData.JUNGLE, BiomeData.FOREST);
         biomeReplacer.swap(BiomeData.OCEAN, BiomeData.FOREST);
-
-    }
-
-    private void initConfig() {
-
-        FileConfiguration config = getConfig();
-        config.createSection("game");
-
-        if (!config.isSet("game.deathsound") || Sound.valueOf(config.getString("game.deathsound")) == null)
-            config.set("game.deathsound", Sound.WITHER_SPAWN.name());
-
-        if (!config.isSet("game.startsound") || Sound.valueOf(config.getString("game.startsound")) == null)
-            config.set("game.startsound", Sound.GHAST_MOAN.name());
-
-        if (!config.isSet("game.watanagashi") || !config.isInt("game.watanagashi"))
-            config.set("game.watanagashi", 6);
-
-        if (!config.isSet("role.rika.weakness") || !config.isInt("role.rika.weakness"))
-            config.set("role.rika.weakness", 2);
-
-        if (!config.isSet("role.rena.malday") || !config.isInt("role.rena.malday"))
-            config.set("role.rena.malday", 2);
-
-        if (!config.isSet("role.akasaka.matraque") || !config.isInt("role.akasaka.matraque"))
-            config.set("role.akasaka.matraque", 300);
-
-        if (!config.isSet("role.akasaka.stunt") || !config.isInt("role.akasaka.stunt"))
-            config.set("role.akasaka.stunt", 3);
-
-        if (!config.isSet("role.oryo.votetime") || !config.isInt("role.oryo.votetime"))
-            config.set("role.oryo.votetime", 60 * 10);
-
-        if (!config.isSet("role.tomitake.knownrole") || !config.isInt("role.tomitake.knownrole"))
-            config.set("role.tomitake.knownrole", 2);
-
-        if (!config.isSet("role.satoko.block") || !config.isInt("role.satoko.block"))
-            config.set("role.satoko.block", 50);
-
-        if (!config.isSet("malediction.time") || !config.isInt("malediction.time"))
-            config.set("malediction.votetime", 60 * 10);
-
-        if (!config.isSet("role.display") || !config.isBoolean("role.display"))
-            config.set("role.display", false);
-
-        if (!config.isSet("role.display.ondeath") || !config.isBoolean("role.display.ondeath"))
-            config.set("role.display.ondeath", false);
-
-        if (!config.isSet("role.advert") || !config.isInt("role.advert"))
-            config.set("role.advert", 60 * 10);
-
-        if (!config.isSet("role.rika.hanyu") || !config.isInt("role.rika.hanyu"))
-            config.set("role.rika.hanyu", 60 * 2);
-
-        if (!config.isSet("tragedy.oyashiro.episode") || !config.isInt("tragedy.oyashiro.episode"))
-            config.set("tragedy.oyashiro.episode", 3);
-
-        saveConfig();
 
     }
 

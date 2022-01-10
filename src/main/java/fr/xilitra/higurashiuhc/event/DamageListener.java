@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.event;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -144,8 +145,12 @@ public class DamageListener implements Listener {
 
         hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
 
-        Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
+        if(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
+            Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
                 "§fLe joueur §7§o”" + hPlayer.getName() + "” §fvient d’être §8§m§l:tué§f, il était §6§o“" + hPlayer.getRole().getName() + "”.\n" +
+                "§5---------------------------------------------------------");
+        else Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
+                "§fLe joueur §7§o”" + hPlayer.getName() + "” §fvient d’être §8§m§l:tué§f”.\n" +
                 "§5---------------------------------------------------------");
 
         if(hPlayer.getRole().isRole(Role.RIKA_FURUDE))
@@ -153,7 +158,7 @@ public class DamageListener implements Listener {
                     "\n" +
                     "§5Il reste plus que 2 jours à compter de maintenant pour que le village d'§9Hinamizawa §5remporte la partie. ");
 
-        Sound sound = Sound.valueOf(HigurashiUHC.getInstance().getConfig().getString("game.deathsound"));
+        Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONDEATH));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
         hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 

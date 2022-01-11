@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.item.ItemConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -11,18 +12,18 @@ import java.util.List;
 import java.util.Random;
 
 public enum ScenarioList {
-    DOLL(new Doll(), ItemConfig.DOLL.getItem(), false),
-    MISTREATMENT(new Mistreatment(), null, false),
-    OYASHIRO(new Oyashiro(), null, false);
+    DOLL(new Doll(), ItemConfig.DOLL.getItem(), ConfigLocation.SCENARIO_DOLL),
+    MISTREATMENT(new Mistreatment(), null, ConfigLocation.SCENARIO_MISTREATMENT),
+    OYASHIRO(new Oyashiro(), null, ConfigLocation.SCENARIO_OYASHIRO);
 
-    Scenario scenario;
-    ItemStack item;
-    boolean active;
+    final Scenario scenario;
+    final ItemStack item;
+    final ConfigLocation configLocation;
 
-    ScenarioList(Scenario scenario, ItemStack item, boolean active) {
+    ScenarioList(Scenario scenario, ItemStack item, ConfigLocation configLocation) {
         this.scenario = scenario;
         this.item = item;
-        this.active = active;
+        this.configLocation = configLocation;
     }
 
     private static List<ScenarioList> getActiveScenarioList() {
@@ -73,11 +74,11 @@ public enum ScenarioList {
     }
 
     public boolean isActive() {
-        return active;
+        return HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(configLocation);
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        HigurashiUHC.getGameManager().getConfigGestion().getConfig().set(configLocation, active);
         getScenario().scenarioStateChange(active);
     }
 }

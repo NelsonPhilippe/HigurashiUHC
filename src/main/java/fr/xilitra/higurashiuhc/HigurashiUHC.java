@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc;
 
+import fr.xilitra.higurashiuhc.command.CommandsConfig;
 import fr.xilitra.higurashiuhc.command.CommandsListener;
 import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.event.*;
@@ -86,6 +87,7 @@ public final class HigurashiUHC extends JavaPlugin {
 
     private void registerCommands() {
         new CommandsListener();
+        new CommandsConfig();
         this.getCommand("debug").setExecutor(new DebugCmd());
     }
 

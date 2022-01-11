@@ -5,3 +5,4 @@ api-version: 1.8
 authors: [ XiliTra ]
 commands:
   h:
+  config:

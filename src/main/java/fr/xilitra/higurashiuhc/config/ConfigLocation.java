@@ -28,6 +28,10 @@ public enum ConfigLocation {
     /// Not used
     TIME_MALEDICTION_SECONDS("mal_time", 600),
 
+    SCENARIO_DOLL("scen_doll", false),
+    SCENARIO_MISTREATMENT("scen_mst", false),
+    SCENARIO_OYASHIRO("scen_oya", false),
+
     SOUND_ONDEATH("sound_ds", Sound.WITHER_SPAWN.name()),
     SOUND_ONSTART("sound_ss", Sound.GHAST_MOAN.name());
 

@@ -4,6 +4,7 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.config.ConfigGestion;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
+import fr.xilitra.higurashiuhc.config.inv.InvCreator;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
@@ -29,6 +30,7 @@ public class GameManager {
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
     private final ConfigGestion configGestion;
+    public final InvCreator invCreator = new InvCreator();
 
     public GameManager(){
         File file = new File(HigurashiUHC.getInstance().getDataFolder().getAbsoluteFile()+File.separator+"config");

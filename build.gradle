@@ -25,9 +25,8 @@ repositories {
 dependencies {
     compileOnly name: 'spigot'
     compileOnly name: 'DatouNms-1.2.1'
-    compileOnly 'fr.mrmicky:fastboard:1.2.0'
     implementation name: 'BossBarAPI_v2.4.1'
-    implementation name: "InventoryInteract-1.0-SNAPSHOT"
+    implementation name: "InteractInv-1.0-unstable"
 }
 
 task fatJar(type: Jar) {

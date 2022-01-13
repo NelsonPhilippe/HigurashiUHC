@@ -177,7 +177,7 @@ public class HPlayer {
         if (!hasMaledictionReason(mr)) {
             mrList.add(mr);
             getRole().getRoleAction().onMaledictionReceived(this, mr);
-            getClans().removePlayer(this);
+            Clans.NEUTRE.addPlayer(this);
             Player player = getPlayer();
             if (player == null)
                 return;
@@ -203,6 +203,9 @@ public class HPlayer {
 
     public void removeMaledictionReason(Reason mr) {
         mrList.remove(mr);
+        if(mrList.isEmpty()) {
+            getRole().getDefaultClans().addPlayer(this);
+        }
     }
 
     public boolean hasMaledictionReason(Reason... mrList) {

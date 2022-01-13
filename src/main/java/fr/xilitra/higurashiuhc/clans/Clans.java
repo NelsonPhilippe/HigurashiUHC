@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,10 +137,16 @@ public enum Clans {
             prevClans.removePlayer(p);
         this.playerList.add(p.getUUID());
         p.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), getName());
+        Player player = p.getPlayer();
+        if(player != null)
+            player.sendMessage("§7Vous avez rejoins le clan d’§9" + getName() + "§7. ");
     }
 
     public void removePlayer(HPlayer p) {
         this.playerList.remove(p.getUUID());
+        Player player = p.getPlayer();
+        if(player != null)
+            player.sendMessage("§7Vous avez quitté le clan d’§9" + getName() + "§7. ");
     }
 
     public boolean hisInClans(HPlayer player, boolean checkMinor) {

@@ -8,8 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Optional;
-
 public class NearKeiichi extends JavaTask {
 
     @Override

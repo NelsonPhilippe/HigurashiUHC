@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
@@ -47,8 +48,8 @@ public class AkasakaAction implements RoleAction, Listener {
             }
 
             hPlayer.setPlayerDontMove(true);
-            new StuntTask(hPlayer).runTaskTimer(1000, 1000);
-            new CouldownMatraque().runTaskLater(HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.matraque") * 1000L);
+            new StuntTask(hPlayer).runTaskTimer(1, 1);
+            new CouldownMatraque().runTaskLater(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.ROLE_ASAKA_MATRAQUE_SECONDS));
         }
 
     }

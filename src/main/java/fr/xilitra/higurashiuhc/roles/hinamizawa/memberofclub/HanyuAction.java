@@ -75,7 +75,7 @@ public class HanyuAction implements RoleAction, Listener {
 
                 for (Player players : Bukkit.getOnlinePlayers()) {
                     players.showPlayer(player);
-                    new HanyuTaskInvisble().runTaskTimer(1000, 1000);
+                    new HanyuTaskInvisble().runTaskTimer(1, 1);
                 }
             }
 

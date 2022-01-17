@@ -73,7 +73,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
     @EventHandler
     public void onWataChange(WatanagashiChangeEvent event) {
         if (event.getWataEnum() == WataEnum.AFTER)
-            this.watanagashiTask.runTaskTimer(1000, 1000);
+            this.watanagashiTask.runTaskTimer(1, 1);
         else
             this.watanagashiTask.stopTask();
     }

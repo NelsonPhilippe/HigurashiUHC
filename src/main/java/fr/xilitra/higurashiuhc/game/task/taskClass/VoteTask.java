@@ -35,7 +35,7 @@ public class VoteTask extends BukkitTask {
                             "§3Vous venez d’être banni du village d’§9Hinamizawa, §3vous perdez par conséquent 5 cœurs que vous récupérerez d’ici 10 minutes.\n" +
                             "§4-\n");
                 }
-                new BanTask().runTaskLater(10000);
+                new BanTask().runTaskLater(10);
             }
 
             this.stopTask();

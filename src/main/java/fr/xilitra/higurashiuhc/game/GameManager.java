@@ -55,7 +55,6 @@ public class GameManager {
         this.setStates(GameStates.START);
 
         ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
-        roles.remove(Role.NULL);
         roles.remove(Role.TEPPEI_HOJO);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONSTART));
@@ -98,7 +97,7 @@ public class GameManager {
 
         }
 
-        new StartTask().runTaskTimer(1000, 1000);
+        new StartTask().runTaskTimer(1, 1);
 
         World world = Bukkit.getWorld("world");
 
@@ -118,7 +117,7 @@ public class GameManager {
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
 
-        new GameTask().runTaskTimer(1000, 1000);
+        new GameTask().runTaskTimer(1, 1);
 
     }
 

@@ -81,7 +81,7 @@ public class MiyoTakanoAction implements RoleAction, Listener {
             if (miyo.getPlayer() == null)
                 return;
 
-            miyoTask.runTaskTimer(0L, 1000L);
+            miyoTask.runTaskTimer(0L, 1);
 
             HPlayer tomitake = Role.JIRO_TOMITAKE.getHPlayer();
 

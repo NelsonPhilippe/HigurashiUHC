@@ -5,6 +5,7 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.GameStates;
+import fr.xilitra.higurashiuhc.game.task.taskClass.NearKeiichi;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
@@ -26,6 +27,7 @@ public class Oyashiro extends Scenario implements Listener {
     public boolean reveal = false;
     public RenaOyashiroTask renaTaskID = new RenaOyashiroTask();
     public KeiichiOyashiroTask keiichiTaskID = new KeiichiOyashiroTask();
+    public NearKeiichi nearKeiichi = new NearKeiichi();
     public ParanoTask paranoTask = new ParanoTask();
     public BossBar keiichiBossBar = null;
     public BossBar renaBossBar = null;
@@ -45,6 +47,7 @@ public class Oyashiro extends Scenario implements Listener {
         renaTaskID.stopTask();
         keiichiTaskID.stopTask();
         paranoTask.stopTask();
+        nearKeiichi.stopTask();
 
         keiichiBossBar.getPlayers().forEach((player) -> keiichiBossBar.removePlayer(player));
         keiichiBossBar = null;
@@ -74,7 +77,7 @@ public class Oyashiro extends Scenario implements Listener {
             Clans.HINAMIZAWA.addPlayer(Role.RENA_RYUGU.getHPlayer());
         else if (solution == 4) {
 
-            HPlayer hPlayer = solution == 2 ? Role.RENA_RYUGU.getHPlayer() : Role.KEIICHI_MAEBARA.getHPlayer();
+            HPlayer hPlayer = Role.KEIICHI_MAEBARA.getHPlayer();
             if (hPlayer == null || hPlayer.getPlayer() == null)
                 return;
 
@@ -129,8 +132,9 @@ public class Oyashiro extends Scenario implements Listener {
 
         renaBossBar = BossBarAPI.addBar(rena.getPlayer(), new TextComponent("Malédiction d'Oyashiro"), BossBarAPI.Color.RED, BossBarAPI.Style.PROGRESS, 100);
 
-        renaTaskID.runTaskTimer(30000, 30000);
-        keiichiTaskID.runTaskTimer(60000, 60000);
+        renaTaskID.runTaskTimer(30, 30);
+        keiichiTaskID.runTaskTimer(60, 60);
+        nearKeiichi.runTaskTimer(600, 600);
 
     }
 

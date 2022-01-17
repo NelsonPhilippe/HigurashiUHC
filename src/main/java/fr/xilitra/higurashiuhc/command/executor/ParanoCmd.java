@@ -19,7 +19,7 @@ public class ParanoCmd extends CommandsExecutor {
         if (!oyashiro.isReveal())
             return false;
 
-        oyashiro.paranoTask.runTaskTimer(60000, 60000, 10);
+        oyashiro.paranoTask.runTaskTimer(60, 60, 10);
         p.sendMessage("Keiichi est parano");
 
         return true;

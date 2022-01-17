@@ -33,7 +33,7 @@ public abstract class BukkitTask implements Task, Runnable {
             return false;
 
         instant = false;
-        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1 * 20) / 1000, (l2 * 20) / 1000);
+        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, l1 * 20, l2 * 20);
         return true;
     }
 
@@ -47,7 +47,7 @@ public abstract class BukkitTask implements Task, Runnable {
 
         instant = false;
         restExecute = times;
-        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, (l1 * 20) / 1000, (l2 * 20) / 1000);
+        bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, l1 * 20, l2 * 20);
         return true;
     }
 
@@ -57,7 +57,7 @@ public abstract class BukkitTask implements Task, Runnable {
             return false;
 
         instant = true;
-        bukkitTask = Bukkit.getScheduler().runTaskLater(HigurashiUHC.getInstance(), this, (l1 * 20) / 1000);
+        bukkitTask = Bukkit.getScheduler().runTaskLater(HigurashiUHC.getInstance(), this, l1 * 20);
         return true;
     }
 

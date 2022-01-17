@@ -30,7 +30,7 @@ public abstract class JavaTask extends TimerTask implements Task {
     @Override
     public boolean runTaskTimer(long l1, long l2) {
         if (running) return false;
-        TaskRunner.timer.schedule(this, l1, l2);
+        TaskRunner.timer.schedule(this, l1 * 1000L, l2 * 1000L);
         running = true;
         instant = false;
         return true;
@@ -41,7 +41,7 @@ public abstract class JavaTask extends TimerTask implements Task {
         if (running) return false;
         if (times <= 1)
             return false;
-        TaskRunner.timer.schedule(this, l1, l2);
+        TaskRunner.timer.schedule(this, l1 * 1000L, l2 * 1000L);
         running = true;
         restExecute = times;
         instant = false;
@@ -51,7 +51,7 @@ public abstract class JavaTask extends TimerTask implements Task {
     @Override
     public boolean runTaskLater(long l1) {
         if (running) return false;
-        TaskRunner.timer.schedule(this, l1);
+        TaskRunner.timer.schedule(this, l1 * 1000L);
         running = true;
         instant = true;
         return true;

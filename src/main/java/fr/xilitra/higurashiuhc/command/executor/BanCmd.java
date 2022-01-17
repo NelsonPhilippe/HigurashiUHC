@@ -40,7 +40,7 @@ public class BanCmd extends CommandsExecutor {
             }
 
             oryoSonozakiAction.setAsVoted(targetHPlayer);
-            VoteCmd.voteTask.runTaskTimer(1000, 1000);
+            VoteCmd.voteTask.runTaskTimer(1, 1);
 
             TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
             TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]");

@@ -56,7 +56,7 @@ public class KiichiroKimiyoshiAction implements RoleAction {
         List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
 
         kt = new KiichiroTask(hPlayerList.get(new Random().nextInt(hPlayerList.size())));
-        kt.runTaskTimer(0L, 1000L);
+        kt.runTaskTimer(0L, 1L);
     }
 
     @Override

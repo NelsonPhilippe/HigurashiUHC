@@ -23,6 +23,11 @@ import static fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.ShionSonozak
 public class MionSonozakiAction implements RoleAction, Listener {
 
     @Override
+    public Role getLinkedRole(){
+        return Role.MION_SONOZAKI;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §9Mion Sonozaki (fille) : \n" +
                 "\n" +
@@ -72,7 +77,7 @@ public class MionSonozakiAction implements RoleAction, Listener {
             Role killerRole = role.getHPlayer().getKillerRole();
             if (killerRole == null)
                 return;
-            if (killerRole != Role.getLinkedRole(this))
+            if (killerRole != this.getLinkedRole())
                 return;
         }
 
@@ -122,7 +127,7 @@ public class MionSonozakiAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer hPlayer = Role.getLinkedRole(this).getHPlayer();
+        HPlayer hPlayer = this.getLinkedRole().getHPlayer();
         if (hPlayer == null)
             return;
         Player player = hPlayer.getPlayer();

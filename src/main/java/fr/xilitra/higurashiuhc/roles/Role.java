@@ -23,11 +23,9 @@ import fr.xilitra.higurashiuhc.roles.police.PolicierRoleAction;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 public enum Role {
 
@@ -150,13 +148,6 @@ public enum Role {
     public static Role getRole(String role) {
         for (Role roleList : values())
             if (roleList.getName().equals(role))
-                return roleList;
-        return null;
-    }
-
-    public static Role getLinkedRole(RoleAction roleClass){
-        for (Role roleList : values())
-            if (roleList.getRoleAction().getClass().equals(roleClass.getClass()))
                 return roleList;
         return null;
     }

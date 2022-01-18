@@ -9,13 +9,10 @@ import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
-import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import me.lulu.datounms.model.biome.BiomeData;
 import me.lulu.datounms.v1_8_R3.BiomeReplacer;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.WorldBorder;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,7 +22,6 @@ import java.util.UUID;
 
 public final class HigurashiUHC extends JavaPlugin {
 
-    private static final Map<UUID, Scoreboard> scoreboardMap = new HashMap<>();
     private static HigurashiUHC instance;
     private static GameManager manager;
 
@@ -35,14 +31,6 @@ public final class HigurashiUHC extends JavaPlugin {
 
     public static GameManager getGameManager() {
         return manager;
-    }
-
-    public static Map<UUID, Scoreboard> getScoreboardMap() {
-        return scoreboardMap;
-    }
-
-    public static void addScoreboard(UUID uuid, Scoreboard scoreboard) {
-        scoreboardMap.put(uuid, scoreboard);
     }
 
     @Override

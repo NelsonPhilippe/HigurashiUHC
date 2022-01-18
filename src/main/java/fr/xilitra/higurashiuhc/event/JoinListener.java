@@ -7,7 +7,6 @@ import fr.xilitra.higurashiuhc.item.config.MapItemConfig;
 import fr.xilitra.higurashiuhc.item.config.StartGameItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
-import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -22,7 +21,6 @@ public class JoinListener implements Listener {
         Player p = e.getPlayer();
         p.setMaxHealth(20);
         p.setHealth(20);
-        Scoreboard scoreboard = new Scoreboard(ChatColor.DARK_PURPLE + "HigurashiUHC", p);
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
@@ -30,8 +28,6 @@ public class JoinListener implements Listener {
             hPlayer = new HPlayer(p.getName(), p);
             HigurashiUHC.getGameManager().addHPlayer(hPlayer);
         }
-
-        HigurashiUHC.addScoreboard(p.getUniqueId(), scoreboard);
 
         e.setJoinMessage("Bienvenue " + e.getPlayer().getName() + "!");
 
@@ -42,30 +38,7 @@ public class JoinListener implements Listener {
                 p.getInventory().setItem(8, StartGameItem.startGameItem.getItemStack());
                 p.getInventory().setItem(0, MapItemConfig.mapItemConfig.getItemStack());
 
-                scoreboard.setLines(
-                        "",
-                        ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
-                        "",
-                        ChatColor.RED + "Titre de game",
-                        "",
-                        ChatColor.GRAY + "Configurer la partie...",
-                        "",
-                        ChatColor.DARK_PURPLE + "Okami Servers"
-                );
-
-                return;
             }
-
-            scoreboard.setLines(
-                    "",
-                    ChatColor.GRAY + "Nombre de role : " + ChatColor.GOLD + Role.values().length,
-                    "",
-                    ChatColor.RED + "Titre de game",
-                    "",
-                    ChatColor.GRAY + "Configuration de la partie",
-                    "",
-                    ChatColor.DARK_PURPLE + "Okami Servers"
-            );
 
 
         } else if (HigurashiUHC.getGameManager().getStates() != GameStates.START) {

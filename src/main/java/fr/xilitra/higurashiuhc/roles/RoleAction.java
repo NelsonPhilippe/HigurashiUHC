@@ -25,6 +25,8 @@ public interface RoleAction {
 
     String getDescription();
 
+    Role getLinkedRole();
+
     default void onMaledictionReceived(HPlayer hPlayer, Reason reason){
 
     }

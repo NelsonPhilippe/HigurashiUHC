@@ -32,13 +32,14 @@ import org.bukkit.potion.PotionEffectType;
 public class RikaFurudeAction implements RoleAction, Listener {
 
     private final CloseRikaTask watanagashiTask = new CloseRikaTask();
-    private int lives;
+    private int lives = 3;
     private boolean ressucite = false;
 
     private int deathMalusTime = 2;
 
-    public RikaFurudeAction() {
-        this.lives = 3;
+    @Override
+    public Role getLinkedRole(){
+        return Role.RIKA_FURUDE;
     }
 
     @Override
@@ -54,7 +55,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
                         "§6Si §9Rika§6 meurt définitivement, alors §9Hinamizawa§6 n’aura que 2 jours pour gagner la partie sinon les membres du camp seront touchés par l'effet weakness permanent.\n" +
                         "§6Si elle se fait tuer avant Watanagashi de la main des mercenaires, §4Miyo Takano§6 sera dévoilé aux yeux de tous.\n" +
                         "§6Après Watanagashi, si l’un des membres du club se trouve à côté de Rika dans un rayon de 20 blocs, il gagne l’effet résistance.\n\n" +
-                        "§9Hanyu §6est §7”joueur”";
+                        "§9Hanyu §6est §7'joueur'";
     }
 
     @EventHandler
@@ -118,7 +119,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
     @EventHandler
     public void onEpisodeUpdate(EpisodeUpdate episodeUpdate){
 
-        HPlayer rika = Role.getLinkedRole(this).getHPlayer();
+        HPlayer rika = this.getLinkedRole().getHPlayer();
         if(rika == null)
             return;
         if(rika.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.DISCONNECTED) && deathMalusTime>=1){
@@ -306,7 +307,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
     public void onGameStart() {
 
         HPlayer hanyu = Role.HANYU.getHPlayer();
-        HPlayer rika = Role.getLinkedRole(this).getHPlayer();
+        HPlayer rika = this.getLinkedRole().getHPlayer();
         if (hanyu != null && rika != null && rika.getPlayer() != null) {
             rika.getPlayer().sendMessage("Hanyu est incarnée par: " + hanyu.getName());
         }

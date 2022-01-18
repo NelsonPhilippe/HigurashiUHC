@@ -25,6 +25,11 @@ public class SatoshiHojoAction implements RoleAction, Listener {
     public Scoreboard scoreBoard = new Scoreboard();
 
     @Override
+    public Role getLinkedRole(){
+        return Role.SATOSHI_HOJO;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §2Satoshi Hojo (garçon) : \n" +
                 "\n" +
@@ -44,7 +49,7 @@ public class SatoshiHojoAction implements RoleAction, Listener {
     @Override
     public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
 
-        List<Role> interestRole = new ArrayList<>() {{
+        List<Role> interestRole = new ArrayList<Role>() {{
             add(Role.KEIICHI_MAEBARA);
             add(Role.RENA_RYUGU);
             add(Role.SHION_SONOSAKI);
@@ -93,7 +98,7 @@ public class SatoshiHojoAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
+        HPlayer satoshi = this.getLinkedRole().getHPlayer();
         if (satoshi != null) {
             satoshi.addMaledictionReason(Reason.SATOSHI_HOJO);
             satoshi.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), Clans.HINAMIZAWA.getName());
@@ -114,7 +119,7 @@ public class SatoshiHojoAction implements RoleAction, Listener {
 
     @Override
     public void onGameStop() {
-        HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
+        HPlayer satoshi = this.getLinkedRole().getHPlayer();
         if (satoshi == null || satoshi.getPlayer() == null)
             return;
 
@@ -140,7 +145,7 @@ public class SatoshiHojoAction implements RoleAction, Listener {
     public void onWataStateChange(WatanagashiChangeEvent wce) {
         if (wce.getWataEnum() == WataEnum.AFTER) {
 
-            HPlayer satoshi = Role.getLinkedRole(this).getHPlayer();
+            HPlayer satoshi = this.getLinkedRole().getHPlayer();
 
             if (satoshi == null || satoshi.getPlayer() == null)
                 return;

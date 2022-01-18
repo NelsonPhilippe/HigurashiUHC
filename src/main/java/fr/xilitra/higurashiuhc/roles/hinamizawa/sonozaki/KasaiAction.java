@@ -8,10 +8,11 @@ import org.bukkit.entity.Player;
 
 public class KasaiAction implements RoleAction {
 
-    private boolean isGiveForce;
+    private boolean isGiveForce = false;
 
-    public KasaiAction() {
-        isGiveForce = false;
+    @Override
+    public Role getLinkedRole(){
+        return Role.KASAI;
     }
 
     public boolean isGiveForce() {
@@ -28,9 +29,9 @@ public class KasaiAction implements RoleAction {
                 "\n" +
                 "§3Kasai§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du clan §3Sonozaki§6." +
                 "§6Si §9Shion§6 meurt, il connaîtra le rôle du joueur qui l’aura tué." +
-                "§3Kasai§6 peut utiliser la commande §5“/h force” ce qui lui donne l’effet force pendant 5 minutes qu’une fois dans la partie.\n" +
+                "§3Kasai§6 peut utiliser la commande §5'/h force' ce qui lui donne l’effet force pendant 5 minutes qu’une fois dans la partie.\n" +
                 "\n" +
-                "Shion§6 est §7“joueur”.";
+                "Shion§6 est §7'joueur'.";
     }
 
     @Override

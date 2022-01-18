@@ -21,6 +21,11 @@ public class MercenaireAction implements RoleAction, Listener {
 
     private HPlayer cible;
 
+    @Override
+    public Role getLinkedRole(){
+        return Role.MERCENAIRE;
+    }
+
     public HPlayer getCible() {
         return cible;
     }
@@ -37,7 +42,7 @@ public class MercenaireAction implements RoleAction, Listener {
                 "§6Durant la nuit de la Watanagashi, les §4mercenaires §6gagnent l’effet force. \n" +
                 "§6Si §2Tomitake §6meurt le jour de Watanagashi, les §4mercenaires §6gagneront l’effet force permanent. \n" +
                 "§6Si les §4mercenaires §6remplissent leur mission d’assassinat de §4Miyo Takano §6alors ils recevront un cœur permanent supplémentaire. \n" +
-                "§6Les §4mercenaires §6détiennent aléatoirement un “kit” à l’annonce des rôles.";
+                "§6Les §4mercenaires §6détiennent aléatoirement un 'kit' à l’annonce des rôles.";
     }
 
     @Override
@@ -72,7 +77,7 @@ public class MercenaireAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
-        List<HPlayer> hPlayerList = Role.getLinkedRole(this).getHPlayerList();
+        List<HPlayer> hPlayerList = this.getLinkedRole().getHPlayerList();
         KitList[] listKit = KitList.values();
 
         for (HPlayer mercenaire : hPlayerList) {

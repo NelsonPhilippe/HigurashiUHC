@@ -18,12 +18,17 @@ public class MiyoTakanoAction implements RoleAction, Listener {
     public MiyoTask miyoTask = new MiyoTask();
 
     @Override
+    public Role getLinkedRole(){
+        return Role.MIYO_TAKANO;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §4Miyo Takano (fille) : \n" +
                 "\n" +
                 "§4Miyo Takano §6doit gagner avec les §4Mercenaires. \n" +
                 "§4Miyo Takano §6connaît la liste des §4mercenaires. \n" +
-                "§4Miyo Takano §6a le pouvoir de donner l’ordre d’assassiner quelqu’un avec la commande §5“/h assassiner <pseudo-mercenaire> <pseudo-victime>” §6(elle ne peut pas donner de cible à §4Okonogi). \n" +
+                "§4Miyo Takano §6a le pouvoir de donner l’ordre d’assassiner quelqu’un avec la commande §5'/h assassiner <pseudo-mercenaire> <pseudo-victime>' §6(elle ne peut pas donner de cible à §4Okonogi). \n" +
                 "§6Elle peut donner 2 ordres par jour. \n" +
                 "§4Miyo Takano §6a aussi le pouvoir de connaître le rôle d’un joueur aléatoirement dans la partie lorsqu’un §4mercenaire §6meurt. \n" +
                 "§6Au début de la nuit de Watanagashi, §4Takano §6apprend l’identité de §2Tomitake §6et connait sa position exacte en temps réel durant la Watanagashi, après la Watanagashi elle ne voit plus la position de §2Tomitake. \n" +
@@ -74,7 +79,7 @@ public class MiyoTakanoAction implements RoleAction, Listener {
     public void onWataChange(WatanagashiChangeEvent watanagashiChangeEvent) {
         if (watanagashiChangeEvent.getWataEnum() == WataEnum.DURING) {
 
-            HPlayer miyo = Role.getLinkedRole(this).getHPlayer();
+            HPlayer miyo = this.getLinkedRole().getHPlayer();
             if (miyo == null)
                 return;
 

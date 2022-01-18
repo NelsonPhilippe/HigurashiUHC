@@ -147,10 +147,10 @@ public class DamageListener implements Listener {
 
         if(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
             Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o”" + hPlayer.getName() + "” §fvient d’être §8§m§l:tué§f, il était §6§o“" + hPlayer.getRole().getName() + "”.\n" +
+                "§fLe joueur §7§o'" + hPlayer.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + hPlayer.getRole().getName() + "'.\n" +
                 "§5---------------------------------------------------------");
         else Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o”" + hPlayer.getName() + "” §fvient d’être §8§m§l:tué§f”.\n" +
+                "§fLe joueur §7§o'" + hPlayer.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
                 "§5---------------------------------------------------------");
 
         if(hPlayer.getRole().isRole(Role.RIKA_FURUDE))

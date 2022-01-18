@@ -19,11 +19,16 @@ public class RenaRyuguAction implements RoleAction, Listener {
     private boolean penseIsUsed;
 
     @Override
+    public Role getLinkedRole(){
+        return Role.RENA_RYUGU;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §9Rena Ryugu (fille) :\n" +
                 "\n" +
                 "§9Rena§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du §bClub§6." +
-                "§9Rena§6 peut utiliser une fois dans la partie la commande §5“/h pense <joueur>”§6." +
+                "§9Rena§6 peut utiliser une fois dans la partie la commande §5'/h pense <joueur>'§6." +
                 "§6Cette commande lui permettra de savoir si le joueur affecté inflige des dégâts à un autre joueur en temps réel." +
                 "§6De plus, si elle tue la personne atteinte de la malédiction, elle gagne l’effet speed permanent. ";
     }
@@ -127,7 +132,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
         if(rena == null)
             return;
 
-        rena.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5“/h paranoia” §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
+        rena.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5'/h paranoia' §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
                 "§4§lATTENTION, §7vous aussi possédez une jauge et si celle-ci tombe à 0, vous ne serez plus atteint de la malédiction. ");
 
     }

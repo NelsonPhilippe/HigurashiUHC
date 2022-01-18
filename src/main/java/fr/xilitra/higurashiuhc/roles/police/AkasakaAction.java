@@ -21,11 +21,16 @@ public class AkasakaAction implements RoleAction, Listener {
     private int countCompare = 0;
 
     @Override
+    public Role getLinkedRole(){
+        return Role.AKASAKA;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §eAkasaka (garçon) : \n" +
                 "\n" +
                 "§eAkasaka §6doit gagner avec §9Hinamizawa §6et fait partie du camp de la §epolice. \n" +
-                "§eAkasaka §6peut enquêter sur l’identité de §9Rika §63 fois dans la partie avec la commande §5“/h rika <joueur>”.\n" +
+                "§eAkasaka §6peut enquêter sur l’identité de §9Rika §63 fois dans la partie avec la commande §5'/h rika <joueur>'.\n" +
                 " §6Si §eAkasaka §6trouve §9Rika §6a sa première enquête il gagne 3 cœurs, à sa seconde enquête 2 cœurs et à sa troisième enquête 1 cœur. \n" +
                 "§6Une fois la personne déclarée coupable par §eOishi §6et s’il s’agit d’un membre des §3Sonozaki, §6si Akasaka §6trouve l’identité de §9Rika, §6alors celui-ci rejoindra le camp d’§9Hinamizawa §6et ne gagnera pas avec le camp de la §epolice. \n" +
                 "§6A l’inverse, si §eAkasaka §6ne trouve pas L’identité de §9Rika, §6alors celui-ci restera dans le camp de la §epolice §6et devra gagner avec eux. \n" +
@@ -97,7 +102,7 @@ public class AkasakaAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer akasaka = Role.getLinkedRole(this).getHPlayer();
+        HPlayer akasaka = this.getLinkedRole().getHPlayer();
         if (akasaka == null)
             return;
         if (akasaka.getPlayer() == null)

@@ -1,11 +1,17 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa;
 
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
 public class VillageoisAction implements RoleAction {
+
+    @Override
+    public Role getLinkedRole(){
+        return Role.VILLAGEOIS;
+    }
 
     @Override
     public String getDescription() {

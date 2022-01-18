@@ -1,6 +1,5 @@
 package fr.xilitra.higurashiuhc.player;
 
-import com.sun.istack.internal.NotNull;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;

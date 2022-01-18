@@ -34,6 +34,11 @@ public class SatokoHojoAction implements RoleAction, Listener {
 
     public List<Location> blockTraps = new ArrayList<>();
 
+    @Override
+    public Role getLinkedRole(){
+        return Role.SATOKO_HOJO;
+    }
+
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent e) {
 

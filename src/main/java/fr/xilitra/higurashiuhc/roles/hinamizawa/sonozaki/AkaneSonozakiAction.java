@@ -1,16 +1,18 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.player.HPlayer;
+import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 
 public class AkaneSonozakiAction implements RoleAction {
 
-    private int nextDaySwap;
+    private int nextDaySwap = 0;
 
-    public AkaneSonozakiAction() {
-        nextDaySwap = 0;
+    @Override
+    public Role getLinkedRole(){
+        return Role.AKANE_SONOZAKI;
     }
 
     @Override
@@ -18,7 +20,7 @@ public class AkaneSonozakiAction implements RoleAction {
         return "§6Vous êtes §3Akane Sonozaki (fille) : \n" +
                 "\n" +
                 "§6Akane §6doit gagner avec §9Hinamizawa §6tout en faisant partie du clan §3Sonozaki. \n" +
-                "§6Avec la commande §5“/h inverser <joueur1> <joueur2>”, §3Akane §6pourra inverser la position de deux joueurs, deux fois dans la partie. \n" +
+                "§6Avec la commande §5'/h inverser <joueur1> <joueur2>', §3Akane §6pourra inverser la position de deux joueurs, deux fois dans la partie. \n" +
                 "(pouvoir utilisable une fois par épisode)";
     }
 

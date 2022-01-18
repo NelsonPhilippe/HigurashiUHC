@@ -8,7 +8,6 @@ import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.TimeUtils;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
-import fr.xilitra.higurashiuhc.utils.packets.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -52,26 +51,6 @@ public class GameTask extends BukkitTask {
                 if (jiro != null)
                     jiro.setRole(Role.JIRO_TOMITAKE, true);
             }
-        }
-
-        String formatTime = TimeUtils.formatTime(time);
-        int player_remaining = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME, PlayerState.WAITING_DEATH).size();
-
-        for (Map.Entry<UUID, Scoreboard> scoreboard : HigurashiUHC.getScoreboardMap().entrySet()) {
-            scoreboard.getValue().setLines(
-                    "",
-                    ChatColor.GRAY + "Joueur restant : " + ChatColor.GOLD + player_remaining,
-                    "",
-                    ChatColor.RED + "Titre de game",
-                    "",
-                    ChatColor.GRAY + "Fin de l'Episode : " + ChatColor.GOLD + formatTime,
-                    "",
-                    ChatColor.GRAY + "Episode : " + ChatColor.GOLD + HigurashiUHC.getGameManager().getEpisode(),
-                    "",
-                    ChatColor.DARK_PURPLE + "Okami Servers"
-            );
-
-            HigurashiUHC.addScoreboard(scoreboard.getKey(), scoreboard.getValue());
         }
 
         time--;

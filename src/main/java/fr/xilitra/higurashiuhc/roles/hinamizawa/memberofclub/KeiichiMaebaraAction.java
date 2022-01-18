@@ -21,6 +21,11 @@ import org.bukkit.inventory.ItemStack;
 public class KeiichiMaebaraAction implements RoleAction, Listener {
 
     @Override
+    public Role getLinkedRole(){
+        return Role.KEIICHI_MAEBARA;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §9Keiichi Maebara (garçon) :\n" +
                 "\n" +
@@ -74,7 +79,7 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
     @Override
     public void onGameStart() {
         if (ScenarioList.DOLL.isActive()) {
-            HPlayer hPlayer = Role.getLinkedRole(this).getHPlayer();
+            HPlayer hPlayer = this.getLinkedRole().getHPlayer();
             if (hPlayer == null)
                 return;
             Player player = hPlayer.getPlayer();
@@ -115,7 +120,7 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
             return;
 
         KeiichiMaebaraAction role = (KeiichiMaebaraAction) Role.KEIICHI_MAEBARA.getRoleAction();
-        HPlayer hPlayer = Role.getLinkedRole(role).getHPlayer();
+        HPlayer hPlayer = role.getLinkedRole().getHPlayer();
         if (hPlayer == null)
             return;
 

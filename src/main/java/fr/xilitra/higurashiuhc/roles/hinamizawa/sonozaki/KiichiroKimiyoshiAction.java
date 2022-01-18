@@ -17,15 +17,20 @@ public class KiichiroKimiyoshiAction implements RoleAction {
     KiichiroTask kt = null;
 
     @Override
+    public Role getLinkedRole(){
+        return Role.KIICHIRO_KIMIYOSHI;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §9Kiichiro Kimiyoshi (garçon) : \n" +
                 "\n" +
                 "§9Kimiyoshi doit gagner avec §9Hinamizawa. \n" +
-                "§6Avec la commande §5“/h heal <joueur>” il pourra régénérer 2 cœurs à un joueur en échange d’un de ses cœurs qu’il perdra de manière définitive.\n" +
+                "§6Avec la commande §5'/h heal <joueur>' il pourra régénérer 2 cœurs à un joueur en échange d’un de ses cœurs qu’il perdra de manière définitive.\n" +
                 "§6Lorsqu’il lui restera un cœur, il ne pourra plus utiliser son pouvoir. \n" +
                 "§9Kimiyoshi §6verra également la vie au-dessus de la tête d’un joueur aléatoire dans la partie. \n" +
                 "\n" +
-                "§6Vous voyez la vie de: §7“joueur”.";
+                "§6Vous voyez la vie de: §7'joueur'.";
     }
 
     @Override
@@ -50,7 +55,7 @@ public class KiichiroKimiyoshiAction implements RoleAction {
 
     @Override
     public void onGameStart() {
-        if (Role.getLinkedRole(this).getHPlayer() == null)
+        if (this.getLinkedRole().getHPlayer() == null)
             return;
 
         List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());

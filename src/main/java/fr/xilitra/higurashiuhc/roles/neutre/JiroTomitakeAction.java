@@ -15,6 +15,11 @@ import org.bukkit.potion.PotionEffectType;
 public class JiroTomitakeAction implements RoleAction, Listener {
 
     @Override
+    public Role getLinkedRole(){
+        return Role.JIRO_TOMITAKE;
+    }
+
+    @Override
     public String getDescription() {
         return "§f------------------------------------------------------\n" +
                 "§fVous venez d’apprendre que les §4mercenaires §fveulent votre mort !\n" +

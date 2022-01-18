@@ -23,6 +23,11 @@ import java.util.List;
 public class ShionSonozakiAction implements RoleAction, Listener {
 
     @Override
+    public Role getLinkedRole(){
+        return Role.SHION_SONOSAKI;
+    }
+
+    @Override
     public String getDescription() {
         return "§6Vous êtes §9Shion Sonozaki (fille) : \n" +
                 "\n" +
@@ -92,7 +97,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
             Role killerRole = role.getHPlayer().getKillerRole();
             if (killerRole == null)
                 return;
-            if (killerRole != Role.getLinkedRole(this))
+            if (killerRole != this.getLinkedRole())
                 return;
         }
 
@@ -121,7 +126,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
 
             Player kasaiPlayer = kasai.getPlayer();
             if (kasaiPlayer != null) {
-                kasaiPlayer.sendMessage("§3§oShion §7§ovient d’être tuée, voici le rôle du joueur qui à tué §3§oShion: §6§o“rôle”");
+                kasaiPlayer.sendMessage("§3§oShion §7§ovient d’être tuée, voici le rôle du joueur qui à tué §3§oShion: §6§o'rôle'");
             }
 
         }
@@ -154,7 +159,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
-        HPlayer hPlayer = Role.getLinkedRole(this).getHPlayer();
+        HPlayer hPlayer = this.getLinkedRole().getHPlayer();
         if (hPlayer == null)
             return;
         Player player = hPlayer.getPlayer();

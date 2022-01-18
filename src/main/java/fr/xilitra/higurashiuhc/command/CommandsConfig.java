@@ -29,8 +29,6 @@ public class CommandsConfig implements CommandExecutor {
             return true;
         }
 
-        HigurashiUHC.getGameManager().invCreator.open(player);
-
         return true;
     }
 }

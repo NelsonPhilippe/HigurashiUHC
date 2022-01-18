@@ -20,4 +20,8 @@ public class GameStateChangeEvent extends Event {
     public HandlerList getHandlers() {
         return null;
     }
+
+    public static HandlerList getHandlerList(){
+        return null;
+    }
 }

@@ -6,6 +6,8 @@ import org.bukkit.event.HandlerList;
 
 public class WatanagashiChangeEvent extends Event {
 
+    private static final HandlerList HANDLERS = new HandlerList();
+
     private final WataEnum wataEnum;
 
     public WatanagashiChangeEvent(WataEnum wataEnum) {
@@ -18,11 +20,11 @@ public class WatanagashiChangeEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return HANDLERS;
     }
 
     public HandlerList getHandlerList() {
-        return null;
+        return HANDLERS;
     }
 
 }

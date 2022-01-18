@@ -6,6 +6,7 @@ import org.bukkit.event.HandlerList;
 
 public class GameStateChangeEvent extends Event {
 
+    private static final HandlerList HANDLERS = new HandlerList();
     final GameStates newState;
 
     public GameStateChangeEvent(GameStates newState) {
@@ -18,10 +19,10 @@ public class GameStateChangeEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return HANDLERS;
     }
 
     public HandlerList getHandlerList(){
-        return null;
+        return HANDLERS;
     }
 }

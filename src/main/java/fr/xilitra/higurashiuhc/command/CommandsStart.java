@@ -15,6 +15,8 @@ public class CommandsStart implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+
+        System.out.println("test");
         if (!(commandSender instanceof Player))
             return false;
 

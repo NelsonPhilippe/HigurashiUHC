@@ -60,7 +60,7 @@ public class GameManager {
         this.setStates(GameStates.START);
 
         ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
-        if(ScenarioList.MISTREATMENT.isActive())
+        if(!ScenarioList.MISTREATMENT.isActive())
             roles.remove(Role.TEPPEI_HOJO);
         this.log("MCE) List active role: " + roles);
 

@@ -10,3 +10,4 @@ commands:
     description: Config
   start:
     description: Start
+  debug:

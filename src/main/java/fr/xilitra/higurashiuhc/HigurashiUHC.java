@@ -39,6 +39,9 @@ public final class HigurashiUHC extends JavaPlugin {
         manager = new GameManager();
         manager.initConfig();
 
+        HigurashiUHC.getGameManager().log("Debug) executed event: "+manager.getStates().name());
+
+
         //register default config
         saveDefaultConfig();
 

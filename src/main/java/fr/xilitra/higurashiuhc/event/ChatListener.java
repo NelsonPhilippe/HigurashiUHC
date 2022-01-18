@@ -31,7 +31,7 @@ public class ChatListener implements Listener {
 
                 message = message.replace("!", "");
 
-                for (HPlayer hPlayers : Role.getLinkedRole(okonogiAction).getHPlayerList())
+                for (HPlayer hPlayers : okonogiAction.getLinkedRole().getHPlayerList())
                     if (hPlayers.getPlayer() != null)
                         if (hPlayers.getClans().isClans(Clans.MERCENAIRE))
                             hPlayers.getPlayer().sendMessage("[Chat Mercenaire] <" + hPlayer.getName() + "> : " + message);

@@ -37,6 +37,7 @@ public final class HigurashiUHC extends JavaPlugin {
     public void onEnable() {
         instance = this;
         manager = new GameManager();
+        manager.initConfig();
 
         //register default config
         saveDefaultConfig();
@@ -47,8 +48,6 @@ public final class HigurashiUHC extends JavaPlugin {
 
         //register custom craft
         CustomCraft.addRecipeBaseball();
-
-        manager.config();
 
         BiomeReplacer biomeReplacer = new BiomeReplacer();
         biomeReplacer.swap(BiomeData.JUNGLE, BiomeData.FOREST);

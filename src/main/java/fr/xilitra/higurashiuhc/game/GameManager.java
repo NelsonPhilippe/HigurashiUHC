@@ -33,7 +33,7 @@ public class GameManager {
     private WataEnum wataEnum = WataEnum.BEFORE;
     private ConfigGestion configGestion;
 
-    public GameManager(){
+    public void initConfig(){
         this.log("FINE) Initializing Config");
         File file = new File(HigurashiUHC.getInstance().getDataFolder().getAbsoluteFile()+File.separator+"config");
         if(!file.exists())
@@ -41,6 +41,7 @@ public class GameManager {
                 return;
         this.configGestion = new ConfigGestion(file);
         this.log("FINE) Config Initialized");
+        setStates(GameStates.CONFIG);
     }
 
     public static int getWataEpisode() {
@@ -53,10 +54,6 @@ public class GameManager {
 
     public void log(String message){
         Bukkit.getLogger().log(Level.INFO, "Higurashi -> " + message);
-    }
-
-    public void config() {
-        setStates(GameStates.CONFIG);
     }
 
     public void start() {

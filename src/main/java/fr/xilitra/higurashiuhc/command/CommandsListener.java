@@ -54,8 +54,10 @@ public class CommandsListener implements CommandExecutor {
             return true;
         }
 
-        if (commands.getCommandExecutor().onCommand(hPlayer, player, strings))
+        if (commands.getCommandExecutor().onCommand(hPlayer, player, strings)) {
+            HigurashiUHC.getGameManager().log("Commande utilisée par " + hPlayer.getName() + ", exécuté par la classe: "+commands.getClass().getName());
             hPlayer.useCommand(commands);
+        }else HigurashiUHC.getGameManager().log("Commande non utilisée, exécuté par la classe: "+commands.getClass().getName());
 
         return true;
     }

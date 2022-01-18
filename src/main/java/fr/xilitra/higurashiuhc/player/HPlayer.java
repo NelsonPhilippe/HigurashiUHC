@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.player;
 
+import com.sun.istack.internal.NotNull;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
@@ -25,9 +26,9 @@ public class HPlayer {
     private final DeathTask deathTask;
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
-    private final InfoData infoData = new InfoData();
-    private Role role = Role.NULL;
-    private Role roleKiller = Role.NULL;
+    private final InfoData infoData;
+    private Role role = null;
+    private Role roleKiller = null;
     private Entity killer = null;
     private boolean playerDontMove = false;
     private boolean chatOkonogi = false;
@@ -40,6 +41,7 @@ public class HPlayer {
         this.name = name;
         this.uuid = player.getUniqueId();
         this.player = player;
+        this.infoData = new InfoData(this);
         this.deathTask = new DeathTask(player);
     }
 
@@ -70,14 +72,15 @@ public class HPlayer {
     public void setRole(Role role, boolean clansFollow) {
         if (this.role != null)
             this.role.removePlayer(this);
-        if (role == null)
-            role = Role.NULL;
+        if(this.role == null)
+            HigurashiUHC.getGameManager().log(getName() + ") Role changed null -> " + role.getName());
+        else HigurashiUHC.getGameManager().log(getName() + ") Role changed " + this.role.getName() +" -> " + role.getName());
         this.role = role;
         if (clansFollow)
             this.role.getDefaultClans().addPlayer(this);
         this.commandsIntegerHashMap = this.role.getDefaultCommands();
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
-        if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME)
+        if (HigurashiUHC.getGameManager().getStates() == GameStates.START || HigurashiUHC.getGameManager().getStates() == GameStates.GAME)
             role.addPlayer(this);
     }
 
@@ -175,6 +178,7 @@ public class HPlayer {
 
     public void addMaledictionReason(Reason mr) {
         if (!hasMaledictionReason(mr)) {
+            HigurashiUHC.getGameManager().log(getName() + ") Malediction added -> " + mr.getName());
             mrList.add(mr);
             getRole().getRoleAction().onMaledictionReceived(this, mr);
             Clans.NEUTRE.addPlayer(this);
@@ -203,6 +207,7 @@ public class HPlayer {
 
     public void removeMaledictionReason(Reason mr) {
         mrList.remove(mr);
+        HigurashiUHC.getGameManager().log(getName() + ") Malediction removed -> " + mr.getName());
         if(mrList.isEmpty()) {
             getRole().getDefaultClans().addPlayer(this);
         }
@@ -227,8 +232,6 @@ public class HPlayer {
 
     public void setKiller(Entity killer, Role role) {
         this.killer = killer;
-        if (role == null)
-            role = Role.NULL;
         this.roleKiller = role;
     }
 

@@ -191,16 +191,19 @@ public enum Role {
 
     public boolean addPlayer(HPlayer player) {
         if (players.size() < maxPlayers) {
+            HigurashiUHC.getGameManager().log("INFO) Player joined role: "+player.getName());
             players.add(player);
             roleAction.onJoinRole(player);
             Bukkit.getPluginManager().callEvent(new RoleSelected(player));
             return true;
         }
+        HigurashiUHC.getGameManager().log("MCE) Player joined role: "+player.getName()+" failed");
         return false;
     }
 
     public boolean removePlayer(HPlayer player) {
         if (players.remove(player)) {
+            HigurashiUHC.getGameManager().log("INFO) Player leaved role: "+player.getName());
             roleAction.onLeaveRole(player);
             return true;
         }

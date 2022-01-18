@@ -20,8 +20,11 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.io.File;
 import java.util.*;
+import java.util.List;
+import java.util.logging.Level;
 
 public class GameManager {
 
@@ -29,14 +32,17 @@ public class GameManager {
     private GameStates states;
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
-    private final ConfigGestion configGestion;
+    private ConfigGestion configGestion;
     public final InvCreator invCreator = new InvCreator();
 
     public GameManager(){
+        this.log("FINE) Initializing Config");
         File file = new File(HigurashiUHC.getInstance().getDataFolder().getAbsoluteFile()+File.separator+"config");
         if(!file.exists())
-            file.mkdir();
+            if(file.mkdir())
+                return;
         this.configGestion = new ConfigGestion(file);
+        this.log("FINE) Config Initialized");
     }
 
     public static int getWataEpisode() {
@@ -47,6 +53,10 @@ public class GameManager {
         return configGestion;
     }
 
+    public void log(String message){
+        Bukkit.getLogger().log(Level.INFO, "Higurashi -> " + message);
+    }
+
     public void config() {
         setStates(GameStates.CONFIG);
     }
@@ -55,11 +65,16 @@ public class GameManager {
         this.setStates(GameStates.START);
 
         ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
-        roles.remove(Role.TEPPEI_HOJO);
+        if(ScenarioList.MISTREATMENT.isActive())
+            roles.remove(Role.TEPPEI_HOJO);
+        this.log("MCE) List active role: " + roles);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONSTART));
 
         ScenarioList sl = ScenarioList.activateScenario();
+        if(sl == null)
+            this.log("INFO) No Scenario active");
+        else this.log("INFO) Scenario Picked Up");
 
         for (Player player : Bukkit.getOnlinePlayers())
             if (sl == null)
@@ -67,18 +82,25 @@ public class GameManager {
             else
                 player.sendMessage(ChatColor.WHITE + "Le scenario: " + ChatColor.GREEN + sl.getScenario().getName() + ChatColor.WHITE + " est activé");
 
+            int i = 0;
+
         for (HPlayer hPlayer : getHPlayerWithState(PlayerState.WAITING_ROLE)) {
 
+            i++;
+            this.log("INFO) Start "+i+" to "+ hPlayer.getName());
             Player player = hPlayer.getPlayer();
 
-            if (player == null)
+            if (player == null) {
+                this.log("MCE) "+i+" player not founded");
                 continue;
+            }
 
             player.getInventory().clear();
 
             int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
+            this.log("INFO) "+i+" Role picked up: "+role.getName());
             roles.remove(role);
 
             if (role.isRole(Role.JIRO_TOMITAKE)) {
@@ -159,6 +181,11 @@ public class GameManager {
     }
 
     public void win(Object... object){
+        log("Win launched");
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            player.setGameMode(GameMode.SURVIVAL);
+            player.sendMessage("Wins launched: "+ Arrays.toString(object));
+        });
         TaskRunner.stopAllTask();
     }
 
@@ -169,6 +196,7 @@ public class GameManager {
     public void setWataState(WataEnum wataEnum) {
         if (getWataState() == wataEnum)
             return;
+        log("Watastate changed: "+getWataState()+ " -> "+wataEnum);
         if(wataEnum == WataEnum.AFTER)
             Bukkit.broadcastMessage("§c<La nuit du festival de la §5§nWatanagashi vient de se finir, on espère que vous avez passé une excellente nuit.");
         else if(wataEnum == WataEnum.DURING)
@@ -186,6 +214,7 @@ public class GameManager {
     }
 
     public void setStates(GameStates states) {
+        this.log("Changing State " + this.states + " -> " + states);
         this.states = states;
         Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(states));
     }
@@ -207,9 +236,13 @@ public class GameManager {
     }
 
     public void setEpisode(int ep) {
-        if (this.episode == ep)
+        this.log("Try change episode " + this.episode + " -> " + ep);
+        if (this.episode == ep) {
+            this.log(SystemColor.RED + "Episode not changed to " + this.episode + " Reason: episode equivalent to actual one");
             return;
+        }
         this.episode = ep;
+        this.log("Episode Changed to " + this.episode);
         Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));
         setWataState(ep == GameManager.getWataEpisode() ? WataEnum.DURING : (ep > GameManager.getWataEpisode() ? WataEnum.AFTER : WataEnum.BEFORE));
     }
@@ -229,6 +262,7 @@ public class GameManager {
 
     public List<HPlayer> getHPlayerWithState(PlayerState... playerState) {
 
+        this.log("Searching for player with state: "+ Arrays.toString(playerState));
         List<HPlayer> playerList = new ArrayList<>();
 
         for (HPlayer player : this.players.values())

@@ -135,6 +135,7 @@ public enum Clans {
         Clans prevClans = getClans(p);
         if (prevClans != null)
             prevClans.removePlayer(p);
+        HigurashiUHC.getGameManager().log("Le joueur: "+ p.getName() + " à rejoins le clans: "+getName());
         this.playerList.add(p.getUUID());
         p.getInfoData().setDataInfo(InfoData.InfoList.CLAN.name(), getName());
         Player player = p.getPlayer();
@@ -144,6 +145,7 @@ public enum Clans {
 
     public void removePlayer(HPlayer p) {
         this.playerList.remove(p.getUUID());
+        HigurashiUHC.getGameManager().log("Le joueur: "+ p.getName() + " à perdu le clans: "+getName());
         Player player = p.getPlayer();
         if(player != null)
             player.sendMessage("§7Vous avez quitté le clan d’§9" + getName() + "§7. ");

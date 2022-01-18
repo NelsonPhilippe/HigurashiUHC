@@ -1,5 +1,8 @@
 package fr.xilitra.higurashiuhc.config;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+
+import java.awt.*;
 import java.util.HashMap;
 
 public class Config {
@@ -36,11 +39,18 @@ public class Config {
     }
 
     public Object get(ConfigLocation configLocation){
-        return configMap.get(configLocation.getName());
+        Object value = configMap.get(configLocation.getName());
+        if(value != null) {
+            HigurashiUHC.getGameManager().log("FINE) Looking for config: " + configLocation.getName() + " founded: "+value);
+            return value;
+        }
+        HigurashiUHC.getGameManager().log("MCE) Looking for config: " + configLocation.getName() + " No value found");
+        return null;
     }
 
     public void set(ConfigLocation configLocation, Object value){
         remove(configLocation);
+        HigurashiUHC.getGameManager().log("FINE) Config set: " + configLocation.getName() + " to: "+value);
         configMap.put(configLocation.getName(), value);
     }
 

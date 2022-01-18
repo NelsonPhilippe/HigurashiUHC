@@ -70,7 +70,7 @@ public class JoinListener implements Listener {
 
         } else if (HigurashiUHC.getGameManager().getStates() != GameStates.START) {
 
-            if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME && !hPlayer.getRole().isRole(Role.NULL) && hPlayer.getRole().getRoleAction().acceptReconnect(p)) {
+            if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME && hPlayer.getRole().getRoleAction().acceptReconnect(p)) {
                 p.setGameMode(GameMode.SURVIVAL);
                 return;
             }

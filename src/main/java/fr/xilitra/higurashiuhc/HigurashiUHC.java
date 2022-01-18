@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc;
 
 import fr.xilitra.higurashiuhc.command.CommandsConfig;
 import fr.xilitra.higurashiuhc.command.CommandsListener;
+import fr.xilitra.higurashiuhc.command.CommandsStart;
 import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
@@ -88,6 +89,7 @@ public final class HigurashiUHC extends JavaPlugin {
     private void registerCommands() {
         new CommandsListener();
         new CommandsConfig();
+        new CommandsStart();
         this.getCommand("debug").setExecutor(new DebugCmd());
     }
 

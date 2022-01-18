@@ -1,5 +1,7 @@
 package fr.xilitra.higurashiuhc.game.task;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+
 import java.util.TimerTask;
 
 public abstract class JavaTask extends TimerTask implements Task {
@@ -31,6 +33,7 @@ public abstract class JavaTask extends TimerTask implements Task {
     public boolean runTaskTimer(long l1, long l2) {
         if (running) return false;
         TaskRunner.timer.schedule(this, l1 * 1000L, l2 * 1000L);
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 1, task id: "+getTaskID());
         running = true;
         instant = false;
         return true;
@@ -42,6 +45,7 @@ public abstract class JavaTask extends TimerTask implements Task {
         if (times <= 1)
             return false;
         TaskRunner.timer.schedule(this, l1 * 1000L, l2 * 1000L);
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 2, task id: "+getTaskID());
         running = true;
         restExecute = times;
         instant = false;
@@ -52,6 +56,7 @@ public abstract class JavaTask extends TimerTask implements Task {
     public boolean runTaskLater(long l1) {
         if (running) return false;
         TaskRunner.timer.schedule(this, l1 * 1000L);
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 3, task id: "+getTaskID());
         running = true;
         instant = true;
         return true;
@@ -65,9 +70,6 @@ public abstract class JavaTask extends TimerTask implements Task {
     @Override
     public void run() {
         this.execute();
-
-        if (restExecute < 0)
-            return;
 
         restExecute -= 1;
         if (!instant && restExecute <= 0)

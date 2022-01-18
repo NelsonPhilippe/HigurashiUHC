@@ -1,11 +1,18 @@
 package fr.xilitra.higurashiuhc.player;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class InfoData {
 
     private final Map<String, Object> dataInfos = new HashMap<>();
+    private final HPlayer hPlayer;
+
+    public InfoData(HPlayer hPlayer){
+        this.hPlayer = hPlayer;
+    }
 
     public Map<String, Object> getDataInfos() {
         return dataInfos;
@@ -13,10 +20,12 @@ public class InfoData {
 
     public void setDataInfo(String name, Object object) {
         removeDataInfo(name);
+        HigurashiUHC.getGameManager().log("INFO) Applying special data to player "+hPlayer.getName()+" Data name: "+name+" value: "+object);
         dataInfos.put(name, object);
     }
 
     public void removeDataInfo(String name) {
+        HigurashiUHC.getGameManager().log("INFO) Removing special data to player "+hPlayer.getName()+" Data name: "+name);
         dataInfos.remove(name);
     }
 
@@ -25,7 +34,11 @@ public class InfoData {
     }
 
     public Object getDataInfo(String name) {
-        return dataInfos.get(name);
+        Object info = dataInfos.get(name);
+        if(info != null)
+            HigurashiUHC.getGameManager().log("INFO) Player data: "+hPlayer.getName()+" getted data: "+name+" value: "+info);
+        else HigurashiUHC.getGameManager().log("INFO) Player data: "+hPlayer.getName()+" getted data: "+name+" value: null");
+        return info;
     }
 
     public boolean getBoolean(String name) {
@@ -46,7 +59,7 @@ public class InfoData {
         SPECIAL_ITEM("Item special possédé par le joueur"),
         SEXE("Sexe du joueur");
 
-        String type;
+        final String type;
 
         InfoList(String type) {
             this.type = type;

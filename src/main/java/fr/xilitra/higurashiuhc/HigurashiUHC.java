@@ -49,7 +49,6 @@ public final class HigurashiUHC extends JavaPlugin {
         saveDefaultConfig();
 
         //registry
-        registerEvents();
         registerCommands();
 
         //register custom craft
@@ -61,36 +60,9 @@ public final class HigurashiUHC extends JavaPlugin {
 
     }
 
-    private void registerEvents() {
-
-        //general listener
-        this.getServer().getPluginManager().registerEvents(new InteractListener(), this);
-        this.getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
-        this.getServer().getPluginManager().registerEvents(new BlockPlaceListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PickupListener(), this);
-        this.getServer().getPluginManager().registerEvents(new ConfigListener(), this);
-        this.getServer().getPluginManager().registerEvents(new DamageListener(), this);
-        this.getServer().getPluginManager().registerEvents(new CraftEvent(), this);
-        this.getServer().getPluginManager().registerEvents(new MoveEvent(), this);
-        this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
-        this.getServer().getPluginManager().registerEvents(new MapMenu(), this);
-        this.getServer().getPluginManager().registerEvents(new GameStateChangeListener(), this);
-        for(Role role : Role.values()) {
-            RoleAction roleAction = role.getRoleAction();
-            if (roleAction instanceof Listener) {
-                HigurashiUHC.getGameManager().log("INFO) Registered Role Listener: " + roleAction.getClass().getName());
-                Bukkit.getPluginManager().registerEvents((Listener) roleAction, this);
-            }
-        }
-
-    }
-
     private void registerCommands() {
-        new CommandsListener();
         new CommandsConfig();
         new CommandsStart();
-        this.getCommand("debug").setExecutor(new DebugCmd());
     }
 
     @Override

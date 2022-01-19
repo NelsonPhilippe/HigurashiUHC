@@ -2,21 +2,32 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.CommandsConfig;
+import fr.xilitra.higurashiuhc.command.CommandsListener;
+import fr.xilitra.higurashiuhc.command.CommandsStart;
+import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.config.ConfigGestion;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
+import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
+import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.task.TaskRunner;
 import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
+import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 import javax.annotation.Nullable;
 import java.awt.*;
@@ -128,14 +139,48 @@ public class GameManager {
 
         this.setStates(GameStates.GAME);
 
-        for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values())
-            hPlayer.getRole().addPlayer(hPlayer);
+        registerEvents();
+        registerCommands();
 
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
 
         new GameTask().runTaskTimer(1, 1);
 
+    }
+
+    private void registerEvents() {
+
+        //general listener
+        PluginManager pm = HigurashiUHC.getInstance().getServer().getPluginManager();
+        Plugin plugin = HigurashiUHC.getInstance();
+        pm.registerEvents(new InteractListener(), plugin);
+        pm.registerEvents(new BlockBreakListener(), plugin);
+        pm.registerEvents(new BlockPlaceListener(), plugin);
+        pm.registerEvents(new PickupListener(), plugin);
+        pm.registerEvents(new ConfigListener(), plugin);
+        pm.registerEvents(new DamageListener(), plugin);
+        pm.registerEvents(new CraftEvent(), plugin);
+        pm.registerEvents(new MoveEvent(), plugin);
+        pm.registerEvents(new JoinListener(), plugin);
+        pm.registerEvents(new EpisodeListener(), plugin);
+        pm.registerEvents(new MapMenu(), plugin);
+        pm.registerEvents(new GameStateChangeListener(), plugin);
+        for(Role role : Role.values()) {
+            RoleAction roleAction = role.getRoleAction();
+            if (roleAction instanceof Listener) {
+                HigurashiUHC.getGameManager().log("INFO) Registered Role Listener: " + roleAction.getClass().getName());
+                pm.registerEvents((Listener) roleAction, plugin);
+            }
+        }
+
+    }
+
+    private void registerCommands() {
+        new CommandsListener();
+        new CommandsConfig();
+        new CommandsStart();
+        HigurashiUHC.getInstance().getCommand("debug").setExecutor(new DebugCmd());
     }
 
     public void checkWin(){

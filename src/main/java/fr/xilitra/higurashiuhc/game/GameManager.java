@@ -139,8 +139,8 @@ public class GameManager {
 
         this.setStates(GameStates.GAME);
 
-        registerEvents();
-        registerCommands();
+        registerGameCommands();
+        registerGameEvents();
 
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
@@ -149,7 +149,7 @@ public class GameManager {
 
     }
 
-    private void registerEvents() {
+    private void registerGameEvents() {
 
         //general listener
         PluginManager pm = HigurashiUHC.getInstance().getServer().getPluginManager();
@@ -161,7 +161,6 @@ public class GameManager {
         pm.registerEvents(new DamageListener(), plugin);
         pm.registerEvents(new CraftEvent(), plugin);
         pm.registerEvents(new MoveEvent(), plugin);
-        pm.registerEvents(new JoinListener(), plugin);
         pm.registerEvents(new EpisodeListener(), plugin);
         pm.registerEvents(new MapMenu(), plugin);
         pm.registerEvents(new GameStateChangeListener(), plugin);
@@ -175,10 +174,8 @@ public class GameManager {
 
     }
 
-    private void registerCommands() {
+    private void registerGameCommands() {
         new CommandsListener();
-        new CommandsConfig();
-        new CommandsStart();
         HigurashiUHC.getInstance().getCommand("debug").setExecutor(new DebugCmd());
     }
 
@@ -304,9 +301,16 @@ public class GameManager {
         this.log("Searching for player with state: "+ Arrays.toString(playerState));
         List<HPlayer> playerList = new ArrayList<>();
 
-        for (HPlayer player : this.players.values())
-            if (player.getPlayerState().isState(playerState))
+        int i = 0;
+
+        for (HPlayer player : this.players.values()) {
+            i++;
+            log("Player 1 -> "+player.getPlayerState());
+            if (player.getPlayerState().isState(playerState)) {
+
                 playerList.add(player);
+            }
+        }
 
         return playerList;
 

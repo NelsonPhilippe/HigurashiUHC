@@ -49,6 +49,7 @@ public final class HigurashiUHC extends JavaPlugin {
         saveDefaultConfig();
 
         //registry
+        registerEvents();
         registerCommands();
 
         //register custom craft
@@ -63,6 +64,11 @@ public final class HigurashiUHC extends JavaPlugin {
     private void registerCommands() {
         new CommandsConfig();
         new CommandsStart();
+    }
+
+    private void registerEvents(){
+        this.getServer().getPluginManager().registerEvents(new JoinListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerLeaveEvent(), this);
     }
 
     @Override

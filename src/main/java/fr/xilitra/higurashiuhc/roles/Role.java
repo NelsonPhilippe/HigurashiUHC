@@ -168,6 +168,8 @@ public enum Role {
     }
 
     public HPlayer getHPlayer() {
+        if(players.isEmpty())
+            return null;
         return players.get(0);
     }
 

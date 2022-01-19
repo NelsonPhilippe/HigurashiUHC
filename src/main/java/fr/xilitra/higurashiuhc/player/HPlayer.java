@@ -26,7 +26,7 @@ public class HPlayer {
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
     private final InfoData infoData;
-    private Role role = null;
+    private Role role = Role.NULL;
     private Role roleKiller = null;
     private Entity killer = null;
     private boolean playerDontMove = false;
@@ -71,6 +71,8 @@ public class HPlayer {
     public void setRole(Role role, boolean clansFollow) {
         if (this.role != null)
             this.role.removePlayer(this);
+        if(role == null)
+            role = Role.NULL;
         if(this.role == null)
             HigurashiUHC.getGameManager().log(getName() + ") Role changed null -> " + role.getName());
         else HigurashiUHC.getGameManager().log(getName() + ") Role changed " + this.role.getName() +" -> " + role.getName());

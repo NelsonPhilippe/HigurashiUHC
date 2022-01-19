@@ -21,7 +21,6 @@ import fr.xilitra.higurashiuhc.roles.police.KumagaiAction;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 import fr.xilitra.higurashiuhc.roles.police.PolicierRoleAction;
 import org.bukkit.Bukkit;
-import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,7 +117,9 @@ public enum Role {
         put(Commands.LIST, -1);
     }}),
 
-    JIRO_TOMITAKE("Jiro Tomitake", Gender.HOMME, Clans.NEUTRE, 1, new JiroTomitakeAction(), null);
+    JIRO_TOMITAKE("Jiro Tomitake", Gender.HOMME, Clans.NEUTRE, 1, new JiroTomitakeAction(), null),
+
+    NULL("NULL", Gender.NON_GENRE, Clans.NEUTRE, 1, new RikaFurudeAction(), null);
 
     private final String name;
     private final Gender sexe;

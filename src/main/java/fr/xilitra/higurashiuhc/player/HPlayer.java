@@ -81,8 +81,8 @@ public class HPlayer {
             this.role.getDefaultClans().addPlayer(this);
         this.commandsIntegerHashMap = this.role.getDefaultCommands();
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
-        if (HigurashiUHC.getGameManager().getStates() == GameStates.START || HigurashiUHC.getGameManager().getStates() == GameStates.GAME)
-            role.addPlayer(this);
+        role.addPlayer(this);
+        this.setPlayerState(PlayerState.INGAME);
     }
 
     public Runnable getDeathTask() {

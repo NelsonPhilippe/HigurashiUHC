@@ -119,7 +119,6 @@ public class GameManager {
             player.sendMessage(role.getRoleAction().getDescription());
 
             players.replace(hPlayer.getUUID(), hPlayer);
-            hPlayer.setPlayerState(PlayerState.INGAME);
 
             player.playSound(player.getLocation(), sound, 1, 1);
 

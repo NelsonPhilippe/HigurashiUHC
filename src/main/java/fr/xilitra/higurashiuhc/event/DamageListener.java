@@ -137,8 +137,14 @@ public class DamageListener implements Listener {
             if (killerHplayer != null) {
                 killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
 
+                int kill;
+                String value = (String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name());
+                if(value == null)
+                    kill = 0;
+                else kill = Integer.parseInt(value);
+
                 killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
-                        String.valueOf(Integer.parseInt((String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name())) + 1));
+                        String.valueOf(kill + 1));
             }
 
         }

@@ -2,10 +2,8 @@ package fr.xilitra.higurashiuhc.scenario;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
-import fr.xilitra.higurashiuhc.item.ItemConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +30,11 @@ public enum ScenarioList {
         return sl;
     }
 
-    public static ScenarioList getActiveScenario() {
-        for (ScenarioList s : values())
-            if (s.isActive())
-                return s;
-        return null;
-    }
-
     public static ScenarioList activateScenario() {
 
         List<ScenarioList> sla = getActiveScenarioList();
-        if (sla.size() <= 1) {
-            return sla.get(0);
+        if (sla.isEmpty()) {
+            return null;
         }
 
         Random rand = new Random();

@@ -1,9 +1,9 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 
-public class PolicierTask extends JavaTask {
+public class PolicierTask extends BukkitTask {
 
     private final HPlayer hPlayer;
     private int time = 10 * 60;

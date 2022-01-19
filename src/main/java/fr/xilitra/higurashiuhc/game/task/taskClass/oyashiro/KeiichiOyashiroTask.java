@@ -1,10 +1,10 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 
-public class KeiichiOyashiroTask extends JavaTask {
+public class KeiichiOyashiroTask extends BukkitTask {
 
     @Override
     public void execute() {

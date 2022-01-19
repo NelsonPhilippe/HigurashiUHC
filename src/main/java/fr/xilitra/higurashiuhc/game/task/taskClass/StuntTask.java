@@ -1,10 +1,10 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 
-public class StuntTask extends JavaTask {
+public class StuntTask extends BukkitTask {
 
     private final HPlayer player;
     private int time = HigurashiUHC.getInstance().getConfig().getInt("role.akasaka.stunt");

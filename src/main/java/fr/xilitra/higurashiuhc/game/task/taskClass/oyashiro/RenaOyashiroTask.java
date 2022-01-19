@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.KeiichiMaebaraAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
@@ -8,7 +8,7 @@ import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.MathMain;
 
-public class RenaOyashiroTask extends JavaTask {
+public class RenaOyashiroTask extends BukkitTask {
 
     @Override
     public void execute() {

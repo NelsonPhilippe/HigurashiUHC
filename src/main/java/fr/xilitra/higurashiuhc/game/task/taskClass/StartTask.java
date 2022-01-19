@@ -1,7 +1,7 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.JavaTask;
+import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
@@ -10,7 +10,7 @@ import org.bukkit.ChatColor;
 import java.util.Map;
 import java.util.UUID;
 
-public class StartTask extends JavaTask {
+public class StartTask extends BukkitTask {
 
     private int time = 10;
 

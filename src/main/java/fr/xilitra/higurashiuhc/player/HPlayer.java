@@ -87,6 +87,10 @@ public class HPlayer {
         getInfoData().setDataInfo(InfoData.InfoList.SEXE.name(), role.getSexe().name());
         role.addPlayer(this);
         this.setPlayerState(PlayerState.INGAME);
+
+        TitlePacket.send(player, 2, 5, 2, role.getName(), "");
+        player.sendMessage(role.getRoleAction().getDescription());
+
     }
 
     public Runnable getDeathTask() {

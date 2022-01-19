@@ -106,14 +106,10 @@ public class GameManager {
             int number = new Random().nextInt(roles.size());
 
             Role role = roles.get(number);
-            this.log("INFO) "+i+" Role picked up: "+role.getName());
             roles.remove(role);
 
 
             hPlayer.setRole(role, true);
-            TitlePacket.send(player, 2, 5, 2, role.getName(), "");
-            player.sendMessage(role.getRoleAction().getDescription());
-
             player.playSound(player.getLocation(), sound, 1, 1);
 
         }
@@ -169,7 +165,6 @@ public class GameManager {
 
     private void registerGameCommands() {
         new CommandsListener();
-        HigurashiUHC.getInstance().getCommand("debug").setExecutor(new DebugCmd());
     }
 
     public void checkWin(){

@@ -64,6 +64,7 @@ public final class HigurashiUHC extends JavaPlugin {
     private void registerCommands() {
         new CommandsConfig();
         new CommandsStart();
+        HigurashiUHC.getInstance().getCommand("debug").setExecutor(new DebugCmd());
     }
 
     private void registerEvents(){

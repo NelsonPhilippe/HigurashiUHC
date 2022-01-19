@@ -109,16 +109,10 @@ public class GameManager {
             this.log("INFO) "+i+" Role picked up: "+role.getName());
             roles.remove(role);
 
-            if (role.isRole(Role.JIRO_TOMITAKE)) {
-                role = Role.MERCENAIRE;
-                hPlayer.getInfoData().setDataInfo("hiddenJiro", true);
-            }
 
             hPlayer.setRole(role, true);
             TitlePacket.send(player, 2, 5, 2, role.getName(), "");
             player.sendMessage(role.getRoleAction().getDescription());
-
-            players.replace(hPlayer.getUUID(), hPlayer);
 
             player.playSound(player.getLocation(), sound, 1, 1);
 

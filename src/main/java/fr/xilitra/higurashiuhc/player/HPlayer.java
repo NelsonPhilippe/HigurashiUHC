@@ -73,6 +73,10 @@ public class HPlayer {
             this.role.removePlayer(this);
         if(role == null)
             role = Role.NULL;
+        if (role.isRole(Role.JIRO_TOMITAKE) && HigurashiUHC.getGameManager().getStates() != GameStates.GAME) {
+            role = Role.MERCENAIRE;
+            this.getInfoData().setDataInfo("hiddenJiro", true);
+        }
         if(this.role == null)
             HigurashiUHC.getGameManager().log(getName() + ") Role changed null -> " + role.getName());
         else HigurashiUHC.getGameManager().log(getName() + ") Role changed " + this.role.getName() +" -> " + role.getName());

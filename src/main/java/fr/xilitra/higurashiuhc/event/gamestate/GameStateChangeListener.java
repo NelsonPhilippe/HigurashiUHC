@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.event.gamestate;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -13,6 +14,8 @@ public class GameStateChangeListener implements Listener {
 
     @EventHandler
     public void onStateChange(GameStateChangeEvent gsce) {
+
+        HigurashiUHC.getGameManager().log("Debug) executed event: "+gsce.getEventName());
 
         if (gsce.getNewGameState() != GameStates.GAME)
             return;

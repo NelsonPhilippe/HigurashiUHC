@@ -25,22 +25,9 @@ public class MoveEvent implements Listener {
 
         HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
 
-        HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
-
         //if(HigurashiUHC.getGameManager().getStates() != GameStates.GAME) return;
 
         if (hPlayer == null || hPlayer.getRole() == null) return;
-
-        if (rika != null && rika.getPlayer() != null)
-            for (Role role : Clans.MEMBER_OF_CLUB.getRoleList()) {
-                if (role.getName().equals(hPlayer.getRole().getName())) {
-                    if (p.getLocation().distanceSquared(rika.getPlayer().getLocation()) < 20 * 20) {
-                        if (rika.getPlayer().getGameMode() != GameMode.SPECTATOR) {
-                            p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1, false));
-                        }
-                    }
-                }
-            }
 
         if (hPlayer.getDeathTask() instanceof DeathTask) {
             if (((DeathTask) hPlayer.getDeathTask()).isRunning()) {

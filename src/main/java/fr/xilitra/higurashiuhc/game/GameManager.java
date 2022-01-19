@@ -158,7 +158,6 @@ public class GameManager {
         pm.registerEvents(new BlockBreakListener(), plugin);
         pm.registerEvents(new BlockPlaceListener(), plugin);
         pm.registerEvents(new PickupListener(), plugin);
-        pm.registerEvents(new ConfigListener(), plugin);
         pm.registerEvents(new DamageListener(), plugin);
         pm.registerEvents(new CraftEvent(), plugin);
         pm.registerEvents(new MoveEvent(), plugin);

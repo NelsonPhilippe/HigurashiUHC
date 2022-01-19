@@ -43,7 +43,7 @@ public class ItemBuilder {
         item.setItemMeta(meta);
 
         if (enchant) {
-            item = addGlow(item);
+            addGlow(item);
         }
 
         this.stack = item;

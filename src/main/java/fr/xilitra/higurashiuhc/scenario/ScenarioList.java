@@ -12,17 +12,15 @@ import java.util.List;
 import java.util.Random;
 
 public enum ScenarioList {
-    DOLL(new Doll(), ItemConfig.DOLL.getItem(), ConfigLocation.SCENARIO_DOLL),
-    MISTREATMENT(new Mistreatment(), null, ConfigLocation.SCENARIO_MISTREATMENT),
-    OYASHIRO(new Oyashiro(), null, ConfigLocation.SCENARIO_OYASHIRO);
+    DOLL(new Doll(), ConfigLocation.SCENARIO_DOLL),
+    MISTREATMENT(new Mistreatment(), ConfigLocation.SCENARIO_MISTREATMENT),
+    OYASHIRO(new Oyashiro(), ConfigLocation.SCENARIO_OYASHIRO);
 
     final Scenario scenario;
-    final ItemStack item;
     final ConfigLocation configLocation;
 
-    ScenarioList(Scenario scenario, ItemStack item, ConfigLocation configLocation) {
+    ScenarioList(Scenario scenario, ConfigLocation configLocation) {
         this.scenario = scenario;
-        this.item = item;
         this.configLocation = configLocation;
     }
 
@@ -67,10 +65,6 @@ public enum ScenarioList {
 
     public Scenario getScenario() {
         return scenario;
-    }
-
-    public ItemStack getItem() {
-        return item;
     }
 
     public boolean isActive() {

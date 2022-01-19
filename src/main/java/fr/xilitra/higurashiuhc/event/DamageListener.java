@@ -41,67 +41,31 @@ import java.util.Random;
 
 public class DamageListener implements Listener {
 
-    public static void playDeath(HPlayer hPlayer, DeathReason deathReason) {
+    public static void playDeath(HPlayer victim, DeathReason deathReason) {
 
-        if (hPlayer == null) return;
+        if (victim == null) return;
 
-        if (hPlayer.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
+        if (victim.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
             return;
 
-        Player p = hPlayer.getPlayer();
+        Player victimPlayer = victim.getPlayer();
 
-        if (p == null) return;
+        if (victimPlayer == null) return;
 
-        p.setGameMode(GameMode.SPECTATOR);
-        hPlayer.setPlayerState(PlayerState.WAITING_DEATH);
+        victim.setPlayerState(PlayerState.WAITING_DEATH);
 
-        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
-        if (hPlayer.getClans() != null)
-            hPlayer.getClans().removePlayer(hPlayer);
+        ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(victim);
 
-        Entity killer = hPlayer.getKiller();
-        if (killer instanceof Player) {
+        Entity killer = victim.getKiller();
 
-            Clans clans = Clans.getClans(hPlayer);
-            if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
+        victim.getRole().getRoleAction().onDeath(victim, deathReason);
 
-                ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
-                ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+        if(victim.getPlayerState() != PlayerState.WAITING_DEATH)
+            return;
 
-                List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
-                boolean allKilledBY = true;
+        victimPlayer.setGameMode(GameMode.SPECTATOR);
 
-                for (HPlayer hPlayer1 : playerInClan) {
-                    if (hPlayer1.getKiller() != killer) {
-                        allKilledBY = false;
-                        break;
-                    }
-                }
-
-                if (allKilledBY)
-                    ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
-
-            }
-
-        }
-
-        if (hPlayer.getRole().isRole(Role.SATOKO_HOJO, Role.KEIICHI_MAEBARA, Role.MION_SONOZAKI, Role.SHION_SONOSAKI, Role.RENA_RYUGU)) {
-
-            TextComponent textClick = new TextComponent(ChatColor.DARK_PURPLE + "[ressuciter]");
-            TextComponent text = new TextComponent(hPlayer.getRole().getName() + " vien de mourrir ");
-
-            text.addExtra(textClick);
-
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r " + hPlayer.getName()));
-
-            HPlayer hpr = Role.RIKA_FURUDE.getHPlayer();
-
-            if (hpr != null && hpr.hasCommandAccess(Commands.RESSUCITE) && hpr.getPlayerState() == PlayerState.INGAME && hpr.getPlayer() != null)
-                hpr.getPlayer().spigot().sendMessage(text);
-
-        }
-
-        if (Clans.MERCENAIRE.hisInClans(hPlayer, false)) {
+        if (Clans.MERCENAIRE.hisInClans(victim, false)) {
 
             int random = new Random().nextInt(HigurashiUHC.getGameManager().getHPlayerList().size()) - 1;
 
@@ -114,11 +78,11 @@ public class DamageListener implements Listener {
 
         }
 
-        if (hPlayer.hisMarried()) {
+        if (victim.hisMarried()) {
 
-            for (HPlayer married : hPlayer.getMarriedPlayerList()) {
+            for (HPlayer married : victim.getMarriedPlayerList()) {
 
-                LinkData linkData = hPlayer.getLinkData(married);
+                LinkData linkData = victim.getLinkData(married);
                 Reason mariedReason = linkData.getMariedLinkReason();
 
                 if (mariedReason.isReason(Reason.DOLL_TRAGEDY)) {
@@ -135,7 +99,7 @@ public class DamageListener implements Listener {
             HPlayer killerHplayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
 
             if (killerHplayer != null) {
-                killerHplayer.getRole().getRoleAction().onKill(killerHplayer, hPlayer, deathReason);
+                killerHplayer.getRole().getRoleAction().onKill(killerHplayer, victim, deathReason);
 
                 int kill;
                 String value = (String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name());
@@ -145,28 +109,51 @@ public class DamageListener implements Listener {
 
                 killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
                         String.valueOf(kill + 1));
+
+                Clans clans = Clans.getClans(victim);
+                if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
+
+                    ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
+                    ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+
+                    List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
+                    boolean allKilledBY = true;
+
+                    for (HPlayer hPlayer1 : playerInClan) {
+                        if (hPlayer1.getKiller() != killer) {
+                            allKilledBY = false;
+                            break;
+                        }
+                    }
+
+                    if (allKilledBY)
+                        ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
+
+                }
+
             }
 
         }
 
-        hPlayer.getRole().getRoleAction().onDeath(hPlayer, deathReason);
+        if (victim.getClans() != null)
+            victim.getClans().removePlayer(victim);
 
         if(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
             Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o'" + hPlayer.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + hPlayer.getRole().getName() + "'.\n" +
+                "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + victim.getRole().getName() + "'.\n" +
                 "§5---------------------------------------------------------");
         else Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o'" + hPlayer.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
+                "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
                 "§5---------------------------------------------------------");
 
-        if(hPlayer.getRole().isRole(Role.RIKA_FURUDE))
+        if(victim.getRole().isRole(Role.RIKA_FURUDE))
             Bukkit.broadcastMessage("§1✖ §5Rika est morte §1✖\n" +
                     "\n" +
                     "§5Il reste plus que 2 jours à compter de maintenant pour que le village d'§9Hinamizawa §5remporte la partie. ");
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONDEATH));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
-        hPlayer.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
+        victim.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
         if (deathReason != DeathReason.DEATH_LINKED)
             HigurashiUHC.getGameManager().checkWin();

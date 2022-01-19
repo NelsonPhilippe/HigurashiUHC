@@ -229,19 +229,23 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
                 rikaFurudeAction.remove1Live();
 
-                if (rikaFurudeAction.getLives() == 2) {
-                    killed.getPlayer().setMaxHealth(16);
-                    killed.getPlayer().setHealth(16);
-                }
+                if (rikaFurudeAction.getLives() >= 1) {
+                    if(rikaFurudeAction.getLives() >= 2) {
+                        killed.getPlayer().setMaxHealth(16);
+                        killed.getPlayer().setHealth(16);
+                        for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                            HideNametag.hide(killed.getPlayer(), players.getPlayer());
+                        }
+                    }else{
+                        killed.getPlayer().setMaxHealth(10);
+                        killed.getPlayer().setHealth(10);
 
-                if (rikaFurudeAction.getLives() == 1) {
-
-                    killed.getPlayer().setMaxHealth(10);
-                    killed.getPlayer().setHealth(10);
-
-                    for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                        HideNametag.unhide(killed.getPlayer(), players.getPlayer());
+                        for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                            HideNametag.unhide(killed.getPlayer(), players.getPlayer());
+                        }
                     }
+                    killed.setPlayerState(PlayerState.INGAME);
+                    player.setGameMode(GameMode.SURVIVAL);
                 }
 
                 if (rikaFurudeAction.getLives() == 0) {

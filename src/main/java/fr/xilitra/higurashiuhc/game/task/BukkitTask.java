@@ -7,7 +7,6 @@ public abstract class BukkitTask implements Task, Runnable {
 
     private final int taskID;
     org.bukkit.scheduler.BukkitTask bukkitTask = null;
-    boolean instant = false;
     private int restExecute = -1;
 
     public BukkitTask() {
@@ -21,8 +20,8 @@ public abstract class BukkitTask implements Task, Runnable {
         if (bukkitTask == null)
             return false;
 
-        Bukkit.getScheduler().cancelTask(getBukkitTaskID());
-        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" stoppé, bukkit id: "+getBukkitTaskID());
+        Bukkit.getScheduler().cancelTask(bukkitTask.getTaskId());
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" stoppé, id: "+getTaskID());
         restExecute = -1;
         bukkitTask = null;
         return true;
@@ -33,9 +32,9 @@ public abstract class BukkitTask implements Task, Runnable {
         if (isRunning())
             return false;
 
-        instant = false;
+        restExecute = -1;
         bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, l1 * 20, l2 * 20);
-        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 2, bukkit id: "+getBukkitTaskID());
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 2, bukkit id: "+getTaskID());
         return true;
     }
 
@@ -47,10 +46,9 @@ public abstract class BukkitTask implements Task, Runnable {
         if (times <= 1)
             return false;
 
-        instant = false;
         restExecute = times;
         bukkitTask = Bukkit.getScheduler().runTaskTimer(HigurashiUHC.getInstance(), this, l1 * 20, l2 * 20);
-        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 3, bukkit id: "+getBukkitTaskID());
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 3, bukkit id: "+getTaskID());
         return true;
     }
 
@@ -59,9 +57,9 @@ public abstract class BukkitTask implements Task, Runnable {
         if (isRunning())
             return false;
 
-        instant = true;
+        restExecute = -1;
         bukkitTask = Bukkit.getScheduler().runTaskLater(HigurashiUHC.getInstance(), this, l1 * 20);
-        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 4, bukkit id: "+getBukkitTaskID());
+        HigurashiUHC.getGameManager().log("Task: "+getClass().getName()+" lancé, cas 4, id: "+getTaskID());
         return true;
     }
 
@@ -75,22 +73,15 @@ public abstract class BukkitTask implements Task, Runnable {
         return taskID;
     }
 
-    public Integer getBukkitTaskID() {
-
-        if (bukkitTask != null)
-            return bukkitTask.getTaskId();
-
-        return null;
-
-    }
-
     @Override
     public void run() {
         this.execute();
 
-        restExecute -= 1;
-        if (!instant && restExecute <= 0)
-            stopTask();
+        if(restExecute != -1){
+            restExecute --;
+            if(restExecute == 0)
+                this.stopTask();
+        }
     }
 
     public abstract void execute();

@@ -141,8 +141,6 @@ public enum Role {
         this.defaultCommand = authoriseCommand;
         if(clans.getMajorClans().isClans(Clans.HINAMIZAWA))
             this.defaultCommand.put(Commands.VOTE, 1);
-        if (roleAction instanceof Listener)
-            Bukkit.getPluginManager().registerEvents((Listener) roleAction, HigurashiUHC.getInstance());
     }
 
     public static Role getRole(String role) {

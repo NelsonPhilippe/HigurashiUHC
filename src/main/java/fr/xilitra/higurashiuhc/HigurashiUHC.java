@@ -8,12 +8,15 @@ import fr.xilitra.higurashiuhc.event.*;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
 import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
+import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import me.lulu.datounms.model.biome.BiomeData;
 import me.lulu.datounms.v1_8_R3.BiomeReplacer;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -73,6 +76,13 @@ public final class HigurashiUHC extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EpisodeListener(), this);
         this.getServer().getPluginManager().registerEvents(new MapMenu(), this);
         this.getServer().getPluginManager().registerEvents(new GameStateChangeListener(), this);
+        for(Role role : Role.values()) {
+            RoleAction roleAction = role.getRoleAction();
+            if (roleAction instanceof Listener) {
+                HigurashiUHC.getGameManager().log("INFO) Registered Role Listener: " + roleAction.getClass().getName());
+                Bukkit.getPluginManager().registerEvents((Listener) roleAction, this);
+            }
+        }
 
     }
 

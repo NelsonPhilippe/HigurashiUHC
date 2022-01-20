@@ -40,12 +40,6 @@ public class MionSonozakiAction implements RoleAction, Listener {
 
     @EventHandler
     public void onRoleSelected(RoleSelected e) {
-        HPlayer player = e.getPlayer();
-
-        if (player.getPlayer() != null && player.getRole().isRole(Role.MION_SONOZAKI)) {
-            player.getPlayer().setMaxHealth(24);
-            player.getPlayer().setHealth(24);
-        }
     }
 
     @Override
@@ -134,7 +128,7 @@ public class MionSonozakiAction implements RoleAction, Listener {
         Player player = hPlayer.getPlayer();
         if (player == null)
             return;
-        player.setMaxHealth(22);
+        player.setMaxHealth(24);
     }
 
     @Override

@@ -166,7 +166,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
         Player player = hPlayer.getPlayer();
         if (player == null)
             return;
-        player.setMaxHealth(22);
+        player.setMaxHealth(24);
     }
 
     @Override

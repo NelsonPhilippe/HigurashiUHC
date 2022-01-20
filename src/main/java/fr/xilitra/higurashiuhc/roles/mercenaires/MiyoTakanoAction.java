@@ -9,9 +9,12 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+import java.util.List;
 
 public class MiyoTakanoAction implements RoleAction, Listener {
 
@@ -57,6 +60,22 @@ public class MiyoTakanoAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
+
+        HPlayer takano = Role.MIYO_TAKANO.getHPlayer();
+        if(takano == null)
+            return;
+        Player player = takano.getPlayer();
+        if(player == null)
+            return;
+        List<HPlayer> mercenaire = Role.MERCENAIRE.getHPlayerList();
+        if(mercenaire.isEmpty())
+            player.sendMessage(ChatColor.RED+"Il n'y a aucun mercenaire dans la partie");
+        else {
+            player.sendMessage("§4Liste des mercenaires:");
+            for(HPlayer mercenairePlayer : mercenaire){
+                player.sendMessage("§f- §c"+mercenairePlayer.getName());
+            }
+        }
 
     }
 

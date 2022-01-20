@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -28,7 +29,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
         return "§6Vous êtes §9Rena Ryugu (fille) :\n" +
                 "\n" +
                 "§9Rena§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du §bClub§6." +
-                "§9Rena§6 peut utiliser une fois dans la partie la commande §5'/h pense <joueur>'§6." +
+                "§9Rena§6 peut utiliser une fois dans la partie la commande §5'/h "+ Commands.PENSE.getInitials() +" <joueur>'§6." +
                 "§6Cette commande lui permettra de savoir si le joueur affecté inflige des dégâts à un autre joueur en temps réel." +
                 "§6De plus, si elle tue la personne atteinte de la malédiction, elle gagne l’effet speed permanent. ";
     }
@@ -89,7 +90,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
 
         TextComponent textComponent = new TextComponent("§cRena §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
-        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h r "+killed.getName()));
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h "+Commands.RESSUCITE.getInitials()+" "+killed.getName()));
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §cRena §7ressuscitera mais vous perdrez une de vos vies. "));
 
@@ -132,7 +133,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
         if(rena == null)
             return;
 
-        rena.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5'/h paranoia' §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
+        rena.sendMessage("§7Vous pouvez faire en sorte que §9Keiichi §7soit également atteint de la malédiction, pour cela vous possédez la commande §5'/h "+Commands.PARANO.getInitials()+"' §7à n’importe qu’elle moment ce qui fera monter considérablement la jauge de §9Keiichi§7. \n" +
                 "§4§lATTENTION, §7vous aussi possédez une jauge et si celle-ci tombe à 0, vous ne serez plus atteint de la malédiction. ");
 
     }

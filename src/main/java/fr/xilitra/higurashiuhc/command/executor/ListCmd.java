@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.game.task.taskClass.ChatTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -20,7 +21,7 @@ public class ListCmd extends CommandsExecutor {
 
             Player target = Bukkit.getPlayer(strings[1]);
 
-            if (target == null) return true;
+            if (target == null) return false;
 
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
             if (hPlayerTarget == null) {
@@ -30,13 +31,13 @@ public class ListCmd extends CommandsExecutor {
 
             if (hPlayerTarget.isChatOkonogi()) {
                 p.sendMessage("Le joueur est déjà dans le chat");
-                return true;
+                return false;
             }
 
             new ChatTask(hPlayerTarget).runTaskTimer(1, 1);
 
             return true;
-        }else p.sendMessage("Merci de faire /h list (joueur)");
+        }else p.sendMessage("Merci de faire /h "+ Commands.LIST.getInitials() +" (joueur)");
         return false;
     }
 }

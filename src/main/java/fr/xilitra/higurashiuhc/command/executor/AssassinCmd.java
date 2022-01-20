@@ -20,14 +20,16 @@ public class AssassinCmd extends CommandsExecutor {
             HPlayer targetHPlayerMercenaire = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
             HPlayer targetHPlayerVictim = HigurashiUHC.getGameManager().getHPlayer(strings[2]);
 
-            if (targetHPlayerVictim == null) return true;
+            if (targetHPlayerVictim == null) return false;
 
-            if (targetHPlayerMercenaire == null) return true;
+            if (targetHPlayerMercenaire == null) return false;
 
             if (targetHPlayerMercenaire.getRole().isRole(Role.MERCENAIRE)) {
 
                 MercenaireAction roleTemplate = (MercenaireAction) targetHPlayerMercenaire.getRole().getRoleAction();
                 roleTemplate.setCible(targetHPlayerVictim);
+
+                p.sendMessage("Tu as bien donné la mission");
 
                 return true;
 

@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.task.taskClass.KiichiroTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -26,7 +27,7 @@ public class KiichiroKimiyoshiAction implements RoleAction {
         return "§6Vous êtes §9Kiichiro Kimiyoshi (garçon) : \n" +
                 "\n" +
                 "§9Kimiyoshi doit gagner avec §9Hinamizawa. \n" +
-                "§6Avec la commande §5'/h heal <joueur>' il pourra régénérer 2 cœurs à un joueur en échange d’un de ses cœurs qu’il perdra de manière définitive.\n" +
+                "§6Avec la commande §5'/h "+ Commands.HEAL.getInitials() +" <joueur>' il pourra régénérer 2 cœurs à un joueur en échange d’un de ses cœurs qu’il perdra de manière définitive.\n" +
                 "§6Lorsqu’il lui restera un cœur, il ne pourra plus utiliser son pouvoir. \n" +
                 "§9Kimiyoshi §6verra également la vie au-dessus de la tête d’un joueur aléatoire dans la partie. \n" +
                 "\n" +

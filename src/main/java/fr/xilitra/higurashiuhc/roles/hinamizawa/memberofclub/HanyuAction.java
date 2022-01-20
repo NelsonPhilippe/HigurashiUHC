@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.task.taskClass.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -40,10 +41,9 @@ public class HanyuAction implements RoleAction, Listener {
                 "§9Hanyu§6 doit gagner avec §9Hinamizawa tout en faisant partie du §bClub§6." +
                 "§6Elle connaît l’identité de §9Rika§6 et lorsqu’elle se situe dans un rayon de 30 blocs de ce rôle, §9Hanyu§6 devient totalement invisible même avec son armure équipée." +
                 "§6Cependant, si un joueur inflige des dégâts à §9Hanyu§6 lorsqu’elle est invisible, elle sera visible aux yeux de tous pendant 1 minute avant de pouvoir redevenir invisible." +
-                "§9Hanyu§6 peut se téléporter avec §9Rika§6 dans la dimension avec la commande §5'/h dimension'§6 une seule fois dans la partie." +
+                "§9Hanyu§6 peut se téléporter avec §9Rika§6 dans la dimension avec la commande §5'/h "+ Commands.DIMENSION.getInitials() +"'§6 une seule fois dans la partie." +
                 "De plus, lorsque §9Rika§6 perd une vie, dans un intervalle de 10 secondes, Hanyu peut décider de se téléporter avec §9Rika§6 dans la dimension.\n" +
-                "\n" +
-                "§9Rika§6 est §7'joueur'.";
+                "\n";
     }
 
     @EventHandler
@@ -141,7 +141,7 @@ public class HanyuAction implements RoleAction, Listener {
         HPlayer hanyu = this.getLinkedRole().getHPlayer();
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if (hanyu != null && rika != null && hanyu.getPlayer() != null) {
-            hanyu.getPlayer().sendMessage("Rika est incarnée par: " + rika.getName());
+            hanyu.getPlayer().sendMessage("§9Rika§6 est §7'"+rika.getName()+"'.");
         }
 
     }

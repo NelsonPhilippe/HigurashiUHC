@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -19,7 +20,7 @@ public class RessuciteCmd extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         if (args.length != 2) {
-            p.sendMessage(ChatColor.RED + "Commande invalide, merci de faire /h r (Joueur)");
+            p.sendMessage(ChatColor.RED + "Commande invalide, merci de faire /h "+ Commands.RESSUCITE.getInitials() +" (Joueur)");
             return false;
         }
 

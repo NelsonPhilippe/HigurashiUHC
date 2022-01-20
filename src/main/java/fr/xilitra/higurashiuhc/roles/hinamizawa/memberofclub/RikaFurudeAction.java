@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
@@ -28,6 +29,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import javax.smartcardio.CommandAPDU;
 
 public class RikaFurudeAction implements RoleAction, Listener {
 
@@ -283,7 +286,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
             TextComponent message = new TextComponent("Voulez vous teleporter Rika dans la dimension : ");
             message.addExtra(textClick);
 
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h dimension rika"));
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h "+ Commands.DIMENSION.getInitials() +" rika"));
 
         }
 

@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.police;
 
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -30,7 +31,8 @@ public class KuraudoOishiAction implements RoleAction, Listener {
         return "§6Vous êtes §eKuraudo Oishi (garçon) : \n" +
                 "\n" +
                 "§eOishi §6doit gagner avec §9Hinamizawa §6et fait partie du camp de la §epolice. \n" +
-                "§eOishi §6a la particularité de suspecter un joueur avec la commande §5'/h suspecter <joueur>' §63 fois dans la partie. \n" +
+                "§eOishi §6a la particularité de suspecter un joueur avec la commande §5'/h "+ Commands.SUSPECTER.getInitials()+
+        " <joueur>' §63 fois dans la partie. \n" +
                 "§6Lorsqu'il utilise une fois sa commande, §eOishi §6sera connu de tout le monde. \n" +
                 "§6Dès que le joueur est suspecté, §eOishi §6aura des informations aléatoirement concernant le joueur pendant 5 minutes, il pourra avoir accès à minimum 2 infos et max 5 infos. \n" +
                 "§6Une fois le délai des 5 minutes terminés, il pourra choisir si oui ou non le joueur est coupable. \n" +

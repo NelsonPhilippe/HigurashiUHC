@@ -28,9 +28,9 @@ public enum Commands {
     EFFET_CLEAR("effetclear", new EffectClearCMD(), false),
     COUPABLE("c", new CoupableCmd(), false);
 
-    String initials;
-    CommandsExecutor commandsExecutor;
-    boolean canStole;
+    final String initials;
+    final CommandsExecutor commandsExecutor;
+    final boolean canStole;
 
     Commands(String initials, CommandsExecutor ce, boolean canStole) {
         this.initials = initials;

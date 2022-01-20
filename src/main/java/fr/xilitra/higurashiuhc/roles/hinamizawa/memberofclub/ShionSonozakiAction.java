@@ -1,6 +1,7 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
@@ -141,7 +142,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
 
         TextComponent textComponent = new TextComponent("§aShion §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
-        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h r "+killed.getName()));
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h "+ Commands.RESSUCITE.getInitials() +" "+killed.getName()));
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §aShion §7ressuscitera mais vous perdrez une de vos vies. "));
 

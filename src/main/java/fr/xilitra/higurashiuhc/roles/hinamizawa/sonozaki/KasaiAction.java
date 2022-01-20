@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
@@ -29,9 +30,7 @@ public class KasaiAction implements RoleAction {
                 "\n" +
                 "§3Kasai§6 doit gagner avec §9Hinamizawa§6 tout en faisant partie du clan §3Sonozaki§6." +
                 "§6Si §9Shion§6 meurt, il connaîtra le rôle du joueur qui l’aura tué." +
-                "§3Kasai§6 peut utiliser la commande §5'/h force' ce qui lui donne l’effet force pendant 5 minutes qu’une fois dans la partie.\n" +
-                "\n" +
-                "Shion§6 est §7'joueur'.";
+                "§3Kasai§6 peut utiliser la commande §5'/h "+ Commands.FORCE.getInitials() +"' ce qui lui donne l’effet force pendant 5 minutes qu’une fois dans la partie.";
     }
 
     @Override
@@ -60,7 +59,7 @@ public class KasaiAction implements RoleAction {
         HPlayer shion = Role.SHION_SONOSAKI.getHPlayer();
 
         if (kasai != null && kasai.getPlayer() != null && shion != null)
-            kasai.getPlayer().sendMessage("Shion est joué par: " + shion.getName());
+            kasai.getPlayer().sendMessage("Shion§6 est §7'"+shion.getName()+"'." + shion.getName());
     }
 
     @Override

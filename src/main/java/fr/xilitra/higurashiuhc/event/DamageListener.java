@@ -146,17 +146,18 @@ public class DamageListener implements Listener {
                 "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
                 "§5---------------------------------------------------------");
 
-        if(victim.getRole().isRole(Role.RIKA_FURUDE))
-            Bukkit.broadcastMessage("§1✖ §5Rika est morte §1✖\n" +
-                    "\n" +
-                    "§5Il reste plus que 2 jours à compter de maintenant pour que le village d'§9Hinamizawa §5remporte la partie. ");
-
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONDEATH));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
         victim.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
         if (deathReason != DeathReason.DEATH_LINKED)
             HigurashiUHC.getGameManager().checkWin();
+
+        if(HigurashiUHC.getGameManager().getStates() != GameStates.FINISH)
+            if(victim.getRole().isRole(Role.RIKA_FURUDE))
+                Bukkit.broadcastMessage("§1✖ §5Rika est morte §1✖\n" +
+                        "\n" +
+                        "§5Il reste plus que 2 jours à compter de maintenant pour que le village d'§9Hinamizawa §5remporte la partie. ");
 
     }
 

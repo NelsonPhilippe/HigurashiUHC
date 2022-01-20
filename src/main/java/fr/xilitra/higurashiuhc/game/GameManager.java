@@ -206,6 +206,7 @@ public class GameManager {
 
     public void win(Object... object){
         log("Win launched");
+        HigurashiUHC.getGameManager().setStates(GameStates.FINISH);
         Bukkit.getOnlinePlayers().forEach(player -> {
             player.setGameMode(GameMode.SURVIVAL);
             player.sendMessage("Wins launched: "+ Arrays.toString(object));

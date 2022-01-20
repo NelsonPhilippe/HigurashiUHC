@@ -204,7 +204,7 @@ public class HPlayer {
                     "§7Si vous arrivez à tuer tous les membres du §bclub, vous deviendrez plus résistant. \n" +
                     "§7À chaque membre du §bclub qui n’est pas atteint de la malédiction tué par vous, vous aurez un cœur supplémentaire. \n" +
                     "§7Votre destin est maintenant scellé. ");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0));
         }
     }
 

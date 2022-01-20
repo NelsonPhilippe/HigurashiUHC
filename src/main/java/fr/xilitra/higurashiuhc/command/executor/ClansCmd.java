@@ -14,7 +14,7 @@ public class ClansCmd extends CommandsExecutor {
 
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
-        if (Clans.getClans(hPlayer) != null) {
+        if (Clans.getClans(hPlayer) == Clans.NEUTRE) {
             p.sendMessage("Tu as déjà un clans");
             return false;
         }

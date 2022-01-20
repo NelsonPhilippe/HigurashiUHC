@@ -51,6 +51,7 @@ public class RikaCmd extends CommandsExecutor {
                     p.setMaxHealth(0.5);
                 }
 
+                p.sendMessage(strings[1] + " est Rika.");
                 return true;
             }
 

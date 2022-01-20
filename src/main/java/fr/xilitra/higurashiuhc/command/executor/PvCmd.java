@@ -30,7 +30,7 @@ public class PvCmd extends CommandsExecutor {
                 return false;
             }
 
-            target.setMaxHealth(target.getMaxHealth() - 1);
+            target.setMaxHealth(target.getMaxHealth() - 2);
             new PolicierTask(hPlayer).runTaskTimer(1, 1);
             p.sendMessage("Vous venez de mettre un pv à " + target.getName());
 

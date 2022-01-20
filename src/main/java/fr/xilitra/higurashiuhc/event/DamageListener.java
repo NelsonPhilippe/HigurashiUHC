@@ -6,6 +6,7 @@ import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
+import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.LinkData;
@@ -138,13 +139,17 @@ public class DamageListener implements Listener {
         if (victim.getClans() != null)
             victim.getClans().removePlayer(victim);
 
-        if(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
-            Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + victim.getRole().getName() + "'.\n" +
-                "§5---------------------------------------------------------");
-        else Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
-                "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
-                "§5---------------------------------------------------------");
+        KitList kit = victim.getKit();
+
+        if(kit != KitList.ASSASSIN) {
+            if (HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
+                Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
+                        "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + victim.getRole().getName() + "'.\n" +
+                        "§5---------------------------------------------------------");
+            else Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
+                    "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f'.\n" +
+                    "§5---------------------------------------------------------");
+        }
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONDEATH));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));

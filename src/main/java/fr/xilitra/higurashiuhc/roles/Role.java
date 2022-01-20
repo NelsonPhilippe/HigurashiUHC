@@ -86,8 +86,8 @@ public enum Role {
 
     KYOSUKE_IRIE("Kyosuke Irie", Gender.HOMME, Clans.NEUTRE, 1, new KyosukeIrieAction(), new HashMap<Commands, Integer>() {{
         put(Commands.CLANS, 1);
-        put(Commands.EFFECT_LISTENER, 2);
-        put(Commands.EFFECT_CLEAR, 1);
+        put(Commands.EFFET_LISTENER, 2);
+        put(Commands.EFFET_CLEAR, 1);
     }}),
 
     KURAUDO_OISHI("Kuraudo Oishi", Gender.HOMME, Clans.POLICE, 1, new KuraudoOishiAction(),

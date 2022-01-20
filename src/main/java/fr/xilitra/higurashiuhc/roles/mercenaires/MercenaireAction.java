@@ -122,7 +122,7 @@ public class MercenaireAction implements RoleAction, Listener {
 
         for (HPlayer player : Role.MERCENAIRE.getHPlayerList()) {
             if (player.getPlayer() != null)
-                player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1, false));
+                player.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0, false));
         }
 
     }

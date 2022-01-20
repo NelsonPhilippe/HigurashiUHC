@@ -19,7 +19,7 @@ public enum ConfigLocation {
     /// Not used
     ROLE_ADVERT("rl_advert", false),
 
-    ROLE_DISPLAY_ONDEATH("rl_death_display", false),
+    ROLE_DISPLAY_ONDEATH("rl_death_display", true),
 
     EPISODE_WATANAGASHI("ep_wata", 6),
 

@@ -187,7 +187,7 @@ public class GameManager {
                 return;
             }else if(remainPlayer.size() == 1){
                 if(remainPlayer.get(0).getClans() != null)
-                    win(remainPlayer.get(0).getClans());
+                    win(remainPlayer.get(0).getClans().getMajorClans());
                 else
                     win(remainPlayer.get(0));
                 return;

@@ -61,14 +61,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
     @EventHandler
     public void onRoleSelected(RoleSelected event) {
 
-        HPlayer player = event.getPlayer();
-        Player bPlayer = player.getPlayer();
-
-        if (bPlayer != null && player.getRole().isRole(Role.RIKA_FURUDE)) {
-            bPlayer.setHealth(16);
-            bPlayer.setMaxHealth(16);
-        }
-
     }
 
     @EventHandler
@@ -291,7 +283,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
             TextComponent message = new TextComponent("Voulez vous teleporter Rika dans la dimension : ");
             message.addExtra(textClick);
 
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h dimension rika"));
+            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h dimension rika"));
 
         }
 
@@ -314,6 +306,15 @@ public class RikaFurudeAction implements RoleAction, Listener {
         HPlayer rika = this.getLinkedRole().getHPlayer();
         if (hanyu != null && rika != null && rika.getPlayer() != null) {
             rika.getPlayer().sendMessage("Hanyu est incarnée par: " + hanyu.getName());
+        }
+
+        HPlayer hPlayer = Role.RIKA_FURUDE.getHPlayer();
+
+        if (hPlayer != null) {
+            Player player = hPlayer.getPlayer();
+            if(player == null) return;
+            player.setHealth(16);
+            player.setMaxHealth(16);
         }
 
     }

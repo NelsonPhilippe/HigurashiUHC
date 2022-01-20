@@ -91,7 +91,7 @@ public class SuspecterCmd extends CommandsExecutor {
             coupableClickable.setBold(true);
             coupableClickable.setColor(net.md_5.bungee.api.ChatColor.GOLD);
 
-            coupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h c"));
+            coupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h c"));
 
             p.spigot().sendMessage(textComponent);
 

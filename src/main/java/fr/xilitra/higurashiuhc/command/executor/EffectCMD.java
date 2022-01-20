@@ -22,7 +22,7 @@ public class EffectCMD extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player player, String[] strings) {
 
         if (strings.length != 2) {
-            player.sendMessage("Syntax: /h " + Commands.EFFECT_LISTENER.getInitials() + " (joueur)");
+            player.sendMessage("Syntax: /h " + Commands.EFFET_LISTENER.getInitials() + " (joueur)");
             return false;
         }
 
@@ -38,10 +38,10 @@ public class EffectCMD extends CommandsExecutor {
 
         playerEffect.forEach(potionEffect -> player.sendMessage("Effect: " + potionEffect.getType().getName() + ", puissance: " + potionEffect.getAmplifier()));
 
-        if (playerEffect.size() != 0 && hPlayer.hasCommandAccess(Commands.EFFECT_CLEAR)) {
+        if (playerEffect.size() != 0 && hPlayer.hasCommandAccess(Commands.EFFET_CLEAR)) {
             TextComponent textComponent = new TextComponent("Voulez-vous lui retirer touts ses effects? ");
             TextComponent clickOUI = new TextComponent("OUI");
-            clickOUI.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Commands.EFFECT_CLEAR.getInitials() + " " + playerTarget.getName()));
+            clickOUI.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Commands.EFFET_CLEAR.getInitials() + " " + playerTarget.getName()));
             clickOUI.setColor(ChatColor.RED);
             textComponent.addExtra(clickOUI);
             player.spigot().sendMessage(textComponent);

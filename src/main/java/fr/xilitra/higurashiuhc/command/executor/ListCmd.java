@@ -36,7 +36,7 @@ public class ListCmd extends CommandsExecutor {
             new ChatTask(hPlayerTarget).runTaskTimer(1, 1);
 
             return true;
-        }
+        }else p.sendMessage("Merci de faire /h list (joueur)");
         return false;
     }
 }

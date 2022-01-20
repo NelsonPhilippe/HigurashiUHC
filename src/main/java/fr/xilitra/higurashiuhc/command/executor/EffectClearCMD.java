@@ -18,7 +18,7 @@ public class EffectClearCMD extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player player, String[] strings) {
 
         if (strings.length != 2) {
-            player.sendMessage("Syntax: /h " + Commands.EFFECT_CLEAR.getInitials() + " (joueur)");
+            player.sendMessage("Syntax: /h " + Commands.EFFET_CLEAR.getInitials() + " (joueur)");
             return false;
         }
 

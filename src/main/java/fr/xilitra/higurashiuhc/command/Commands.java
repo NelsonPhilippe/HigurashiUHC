@@ -20,12 +20,12 @@ public enum Commands {
     ASSASSINER("assassiner", new AssassinCmd(), false),
     PVCMD("pv", new PvCmd(), false),
     SUSPECTER("suspecter", new SuspecterCmd(), false),
-    COMPARER("comp", new ComparerCmd(), false),
+    COMPARER("comparer", new ComparerCmd(), false),
     RIKA("rika", new RikaCmd(), false),
     PARANO("paranoia", new ParanoCmd(), false),
     CLANS("clans", new ClansCmd(), false),
-    EFFECT_LISTENER("effect", new EffectCMD(), false),
-    EFFECT_CLEAR("effectclear", new EffectClearCMD(), false),
+    EFFET_LISTENER("effet", new EffectCMD(), false),
+    EFFET_CLEAR("effetclear", new EffectClearCMD(), false),
     COUPABLE("c", new CoupableCmd(), false);
 
     String initials;

@@ -60,7 +60,7 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
 
         TextComponent textComponent = new TextComponent("§4Keiichi §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
-        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h r "+killed.getName()));
+        click.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h r "+killed.getName()));
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §4Keiichi §7ressuscitera mais vous perdrez une de vos vies. "));
 

@@ -14,7 +14,7 @@ public class ForceCmd extends CommandsExecutor {
 
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
-        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000, 1));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1000, 0));
         p.sendMessage("Votre force a été boosté!");
         sendOkay(p, "Votre force a été boosté");
         return true;

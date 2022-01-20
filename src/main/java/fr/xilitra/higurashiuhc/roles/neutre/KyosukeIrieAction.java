@@ -19,7 +19,7 @@ public class KyosukeIrieAction implements RoleAction {
                 "\n" +
                 "§2Irie§6 est un rôle qui peut choisir son camp parmi §9Hinamizawa §6et les §4mercenaires §6avec la commande §5'/h clans Hinamizawa/mercenaire. \n" +
                 "§6Il aura la possibilité de connaître les effets d’un joueur (2 fois dans la partie) avec la commande §5'/h effet <joueur>'. \n" +
-                "§2Irie §6a ensuite le pouvoir de faire disparaître tous les buffs et debuffs du joueur espionné une fois dans la partie avec la commande §5'/h effectclear'.";
+                "§2Irie §6a ensuite le pouvoir de faire disparaître tous les buffs et debuffs du joueur espionné une fois dans la partie avec la commande §5'/h effetclear'.";
     }
 
     @Override

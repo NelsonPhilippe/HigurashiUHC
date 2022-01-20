@@ -44,12 +44,12 @@ public class BanCmd extends CommandsExecutor {
 
             TextComponent message = new TextComponent("Voulez vous voter pour " + target.getName() + " ");
             TextComponent clickable = new TextComponent("[Cliquez pour un vote positif]");
-            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h vote"));
+            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h vote"));
             message.addExtra(clickable);
 
-            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "h " + Commands.VOTE.getInitials()));
+            clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h " + Commands.VOTE.getInitials()));
 
-            for (HPlayer players : Clans.HINAMIZAWA.getHPlayerList()) {
+            for (HPlayer players : Clans.HINAMIZAWA.getHPlayerList(true)) {
 
                 Player allPlayer = players.getPlayer();
                 if (allPlayer != null)
@@ -59,7 +59,7 @@ public class BanCmd extends CommandsExecutor {
 
             return true;
 
-        }
+        }else p.sendMessage("Merci de faire /h ban (joueur)");
 
         return false;
     }

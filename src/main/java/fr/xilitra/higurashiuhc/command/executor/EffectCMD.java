@@ -22,23 +22,25 @@ public class EffectCMD extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player player, String[] strings) {
 
         if (strings.length != 2) {
-            player.sendMessage("Syntax: /h " + Commands.EFFET_LISTENER.getInitials() + " (joueur)");
+            sendMessage(player, ChatColor.RED, "Syntax: /h " + Commands.EFFET_LISTENER.getInitials() + " (joueur)");
             return false;
         }
 
         Player playerTarget = Bukkit.getPlayer(strings[1]);
         if (playerTarget == null) {
-            player.sendMessage("Cible introuvable");
+            sendMessage(player, ChatColor.RED, "Cible introuvable");
             return false;
         }
 
         Collection<PotionEffect> playerEffect = playerTarget.getActivePotionEffects();
-        if(playerEffect.size() == 0)
-            player.sendMessage("§a§oLe joueur ne possède aucun effet.");
+        if(playerEffect.size() == 0) {
+            sendMessage(player, ChatColor.RED, "§a§oLe joueur ne possède aucun effet.");
+            return true;
+        }
 
         playerEffect.forEach(potionEffect -> player.sendMessage("Effect: " + potionEffect.getType().getName() + ", puissance: " + potionEffect.getAmplifier()));
 
-        if (playerEffect.size() != 0 && hPlayer.hasCommandAccess(Commands.EFFET_CLEAR)) {
+        if (hPlayer.hasCommandAccess(Commands.EFFET_CLEAR)) {
             TextComponent textComponent = new TextComponent("Voulez-vous lui retirer touts ses effects? ");
             TextComponent clickOUI = new TextComponent("OUI");
             clickOUI.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Commands.EFFET_CLEAR.getInitials() + " " + playerTarget.getName()));

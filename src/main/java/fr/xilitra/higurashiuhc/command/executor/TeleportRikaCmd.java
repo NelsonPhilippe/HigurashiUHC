@@ -39,11 +39,11 @@ public class TeleportRikaCmd extends CommandsExecutor {
 
             new DimensionDeathRikaTask(rika, hPlayer).runTaskTimer(1, 1);
 
-            p.sendMessage("Attention vous allez être retéléporté dans 30 secondes");
+            sendOkay(p, "Attention vous allez être retéléporté dans 30 secondes");
             return true;
 
         } else {
-            p.sendMessage("Rika Introuvable");
+            sendError(p, "Rika Introuvable");
         }
 
         return false;

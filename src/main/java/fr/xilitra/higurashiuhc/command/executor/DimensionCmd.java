@@ -41,15 +41,15 @@ public class DimensionCmd extends CommandsExecutor {
 
                 teleportRika = true;
                 rika.getPlayer().sendMessage("Vous allez être téléporté dans la dimension de Hanyu dans 1 minute");
-                p.sendMessage("Vous allez être téléporté dans la dimension avec rika dans 1 minute");
+                sendOkay(p, "Vous allez être téléporté dans la dimension avec rika dans 1 minute");
 
             } else {
-                p.sendMessage("Rika n'est pas dans la partie.");
+                sendError(p, "Rika n'est pas dans la partie.");
                 return false;
             }
 
         } else {
-            p.sendMessage("Vous allez être téléporté dans la dimension dans 1 minute");
+            sendOkay(p, "Vous allez être téléporté dans la dimension dans 1 minute");
         }
 
 

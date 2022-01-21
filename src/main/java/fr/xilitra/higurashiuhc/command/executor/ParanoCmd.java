@@ -16,11 +16,13 @@ public class ParanoCmd extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player p, String[] strings) {
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();
-        if (!oyashiro.isReveal())
+        if (!oyashiro.isReveal()) {
+            sendError(p, "Oh tu sait pas patienter ou quoi? Attend le début de Oyashiro voyons.");
             return false;
+        }
 
         oyashiro.paranoTask.runTaskTimer(60, 60, 10);
-        p.sendMessage("Keiichi est parano");
+        sendOkay(p, "Tu as rendu Keiichi est parano");
 
         return true;
     }

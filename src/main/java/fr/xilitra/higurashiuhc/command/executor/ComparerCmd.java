@@ -1,11 +1,13 @@
 package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KumagaiAction;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -28,14 +30,14 @@ public class ComparerCmd extends CommandsExecutor {
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 
             if (targetHPlayer == null) {
-                p.sendMessage("Cible Introuvable");
+                sendError(p, "Cible Introuvable");
                 return false;
             }
 
             List<String> clans = Arrays.asList("Sonozaki", "Club", "Police", "Mercenaire", "Neutre");
 
             if (kumagaiAction.getCompareClanUsed().contains(strings[2])) {
-                p.sendMessage("Vous avez déja comparer un joueur avec ce clan");
+                sendError(p, "Vous avez déja comparer un joueur avec ce clan");
                 return false;
             }
 
@@ -72,7 +74,7 @@ public class ComparerCmd extends CommandsExecutor {
                                     while (clans.get(random).equalsIgnoreCase("Mercenaire")) {
                                         random = new Random().nextInt(clan.length() - 1);
                                     }
-                                    p.sendMessage(strings[2] + " est dans le camp " + clans.get(random));
+                                    sendOkay(p, strings[2] + " est dans le camp " + clans.get(random));
                                     return true;
                                 }
 
@@ -80,20 +82,24 @@ public class ComparerCmd extends CommandsExecutor {
 
                         }
 
-                        p.sendMessage(strings[2] + " est dans le camp " + clan);
+                        sendOkay(p, strings[2] + " est dans le camp " + clan);
                         return true;
                     }
                 }
 
-                p.sendMessage("Le joueur n'est pas dans ce clan.");
+                sendError(p, "Le joueur n'est pas dans ce clan.");
                 return false;
 
             }
 
-            p.sendMessage("Ce clan n'existe pas");
+            sendError(p, "Vous n'êtes pas autorizer à comparer avec le clan: "+strings[2]+" vous pouvez avec:");
+            for(String clan : clans){
+                p.sendMessage(clan);
+            }
             return false;
         }
 
+        sendError(p,"Merci de faire /h "+ Commands.COMPARER.getInitials()+" <joueur> <clans>");
         return false;
 
     }

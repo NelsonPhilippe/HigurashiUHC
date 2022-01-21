@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.command.executor;
 
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.AkaneSonozakiAction;
@@ -28,7 +29,7 @@ public class InverserCmd extends CommandsExecutor {
             int days = time / 20 / 60 / 60 / 24;
 
             if (akaneSonozakiAction.getNextDaySwap() < days) {
-                p.sendMessage("Il est encore trop tot pour echanger les joueurs");
+                sendError(p, "Il est encore trop tot pour echanger les joueurs");
                 return false;
             }
 
@@ -39,8 +40,9 @@ public class InverserCmd extends CommandsExecutor {
             secondsTarget.teleport(loc1);
 
             akaneSonozakiAction.setNextDaySwap(days + 1);
+            sendOkay(p, "Tout comment MissJirachi et DavidLafarge, on a organisé un SWAP");
             return true;
-        }
+        }else sendError(p, "Merci de faire /h "+ Commands.INVERSER.getInitials()+" <joueur1> <joueur2>");
         return false;
     }
 }

@@ -23,12 +23,12 @@ public class CoupableCmd extends CommandsExecutor {
 
         HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
         if (targetHPlayer == null) {
-            p.sendMessage("Cible non trouvé");
+            sendError(p, "Cible non trouvé");
             return false;
         }
 
         if(!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)){
-            p.sendMessage("Erreur, Watanagashi en cours ou passé.");
+            sendError(p, "Erreur, Watanagashi en cours ou passé.");
             return true;
         }
 
@@ -47,15 +47,15 @@ public class CoupableCmd extends CommandsExecutor {
 
             p.getInventory().addItem(arc);
         }else if (targetHPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
-            p.sendMessage("L'enquête a échoué.");
+            sendError(p,"L'enquête a échoué.");
             return true;
         }
 
         if (targetHPlayer.getRole().isRole(Role.RIKA_FURUDE))
             Clans.HINAMIZAWA.addPlayer(targetHPlayer);
 
-        p.sendMessage("Le role du joueur est : " + targetHPlayer.getRole().getDisplayName());
-        p.sendMessage("Le clan du joueur est : " + targetHPlayer.getClans().getName());
+        sendOkay(p,"Le role du joueur est : " + targetHPlayer.getRole().getDisplayName());
+        sendOkay(p,"Le clan du joueur est : " + targetHPlayer.getClans().getName());
 
         return true;
 

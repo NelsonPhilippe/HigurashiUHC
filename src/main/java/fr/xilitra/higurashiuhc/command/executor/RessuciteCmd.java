@@ -20,30 +20,30 @@ public class RessuciteCmd extends CommandsExecutor {
     public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
         if (args.length != 2) {
-            p.sendMessage(ChatColor.RED + "Commande invalide, merci de faire /h "+ Commands.RESSUCITE.getInitials() +" (Joueur)");
+            sendError(p, ChatColor.RED + "Commande invalide, merci de faire /h "+ Commands.RESSUCITE.getInitials() +" (Joueur)");
             return false;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
         if (target == null) {
-            p.sendMessage(ChatColor.RED + "Player non trouvé");
+            sendError(p, ChatColor.RED + "Player non trouvé");
             return false;
         }
 
         HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
         if (hPlayerTarget == null) {
-            p.sendMessage(ChatColor.RED + "Player non trouvé");
+            sendError(p, ChatColor.RED + "Player non trouvé");
             return false;
         }
 
         if (((DeathTask) hPlayerTarget.getDeathTask()).isRunning()) {
 
             ((RikaFurudeAction) hPlayer.getRole().getRoleAction()).resurrection(hPlayer, hPlayerTarget);
-            p.sendMessage("Vous venez de réssuciter " + hPlayerTarget.getName());
+            sendOkay(p, "Vous venez de réssuciter " + hPlayerTarget.getName());
             return true;
 
         } else
-            p.sendMessage("Impossible de le réssuciter");
+            sendError(p, "Impossible de le réssuciter");
 
         return false;
     }

@@ -23,7 +23,7 @@ public class VoteCmd extends CommandsExecutor {
             OryoSonozakiAction oryoSonozakiAction = (OryoSonozakiAction) Role.ORYO_SONOZAKI.getRoleAction();
 
             oryoSonozakiAction.addVote();
-            p.sendMessage("Tu as voté");
+            sendOkay(p,"Tu as voté");
 
             return true;
 

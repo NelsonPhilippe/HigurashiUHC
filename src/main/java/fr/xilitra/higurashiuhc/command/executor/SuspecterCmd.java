@@ -35,7 +35,7 @@ public class SuspecterCmd extends CommandsExecutor {
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 
             if (targetHPlayer == null) {
-                p.sendMessage("Le joueur n'existe pas");
+                sendError(p, "Le joueur n'existe pas");
                 return false;
             }
 
@@ -43,29 +43,23 @@ public class SuspecterCmd extends CommandsExecutor {
             KuraudoOishiAction kuraudoOishiAction = (KuraudoOishiAction) kuraudoRole.getRoleAction();
 
             if (kuraudoOishiAction.getCountSuspect() >= 3) {
-                p.sendMessage("Vous avez déjà suspecté 3 joeurs différents vous ne pouvez plus suspecté quelqu'un");
+                sendError(p, "Vous avez déjà suspecté 3 joeurs différents vous ne pouvez plus suspecté quelqu'un");
                 return false;
             }
 
             if (kuraudoOishiAction.isCoupableDesigned()) {
-                p.sendMessage("Vous avez déjà désigné un coupable");
+                sendError(p, "Vous avez déjà désigné un coupable");
                 return false;
             }
 
-            if (kuraudoOishiAction.getCountSuspect() == 0) {
-                Bukkit.broadcastMessage(p.getName() + " est " + kuraudoRole.getName());
-            }
-
-            if (kuraudoOishiAction.getCountSuspect() > 3) {
-                Bukkit.broadcastMessage(p.getName() + "est " + kuraudoRole.getName());
-            }
+            Bukkit.broadcastMessage(p.getName() + " est " + kuraudoRole.getName());
 
             Map<String, Object> infos = targetHPlayer.getInfoData().getDataInfos();
             Random random = new Random();
 
             List<InfoData.InfoList> infoList = new ArrayList<>(Arrays.asList(InfoData.InfoList.values()));
 
-            p.sendMessage("Le joueur suspecté est " + targetHPlayer.getName() + " :");
+            sendOkay(p,"Le joueur suspecté est " + targetHPlayer.getName() + " :");
 
             for (int i = 0; i < random.nextInt(5 - 2) + 2; i++) {
 
@@ -76,11 +70,11 @@ public class SuspecterCmd extends CommandsExecutor {
 
                     if (p.getActivePotionEffects().size() > 0) {
                         int randomEffect = random.nextInt(p.getActivePotionEffects().size());
-                        p.sendMessage("- " + info.getType() + " : " + p.getActivePotionEffects().toArray()[randomEffect]);
+                        sendOkay(p, "- " + info.getType() + " : " + p.getActivePotionEffects().toArray()[randomEffect]);
                     }
 
                 } else
-                    p.sendMessage("- " + info.getType() + " : " + infos.get(info.name()));
+                    sendOkay(p, "- " + info.getType() + " : " + infos.get(info.name()));
 
             }
 
@@ -99,6 +93,7 @@ public class SuspecterCmd extends CommandsExecutor {
             kuraudoOishiAction.addSuspect(targetHPlayer);
             return true;
         }
+        sendError(p,"Merci de faire /h "+Commands.SUSPECTER.getInitials()+" <joueur>");
         return false;
     }
 }

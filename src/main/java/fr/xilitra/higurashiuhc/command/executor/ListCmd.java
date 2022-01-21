@@ -25,19 +25,20 @@ public class ListCmd extends CommandsExecutor {
 
             HPlayer hPlayerTarget = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
             if (hPlayerTarget == null) {
-                p.sendMessage("Cible Introuvable");
+                sendError(p, "Cible Introuvable");
                 return false;
             }
 
             if (hPlayerTarget.isChatOkonogi()) {
-                p.sendMessage("Le joueur est déjà dans le chat");
+                sendError(p, "Le joueur est déjà dans le chat");
                 return false;
             }
 
-            new ChatTask(hPlayerTarget).runTaskTimer(1, 1);
+            sendOkay(p,"Vous avez rajouté le joueur au tchat, en esperant qu'il ne soir pas trop toxique");
+                    new ChatTask(hPlayerTarget).runTaskTimer(1, 1);
 
             return true;
-        }else p.sendMessage("Merci de faire /h "+ Commands.LIST.getInitials() +" (joueur)");
+        }else sendError(p, "Merci de faire /h "+ Commands.LIST.getInitials() +" <joueur>");
         return false;
     }
 }

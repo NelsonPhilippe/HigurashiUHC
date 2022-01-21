@@ -19,12 +19,12 @@ public class PenseCmd extends CommandsExecutor {
         HPlayer targetPlayer = HigurashiUHC.getGameManager().getHPlayer(strings[1]);
 
         if (targetPlayer == null) {
-            p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
+            sendError(p, "Le joueur n'est pas connecté.");
             return false;
         }
 
         ((RenaRyuguAction) hPlayer.getRole().getRoleAction()).setHPlayerPense(targetPlayer);
-        p.sendMessage("Vous lisez dans les pensé de " + strings[1]);
+        sendOkay(p,"Vous lisez dans les pensées de " + strings[1]);
 
         return true;
 

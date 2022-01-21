@@ -28,14 +28,14 @@ public class BanCmd extends CommandsExecutor {
             Player target = Bukkit.getPlayer(strings[1]);
 
             if (target == null) {
-                p.sendMessage(ChatColor.RED + "Le joueur n'est pas connecté.");
+                sendError(p, "Le joueur n'est pas connecté.");
                 return true;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
-            if (targetHPlayer == null || Clans.HINAMIZAWA.hisInClans(targetHPlayer, false)) {
-                p.sendMessage("vous ne pouvez pas voter pour un membre de votre clans");
+            if (targetHPlayer == null || Clans.HINAMIZAWA.hisInClans(targetHPlayer, true)) {
+                sendError(p, "Vous ne pouvez pas voter pour un membre de votre clans");
                 return false;
             }
 
@@ -57,7 +57,7 @@ public class BanCmd extends CommandsExecutor {
 
             return true;
 
-        }else p.sendMessage("Merci de faire /h "+Commands.BAN.getInitials()+" (joueur)");
+        }else sendError(p, "Merci de faire /h "+Commands.BAN.getInitials()+" (joueur)");
 
         return false;
     }

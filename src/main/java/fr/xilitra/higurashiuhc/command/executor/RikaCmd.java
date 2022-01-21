@@ -22,14 +22,14 @@ public class RikaCmd extends CommandsExecutor {
             Player target = Bukkit.getPlayer(strings[1]);
 
             if (target == null) {
-                p.sendMessage("Cible non trouvée");
+                sendError(p, "Cible non trouvée");
                 return false;
             }
 
             HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(target.getUniqueId());
 
             if (targetHPlayer == null) {
-                p.sendMessage("Cible Introuvable");
+                sendError(p, "Cible Introuvable");
                 return false;
             }
 
@@ -51,12 +51,12 @@ public class RikaCmd extends CommandsExecutor {
                     p.setMaxHealth(0.5);
                 }
 
-                p.sendMessage(strings[1] + " est Rika.");
+                sendOkay(p, strings[1] + " est Rika.");
                 return true;
             }
 
 
-            p.sendMessage(strings[1] + " n'est pas Rika.");
+            sendError(p, strings[1] + " n'est pas Rika.");
             return true;
 
         }

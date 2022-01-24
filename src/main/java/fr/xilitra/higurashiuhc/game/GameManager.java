@@ -176,20 +176,13 @@ public class GameManager {
         boolean withoutClans = false;
         List<HPlayer> remainPlayer = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME);
 
-        for(HPlayer hPlayer : remainPlayer){
-            Clans clans = hPlayer.getClans();
-            if(clans != null)
-                availableClans.add(clans.getMajorClans());
-            else withoutClans = true;
-        }
-
         if(remainPlayer.size() <= 2){
 
             if(remainPlayer.size() == 2 && remainPlayer.get(0).getLinkData(remainPlayer.get(1)).isWinLinked()) {
                 win(remainPlayer.get(0), remainPlayer.get(1));
                 return;
             }else if(remainPlayer.size() == 1){
-                if(remainPlayer.get(0).getClans() != null)
+                if(remainPlayer.get(0).getClans() != Clans.NEUTRE)
                     win(remainPlayer.get(0).getClans().getMajorClans());
                 else
                     win(remainPlayer.get(0));
@@ -201,9 +194,15 @@ public class GameManager {
 
         }
 
-        if(availableClans.size() == 1 && withoutClans) {
-            win(availableClans.get(0));
+        for(HPlayer hPlayer : remainPlayer){
+            Clans clans = hPlayer.getClans();
+            if(!availableClans.contains(clans))
+                availableClans.add(clans.getMajorClans());
         }
+
+        if(availableClans.size() == 1)
+            if(availableClans.get(0) != Clans.NEUTRE)
+            win(availableClans.get(0));
 
     }
 

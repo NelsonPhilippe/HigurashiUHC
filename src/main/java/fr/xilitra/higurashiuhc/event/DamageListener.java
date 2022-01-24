@@ -286,29 +286,6 @@ public class DamageListener implements Listener {
 
             }
 
-            if (hPlayer.getRole().isRole(Role.MION_SONOZAKI)) {
-
-                HPlayer shionPlayer = Role.SHION_SONOSAKI.getHPlayer();
-                if (shionPlayer == null || shionPlayer.getPlayer() == null) return;
-
-                if (shionPlayer.getPlayer().getHealth() <= 20) return;
-
-                shionPlayer.getPlayer().damage(damage);
-
-            }
-
-            if (hPlayer.getRole().isRole(Role.SHION_SONOSAKI)) {
-
-                HPlayer mionPlayer = Role.MION_SONOZAKI.getHPlayer();
-
-                if (mionPlayer == null || mionPlayer.getPlayer() == null) return;
-
-                if (mionPlayer.getPlayer().getHealth() <= 20) return;
-
-                mionPlayer.getPlayer().damage(damage);
-
-            }
-
         }
 
         Oyashiro oyashiro = (Oyashiro) ScenarioList.OYASHIRO.getScenario();

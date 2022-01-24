@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -10,9 +11,11 @@ import fr.xilitra.higurashiuhc.utils.DeathReason;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -40,6 +43,39 @@ public class MionSonozakiAction implements RoleAction, Listener {
 
     @EventHandler
     public void onRoleSelected(RoleSelected e) {
+
+        HPlayer player = e.getPlayer();
+
+
+        if (player.getPlayer() != null && player.getRole().isRole(Role.MION_SONOZAKI)) {
+            player.getPlayer().setMaxHealth(24);
+            player.getPlayer().setHealth(24);
+        }
+    }
+
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event){
+
+        Entity damaged = event.getEntity();
+
+        if(!(damaged instanceof Player)) return;
+
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(damaged.getUniqueId());
+        HPlayer shionPlayer = Role.SHION_SONOSAKI.getHPlayer();
+        double damage = event.getDamage();
+
+        if(hPlayer == null || shionPlayer == null) return;
+
+        if(hPlayer.getRole().isRole(Role.MION_SONOZAKI)){
+
+            if(hPlayer.getPlayer().getHealth() >= 20){
+                if(shionPlayer.getPlayer().getHealth() >= 20){
+                    shionPlayer.getPlayer().damage(damage);
+                }
+            }
+
+        }
     }
 
     @Override

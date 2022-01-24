@@ -71,8 +71,11 @@ public class GameManager {
         this.setStates(GameStates.START);
 
         ArrayList<Role> roles = new ArrayList<>(Arrays.asList(Role.values()));
-        if(!ScenarioList.MISTREATMENT.isActive())
+        if(!ScenarioList.MISTREATMENT.isActive()) {
             roles.remove(Role.TEPPEI_HOJO);
+            roles.remove(Role.NOMURA);
+        }
+        roles.remove(Role.NULL);
         this.log("MCE) List active role: " + roles);
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONSTART));

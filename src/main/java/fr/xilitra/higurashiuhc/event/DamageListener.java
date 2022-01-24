@@ -49,6 +49,8 @@ public class DamageListener implements Listener {
         if (victim.getPlayerState().isState(PlayerState.SPECTATE, PlayerState.WAITING_DEATH))
             return;
 
+        boolean sendDeath = true;
+
         Player victimPlayer = victim.getPlayer();
 
         if (victimPlayer == null) return;
@@ -132,6 +134,11 @@ public class DamageListener implements Listener {
 
                 }
 
+                KitList kit = killerHplayer.getKit();
+                if(kit == KitList.ASSASSIN)
+                    sendDeath = false;
+
+
             }
 
         }
@@ -139,9 +146,7 @@ public class DamageListener implements Listener {
         if (victim.getClans() != null)
             victim.getClans().removePlayer(victim);
 
-        KitList kit = victim.getKit();
-
-        if(kit != KitList.ASSASSIN) {
+        if(sendDeath) {
             if (HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
                 Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
                         "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + victim.getRole().getName() + "'.\n" +

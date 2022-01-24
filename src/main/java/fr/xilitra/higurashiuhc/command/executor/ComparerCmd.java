@@ -74,7 +74,7 @@ public class ComparerCmd extends CommandsExecutor {
                                     while (clans.get(random).equalsIgnoreCase("Mercenaire")) {
                                         random = new Random().nextInt(clan.length() - 1);
                                     }
-                                    sendOkay(p, strings[2] + " est dans le camp " + clans.get(random));
+                                    sendOkay(p, strings[1] + " est dans le camp " + clans.get(random));
                                     return true;
                                 }
 
@@ -82,7 +82,7 @@ public class ComparerCmd extends CommandsExecutor {
 
                         }
 
-                        sendOkay(p, strings[2] + " est dans le camp " + clan);
+                        sendOkay(p, strings[1] + " est dans le camp " + clan);
                         return true;
                     }
                 }

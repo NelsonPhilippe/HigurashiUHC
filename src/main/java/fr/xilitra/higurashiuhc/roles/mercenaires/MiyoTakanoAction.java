@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.roles.mercenaires;
 
+import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
@@ -67,7 +68,7 @@ public class MiyoTakanoAction implements RoleAction, Listener {
         Player player = takano.getPlayer();
         if(player == null)
             return;
-        List<HPlayer> mercenaire = Role.MERCENAIRE.getHPlayerList();
+        List<HPlayer> mercenaire = Clans.MERCENAIRE.getHPlayerList();
         if(mercenaire.isEmpty())
             player.sendMessage(ChatColor.RED+"Il n'y a aucun mercenaire dans la partie");
         else {

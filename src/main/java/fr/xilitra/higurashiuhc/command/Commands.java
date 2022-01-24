@@ -8,7 +8,7 @@ import java.util.List;
 public enum Commands {
 
     RESSUCITE("r", new RessuciteCmd(), false),
-    RIKATP("rika", new TeleportRikaCmd(), true),
+    RIKATP("rikatp", new TeleportRikaCmd(), true),
     VOTE("vote", new VoteCmd(), false),
     BAN("ban", new BanCmd(), false),
     INVERSER("inverser", new InverserCmd(), true),

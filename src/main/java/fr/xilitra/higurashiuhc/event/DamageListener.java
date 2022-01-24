@@ -236,7 +236,7 @@ public class DamageListener implements Listener {
 
                         if (!renaRyuguAction.isPenseIsUsed()) {
 
-                            player.getPlayer().sendMessage(p.getName() + " à frappé un joueur.");
+                            player.getPlayer().sendMessage(e.getDamager().getName() + " à frappé un joueur.");
                             renaRyuguAction.setPenseIsUsed(true);
 
                         }

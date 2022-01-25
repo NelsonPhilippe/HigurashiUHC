@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
-import fr.xilitra.higurashiuhc.game.task.taskClass.HanyuTaskInvisble;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
@@ -48,49 +47,6 @@ public class HanyuAction implements RoleAction, Listener {
                 "\n";
     }
 
-    @EventHandler
-    public void onPlayerDamage(EntityDamageByEntityEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
-
-        Player player = (Player) e.getEntity();
-
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(player.getUniqueId());
-        if (hPlayer == null)
-            return;
-
-        if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) return;
-
-        Entity entityDamager = e.getDamager();
-
-        if (!(entityDamager instanceof Player)) return;
-
-        Player damager = (Player) entityDamager;
-        HPlayer hPlayerDamager = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
-
-        if (hPlayerDamager == null)
-            return;
-
-        if (hPlayerDamager.getRole().equals(Role.HANYU) || hPlayer.getRole().isRole(Role.HANYU)) {
-
-            HanyuAction hanyuAction;
-            if (hPlayerDamager.getRole().equals(Role.HANYU))
-                hanyuAction = (HanyuAction) hPlayerDamager.getRole().getRoleAction();
-            else hanyuAction = (HanyuAction) hPlayer.getRole().getRoleAction();
-
-            if (hanyuAction.isInvisible) {
-                hanyuAction.setInvisible(false);
-
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    players.showPlayer(player);
-                    new HanyuTaskInvisble().runTaskTimer(1, 1);
-                }
-            }
-
-        }
-
-
-    }
-
     public boolean isInvisible() {
         return isInvisible;
     }
@@ -124,11 +80,6 @@ public class HanyuAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
     public boolean onDeath(HPlayer killed, DeathReason dr) {
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
@@ -137,18 +88,11 @@ public class HanyuAction implements RoleAction, Listener {
         if(rikaPlayer == null)
             return true;
         rikaPlayer.sendMessage("§5Hanyu §7est morte. Désormais, il vous est impossible de ressusciter.");
+        rika.setCommandAccess(Commands.RESSUCITE, 0);
+
+        ((RikaFurudeAction) Role.RIKA_FURUDE.getRoleAction()).setLives(0);
 
         return true;
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
     }
 
     @Override
@@ -160,20 +104,5 @@ public class HanyuAction implements RoleAction, Listener {
             hanyu.getPlayer().sendMessage("§9Rika§6 est §7'"+rika.getName()+"'.");
         }
 
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 }

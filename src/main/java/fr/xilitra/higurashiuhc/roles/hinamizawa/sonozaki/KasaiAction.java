@@ -34,26 +34,6 @@ public class KasaiAction implements RoleAction {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
         HPlayer kasai = Role.KASAI.getHPlayer();
         HPlayer shion = Role.SHION_SONOSAKI.getHPlayer();
@@ -62,18 +42,4 @@ public class KasaiAction implements RoleAction {
             kasai.getPlayer().sendMessage("Shion§6 est §7'"+shion.getName()+"'." + shion.getName());
     }
 
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

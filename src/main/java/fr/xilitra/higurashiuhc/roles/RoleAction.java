@@ -7,28 +7,41 @@ import org.bukkit.entity.Player;
 
 public interface RoleAction {
 
-    void playerLeave(Player p);
+    default void playerLeave(Player p){
 
-    boolean acceptReconnect(Player p);
+    }
 
-    void onKill(HPlayer killer, HPlayer killed, DeathReason deathReason);
+    default boolean acceptReconnect(Player p){
+        return false;
+    }
+
+    default void onKill(HPlayer killer, HPlayer killed, DeathReason deathReason){
+
+    }
 
     default boolean onDeath(HPlayer killed, DeathReason deathReason){
         return true;
     }
 
-    void onLeaveRole(HPlayer hPlayer);
+    default void onLeaveRole(HPlayer hPlayer){
 
-    void onJoinRole(HPlayer hPlayer);
+    }
 
-    void onGameStart();
+    default void onJoinRole(HPlayer hPlayer){
 
-    void onGameStop();
+    }
+
+    default void onGameStart(){
+
+    }
+
+    default void onGameStop(){
+
+    }
 
     String getDescription();
 
     Role getLinkedRole();
-
     default void onMaledictionReceived(HPlayer hPlayer, Reason reason){
 
     }

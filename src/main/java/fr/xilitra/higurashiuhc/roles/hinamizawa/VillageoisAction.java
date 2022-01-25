@@ -22,43 +22,4 @@ public class VillageoisAction implements RoleAction {
                 "§6vous ne possédez aucun pouvoir ni aucun effet particulier. ";
     }
 
-    @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onGameStart() {
-
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

@@ -190,11 +190,6 @@ public class SatokoHojoAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
     public boolean onDeath(HPlayer killed, DeathReason dr) {
 
         removeTraps(killed);
@@ -217,26 +212,6 @@ public class SatokoHojoAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onGameStart() {
-
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
     public String getDescription() {
         return "§6 Vous êtes §9 Satoko Hojo (fille) : \n" +
                 "\n" +
@@ -250,13 +225,4 @@ public class SatokoHojoAction implements RoleAction, Listener {
                 "§6Vous possédez le piège §0d’information: §6 Il est constitué d’une houe en bois permettant de piéger 3 fois dans la partie un bloc d’herbe où lorsqu'un joueur marche dessus, son camp est dévoilé à Satoko.";
     }
 
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

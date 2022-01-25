@@ -107,7 +107,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
 
         HPlayer playerAlive = Role.MION_SONOZAKI.getHPlayer();
         if (playerAlive != null) {
@@ -134,11 +134,11 @@ public class ShionSonozakiAction implements RoleAction, Listener {
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
-            return;
+            return true;
 
         Player rikaPlayer = rika.getPlayer();
         if(rikaPlayer == null)
-            return;
+            return true;
 
         TextComponent textComponent = new TextComponent("§aShion §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
@@ -146,16 +146,7 @@ public class ShionSonozakiAction implements RoleAction, Listener {
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §aShion §7ressuscitera mais vous perdrez une de vos vies. "));
 
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
+        return true;
     }
 
     @Override
@@ -169,18 +160,4 @@ public class ShionSonozakiAction implements RoleAction, Listener {
         player.setMaxHealth(24);
     }
 
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

@@ -58,11 +58,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
     }
 
     @EventHandler
-    public void onRoleSelected(RoleSelected event) {
-
-    }
-
-    @EventHandler
     public void onEpisodeUpdate(EpisodeUpdate episodeUpdate){
 
         HPlayer rika = this.getLinkedRole().getHPlayer();
@@ -246,16 +241,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
 
         watanagashiTask.runTaskTimer(1,1);
@@ -277,18 +262,4 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
     }
 
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

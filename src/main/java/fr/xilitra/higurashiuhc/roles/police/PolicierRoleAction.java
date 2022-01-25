@@ -23,44 +23,4 @@ public class PolicierRoleAction implements RoleAction {
                 "§6Le joueur ayant la contravention perd un slot de cœur pendant 10 minutes.";
     }
 
-    @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onGameStart() {
-
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
-
 }

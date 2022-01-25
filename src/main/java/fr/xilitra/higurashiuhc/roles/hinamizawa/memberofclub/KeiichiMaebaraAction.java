@@ -46,18 +46,18 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
 
         if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(2);
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
-            return;
+            return true;
 
         Player rikaPlayer = rika.getPlayer();
         if(rikaPlayer == null)
-            return;
+            return true;
 
         TextComponent textComponent = new TextComponent("§4Keiichi §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
@@ -65,16 +65,7 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §4Keiichi §7ressuscitera mais vous perdrez une de vos vies. "));
 
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
+        return true;
     }
 
     @Override
@@ -97,21 +88,6 @@ public class KeiichiMaebaraAction implements RoleAction, Listener {
                     "§7Si vous ne donnez pas la §d§opoupée §7ou que vous la donnez à une mauvaise personne avant la Watanagashi, vous serez atteint de la malédiction et perdrez 5 cœurs permanents que vous régénérez tous les épisodes. ");
 
         }
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 
     @EventHandler

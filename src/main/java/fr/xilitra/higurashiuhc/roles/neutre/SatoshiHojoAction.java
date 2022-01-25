@@ -82,21 +82,6 @@ public class SatoshiHojoAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
         HPlayer satoshi = this.getLinkedRole().getHPlayer();
         if (satoshi != null) {
@@ -129,16 +114,6 @@ public class SatoshiHojoAction implements RoleAction, Listener {
         PacketPlayOutScoreboardDisplayObjective display = new PacketPlayOutScoreboardDisplayObjective(0, scoreBoard.getObjective("health"));//Create display packet set to under name mode
 
         sendPacket(satoshi.getPlayer(), display);
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 
     @EventHandler

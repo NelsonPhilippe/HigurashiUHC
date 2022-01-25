@@ -82,26 +82,6 @@ public class AkasakaAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
         HPlayer akasaka = this.getLinkedRole().getHPlayer();
         if (akasaka == null)
@@ -111,18 +91,4 @@ public class AkasakaAction implements RoleAction, Listener {
         akasaka.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
     }
 
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

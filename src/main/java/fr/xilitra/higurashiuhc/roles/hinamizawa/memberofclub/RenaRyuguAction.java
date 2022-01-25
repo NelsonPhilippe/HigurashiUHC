@@ -62,7 +62,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
 
         if (ScenarioList.OYASHIRO.isActive())
             ScenarioList.OYASHIRO.getScenario().solution(4);
@@ -82,11 +82,11 @@ public class RenaRyuguAction implements RoleAction, Listener {
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
-            return;
+            return true;
 
         Player rikaPlayer = rika.getPlayer();
         if(rikaPlayer == null)
-            return;
+            return true;
 
         TextComponent textComponent = new TextComponent("§cRena §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
@@ -94,30 +94,7 @@ public class RenaRyuguAction implements RoleAction, Listener {
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §cRena §7ressuscitera mais vous perdrez une de vos vies. "));
 
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onGameStart() {
-
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
+        return true;
 
     }
 

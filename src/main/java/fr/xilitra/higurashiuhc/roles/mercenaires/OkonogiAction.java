@@ -30,47 +30,12 @@ public class OkonogiAction implements RoleAction {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
         HPlayer okonogi = this.getLinkedRole().getHPlayer();
         HPlayer miyoTakano = Role.MIYO_TAKANO.getHPlayer();
 
         if (okonogi != null && okonogi.getPlayer() != null && miyoTakano != null)
             okonogi.getPlayer().sendMessage("Miyo Takano est joué par: " + miyoTakano.getName());
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 
 }

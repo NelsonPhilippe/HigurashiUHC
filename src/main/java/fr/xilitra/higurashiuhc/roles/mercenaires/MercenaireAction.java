@@ -61,21 +61,6 @@ public class MercenaireAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
         List<HPlayer> hPlayerList = this.getLinkedRole().getHPlayerList();
         KitList[] listKit = KitList.values();
@@ -97,21 +82,6 @@ public class MercenaireAction implements RoleAction, Listener {
                 mercenaire.getPlayer().sendMessage(message);
 
         }
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 
     @EventHandler

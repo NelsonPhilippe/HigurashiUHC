@@ -40,26 +40,6 @@ public class MiyoTakanoAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
     public void onGameStart() {
 
         HPlayer takano = Role.MIYO_TAKANO.getHPlayer();
@@ -78,21 +58,6 @@ public class MiyoTakanoAction implements RoleAction, Listener {
             }
         }
 
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
     }
 
     @EventHandler

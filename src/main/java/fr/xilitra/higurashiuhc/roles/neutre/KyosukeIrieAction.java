@@ -23,43 +23,4 @@ public class KyosukeIrieAction implements RoleAction {
                 "§2Irie §6a ensuite le pouvoir de faire disparaître tous les buffs et debuffs du joueur espionné une fois dans la partie avec la commande §5'/h "+Commands.EFFET_CLEAR.getInitials()+" <joueur>'.";
     }
 
-    @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onGameStart() {
-
-    }
-
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

@@ -34,25 +34,6 @@ public class KiichiroKimiyoshiAction implements RoleAction {
                 "§6Vous voyez la vie de: §7'joueur'.";
     }
 
-    @Override
-    public void onKill(HPlayer killer, HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
-
-    }
-
-    @Override
-    public void onLeaveRole(HPlayer hPlayer) {
-
-    }
-
-    @Override
-    public void onJoinRole(HPlayer hPlayer) {
-
-    }
 
     @Override
     public void onGameStart() {
@@ -65,18 +46,4 @@ public class KiichiroKimiyoshiAction implements RoleAction {
         kt.runTaskTimer(0L, 1L);
     }
 
-    @Override
-    public void onGameStop() {
-
-    }
-
-    @Override
-    public void playerLeave(Player p) {
-
-    }
-
-    @Override
-    public boolean acceptReconnect(Player p) {
-        return false;
-    }
 }

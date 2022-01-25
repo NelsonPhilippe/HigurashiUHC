@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;

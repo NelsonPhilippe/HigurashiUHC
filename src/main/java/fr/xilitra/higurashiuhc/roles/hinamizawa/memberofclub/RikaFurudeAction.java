@@ -19,22 +19,18 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import javax.smartcardio.CommandAPDU;
-
 public class RikaFurudeAction implements RoleAction, Listener {
 
-    private final CloseRikaTask watanagashiTask = new CloseRikaTask();
+    public final CloseRikaTask watanagashiTask = new CloseRikaTask();
     private int lives = 3;
     private boolean ressucite = false;
 
@@ -63,51 +59,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
     @EventHandler
     public void onRoleSelected(RoleSelected event) {
-
-    }
-
-    @EventHandler
-    public void onWataChange(WatanagashiChangeEvent event) {
-        if (event.getWataEnum() == WataEnum.AFTER)
-            this.watanagashiTask.runTaskTimer(1, 1);
-        else
-            this.watanagashiTask.stopTask();
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-
-        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
-
-        if (hPlayer == null) return;
-
-        if (hPlayer.getRole().isRole(Role.RIKA_FURUDE)) {
-            HPlayer hanyu = Role.HANYU.getHPlayer();
-
-            if (hanyu == null || hanyu.getPlayer() == null) return;
-
-            HanyuAction hanyuActionRole = (HanyuAction) hanyu.getRole().getRoleAction();
-
-            Location hanyuLocation = hanyu.getPlayer().getLocation();
-            Location rikaLocation = p.getLocation();
-
-            if (hanyuLocation.distanceSquared(rikaLocation) < 30 * 30) {
-
-                if (hanyuActionRole.isInvisible()) return;
-
-                hanyuActionRole.setInvisible(true);
-
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    players.hidePlayer(p);
-                }
-
-            } else {
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    players.showPlayer(p);
-                }
-            }
-        }
 
     }
 
@@ -195,10 +146,12 @@ public class RikaFurudeAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
+
+        boolean death = true;
 
         if (killed.getPlayer() == null)
-            return;
+            return true;
 
         Entity killer = killed.getKiller();
         HPlayer killerHPlayer = null;
@@ -239,8 +192,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
                             HideNametag.unhide(killed.getPlayer(), players.getPlayer());
                         }
                     }
-                    killed.setPlayerState(PlayerState.INGAME);
-                    player.setGameMode(GameMode.SURVIVAL);
+                    death = false;
                 }
 
                 if (rikaFurudeAction.getLives() == 0) {
@@ -277,7 +229,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
         HPlayer hanyu = Role.HANYU.getHPlayer();
 
-        if (hanyu == null) return;
+        if (hanyu == null || !death) return death;
 
         if (hanyu.getPlayerState() == PlayerState.INGAME) {
 
@@ -290,6 +242,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
         }
 
+        return true;
     }
 
     @Override
@@ -304,6 +257,8 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
     @Override
     public void onGameStart() {
+
+        watanagashiTask.runTaskTimer(1,1);
 
         HPlayer hanyu = Role.HANYU.getHPlayer();
         HPlayer rika = this.getLinkedRole().getHPlayer();

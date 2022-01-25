@@ -13,7 +13,9 @@ public interface RoleAction {
 
     void onKill(HPlayer killer, HPlayer killed, DeathReason deathReason);
 
-    void onDeath(HPlayer killed, DeathReason deathReason);
+    default boolean onDeath(HPlayer killed, DeathReason deathReason){
+        return true;
+    }
 
     void onLeaveRole(HPlayer hPlayer);
 

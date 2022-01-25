@@ -84,30 +84,25 @@ public class SatokoHojoAction implements RoleAction, Listener {
             return;
         }
 
-        if (!(hPlayer.getRole().isRole(Role.SATOKO_HOJO))) return;
-
-
-        if (p.getItemInHand() == null || !p.getItemInHand().getItemMeta().hasLore() || p.getItemInHand().getType() == Material.AIR)
-            return;
+        if (!hPlayer.getRole().isRole(Role.SATOKO_HOJO)) return;
 
         ItemStack item = e.getItem();
 
+        if (item == null || !item.hasItemMeta() || item.getItemMeta().getLore().get(0).equals(Traps.hoeTrap.getLore()))
+            return;
 
-        if (item.getItemMeta().getLore().get(0).equals(Traps.hoeTrap.getLore())) {
+        Block block = e.getClickedBlock();
+        Material type = block.getType();
+        Location loc = block.getLocation();
 
-            Block block = e.getClickedBlock();
-            Material type = block.getType();
-            Location loc = block.getLocation();
+        if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL) {
 
-            if (block.getType() == Material.DIRT || block.getType() == Material.GRASS || block.getType() == Material.SOIL) {
-
-                Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
-
-            }
-
-            blockTraps.add(loc);
+            Bukkit.getScheduler().runTask(HigurashiUHC.getInstance(), () -> block.setType(type));
 
         }
+
+        blockTraps.add(loc);
+
     }
 
     @EventHandler
@@ -200,17 +195,17 @@ public class SatokoHojoAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
 
         removeTraps(killed);
 
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
-            return;
+            return true;
 
         Player rikaPlayer = rika.getPlayer();
         if(rikaPlayer == null)
-            return;
+            return true;
 
         TextComponent textComponent = new TextComponent("§eSatoko §7est mort, si ");
         TextComponent click = new TextComponent("§6§nvous cliquez sur ce message");
@@ -218,6 +213,7 @@ public class SatokoHojoAction implements RoleAction, Listener {
         textComponent.addExtra(click);
         textComponent.addExtra(new TextComponent(", §eSatoko §7ressuscitera mais vous perdrez une de vos vies. "));
 
+        return true;
     }
 
     @Override

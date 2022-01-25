@@ -15,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,7 +96,19 @@ public class HanyuAction implements RoleAction, Listener {
     }
 
     public void setInvisible(boolean invisible) {
+        if(isInvisible == invisible)
+            return;
+        if(((RikaFurudeAction) Role.RIKA_FURUDE.getRoleAction()).watanagashiTask.hanyuInvisible != 0)
+            return;
         isInvisible = invisible;
+        HPlayer hanyu = Role.HANYU.getHPlayer();
+        if(hanyu == null || hanyu.getPlayer() == null)
+            return;
+        Player hanyuPlayer = hanyu.getPlayer();
+        if(invisible)
+            hanyuPlayer.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1), false);
+        else
+            hanyuPlayer.removePotionEffect(PotionEffectType.INVISIBILITY);
     }
 
     public boolean isDimensionIsUsed() {
@@ -115,14 +129,16 @@ public class HanyuAction implements RoleAction, Listener {
     }
 
     @Override
-    public void onDeath(HPlayer killed, DeathReason dr) {
+    public boolean onDeath(HPlayer killed, DeathReason dr) {
         HPlayer rika = Role.RIKA_FURUDE.getHPlayer();
         if(rika == null)
-            return;
+            return true;
         Player rikaPlayer = rika.getPlayer();
         if(rikaPlayer == null)
-            return;
+            return true;
         rikaPlayer.sendMessage("§5Hanyu §7est morte. Désormais, il vous est impossible de ressusciter.");
+
+        return true;
     }
 
     @Override

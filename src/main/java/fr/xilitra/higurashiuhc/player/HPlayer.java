@@ -1,5 +1,6 @@
 package fr.xilitra.higurashiuhc.player;
 
+import com.avaje.ebean.validation.NotNull;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
@@ -64,15 +65,15 @@ public class HPlayer {
         this.player = player;
     }
 
-    public Role getRole() {
+    public @NotNull Role getRole() {
         return role;
     }
 
     public void setRole(Role role, boolean clansFollow) {
+        if(role == null)
+            return;
         if (this.role != null)
             this.role.removePlayer(this);
-        if(role == null)
-            role = Role.NULL;
         if (role.isRole(Role.JIRO_TOMITAKE) && HigurashiUHC.getGameManager().getStates() != GameStates.GAME) {
             role = Role.MERCENAIRE;
             this.getInfoData().setDataInfo("hiddenJiro", true);

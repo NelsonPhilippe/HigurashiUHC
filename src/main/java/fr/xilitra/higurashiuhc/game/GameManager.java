@@ -173,7 +173,6 @@ public class GameManager {
     public void checkWin(){
 
         List<Clans> availableClans = new ArrayList<>();
-        boolean withoutClans = false;
         List<HPlayer> remainPlayer = HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME);
 
         if(remainPlayer.size() <= 2){
@@ -296,7 +295,7 @@ public class GameManager {
 
         for (HPlayer player : this.players.values()) {
             i++;
-            log("Player 1 -> "+player.getPlayerState());
+            log("Player "+i+" -> "+player.getPlayerState());
             if (player.getPlayerState().isState(playerState)) {
 
                 playerList.add(player);

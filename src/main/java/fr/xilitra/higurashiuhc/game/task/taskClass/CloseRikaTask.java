@@ -1,10 +1,14 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
+import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.game.task.BukkitTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.HanyuAction;
 import fr.xilitra.higurashiuhc.utils.MathMain;
+import fr.xilitra.higurashiuhc.utils.WataEnum;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -16,9 +20,13 @@ import java.util.List;
 public class CloseRikaTask extends BukkitTask {
 
     List<String> playerWithEffect = new ArrayList<>();
+    public int hanyuInvisible = 0;
 
     @Override
     public void execute() {
+
+        if(hanyuInvisible != 0)
+            hanyuInvisible --;
 
         Role rf = Role.RIKA_FURUDE;
         if (rf.getHPlayer() == null)
@@ -30,11 +38,28 @@ public class CloseRikaTask extends BukkitTask {
 
         Location rikaLocation = rikaPlayer.getLocation();
 
+        HPlayer hanyu = Role.HANYU.getHPlayer();
+        if(hanyu != null) {
+            HanyuAction hanyuAction = (HanyuAction) Role.HANYU.getRoleAction();
+            Player hanyuPlayer = hanyu.getPlayer();
+            if (hanyuPlayer != null && hanyuInvisible == 0){
+
+                double away = MathMain.calculLength(hanyuPlayer.getLocation(), rikaLocation, true);
+                hanyuAction.setInvisible(away <= 30);
+
+            }else{
+                hanyuAction.setInvisible(false);
+            }
+        }
+
+        if(!HigurashiUHC.getGameManager().isWataState(WataEnum.AFTER))
+            return;
+
         for (HPlayer hPlayer : Clans.MEMBER_OF_CLUB.getHPlayerList()) {
 
             Player player = hPlayer.getPlayer();
             if (player == null || hPlayer.hasMalediction() || player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE))
-                return;
+                continue;
 
             Location playerLocation = player.getLocation();
 

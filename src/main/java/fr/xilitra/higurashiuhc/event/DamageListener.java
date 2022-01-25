@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
@@ -12,16 +11,15 @@ import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.player.LinkData;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.HanyuAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RenaRyuguAction;
+import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurudeAction;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.CustomCraft;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.MathMain;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -55,17 +53,14 @@ public class DamageListener implements Listener {
 
         if (victimPlayer == null) return;
 
-        victim.setPlayerState(PlayerState.WAITING_DEATH);
-
         ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(victim);
 
         Entity killer = victim.getKiller();
 
-        victim.getRole().getRoleAction().onDeath(victim, deathReason);
-
-        if(victim.getPlayerState() != PlayerState.WAITING_DEATH)
+        if(!victim.getRole().getRoleAction().onDeath(victim, deathReason))
             return;
 
+        victim.setPlayerState(PlayerState.WAITING_DEATH);
         victimPlayer.setGameMode(GameMode.SPECTATOR);
 
         if (Clans.MERCENAIRE.hisInClans(victim, false)) {
@@ -179,7 +174,10 @@ public class DamageListener implements Listener {
         if(attacked == null)
             return;
 
-        if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+        if(attacked.getRole().isRole(Role.HANYU)){
+            ((RikaFurudeAction) Role.RIKA_FURUDE.getRoleAction()).watanagashiTask.hanyuInvisible = 60;
+            ((HanyuAction) Role.HANYU.getRoleAction()).setInvisible(false);
+        }
 
             if (!(e.getDamager() instanceof Player)) return;
 
@@ -251,8 +249,6 @@ public class DamageListener implements Listener {
                 }
 
             }
-
-        }
 
     }
 

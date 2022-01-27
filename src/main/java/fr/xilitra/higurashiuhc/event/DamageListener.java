@@ -112,24 +112,26 @@ public class DamageListener implements Listener {
                         String.valueOf(kill + 1));
 
                 Clans clans = Clans.getClans(victim);
-                if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
+                if(killerHplayer.hasMalediction()){
+                    if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
 
-                    ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
-                    ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
+                        ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
+                        ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 
-                    List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
-                    boolean allKilledBY = true;
+                        List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
+                        boolean allKilledBY = true;
 
-                    for (HPlayer hPlayer1 : playerInClan) {
-                        if (hPlayer1.getKiller() != killer) {
-                            allKilledBY = false;
-                            break;
+                        for (HPlayer hPlayer1 : playerInClan) {
+                            if (hPlayer1.getKiller() != killer) {
+                                allKilledBY = false;
+                                break;
+                            }
                         }
+
+                        if (allKilledBY)
+                            ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
+
                     }
-
-                    if (allKilledBY)
-                        ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
-
                 }
 
             }

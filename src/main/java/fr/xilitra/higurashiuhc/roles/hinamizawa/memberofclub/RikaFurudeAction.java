@@ -4,8 +4,6 @@ import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
-import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
-import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CloseRikaTask;
 import fr.xilitra.higurashiuhc.player.HPlayer;
@@ -99,7 +97,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
                     RikaFurudeAction rikaFurudeAction = (RikaFurudeAction) rikaFurudePlayer.getRole().getRoleAction();
 
                     if (rikaFurudeAction.getLives() <= 1) {
-                        rika.sendMessage("Vous n'avez pas assez de vie pour réssuciter " + target.getName());
+                        rika.sendMessage("Vous n'avez pas assez de vie pour ressusciter " + target.getName());
                         return;
                     }
 

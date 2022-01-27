@@ -39,11 +39,11 @@ public class RessuciteCmd extends CommandsExecutor {
         if (((DeathTask) hPlayerTarget.getDeathTask()).isRunning()) {
 
             ((RikaFurudeAction) hPlayer.getRole().getRoleAction()).resurrection(hPlayer, hPlayerTarget);
-            sendOkay(p, "Vous venez de réssuciter " + hPlayerTarget.getName());
+            sendOkay(p, "Vous venez de ressusciter " + hPlayerTarget.getName());
             return true;
 
         } else
-            sendError(p, "Impossible de le réssuciter");
+            sendError(p, "Impossible de le ressusciter");
 
         return false;
     }

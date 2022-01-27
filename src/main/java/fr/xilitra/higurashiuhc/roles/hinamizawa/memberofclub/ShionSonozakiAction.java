@@ -12,9 +12,11 @@ import fr.xilitra.higurashiuhc.utils.WataEnum;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.GameMode;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -56,6 +58,30 @@ public class ShionSonozakiAction implements RoleAction, Listener {
         if (player.getPlayer() != null && player.getRole().isRole(Role.SHION_SONOSAKI)) {
             player.getPlayer().setMaxHealth(24);
             player.getPlayer().setHealth(24);
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event){
+
+        Entity damaged = event.getEntity();
+
+        if(!(damaged instanceof Player)) return;
+
+        HPlayer hPlayer = HigurashiUHC.getGameManager().getHPlayer(event.getEntity().getUniqueId());
+        HPlayer mionPlayer = Role.MION_SONOZAKI.getHPlayer();
+        double damage = event.getDamage();
+
+        if(hPlayer == null || mionPlayer == null) return;
+
+        if(hPlayer.getRole().isRole(Role.SHION_SONOSAKI)){
+
+            if(hPlayer.getPlayer().getHealth() >= 20){
+                if(mionPlayer.getPlayer().getHealth() >= 20){
+                    mionPlayer.getPlayer().damage(damage);
+                }
+            }
+
         }
     }
 

@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.utils;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.item.BaseballBat;
+import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ShapedRecipe;
 
@@ -21,4 +22,5 @@ public class CustomCraft {
 
         HigurashiUHC.getInstance().getServer().addRecipe(batte);
     }
+
 }

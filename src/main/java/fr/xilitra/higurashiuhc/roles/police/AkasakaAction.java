@@ -3,6 +3,7 @@ package fr.xilitra.higurashiuhc.roles.police;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
+import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
 import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
@@ -24,6 +25,16 @@ public class AkasakaAction implements RoleAction, Listener {
     @Override
     public Role getLinkedRole(){
         return Role.AKASAKA;
+    }
+
+    @EventHandler
+    public void onRoleSelected(RoleSelected event){
+        HPlayer player = event.getPlayer();
+
+
+        if (player.getPlayer() != null && player.getRole().isRole(Role.AKASAKA)) {
+            player.getPlayer().getInventory().addItem(MatraqueItem.matraqueItem.getItemStack());
+        }
     }
 
     @Override

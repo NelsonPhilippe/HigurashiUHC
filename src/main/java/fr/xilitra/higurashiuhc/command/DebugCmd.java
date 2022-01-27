@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
+import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.Bukkit;
@@ -42,6 +43,20 @@ public class DebugCmd implements CommandExecutor {
                         p.sendMessage(ChatColor.GOLD + role.getName());
 
                 }
+                return true;
+            } else if (args[0].equalsIgnoreCase("addEP")) {
+
+                if (HigurashiUHC.getGameManager().getStates() == GameStates.GAME) {
+
+                    int ep = HigurashiUHC.getGameManager().getEpisode() + 1;
+                    HigurashiUHC.getGameManager().setEpisode(ep);
+
+                } else p.sendMessage(ChatColor.RED + "Game not started");
+
+                return true;
+
+            } else if (args[0].equalsIgnoreCase("getEP")) {
+                HigurashiUHC.getGameManager().broadcast("Episode: " + HigurashiUHC.getGameManager().getEpisode());
                 return true;
             }
 

@@ -2,10 +2,7 @@ package fr.xilitra.higurashiuhc.game;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.command.CommandsConfig;
 import fr.xilitra.higurashiuhc.command.CommandsListener;
-import fr.xilitra.higurashiuhc.command.CommandsStart;
-import fr.xilitra.higurashiuhc.command.DebugCmd;
 import fr.xilitra.higurashiuhc.config.ConfigGestion;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.*;
@@ -22,7 +19,6 @@ import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
-import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -32,8 +28,8 @@ import org.bukkit.plugin.PluginManager;
 import javax.annotation.Nullable;
 import java.awt.*;
 import java.io.File;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 
 public class GameManager {
@@ -43,6 +39,7 @@ public class GameManager {
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
     private ConfigGestion configGestion;
+    private GameTask gameTask = null;
 
     public void initConfig(){
         this.log("FINE) Initializing Config");
@@ -137,7 +134,8 @@ public class GameManager {
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
 
-        new GameTask().runTaskTimer(1, 1);
+        gameTask = new GameTask();
+        gameTask.runTaskTimer(1, 1);
 
     }
 
@@ -262,15 +260,21 @@ public class GameManager {
     }
 
     public void setEpisode(int ep) {
+
         this.log("Try change episode " + this.episode + " -> " + ep);
         if (this.episode == ep) {
             this.log(SystemColor.RED + "Episode not changed to " + this.episode + " Reason: episode equivalent to actual one");
             return;
         }
-        this.episode = ep;
+
         this.log("Episode Changed to " + this.episode);
+        broadcast(ChatColor.WHITE + "L'episode viens de changer: " + this.episode + " -> " + ep);
+        this.episode = ep;
+
         Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));
+
         setWataState(ep == GameManager.getWataEpisode() ? WataEnum.DURING : (ep > GameManager.getWataEpisode() ? WataEnum.AFTER : WataEnum.BEFORE));
+
     }
 
     @Nullable
@@ -306,8 +310,22 @@ public class GameManager {
 
     }
 
-    public WorldBorder getWorldBorder(){
+    public WorldBorder getWorldBorder() {
         return Bukkit.getWorld("world").getWorldBorder();
+    }
+
+    public void broadcast(String message) {
+        for (Player player : Bukkit.getOnlinePlayers())
+            player.sendMessage(message);
+    }
+
+    public void broadcast(PlayerState playerState, String message) {
+        for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerWithState(playerState)) {
+            Player player = hPlayer.getPlayer();
+            if (player == null)
+                continue;
+            player.sendMessage(message);
+        }
     }
 
 }

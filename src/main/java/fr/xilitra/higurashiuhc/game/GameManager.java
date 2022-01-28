@@ -270,6 +270,7 @@ public class GameManager {
         this.log("Episode Changed to " + this.episode);
         broadcast(ChatColor.WHITE + "L'episode viens de changer: " + this.episode + " -> " + ep);
         this.episode = ep;
+        this.gameTask.time = this.gameTask.timeEpisode;
 
         Bukkit.getServer().getPluginManager().callEvent(new EpisodeUpdate(HigurashiUHC.getGameManager().getEpisode()));
 

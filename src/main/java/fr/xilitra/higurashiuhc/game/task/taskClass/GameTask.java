@@ -26,10 +26,7 @@ public class GameTask extends BukkitTask {
             worldborderActivation--;
 
         if (time == 0) {
-            time = timeEpisode;
             HigurashiUHC.getGameManager().setEpisode(HigurashiUHC.getGameManager().getEpisode() + 1);
-        }
-
-        time--;
+        } else time--;
     }
 }

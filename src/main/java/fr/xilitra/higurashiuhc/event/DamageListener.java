@@ -306,19 +306,18 @@ public class DamageListener implements Listener {
 
         if (!e.isCancelled() && p.getHealth() - e.getFinalDamage() <= 0) {
             e.setCancelled(true);
+            DeathReason dr;
             if (e instanceof EntityDamageByEntityEvent) {
                 Role killerRole = null;
-                DeathReason dr = DeathReason.ENTITY_ATTACK;
                 if (((EntityDamageByEntityEvent) e).getDamager() instanceof Player) {
                     dr = DeathReason.PLAYER_ATTACK;
                     HPlayer killer = HigurashiUHC.getGameManager().getHPlayer(((EntityDamageByEntityEvent) e).getDamager().getUniqueId());
                     if (killer != null)
                         killerRole = killer.getRole();
-                }
+                } else dr = DeathReason.ENTITY_ATTACK;
                 hPlayer.setKiller(((EntityDamageByEntityEvent) e).getDamager(), killerRole);
-                playDeath(hPlayer, dr);
-            } else
-                playDeath(hPlayer, DeathReason.WORLD_DAMAGE);
+            } else dr = DeathReason.WORLD_DAMAGE;
+            playDeath(hPlayer, dr);
         }
 
     }

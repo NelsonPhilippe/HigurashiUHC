@@ -20,9 +20,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ShionSonozakiAction implements RoleAction, Listener {
 
     @Override
@@ -96,39 +93,6 @@ public class ShionSonozakiAction implements RoleAction, Listener {
 
         if (killed.hasMarriedReason(Reason.DOLL_TRAGEDY) && HigurashiUHC.getGameManager().isWataState(WataEnum.AFTER))
             killer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 9999, 1), true);
-
-        if (!killer.hasMaledictionReason(Reason.DOLL_TRAGEDY))
-            return;
-
-        if (!killed.getRole().isRole(Role.ORYO_SONOZAKI, Role.KIICHIRO_KIMIYOSHI, Role.SATOKO_HOJO, Role.MION_SONOZAKI))
-            return;
-
-        if (killer.hasDeathLinkReason(Reason.DOLL_TRAGEDY)) {
-            List<HPlayer> ltd = killer.getDeathLinkPlayer(Reason.DOLL_TRAGEDY);
-            ltd.forEach((lp) -> killer.getLinkData(lp).setDeathLinked(null, true));
-        }
-
-        List<Role> roleList = new ArrayList<Role>() {{
-            add(Role.ORYO_SONOZAKI);
-            add(Role.KIICHIRO_KIMIYOSHI);
-            add(Role.SATOKO_HOJO);
-            add(Role.MION_SONOZAKI);
-        }};
-
-        if (killer.getPlayer() != null)
-            killer.getPlayer().setMaxHealth(killer.getPlayer().getMaxHealth() + 1);
-
-        for (Role role : roleList) {
-            if (role.getHPlayer() == null)
-                return;
-            Role killerRole = role.getHPlayer().getKillerRole();
-            if (killerRole == null)
-                return;
-            if (killerRole != this.getLinkedRole())
-                return;
-        }
-
-        killer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1), true);
 
     }
 

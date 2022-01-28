@@ -2,7 +2,6 @@ package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
@@ -102,24 +101,35 @@ public class DamageListener implements Listener {
 
                 int kill;
                 String value = (String) killerHplayer.getInfoData().getDataInfo(InfoData.InfoList.KILL.name());
-                if(value == null)
+                if (value == null)
                     kill = 0;
                 else kill = Integer.parseInt(value);
 
                 killerHplayer.getInfoData().setDataInfo(InfoData.InfoList.KILL.name(),
                         String.valueOf(kill + 1));
 
-                Clans clans = Clans.getClans(victim);
-                if(killerHplayer.hasMalediction()){
-                    if (clans != null && clans.isClans(Clans.MEMBER_OF_CLUB)) {
+                if (killerHplayer.hasMalediction() && !killerHplayer.getRole().isRole(Role.RIKA_FURUDE, Role.HANYU)) {
+                    List<Role> authorizedEffect = new ArrayList<Role>() {{
+                        add(Role.KEIICHI_MAEBARA);
+                        add(Role.RENA_RYUGU);
+                        add(Role.SATOKO_HOJO);
+                        add(Role.MION_SONOZAKI);
+                        add(Role.SHION_SONOSAKI);
+                    }};
+
+                    if (authorizedEffect.contains(victim.getRole())) {
+
+                        authorizedEffect.remove(killerHplayer.getRole());
 
                         ((Player) killer).setMaxHealth(((Player) killer).getMaxHealth() + 1);
                         ((Player) killer).removePotionEffect(PotionEffectType.DAMAGE_RESISTANCE);
 
-                        List<HPlayer> playerInClan = Clans.MEMBER_OF_CLUB.getHPlayerList();
                         boolean allKilledBY = true;
 
-                        for (HPlayer hPlayer1 : playerInClan) {
+                        for (Role role1 : authorizedEffect) {
+                            HPlayer hPlayer1 = role1.getHPlayer();
+                            if (hPlayer1 == null)
+                                continue;
                             if (hPlayer1.getKiller() != killer) {
                                 allKilledBY = false;
                                 break;
@@ -127,7 +137,7 @@ public class DamageListener implements Listener {
                         }
 
                         if (allKilledBY)
-                            ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 9999, 1));
+                            ((Player) killer).addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
 
                     }
                 }
@@ -275,8 +285,6 @@ public class DamageListener implements Listener {
         if (e.isCancelled())
             return;
 
-        double damage = limitDamage(e.getDamage());
-
         if (p.getHealth() <= 20) {
 
             if (p.getHealth() - e.getFinalDamage() <= 5 && p.getHealth() - e.getFinalDamage() > 0) {
@@ -313,10 +321,6 @@ public class DamageListener implements Listener {
                 playDeath(hPlayer, DeathReason.WORLD_DAMAGE);
         }
 
-    }
-
-    private double limitDamage(double damage) {
-        return damage > 4 ? 4.0d : damage;
     }
 
 }

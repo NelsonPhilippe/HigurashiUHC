@@ -5,7 +5,6 @@ import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
-import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,12 +16,12 @@ import java.util.List;
 public class KuraudoOishiAction implements RoleAction, Listener {
 
 
-    private final List<HPlayer> suspect = new ArrayList<>();
+    private final List<HPlayer> suspectList = new ArrayList<>();
+    public HPlayer designed = null;
     private int countSuspect = 0;
-    private boolean coupableIsDesigned = false;
 
     @Override
-    public Role getLinkedRole(){
+    public Role getLinkedRole() {
         return Role.KURAUDO_OISHI;
     }
 
@@ -54,19 +53,11 @@ public class KuraudoOishiAction implements RoleAction, Listener {
     }
 
     public List<HPlayer> getSuspect() {
-        return suspect;
+        return suspectList;
     }
 
     public void addSuspect(HPlayer hPlayer) {
-        this.suspect.add(hPlayer);
-    }
-
-    public boolean isCoupableDesigned() {
-        return coupableIsDesigned;
-    }
-
-    public void setCoupableDesigned(boolean coupableIsDesigned) {
-        this.coupableIsDesigned = coupableIsDesigned;
+        this.suspectList.add(hPlayer);
     }
 
     @Override
@@ -80,13 +71,17 @@ public class KuraudoOishiAction implements RoleAction, Listener {
             return;
         HPlayer player = Role.KURAUDO_OISHI.getHPlayer();
 
-        if (player != null && player.getPlayer() != null && !isCoupableDesigned()) {
-            player.getPlayer().setMaxHealth(10);
-            player.getPlayer().sendMessage("§e§oVous n’avez accusé personne avant la §5§l§nWatanagashi… \n" +
-                    "\n" +
-                    "§e§oIl est maintenant trop tard, vous ne pouvez plus utiliser vos suspicions et vous perdez 5 cœurs permanent. \n" +
-                    "§e§oLa police fait toujours partie d’§9§oHinamizawa. \n" +
-                    "§e§oVous n’avez pas été suffisamment efficace.");
+        if (player != null) {
+            player.removeCommandAccess(Commands.COUPABLE);
+            player.removeCommandAccess(Commands.SUSPECTER);
+            if (player.getPlayer() != null && designed == null) {
+                player.getPlayer().setMaxHealth(player.getPlayer().getMaxHealth() - 10);
+                player.getPlayer().sendMessage("§e§oVous n’avez accusé personne avant la §5§l§nWatanagashi… \n" +
+                        "\n" +
+                        "§e§oIl est maintenant trop tard, vous ne pouvez plus utiliser vos suspicions et vous perdez 5 cœurs permanent. \n" +
+                        "§e§oLa police fait toujours partie d’§9§oHinamizawa. \n" +
+                        "§e§oVous n’avez pas été suffisamment efficace.");
+            }
         }
     }
 

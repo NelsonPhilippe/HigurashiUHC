@@ -35,14 +35,20 @@ public class CoupableCmd extends CommandsExecutor {
 
         if (!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
             sendError(p, "Erreur, Watanagashi en cours ou passé.");
-            return true;
+            return false;
         }
 
         KuraudoOishiAction oishi = (KuraudoOishiAction) hPlayer.getRole().getRoleAction();
 
-        if (!oishi.isCoupableDesigned()) {
-            oishi.setCoupableDesigned(true);
+        if (!oishi.getSuspect().contains(targetHPlayer)) {
+            sendError(p, "Erreur, vous ne pouvez pas désigner comme coupable une personne que vous n'avez pas suspecté");
+            return false;
         }
+
+        oishi.designed = targetHPlayer;
+
+        hPlayer.removeCommandAccess(Commands.COUPABLE);
+        hPlayer.removeCommandAccess(Commands.SUSPECTER);
 
         p.sendMessage("Vous avez désigné le joueur " + targetHPlayer.getName() + " coupable");
 
@@ -52,7 +58,7 @@ public class CoupableCmd extends CommandsExecutor {
             arc.addEnchantment(Enchantment.ARROW_DAMAGE, 1);
 
             p.getInventory().addItem(arc);
-        }else if (targetHPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
+        } else if (targetHPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
             sendError(p,"L'enquête a échoué.");
             return true;
         }

@@ -3,7 +3,6 @@ package fr.xilitra.higurashiuhc.command.executor;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
-import fr.xilitra.higurashiuhc.game.GameManager;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.InfoData;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -86,7 +85,7 @@ public class SuspecterCmd extends CommandsExecutor {
             coupableClickable.setBold(true);
             coupableClickable.setColor(net.md_5.bungee.api.ChatColor.GOLD);
 
-            coupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h "+ Commands.COUPABLE.getInitials()));
+            coupableClickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h " + Commands.COUPABLE.getInitials() + targetHPlayer.getName()));
 
             p.spigot().sendMessage(textComponent);
 

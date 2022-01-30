@@ -2,6 +2,7 @@ package fr.xilitra.higurashiuhc.command.executor;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
+import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -21,13 +22,18 @@ public class CoupableCmd extends CommandsExecutor {
     @Override
     public boolean onCommand(HPlayer hPlayer, Player p, String[] args) {
 
+        if (args.length != 2) {
+            sendError(p, "Merci de faire /h " + Commands.COUPABLE.getInitials() + " <joueur>");
+            return false;
+        }
+
         HPlayer targetHPlayer = HigurashiUHC.getGameManager().getHPlayer(args[1]);
         if (targetHPlayer == null) {
             sendError(p, "Cible non trouvé");
             return false;
         }
 
-        if(!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)){
+        if (!HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
             sendError(p, "Erreur, Watanagashi en cours ou passé.");
             return true;
         }

@@ -44,6 +44,10 @@ public class KuraudoOishiAction implements RoleAction, Listener {
                 "§6Si §eOishi §6ne désigne pas de coupable avant watanagashi, alors §eOishi §6perdra ses pouvoirs et tombera automatiquement à 5 cœurs durant toute la partie.";
     }
 
+    public boolean isCoupableDesigned() {
+        return designed != null;
+    }
+
     public int getCountSuspect() {
         return countSuspect;
     }

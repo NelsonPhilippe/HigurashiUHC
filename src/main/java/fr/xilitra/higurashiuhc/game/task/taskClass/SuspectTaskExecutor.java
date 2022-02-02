@@ -1,16 +1,16 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.police.KuraudoOishiAction;
 
-public class SuspectTask extends BukkitTask {
+public class SuspectTaskExecutor extends TaskExecutor {
 
     private int time;
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         if (time == 0) {
             HPlayer hPlayer = Role.KURAUDO_OISHI.getHPlayer();

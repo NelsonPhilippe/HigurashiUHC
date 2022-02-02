@@ -6,7 +6,7 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTaskExecutor;
 import fr.xilitra.higurashiuhc.kit.KitList;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
@@ -23,7 +23,7 @@ public class HPlayer {
 
     private final String name;
     private final UUID uuid;
-    private final DeathTask deathTask;
+    private final DeathTaskExecutor deathTask;
     private final Map<HPlayer, LinkData> linkData = new HashMap<>();
     private final List<Reason> mrList = new ArrayList<>();
     private final InfoData infoData;
@@ -42,7 +42,7 @@ public class HPlayer {
         this.uuid = player.getUniqueId();
         this.player = player;
         this.infoData = new InfoData(this);
-        this.deathTask = new DeathTask(player);
+        this.deathTask = new DeathTaskExecutor(player);
     }
 
     public String getName() {

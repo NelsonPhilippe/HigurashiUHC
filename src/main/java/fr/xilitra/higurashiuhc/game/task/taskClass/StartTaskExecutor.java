@@ -1,21 +1,16 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
-import fr.xilitra.higurashiuhc.roles.Role;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.utils.packets.TitlePacket;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
-import java.util.Map;
-import java.util.UUID;
-
-public class StartTask extends BukkitTask {
+public class StartTaskExecutor extends TaskExecutor {
 
     private int time = 10;
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         if (time == 5 || time == 4 || time == 3 || time == 2 || time == 1) {
             HigurashiUHC.getGameManager().getHPlayerList().values().forEach(

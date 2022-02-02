@@ -1,12 +1,10 @@
 package fr.xilitra.higurashiuhc.event;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.SatokoHojoAction;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
@@ -14,8 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class MoveEvent implements Listener {
 
@@ -29,8 +25,8 @@ public class MoveEvent implements Listener {
 
         if (hPlayer == null || hPlayer.getRole() == null) return;
 
-        if (hPlayer.getDeathTask() instanceof DeathTask) {
-            if (((DeathTask) hPlayer.getDeathTask()).isRunning()) {
+        if (hPlayer.getDeathTask() instanceof DeathTaskExecutor) {
+            if (((DeathTaskExecutor) hPlayer.getDeathTask()).isRunning()) {
                 System.out.println("dont move!");
                 e.setCancelled(true);
             } else {

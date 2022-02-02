@@ -1,19 +1,19 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 
-public class GameTask extends BukkitTask {
+public class GameTaskExecutor extends TaskExecutor {
 
     public int timeEpisode = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
     public int worldborderActivation = HigurashiUHC.getInstance().getConfig().getInt("activation-time");
     public int time = HigurashiUHC.getInstance().getConfig().getInt("phase-time") * 60;
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         if (worldborderActivation == 0) {
             worldborderActivation--;

@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.command.executor;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
-import fr.xilitra.higurashiuhc.game.task.taskClass.PolicierTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.PolicierTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,7 +32,7 @@ public class PvCmd extends CommandsExecutor {
             }
 
             target.setMaxHealth(target.getMaxHealth() - 2);
-            new PolicierTask(hPlayer).runTaskTimer(1, 1);
+            new PolicierTaskExecutor(hPlayer).runTaskTimer(1, 1);
             sendOkay(p, "Vous venez de mettre un pv à " + target.getName());
 
             return true;

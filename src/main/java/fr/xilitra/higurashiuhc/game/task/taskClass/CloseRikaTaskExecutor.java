@@ -2,13 +2,12 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.HanyuAction;
 import fr.xilitra.higurashiuhc.utils.MathMain;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -17,16 +16,16 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CloseRikaTask extends BukkitTask {
+public class CloseRikaTaskExecutor extends TaskExecutor {
 
     List<String> playerWithEffect = new ArrayList<>();
     public int hanyuInvisible = 0;
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
-        if(hanyuInvisible != 0)
-            hanyuInvisible --;
+        if (hanyuInvisible != 0)
+            hanyuInvisible--;
 
         Role rf = Role.RIKA_FURUDE;
         if (rf.getHPlayer() == null)

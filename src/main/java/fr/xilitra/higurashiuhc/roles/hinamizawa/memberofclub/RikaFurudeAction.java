@@ -5,16 +5,14 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.task.taskClass.CloseRikaTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.CloseRikaTaskExecutor;
+import fr.xilitra.higurashiuhc.game.task.taskClass.hanyu.SecondsCounterTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
 import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.HideNametag;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Sound;
@@ -28,9 +26,10 @@ import org.bukkit.potion.PotionEffectType;
 
 public class RikaFurudeAction implements RoleAction, Listener {
 
-    public final CloseRikaTask watanagashiTask = new CloseRikaTask();
+    public final CloseRikaTaskExecutor watanagashiTask = new CloseRikaTaskExecutor();
     private int lives = 3;
     private boolean ressucite = false;
+    public final SecondsCounterTaskExecutor secondsCounterTaskExecutor = new SecondsCounterTaskExecutor();
 
     private int deathMalusTime = 2;
 
@@ -171,19 +170,26 @@ public class RikaFurudeAction implements RoleAction, Listener {
                 rikaFurudeAction.remove1Live();
 
                 if (rikaFurudeAction.getLives() >= 1) {
-                    if(rikaFurudeAction.getLives() >= 2) {
+                    if (rikaFurudeAction.getLives() >= 2) {
                         killed.getPlayer().setMaxHealth(16);
                         killed.getPlayer().setHealth(16);
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                             HideNametag.hide(killed.getPlayer(), players.getPlayer());
                         }
-                    }else{
+                    } else {
                         killed.getPlayer().setMaxHealth(10);
                         killed.getPlayer().setHealth(10);
 
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
                             HideNametag.unhide(killed.getPlayer(), players.getPlayer());
                         }
+                    }
+
+                    secondsCounterTaskExecutor.stopTask();
+                    HPlayer hanyu = Role.HANYU.getHPlayer();
+                    if (hanyu != null) {
+                        if (hanyu.hasCommandAccess(Commands.DIMENSION_DEATH))
+                            secondsCounterTaskExecutor.runTaskLater(30);
                     }
                     death = false;
                 }
@@ -220,22 +226,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
         }
 
-        HPlayer hanyu = Role.HANYU.getHPlayer();
-
-        if (hanyu == null || !death) return death;
-
-        if (hanyu.getPlayerState() == PlayerState.INGAME) {
-
-            TextComponent textClick = new TextComponent(ChatColor.GOLD + "[Oui]");
-            textClick.setBold(true);
-            TextComponent message = new TextComponent("Voulez vous teleporter Rika dans la dimension : ");
-            message.addExtra(textClick);
-
-            textClick.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/h "+ Commands.DIMENSION.getInitials() +" rika"));
-
-        }
-
-        return true;
+        return death;
     }
 
     @Override

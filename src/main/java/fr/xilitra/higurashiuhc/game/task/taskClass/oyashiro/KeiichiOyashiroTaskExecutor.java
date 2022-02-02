@@ -1,13 +1,13 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.scenario.Oyashiro;
 import fr.xilitra.higurashiuhc.scenario.ScenarioList;
 
-public class KeiichiOyashiroTask extends BukkitTask {
+public class KeiichiOyashiroTaskExecutor extends TaskExecutor {
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         float addValue = 1;
 

@@ -5,12 +5,11 @@ import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.higurashi.RoleSelected;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CouldownMatraque;
-import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.StuntTaskExecutor;
 import fr.xilitra.higurashiuhc.item.MatraqueItem;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
-import fr.xilitra.higurashiuhc.utils.DeathReason;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -65,7 +64,7 @@ public class AkasakaAction implements RoleAction, Listener {
             }
 
             hPlayer.setPlayerDontMove(true);
-            new StuntTask(hPlayer).runTaskTimer(1, 1);
+            new StuntTaskExecutor(hPlayer).runTaskTimer(1, 1);
             new CouldownMatraque().runTaskLater(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.ROLE_ASAKA_MATRAQUE_SECONDS));
         }
 

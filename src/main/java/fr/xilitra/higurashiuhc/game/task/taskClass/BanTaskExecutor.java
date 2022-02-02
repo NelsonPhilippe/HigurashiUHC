@@ -1,14 +1,14 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
-public class BanTask extends BukkitTask {
+public class BanTaskExecutor extends TaskExecutor {
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         HPlayer oryo = Role.ORYO_SONOZAKI.getHPlayer();
         if (oryo == null) {

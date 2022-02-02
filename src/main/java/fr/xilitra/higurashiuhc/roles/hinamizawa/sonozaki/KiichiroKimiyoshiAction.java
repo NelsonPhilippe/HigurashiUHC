@@ -2,12 +2,10 @@ package fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki;
 
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
-import fr.xilitra.higurashiuhc.game.task.taskClass.KiichiroTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.KiichiroTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
-import fr.xilitra.higurashiuhc.utils.DeathReason;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.Random;
 
 public class KiichiroKimiyoshiAction implements RoleAction {
 
-    KiichiroTask kt = null;
+    KiichiroTaskExecutor kt = null;
 
     @Override
     public Role getLinkedRole(){
@@ -42,7 +40,7 @@ public class KiichiroKimiyoshiAction implements RoleAction {
 
         List<HPlayer> hPlayerList = new ArrayList<>(HigurashiUHC.getGameManager().getHPlayerList().values());
 
-        kt = new KiichiroTask(hPlayerList.get(new Random().nextInt(hPlayerList.size())));
+        kt = new KiichiroTaskExecutor(hPlayerList.get(new Random().nextInt(hPlayerList.size())));
         kt.runTaskTimer(0L, 1L);
     }
 

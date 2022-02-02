@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.command.executor;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
-import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.DeathTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.memberofclub.RikaFurudeAction;
 import org.bukkit.Bukkit;
@@ -36,7 +36,7 @@ public class RessuciteCmd extends CommandsExecutor {
             return false;
         }
 
-        if (((DeathTask) hPlayerTarget.getDeathTask()).isRunning()) {
+        if (((DeathTaskExecutor) hPlayerTarget.getDeathTask()).isRunning()) {
 
             ((RikaFurudeAction) hPlayer.getRole().getRoleAction()).resurrection(hPlayer, hPlayerTarget);
             sendOkay(p, "Vous venez de ressusciter " + hPlayerTarget.getName());

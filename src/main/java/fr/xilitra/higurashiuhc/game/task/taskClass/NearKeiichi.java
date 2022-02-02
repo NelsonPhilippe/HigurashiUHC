@@ -1,27 +1,27 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.game.PlayerState;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class NearKeiichi extends BukkitTask {
+public class NearKeiichi extends TaskExecutor {
 
     @Override
-    public void execute() {
+    public void onExecute() {
         HPlayer keiichi = Role.KEIICHI_MAEBARA.getHPlayer();
-        if(keiichi == null) {
+        if (keiichi == null) {
             stopTask();
             return;
         }
         Player keiichiPlayer = keiichi.getPlayer();
-        if(keiichiPlayer == null)
+        if (keiichiPlayer == null)
             return;
         HPlayer rena = Role.RENA_RYUGU.getHPlayer();
-        if(rena == null){
+        if (rena == null) {
             keiichiPlayer.sendMessage("Rena Inexistante");
             stopTask();
             return;

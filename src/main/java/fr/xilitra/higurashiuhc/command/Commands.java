@@ -8,12 +8,12 @@ import java.util.List;
 public enum Commands {
 
     RESSUCITE("r", new RessuciteCmd(), false),
-    RIKATP("rikatp", new TeleportRikaCmd(), true),
     VOTE("vote", new VoteCmd(), false),
     BAN("ban", new BanCmd(), false),
     INVERSER("inverser", new InverserCmd(), true),
     PENSE("pense", new PenseCmd(), true),
     DIMENSION("dimension", new DimensionCmd(), false),
+    DIMENSION_DEATH("dimension_death", new DimensionDeathCmd(), false),
     FORCE("force", new ForceCmd(), true),
     HEAL("heal", new HealCmd(), true),
     LIST("list", new ListCmd(), false),

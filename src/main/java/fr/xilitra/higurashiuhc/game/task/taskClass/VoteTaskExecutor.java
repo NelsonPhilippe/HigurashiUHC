@@ -3,17 +3,17 @@ package fr.xilitra.higurashiuhc.game.task.taskClass;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.config.ConfigLocation;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.hinamizawa.sonozaki.OryoSonozakiAction;
 
-public class VoteTask extends BukkitTask {
+public class VoteTaskExecutor extends TaskExecutor {
 
     private int time = HigurashiUHC.getGameManager().getConfigGestion().getConfig().getInt(ConfigLocation.ROLE_ORYO_VOTE_SECONDS);
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         if (time == 0) {
             HPlayer oryo = Role.ORYO_SONOZAKI.getHPlayer();
@@ -35,7 +35,7 @@ public class VoteTask extends BukkitTask {
                             "§3Vous venez d’être banni du village d’§9Hinamizawa, §3vous perdez par conséquent 5 cœurs que vous récupérerez d’ici 10 minutes.\n" +
                             "§4-\n");
                 }
-                new BanTask().runTaskLater(10);
+                new BanTaskExecutor().runTaskLater(10);
             }
 
             this.stopTask();

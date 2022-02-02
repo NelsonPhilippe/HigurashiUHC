@@ -38,7 +38,7 @@ public enum Role {
 
     HANYU("Hanyu", Gender.FEMME, Clans.MEMBER_OF_CLUB, 1, new HanyuAction(),
             new HashMap<Commands, Integer>() {{
-                put(Commands.RIKATP, 1);
+                put(Commands.DIMENSION_DEATH, 1);
                 put(Commands.DIMENSION, 1);
             }}),
 

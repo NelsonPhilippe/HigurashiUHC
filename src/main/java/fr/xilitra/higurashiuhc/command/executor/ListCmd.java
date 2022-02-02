@@ -3,7 +3,7 @@ package fr.xilitra.higurashiuhc.command.executor;
 import fr.xilitra.higurashiuhc.HigurashiUHC;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.command.CommandsExecutor;
-import fr.xilitra.higurashiuhc.game.task.taskClass.ChatTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.ChatTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -34,8 +34,8 @@ public class ListCmd extends CommandsExecutor {
                 return false;
             }
 
-            sendOkay(p,"Vous avez rajouté le joueur au tchat, en esperant qu'il ne soir pas trop toxique");
-                    new ChatTask(hPlayerTarget).runTaskTimer(1, 1);
+            sendOkay(p, "Vous avez rajouté le joueur au tchat, en esperant qu'il ne soir pas trop toxique");
+            new ChatTaskExecutor(hPlayerTarget).runTaskTimer(1, 1);
 
             return true;
         }else sendError(p, "Merci de faire /h "+ Commands.LIST.getInitials() +" <joueur>");

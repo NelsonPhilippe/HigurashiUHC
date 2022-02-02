@@ -1,23 +1,23 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
 import fr.xilitra.higurashiuhc.clans.Clans;
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.mercenaires.OkonogiAction;
 import org.bukkit.Location;
 
-public class ChatTask extends BukkitTask {
+public class ChatTaskExecutor extends TaskExecutor {
 
     private final HPlayer target;
     private int time = 30;
 
-    public ChatTask(HPlayer target) {
+    public ChatTaskExecutor(HPlayer target) {
         this.target = target;
     }
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         OkonogiAction okonogiActionRole = (OkonogiAction) Role.OKONOGI.getRoleAction();
 

@@ -10,9 +10,9 @@ import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeEvent;
 import fr.xilitra.higurashiuhc.event.gamestate.GameStateChangeListener;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
-import fr.xilitra.higurashiuhc.game.task.TaskRunner;
-import fr.xilitra.higurashiuhc.game.task.taskClass.GameTask;
-import fr.xilitra.higurashiuhc.game.task.taskClass.StartTask;
+import fr.xilitra.higurashiuhc.game.task.TaskReminder;
+import fr.xilitra.higurashiuhc.game.task.taskClass.GameTaskExecutor;
+import fr.xilitra.higurashiuhc.game.task.taskClass.StartTaskExecutor;
 import fr.xilitra.higurashiuhc.gui.config.MapMenu;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -39,7 +39,7 @@ public class GameManager {
     private int episode = 0;
     private WataEnum wataEnum = WataEnum.BEFORE;
     private ConfigGestion configGestion;
-    private GameTask gameTask = null;
+    private GameTaskExecutor gameTask = null;
 
     public void initConfig(){
         this.log("FINE) Initializing Config");
@@ -114,7 +114,7 @@ public class GameManager {
 
         }
 
-        new StartTask().runTaskTimer(1, 1);
+        new StartTaskExecutor().runTaskTimer(1, 1);
 
         World world = Bukkit.getWorld("world");
 
@@ -134,7 +134,7 @@ public class GameManager {
         for (Role value : Role.values())
             value.getRoleAction().onGameStart();
 
-        gameTask = new GameTask();
+        gameTask = new GameTaskExecutor();
         gameTask.runTaskTimer(1, 1);
 
     }
@@ -208,9 +208,9 @@ public class GameManager {
         HigurashiUHC.getGameManager().setStates(GameStates.FINISH);
         Bukkit.getOnlinePlayers().forEach(player -> {
             player.setGameMode(GameMode.SURVIVAL);
-            player.sendMessage("Wins launched: "+ Arrays.toString(object));
+            player.sendMessage("Wins launched: " + Arrays.toString(object));
         });
-        TaskRunner.stopAllTask();
+        TaskReminder.stopAllTask();
     }
 
     public WataEnum getWataState() {

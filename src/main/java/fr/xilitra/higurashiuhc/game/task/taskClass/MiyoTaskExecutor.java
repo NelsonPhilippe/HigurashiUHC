@@ -1,15 +1,15 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass;
 
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.utils.ActionBar;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class MiyoTask extends BukkitTask {
+public class MiyoTaskExecutor extends TaskExecutor {
     @Override
-    public void execute() {
+    public void onExecute() {
         Role takanoRole = Role.MIYO_TAKANO;
         HPlayer takanoHPlayer = takanoRole.getHPlayer();
         if (takanoHPlayer == null) {

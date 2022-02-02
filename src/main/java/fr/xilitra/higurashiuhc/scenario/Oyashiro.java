@@ -6,9 +6,9 @@ import fr.xilitra.higurashiuhc.config.ConfigLocation;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.GameStates;
 import fr.xilitra.higurashiuhc.game.task.taskClass.NearKeiichi;
-import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTask;
-import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTask;
-import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.KeiichiOyashiroTaskExecutor;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.ParanoTaskExecutor;
+import fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro.RenaOyashiroTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.player.Reason;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -25,10 +25,10 @@ import org.inventivetalent.bossbar.BossBarAPI;
 public class Oyashiro extends Scenario implements Listener {
 
     public boolean reveal = false;
-    public RenaOyashiroTask renaTaskID = new RenaOyashiroTask();
-    public KeiichiOyashiroTask keiichiTaskID = new KeiichiOyashiroTask();
+    public RenaOyashiroTaskExecutor renaTaskID = new RenaOyashiroTaskExecutor();
+    public KeiichiOyashiroTaskExecutor keiichiTaskID = new KeiichiOyashiroTaskExecutor();
     public NearKeiichi nearKeiichi = new NearKeiichi();
-    public ParanoTask paranoTask = new ParanoTask();
+    public ParanoTaskExecutor paranoTask = new ParanoTaskExecutor();
     public BossBar keiichiBossBar = null;
     public BossBar renaBossBar = null;
     public Integer solNumber = null;

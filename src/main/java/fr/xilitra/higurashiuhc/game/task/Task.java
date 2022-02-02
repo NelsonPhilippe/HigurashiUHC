@@ -12,4 +12,9 @@ public interface Task {
     boolean isRunning();
 
     int getTaskID();
+
+    void onExecute();
+
+    default void onStart() {
+    }
 }

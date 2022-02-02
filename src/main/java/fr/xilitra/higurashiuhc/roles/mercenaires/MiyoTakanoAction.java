@@ -4,11 +4,10 @@ import fr.xilitra.higurashiuhc.clans.Clans;
 import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.event.watanagashi.WatanagashiChangeEvent;
-import fr.xilitra.higurashiuhc.game.task.taskClass.MiyoTask;
+import fr.xilitra.higurashiuhc.game.task.taskClass.MiyoTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import fr.xilitra.higurashiuhc.roles.RoleAction;
-import fr.xilitra.higurashiuhc.utils.DeathReason;
 import fr.xilitra.higurashiuhc.utils.WataEnum;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,7 +18,7 @@ import java.util.List;
 
 public class MiyoTakanoAction implements RoleAction, Listener {
 
-    public MiyoTask miyoTask = new MiyoTask();
+    public MiyoTaskExecutor miyoTask = new MiyoTaskExecutor();
 
     @Override
     public Role getLinkedRole(){

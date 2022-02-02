@@ -1,6 +1,6 @@
 package fr.xilitra.higurashiuhc.game.task.taskClass.oyashiro;
 
-import fr.xilitra.higurashiuhc.game.task.BukkitTask;
+import fr.xilitra.higurashiuhc.game.task.TaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
 import org.bukkit.Sound;
@@ -15,10 +15,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ParanoTask extends BukkitTask {
+public class ParanoTaskExecutor extends TaskExecutor {
 
     @Override
-    public void execute() {
+    public void onExecute() {
 
         Effect[] effectList = Effect.values();
         Effect toApply = effectList[new Random().nextInt(effectList.length)];

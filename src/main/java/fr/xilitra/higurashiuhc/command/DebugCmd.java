@@ -16,11 +16,11 @@ public class DebugCmd implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player)) return false;
 
         Player p = (Player) sender;
 
-        if (!p.isOp()) return true;
+        if (!p.isOp()) return false;
 
         if (args.length == 1) {
 

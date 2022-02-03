@@ -6,6 +6,7 @@ import fr.xilitra.higurashiuhc.command.Commands;
 import fr.xilitra.higurashiuhc.event.higurashi.EpisodeUpdate;
 import fr.xilitra.higurashiuhc.game.PlayerState;
 import fr.xilitra.higurashiuhc.game.task.taskClass.CloseRikaTaskExecutor;
+import fr.xilitra.higurashiuhc.game.task.taskClass.hanyu.DimensionTaskTP;
 import fr.xilitra.higurashiuhc.game.task.taskClass.hanyu.SecondsCounterTaskExecutor;
 import fr.xilitra.higurashiuhc.player.HPlayer;
 import fr.xilitra.higurashiuhc.roles.Role;
@@ -147,7 +148,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
         Entity killer = killed.getKiller();
         HPlayer killerHPlayer = null;
-        Player player = killed.getPlayer();
+        Player killedPlayer = killed.getPlayer();
 
         if (killer != null)
             killerHPlayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
@@ -171,20 +172,21 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
                 if (rikaFurudeAction.getLives() >= 1) {
                     if (rikaFurudeAction.getLives() >= 2) {
-                        killed.getPlayer().setMaxHealth(16);
-                        killed.getPlayer().setHealth(16);
+                        killedPlayer.setMaxHealth(16);
+                        killedPlayer.setHealth(16);
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.hide(killed.getPlayer(), players.getPlayer());
+                            HideNametag.hide(killedPlayer, players.getPlayer());
                         }
                     } else {
-                        killed.getPlayer().setMaxHealth(10);
-                        killed.getPlayer().setHealth(10);
+                        killedPlayer.setMaxHealth(10);
+                        killedPlayer.setHealth(10);
 
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.unhide(killed.getPlayer(), players.getPlayer());
+                            HideNametag.unhide(killedPlayer, players.getPlayer());
                         }
                     }
 
+                    killed.getPlayer().teleport(DimensionTaskTP.getRandomLocation(killedPlayer.getWorld()));
                     secondsCounterTaskExecutor.stopTask();
                     HPlayer hanyu = Role.HANYU.getHPlayer();
                     if (hanyu != null) {
@@ -196,19 +198,19 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
                 if (rikaFurudeAction.getLives() == 0) {
 
-                    player.sendMessage("§7Vous venez de perdre une de vos vies. §5Vous n’avez plus de vie.");
+                    killedPlayer.sendMessage("§7Vous venez de perdre une de vos vies. §5Vous n’avez plus de vie.");
 
-                    if (player.getPlayer().getInventory().getContents().length > 0) {
-                        for (ItemStack itemStack : player.getInventory().getContents()) {
-                            player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                            player.getInventory().removeItem(itemStack);
+                    if (killedPlayer.getPlayer().getInventory().getContents().length > 0) {
+                        for (ItemStack itemStack : killedPlayer.getInventory().getContents()) {
+                            killedPlayer.getWorld().dropItemNaturally(killedPlayer.getLocation(), itemStack);
+                            killedPlayer.getInventory().removeItem(itemStack);
                         }
                     }
 
-                    if (player.getPlayer().getInventory().getArmorContents().length > 0) {
-                        for (ItemStack itemStack : player.getInventory().getArmorContents()) {
-                            player.getWorld().dropItemNaturally(player.getLocation(), itemStack);
-                            player.getInventory().removeItem(itemStack);
+                    if (killedPlayer.getPlayer().getInventory().getArmorContents().length > 0) {
+                        for (ItemStack itemStack : killedPlayer.getInventory().getArmorContents()) {
+                            killedPlayer.getWorld().dropItemNaturally(killedPlayer.getLocation(), itemStack);
+                            killedPlayer.getInventory().removeItem(itemStack);
                         }
                     }
 
@@ -220,7 +222,7 @@ public class RikaFurudeAction implements RoleAction, Listener {
                     }
 
                 }else
-                    player.sendMessage("§7Vous venez de perdre une de vos vies. §5Il vous reste " + rikaFurudeAction.getLives() + " vies.");
+                    killedPlayer.sendMessage("§7Vous venez de perdre une de vos vies. §5Il vous reste " + rikaFurudeAction.getLives() + " vies.");
 
             }
 

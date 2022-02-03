@@ -175,14 +175,14 @@ public class RikaFurudeAction implements RoleAction, Listener {
                         killedPlayer.setMaxHealth(16);
                         killedPlayer.setHealth(16);
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.hide(killedPlayer, players.getPlayer());
+                            HideNametag.hide(players.getPlayer(), killedPlayer);
                         }
                     } else {
                         killedPlayer.setMaxHealth(10);
                         killedPlayer.setHealth(10);
 
                         for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.unhide(killedPlayer, players.getPlayer());
+                            HideNametag.unhide(players.getPlayer(), killedPlayer);
                         }
                     }
 

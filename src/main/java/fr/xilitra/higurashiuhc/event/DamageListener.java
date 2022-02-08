@@ -143,9 +143,8 @@ public class DamageListener implements Listener {
                 }
 
                 KitList kit = killerHplayer.getKit();
-                if(kit == KitList.ASSASSIN)
+                if (kit == KitList.ASSASSIN)
                     sendDeath = false;
-
 
             }
 
@@ -154,7 +153,21 @@ public class DamageListener implements Listener {
         if (victim.getClans() != null)
             victim.getClans().removePlayer(victim);
 
-        if(sendDeath) {
+        if (victimPlayer.getInventory().getContents().length > 0) {
+            for (ItemStack itemStack : victimPlayer.getInventory().getContents()) {
+                victimPlayer.getWorld().dropItemNaturally(victimPlayer.getLocation(), itemStack);
+                victimPlayer.getInventory().removeItem(itemStack);
+            }
+        }
+
+        if (victimPlayer.getPlayer().getInventory().getArmorContents().length > 0) {
+            for (ItemStack itemStack : victimPlayer.getInventory().getArmorContents()) {
+                victimPlayer.getWorld().dropItemNaturally(victimPlayer.getLocation(), itemStack);
+                victimPlayer.getInventory().removeItem(itemStack);
+            }
+        }
+
+        if (sendDeath) {
             if (HigurashiUHC.getGameManager().getConfigGestion().getConfig().getBoolean(ConfigLocation.ROLE_DISPLAY_ONDEATH))
                 Bukkit.broadcastMessage("§5---------------------------------------------------------\n" +
                         "§fLe joueur §7§o'" + victim.getName() + "' §fvient d’être §8§m§l:tué§f, il était §6§o'" + victim.getRole().getName() + "'.\n" +
@@ -166,6 +179,7 @@ public class DamageListener implements Listener {
 
         Sound sound = Sound.valueOf(HigurashiUHC.getGameManager().getConfigGestion().getConfig().getString(ConfigLocation.SOUND_ONDEATH));
         Bukkit.getOnlinePlayers().forEach((player) -> player.playSound(player.getLocation(), sound, 1, 1));
+
         victim.getDeathLinkPlayer().forEach((playerDL) -> playDeath(playerDL, DeathReason.DEATH_LINKED));
 
         if (deathReason != DeathReason.DEATH_LINKED)
@@ -184,84 +198,85 @@ public class DamageListener implements Listener {
 
         Player p = (Player) e.getEntity();
         HPlayer attacked = HigurashiUHC.getGameManager().getHPlayer(p.getUniqueId());
-        if(attacked == null)
+        if (attacked == null)
             return;
 
-        if(attacked.getRole().isRole(Role.HANYU)){
+        if (attacked.getRole().isRole(Role.HANYU)) {
             ((RikaFurudeAction) Role.RIKA_FURUDE.getRoleAction()).watanagashiTask.hanyuInvisible = 60;
             ((HanyuAction) Role.HANYU.getRoleAction()).setInvisible(false);
         }
 
-            if (!(e.getDamager() instanceof Player)) return;
+        if (!(e.getDamager() instanceof Player)) return;
 
-            Player damager = (Player) e.getDamager();
-            HPlayer attacker = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
+        Player damager = (Player) e.getDamager();
+        HPlayer attacker = HigurashiUHC.getGameManager().getHPlayer(damager.getUniqueId());
 
-            if(attacker == null || attacker.getPlayerState() != PlayerState.INGAME){
-                e.setCancelled(true);
+        if (attacker == null || attacker.getPlayerState() != PlayerState.INGAME) {
+            e.setCancelled(true);
+            return;
+        }
+
+        if (attacker.getLinkData(attacked).isDamageCancelled() && HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME).size() > 2) {
+            e.setCancelled(true);
+            return;
+        }
+
+        ItemStack item = damager.getItemInHand();
+        if (item.isSimilar(CustomCraft.baseballBat.getItemStack())) {
+
+            if (CustomCraft.baseballBat.isUsedOnEpisode()) {
+                damager.sendMessage("Vous avez déjà utilisé la batte de baseball pour cet episode.");
                 return;
             }
 
-            if(attacker.getLinkData(attacked).isDamageCancelled() && HigurashiUHC.getGameManager().getHPlayerWithState(PlayerState.INGAME).size()>2){
-                e.setCancelled(true);
+            if (CustomCraft.baseballBat.getUsed() == 0) {
+                damager.sendMessage("Vous avez déja utilisé 3 fois la batte de baseball");
                 return;
             }
 
-            ItemStack item = damager.getItemInHand();
-            if (item.isSimilar(CustomCraft.baseballBat.getItemStack())) {
+            if (CustomCraft.baseballBat.getUsed() == 1) {
+                damager.getItemInHand().setType(Material.AIR);
+                damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1, 1);
+            } else
+                CustomCraft.baseballBat.setUsed(CustomCraft.baseballBat.getUsed() - 1);
 
-                if (CustomCraft.baseballBat.isUsedOnEpisode()) {
-                    damager.sendMessage("Vous avez déjà utilisé la batte de baseball pour cet episode.");
-                    return;
-                }
+            CustomCraft.baseballBat.setUsedOnEpisode(true);
+            e.setDamage(5);
 
-                if (CustomCraft.baseballBat.getUsed() == 0) {
-                    damager.sendMessage("Vous avez déja utilisé 3 fois la batte de baseball");
-                    return;
-                }
+            HigurashiUHC.getGameManager().getHPlayerList().values().forEach(hPlayer -> {
+                if (hPlayer.getPlayer() != null
+                        && hPlayer.getPlayerState() == PlayerState.INGAME
+                        && MathMain.calculLength(hPlayer.getPlayer().getLocation(), damager.getLocation(), true) < 5 * 5
+                        && hPlayer.getPlayer().getUniqueId() != damager.getUniqueId()
+                ) hPlayer.getPlayer().damage(5);
+            });
 
-                if (CustomCraft.baseballBat.getUsed() == 1) {
-                    damager.getItemInHand().setType(Material.AIR);
-                    damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1, 1);
-                }else
-                    CustomCraft.baseballBat.setUsed(CustomCraft.baseballBat.getUsed() - 1);
+        }
 
-                CustomCraft.baseballBat.setUsedOnEpisode(true);
-                e.setDamage(5);
+        HPlayer player = Role.RENA_RYUGU.getHPlayer();
 
-                HigurashiUHC.getGameManager().getHPlayerList().values().forEach(hPlayer -> {
-                    if (hPlayer.getPlayer() != null
-                            && hPlayer.getPlayerState() == PlayerState.INGAME
-                            && MathMain.calculLength(hPlayer.getPlayer().getLocation(), damager.getLocation(), true) < 5 * 5
-                            && hPlayer.getPlayer().getUniqueId() != damager.getUniqueId()
-                    ) hPlayer.getPlayer().damage(5);
-                });
-            }
+        if (player != null && player.getPlayer() != null) {
 
-            HPlayer player = Role.RENA_RYUGU.getHPlayer();
+            RenaRyuguAction renaRyuguAction = (RenaRyuguAction) player.getRole().getRoleAction();
 
-            if (player != null && player.getPlayer() != null) {
+            if (renaRyuguAction.gethPlayerPense() != null) {
 
-                RenaRyuguAction renaRyuguAction = (RenaRyuguAction) player.getRole().getRoleAction();
+                System.out.println(renaRyuguAction.gethPlayerPense().getUUID().toString());
 
-                if (renaRyuguAction.gethPlayerPense() != null) {
+                if (renaRyuguAction.gethPlayerPense().getUUID().equals(damager.getUniqueId())) {
 
-                    System.out.println(renaRyuguAction.gethPlayerPense().getUUID().toString());
+                    if (!renaRyuguAction.isPenseIsUsed()) {
 
-                    if (renaRyuguAction.gethPlayerPense().getUUID().equals(damager.getUniqueId())) {
-
-                        if (!renaRyuguAction.isPenseIsUsed()) {
-
-                            player.getPlayer().sendMessage(e.getDamager().getName() + " à frappé un joueur.");
-                            renaRyuguAction.setPenseIsUsed(true);
-
-                        }
+                        player.getPlayer().sendMessage(e.getDamager().getName() + " à frappé un joueur.");
+                        renaRyuguAction.setPenseIsUsed(true);
 
                     }
 
                 }
 
             }
+
+        }
 
     }
 

@@ -21,7 +21,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -29,7 +28,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
 
     public final CloseRikaTaskExecutor watanagashiTask = new CloseRikaTaskExecutor();
     private int lives = 3;
-    private boolean ressucite = false;
     public final SecondsCounterTaskExecutor secondsCounterTaskExecutor = new SecondsCounterTaskExecutor();
 
     private int deathMalusTime = 2;
@@ -68,9 +66,12 @@ public class RikaFurudeAction implements RoleAction, Listener {
                         "\n" +
                         "§5Tous les membres du village d’§9Hinamizawa §5possèdent maintenant l’effet weakness permanent. ");
                 for (HPlayer hPlayer : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                    if (hPlayer.getPlayer() != null && hPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
-                        hPlayer.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
-                        hPlayer.getPlayer().playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
+
+                    Player player = hPlayer.getPlayer();
+
+                    if (player != null && hPlayer.getClans().isClans(Clans.HINAMIZAWA)) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 1, true, false));
+                        player.playSound(hPlayer.getPlayer().getLocation(), Sound.GHAST_CHARGE, 5, 5);
                     }
 
                     ((SatokoHojoAction) Role.SATOKO_HOJO.getRoleAction()).removeTraps(hPlayer);
@@ -105,14 +106,9 @@ public class RikaFurudeAction implements RoleAction, Listener {
                     resuPlayer.setPlayerState(PlayerState.INGAME);
                     target.setGameMode(GameMode.SURVIVAL);
                     target.setHealth(target.getMaxHealth());
-                    ressucite = true;
                 }
             }
         }
-    }
-
-    public boolean getRessucite() {
-        return ressucite;
     }
 
     public void remove1Live() {
@@ -141,8 +137,6 @@ public class RikaFurudeAction implements RoleAction, Listener {
     @Override
     public boolean onDeath(HPlayer killed, DeathReason dr) {
 
-        boolean death = true;
-
         if (killed.getPlayer() == null)
             return true;
 
@@ -153,82 +147,52 @@ public class RikaFurudeAction implements RoleAction, Listener {
         if (killer != null)
             killerHPlayer = HigurashiUHC.getGameManager().getHPlayer(killer.getUniqueId());
 
-        if (killer instanceof Player) {
+        if (!(killer instanceof Player))
+            return true;
 
-            if (killerHPlayer != null && HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
-                if (killerHPlayer.getClans().isClans(Clans.MERCENAIRE)) {
-                    for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                        if (miyo.getRole().isRole(Role.MIYO_TAKANO)) {
-                            Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
-                        }
+        if (killerHPlayer != null && HigurashiUHC.getGameManager().isWataState(WataEnum.BEFORE)) {
+            if (killerHPlayer.getClans().isClans(Clans.MERCENAIRE)) {
+                for (HPlayer miyo : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                    if (miyo.getRole().isRole(Role.MIYO_TAKANO)) {
+                        Bukkit.broadcastMessage("Miyo Takano est " + miyo.getName());
                     }
                 }
             }
-
-            if (killed.getRole().isRole(Role.RIKA_FURUDE)) {
-                RikaFurudeAction rikaFurudeAction = (RikaFurudeAction) killed.getRole().getRoleAction();
-
-                rikaFurudeAction.remove1Live();
-
-                if (rikaFurudeAction.getLives() >= 1) {
-                    if (rikaFurudeAction.getLives() >= 2) {
-                        killedPlayer.setMaxHealth(16);
-                        killedPlayer.setHealth(16);
-                        for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.hide(players.getPlayer(), killedPlayer);
-                        }
-                    } else {
-                        killedPlayer.setMaxHealth(10);
-                        killedPlayer.setHealth(10);
-
-                        for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-                            HideNametag.unhide(players.getPlayer(), killedPlayer);
-                        }
-                    }
-
-                    killed.getPlayer().teleport(DimensionTaskTP.getRandomLocation(killedPlayer.getWorld()));
-                    secondsCounterTaskExecutor.stopTask();
-                    HPlayer hanyu = Role.HANYU.getHPlayer();
-                    if (hanyu != null) {
-                        if (hanyu.hasCommandAccess(Commands.DIMENSION_DEATH))
-                            secondsCounterTaskExecutor.runTaskLater(30);
-                    }
-                    death = false;
-                }
-
-                if (rikaFurudeAction.getLives() == 0) {
-
-                    killedPlayer.sendMessage("§7Vous venez de perdre une de vos vies. §5Vous n’avez plus de vie.");
-
-                    if (killedPlayer.getPlayer().getInventory().getContents().length > 0) {
-                        for (ItemStack itemStack : killedPlayer.getInventory().getContents()) {
-                            killedPlayer.getWorld().dropItemNaturally(killedPlayer.getLocation(), itemStack);
-                            killedPlayer.getInventory().removeItem(itemStack);
-                        }
-                    }
-
-                    if (killedPlayer.getPlayer().getInventory().getArmorContents().length > 0) {
-                        for (ItemStack itemStack : killedPlayer.getInventory().getArmorContents()) {
-                            killedPlayer.getWorld().dropItemNaturally(killedPlayer.getLocation(), itemStack);
-                            killedPlayer.getInventory().removeItem(itemStack);
-                        }
-                    }
-
-                    for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
-
-                        if (players.getPlayer() != null)
-                            players.getPlayer().playSound(players.getPlayer().getLocation(), Sound.ENDERDRAGON_DEATH, 5, 5);
-
-                    }
-
-                }else
-                    killedPlayer.sendMessage("§7Vous venez de perdre une de vos vies. §5Il vous reste " + rikaFurudeAction.getLives() + " vies.");
-
-            }
-
         }
 
-        return death;
+        RikaFurudeAction rikaFurudeAction = (RikaFurudeAction) killed.getRole().getRoleAction();
+
+        rikaFurudeAction.remove1Live();
+
+        if (rikaFurudeAction.getLives() >= 1) {
+            if (rikaFurudeAction.getLives() >= 2) {
+                killedPlayer.setMaxHealth(16);
+                killedPlayer.setHealth(16);
+                for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                    HideNametag.hide(players.getPlayer(), killedPlayer);
+                }
+            } else {
+                killedPlayer.setMaxHealth(10);
+                killedPlayer.setHealth(10);
+
+                for (HPlayer players : HigurashiUHC.getGameManager().getHPlayerList().values()) {
+                    HideNametag.unhide(players.getPlayer(), killedPlayer);
+                }
+            }
+
+            killed.getPlayer().teleport(DimensionTaskTP.getRandomLocation(killedPlayer.getWorld()));
+            secondsCounterTaskExecutor.stopTask();
+            HPlayer hanyu = Role.HANYU.getHPlayer();
+            if (hanyu != null) {
+                if (hanyu.hasCommandAccess(Commands.DIMENSION_DEATH))
+                    secondsCounterTaskExecutor.runTaskLater(30);
+            }
+            return false;
+        }
+
+        killedPlayer.sendMessage("§7Vous venez de perdre une de vos vies. §5Vous n’avez plus de vie.");
+
+        return true;
     }
 
     @Override
